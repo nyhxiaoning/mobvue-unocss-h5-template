@@ -1,0 +1,17 @@
+{
+    "*.{css,json,less,md,sass}": [
+        "prettier --cache --write"
+    ],
+    "*.js?(x)": [
+        "eslint . --fix --report-unused-disable-directives",
+        "prettier --cache --write"
+    ],
+    "*.ts?(x)": [
+        "eslint . --fix --report-unused-disable-directives",
+        "prettier --cache --parser=typescript --write"
+    ],
+    "*.vue": [
+        "eslint . --fix --report-unused-disable-directives",
+        "prettier --cache --write"
+    ]
+}

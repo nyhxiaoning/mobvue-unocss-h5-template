@@ -1,0 +1,62 @@
+# Cache
+.npm
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# Config
+.lintstagedrc
+
+# Coverage
+.nyc_output
+coverage
+*.lcov
+
+# Dependency
+node_modules
+
+# Dotenv
+*.local
+*.local.*
+
+# Lock
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Log
+logs
+*.log
+lerna-debug.log*
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Misc
+.DS_Store
+*.pem
+
+# Production
+build
+dist
+dist-ssr
+
+# Public
+public
+
+# Next
+.next
+
+# Umi
+.mfsu
+.umi
+.umi-production
+.umi-test
+
+# VSCode
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json

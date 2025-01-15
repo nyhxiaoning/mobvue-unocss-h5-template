@@ -56,7 +56,11 @@
                 <span>亮度</span>
                 <span>40%</span>
             </van-row>
-            <van-slider v-model="brightness" @change="onBrightnessChange" />
+            <van-slider v-model="brightness" @change="onBrightnessChange" step="10">
+                <template #button>
+                    <div class="custom-button">{{ brightness }}</div>
+                </template>
+            </van-slider>
         </div>
 
         <!-- 空白间隔 -->
@@ -261,4 +265,14 @@ export default defineComponent({
     border-radius: 50%;
     display: inline-block;
 }
+
+  .custom-button {
+    width: 26px;
+    color: #fff;
+    font-size: 10px;
+    line-height: 18px;
+    text-align: center;
+    background-color: var(--van-primary-color);
+    border-radius: 60px;
+  }
 </style>

@@ -12,6 +12,7 @@ declare const DeviceManager: any;
 
 declare const JeeWeb: any;
 
+declare const CupDevice: any;
 // 请求
 declare type UrlType = {
     id: number | string;

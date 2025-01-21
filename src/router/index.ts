@@ -2,7 +2,7 @@
  * @Author: ningyongheng ningyongheng@jeejio.com
  * @Date: 2024-10-09 18:18:15
  * @LastEditors: ningyongheng ningyongheng@jeejio.com
- * @LastEditTime: 2025-01-14 16:11:44
+ * @LastEditTime: 2025-01-21 17:09:13
  * @FilePath: /cupsystem/src/router/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -18,7 +18,7 @@ const HomePage = defineAsyncComponent(() => import('@/pages/HomePage.vue'));
 // const Home = defineAsyncComponent(() => import('@/components/Home.vue'));
 const CityView = defineAsyncComponent(() => import('@/components/CityView.vue'));
 const WeatherView = defineAsyncComponent(() => import('@/components/WeatherView.vue'));
-
+const Setting = defineAsyncComponent(() => import('@/pages/SwitchPage.vue'));
 
 const router = createRouter({
     history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -38,6 +38,11 @@ const router = createRouter({
             name: 'weather',
             component: WeatherView,
         },
+        {
+            path: '/setting',
+            name: 'setting',
+            component: Setting
+        }
     ],
 });
 

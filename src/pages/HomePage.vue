@@ -48,13 +48,13 @@
                         "
                     >
                         <!-- 第一个子 div -->
-                        <van-col :span="4">
+                        <van-col :span="6">
                             <div :class="temperatureClass" style="width: 16px; height: 16px"></div>
                         </van-col>
                         <!-- 第二个子 div -->
                         <van-col :span="18">
                             <div style="line-height: 24px; height: 26px; font-size: 12px">
-                                {{ states.temperature }}
+                                水温:{{ states.temperature }}℃
                             </div>
                         </van-col>
                     </van-row>
@@ -80,28 +80,12 @@
                         @change="onBrightnessChange"
                         step="10"
                     >
-                        <!-- <template #button>
-                        <div class="custom-button">{{ brightness }}11</div>
-                    </template> -->
                     </van-slider>
                 </div>
             </div>
-
-            <!-- <van-cell-group inset>
-                <van-cell center inset>
-                    <van-slider v-model="brightness" @change="onBrightnessChange" step="10">
-                        <template #button>
-                            <div class="custom-button">{{ brightness }}11</div>
-                        </template>
-                    </van-slider>
-                </van-cell>
-            </van-cell-group> -->
         </div>
-
-        <!-- 空白间隔 -->
-        <!-- <div class="spacer"></div> -->
         <!-- 时钟和天气 -->
-        <div class="weather-clock">
+        <div class="weather-clock" @click="appWeatherFn">
             <div class="clock">
                 <div>
                     <div>
@@ -110,7 +94,7 @@
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
                     </div>
-                    <div style="font-size: 12px; color: #969698" @click="restartCup">
+                    <div style="font-size: 12px; color: #969698">
                         <span>UTC+ 08:00 <br /></span>
                         <span>北京，上海</span>
                     </div>
@@ -119,7 +103,7 @@
                 <div class="clock-appcup"></div>
             </div>
 
-            <div class="weather">
+            <div class="weather" @click="appCityFn">
                 <div>
                     <div>
                         <div style="display: flex; font-size: 16px; margin-bottom: 5px">
@@ -127,7 +111,7 @@
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
                     </div>
-                    <div style="font-size: 12px; color: #969698" @click="restartCup">
+                    <div style="font-size: 12px; color: #969698">
                         <span><van-icon name="location-o" />北京 <br /></span>
                     </div>
                 </div>
@@ -142,6 +126,7 @@
         <!-- 应用配置 -->
         <div class="feature-item">
             <div
+                @click="appConfigFn"
                 style="
                     flex: 1;
                     display: flex;
@@ -181,23 +166,26 @@
         <!-- 底部按钮 -->
         <div class="bottom-actions">
             <div
+                @click="restartCup"
                 style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px"
             >
                 <div class="reboot-cup"></div>
-                <div @click="restartCup">重启水杯</div>
+                <div>重启水杯</div>
             </div>
 
             <div
+                @click="closeScreen"
                 style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px"
             >
                 <div class="closescreen-cup"></div>
-                <div @click="closeScreen">关闭屏幕</div>
+                <div>关闭屏幕</div>
             </div>
             <div
+                @click="goHome"
                 style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px"
             >
                 <div class="go-home"></div>
-                <div @click="goHome">回到主页</div>
+                <div>回到主页</div>
             </div>
         </div>
     </div>
@@ -208,14 +196,18 @@ import { defineComponent, ref, reactive, computed } from 'vue';
 
 import { timezone } from './../utils/cityzone';
 
+import { useRouter } from 'vue-router';
+
 export default defineComponent({
     name: 'SystemSettings',
     setup() {
+        const router = useRouter(); // 获取路由实例
+
         const brightness = ref(40);
         console.log(timezone, 'timezone');
         const states = reactive({
             battery: 0,
-            temperature: '水温:30℃',
+            temperature: 80,
             batteryStatus: false,
             address: '',
             clock: '',
@@ -275,15 +267,38 @@ export default defineComponent({
         };
 
         const restartCup = () => {
+            alert('重启水杯');
             console.log('重启水杯');
         };
 
         const closeScreen = () => {
+            alert('关闭屏幕');
             console.log('关闭屏幕');
         };
 
         const goHome = () => {
+            alert('回到主页');
             console.log('返回主页');
+        };
+
+        const appConfigFn = () => {
+            // alert('应用设置');
+            // $route.push('/setting');
+            router.push('/setting'); // 跳转到首页
+
+            console.log('应用设置');
+        };
+
+        const appWeatherFn = () => {
+            // alert('应用设置');
+            // $route.push('/setting');
+            router.push('/timezone'); // 跳转到首页
+        };
+
+        const appCityFn = () => {
+            // alert('应用设置');
+            // $route.push('/setting');
+            router.push('/weather'); // 跳转到首页
         };
 
         return {
@@ -292,6 +307,9 @@ export default defineComponent({
             restartCup,
             closeScreen,
             goHome,
+            appConfigFn,
+            appWeatherFn,
+            appCityFn,
             states,
             batteryClass,
             temperatureClass,

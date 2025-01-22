@@ -1,597 +1,604 @@
 <template>
-  <div class="city-view">
-    <!-- 顶部导航栏 -->
-    <van-nav-bar
+    <div class="city-view">
+        <!-- 顶部导航栏 -->
+        <!-- <van-nav-bar
       title="城市"
       left-arrow
       @click-left="goBack"
       :border="false"
       class="custom-nav"
       :fixed="true"
-    />
+    /> -->
 
-    <!-- 搜索框 -->
-    <div class="search-wrapper">
-      <van-search
-        v-model="searchText"
-        placeholder="搜索城市"
-        shape="round"
-        :clearable="true"
-        :show-left-icon="false"
-        autocomplete="off"
-        @focus="onSearchFocus"
-        @blur="onSearchBlur"
-        @input="onSearch"
-        @clear="onClear"
-      />
-      
-      <!-- 搜索联想结果 -->
-      <div v-show="isSearchFocused && searchResults.length > 0" class="search-suggestions">
-        <div 
-          v-for="city in searchResults" 
-          :key="city.name"
-          class="suggestion-item"
-          @click="selectCity(city.name)"
-        >
-          {{ city.name }}
-        </div>
-      </div>
-    </div>
+        <!-- 搜索框 -->
+        <div class="search-wrapper">
+            <van-search
+                v-model="searchText"
+                placeholder="搜索城市"
+                shape="round"
+                :clearable="true"
+                :show-left-icon="false"
+                autocomplete="off"
+                @focus="onSearchFocus"
+                @blur="onSearchBlur"
+                @input="onSearch"
+                @clear="onClear"
+            />
 
-    <!-- 主内容区域 -->
-    <div class="main-container">
-      <!-- 左侧边栏 -->
-      <div class="sidebar">
-        <div class="sidebar-container">
-          <!-- 基础灰色背景 -->
-          <div class="sidebar-background"></div>
-          
-          <!-- 选中状态的白色分割线 -->
-          <div 
-            v-if="selectedContinent"
-            class="sidebar-divider"
-            :style="{ top: `${getSelectedIndex() * 60}px` }"
-          ></div>
-
-          <!-- 州列表 -->
-          <div
-            v-for="continent in continents"
-            :key="continent.key"
-            class="sidebar-item"
-            :class="{ active: selectedContinent === continent.key }"
-            @click="selectContinent(continent.key)"
-          >
-            {{ continent.name }}
-          </div>
-        </div>
-      </div>
-
-      <!-- 右侧内容区域 -->
-      <div class="content-area">
-        <!-- 城市列表区域 -->
-        <div class="city-list-container">
-          <div 
-            v-for="region in filteredRegions" 
-            :key="region.name" 
-            class="region-section"
-          >
-            <van-cell
-              :title="region.name"
-              is-link
-              :arrow-direction="expandedRegions[region.name] ? 'up' : 'down'"
-              @click="toggleRegion(region.name)"
-              class="region-header"
-            >
-              <template #right-icon>
-                <span class="more-text">更多</span>
-                <van-icon :name="expandedRegions[region.name] ? 'arrow-up' : 'arrow-down'" />
-              </template>
-            </van-cell>
-
-            <div class="city-grid" :class="{ expanded: expandedRegions[region.name] }">
-              <van-button
-                v-for="city in (expandedRegions[region.name] ? region.cities : region.cities.slice(0, 6))"
-                :key="city"
-                :class="{ selected: selectedCity === city }"
-                size="small"
-                @click="selectCity(city)"
-              >
-                {{ city }}
-              </van-button>
+            <!-- 搜索联想结果 -->
+            <div v-show="isSearchFocused && searchResults.length > 0" class="search-suggestions">
+                <div
+                    v-for="city in searchResults"
+                    :key="city.name"
+                    class="suggestion-item"
+                    @click="selectCity(city.name)"
+                >
+                    {{ city.name }}
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
+        <!-- 主内容区域 -->
+        <div class="main-container">
+            <!-- 左侧边栏 -->
+            <div class="sidebar">
+                <div class="sidebar-container">
+                    <!-- 基础灰色背景 -->
+                    <div class="sidebar-background"></div>
+
+                    <!-- 选中状态的白色分割线 -->
+                    <div
+                        v-if="selectedContinent"
+                        class="sidebar-divider"
+                        :style="{ top: `${getSelectedIndex() * 60}px` }"
+                    ></div>
+
+                    <!-- 州列表 -->
+                    <div
+                        v-for="continent in continents"
+                        :key="continent.key"
+                        class="sidebar-item"
+                        :class="{ active: selectedContinent === continent.key }"
+                        @click="selectContinent(continent.key)"
+                    >
+                        {{ continent.name }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧内容区域 -->
+            <div class="content-area">
+                <!-- 城市列表区域 -->
+                <div class="city-list-container">
+                    <div
+                        v-for="region in filteredRegions"
+                        :key="region.name"
+                        class="region-section"
+                    >
+                        <van-cell
+                            :title="region.name"
+                            is-link
+                            :arrow-direction="expandedRegions[region.name] ? 'up' : 'down'"
+                            @click="toggleRegion(region.name)"
+                            class="region-header"
+                        >
+                            <template #right-icon>
+                                <span class="more-text">更多</span>
+                                <van-icon
+                                    :name="expandedRegions[region.name] ? 'arrow-up' : 'arrow-down'"
+                                />
+                            </template>
+                        </van-cell>
+
+                        <div class="city-grid" :class="{ expanded: expandedRegions[region.name] }">
+                            <van-button
+                                v-for="city in expandedRegions[region.name]
+                                    ? region.cities
+                                    : region.cities.slice(0, 6)"
+                                :key="city"
+                                :class="{ selected: selectedCity === city }"
+                                size="small"
+                                @click="selectCity(city)"
+                            >
+                                {{ city }}
+                            </van-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-import pinyin from 'pinyin-match'
-import { Icon as VanIcon, NavBar, Search, Cell, Button } from 'vant'
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+import pinyin from 'pinyin-match';
+import { Icon as VanIcon, NavBar, Search, Cell, Button } from 'vant';
 
-const router = useRouter()
-const store = useStore()
+const router = useRouter();
+const store = useStore();
 
 // 替换模板中的组件名称
-const VanNavBar = NavBar
-const VanSearch = Search
-const VanCell = Cell
-const VanButton = Button
+const VanNavBar = NavBar;
+const VanSearch = Search;
+const VanCell = Cell;
+const VanButton = Button;
 
-const searchText = ref('')
-const selectedCity = ref('')
-const selectedContinent = ref('asia')
-const expandedRegions = ref({})
-const isSearchFocused = ref(false)
+const searchText = ref('');
+const selectedCity = ref('');
+const selectedContinent = ref('asia');
+const expandedRegions = ref({});
+const isSearchFocused = ref(false);
 
 // 获取洲列表
 const continents = computed(() => [
-  { key: 'asia', name: '亚洲' },
-  { key: 'europe', name: '欧洲' },
-  { key: 'namerica', name: '北美洲' },
-  { key: 'oceania', name: '大洋洲' },
-  { key: 'africa', name: '非洲' },
-  { key: 'samerica', name: '南美洲' },
-  { key: 'antarctica', name: '南极洲' }
-])
+    { key: 'asia', name: '亚洲' },
+    { key: 'europe', name: '欧洲' },
+    { key: 'namerica', name: '北美洲' },
+    { key: 'oceania', name: '大洋洲' },
+    { key: 'africa', name: '非洲' },
+    { key: 'samerica', name: '南美洲' },
+    { key: 'antarctica', name: '南极洲' },
+]);
 
 // 获取选中州的索引
 const getSelectedIndex = () => {
-  return continents.value.findIndex(c => c.key === selectedContinent.value)
-}
+    return continents.value.findIndex((c) => c.key === selectedContinent.value);
+};
 
 // 模拟数据
 const allRegions = {
-  asia: [
-    {
-      name: '中国',
-      cities: ['北京', '上海', '广州', '深圳', '成都', '杭州', '武汉', '西安']
-    },
-    {
-      name: '日本',
-      cities: ['东京', '大阪', '京都', '名古屋', '福冈', '札幌']
-    },
-    {
-      name: '韩国',
-      cities: ['首尔', '釜山', '仁川', '大邱', '光州', '大田']
-    }
-  ],
-  europe: [
-    {
-      name: '法国',
-      cities: ['巴黎', '马赛', '里昂', '图卢兹', '尼斯', '南特']
-    },
-    {
-      name: '德国',
-      cities: ['柏林', '慕尼黑', '汉堡', '科隆', '法兰克福', '斯图加特']
-    }
-  ],
-  namerica: [
-    {
-      name: '加拿大',
-      cities: ['多伦多', '温哥华', '蒙特利尔', '卡尔加里', '渥太华', '魁北克']
-    },
-    {
-      name: '美国',
-      cities: ['纽约', '洛杉矶', '芝加哥', '休斯顿', '费城', '凤凰城']
-    }
-  ],
-  oceania: [
-    {
-      name: '澳大利亚',
-      cities: ['悉尼', '墨尔本', '布里斯班', '珀斯', '阿德莱德', '黄金海岸']
-    },
-    {
-      name: '新西兰',
-      cities: ['奥克兰', '惠灵顿', '克莱斯特彻奇', '汉密尔顿', '但尼丁']
-    }
-  ],
-  africa: [
-    {
-      name: '南非',
-      cities: ['约翰内斯堡', '开普敦', '德班', '比勒陀利亚', '伊丽莎白港']
-    },
-    {
-      name: '埃及',
-      cities: ['开罗', '亚历山大', '吉萨', '苏伊士', '卢克索']
-    }
-  ],
-  samerica: [
-    {
-      name: '巴西',
-      cities: ['圣保罗', '里约热内卢', '萨尔瓦多', '巴西利亚', '福塔莱萨']
-    },
-    {
-      name: '阿根廷',
-      cities: ['布宜诺斯艾利斯', '科尔多瓦', '罗萨里奥', '门多萨', '拉普拉塔']
-    }
-  ],
-  antarctica: [
-    {
-      name: '科考站',
-      cities: ['长城站', '中山站', '昆仑站', '泰山站', '格罗夫山站']
-    }
-  ]
-}
+    asia: [
+        {
+            name: '中国',
+            cities: ['北京', '上海', '广州', '深圳', '成都', '杭州', '武汉', '西安'],
+        },
+        {
+            name: '日本',
+            cities: ['东京', '大阪', '京都', '名古屋', '福冈', '札幌'],
+        },
+        {
+            name: '韩国',
+            cities: ['首尔', '釜山', '仁川', '大邱', '光州', '大田'],
+        },
+    ],
+    europe: [
+        {
+            name: '法国',
+            cities: ['巴黎', '马赛', '里昂', '图卢兹', '尼斯', '南特'],
+        },
+        {
+            name: '德国',
+            cities: ['柏林', '慕尼黑', '汉堡', '科隆', '法兰克福', '斯图加特'],
+        },
+    ],
+    namerica: [
+        {
+            name: '加拿大',
+            cities: ['多伦多', '温哥华', '蒙特利尔', '卡尔加里', '渥太华', '魁北克'],
+        },
+        {
+            name: '美国',
+            cities: ['纽约', '洛杉矶', '芝加哥', '休斯顿', '费城', '凤凰城'],
+        },
+    ],
+    oceania: [
+        {
+            name: '澳大利亚',
+            cities: ['悉尼', '墨尔本', '布里斯班', '珀斯', '阿德莱德', '黄金海岸'],
+        },
+        {
+            name: '新西兰',
+            cities: ['奥克兰', '惠灵顿', '克莱斯特彻奇', '汉密尔顿', '但尼丁'],
+        },
+    ],
+    africa: [
+        {
+            name: '南非',
+            cities: ['约翰内斯堡', '开普敦', '德班', '比勒陀利亚', '伊丽莎白港'],
+        },
+        {
+            name: '埃及',
+            cities: ['开罗', '亚历山大', '吉萨', '苏伊士', '卢克索'],
+        },
+    ],
+    samerica: [
+        {
+            name: '巴西',
+            cities: ['圣保罗', '里约热内卢', '萨尔瓦多', '巴西利亚', '福塔莱萨'],
+        },
+        {
+            name: '阿根廷',
+            cities: ['布宜诺斯艾利斯', '科尔多瓦', '罗萨里奥', '门多萨', '拉普拉塔'],
+        },
+    ],
+    antarctica: [
+        {
+            name: '科考站',
+            cities: ['长城站', '中山站', '昆仑站', '泰山站', '格罗夫山站'],
+        },
+    ],
+};
 
 // 获取当前大洲的区域
 const currentRegions = computed(() => {
-  return allRegions[selectedContinent.value] || []
-})
+    return allRegions[selectedContinent.value] || [];
+});
 
 // 搜索过滤
 const filteredRegions = computed(() => {
-  if (!searchText.value) return currentRegions.value
+    if (!searchText.value) return currentRegions.value;
 
-  return currentRegions.value.map(region => ({
-    ...region,
-    cities: region.cities.filter(city => 
-      city.toLowerCase().includes(searchText.value.toLowerCase())
-    )
-  })).filter(region => region.cities.length > 0)
-})
+    return currentRegions.value
+        .map((region) => ({
+            ...region,
+            cities: region.cities.filter((city) =>
+                city.toLowerCase().includes(searchText.value.toLowerCase()),
+            ),
+        }))
+        .filter((region) => region.cities.length > 0);
+});
 
 // 选择大洲
 const selectContinent = (continentKey) => {
-  selectedContinent.value = continentKey
-  selectedCity.value = ''
-  // 重置搜索和展开状态
-  searchText.value = ''
-  expandedRegions.value = {}
-}
+    selectedContinent.value = continentKey;
+    selectedCity.value = '';
+    // 重置搜索和展开状态
+    searchText.value = '';
+    expandedRegions.value = {};
+};
 
 // 切换区域展开状态
 const toggleRegion = (regionName) => {
-  expandedRegions.value[regionName] = !expandedRegions.value[regionName]
-}
+    expandedRegions.value[regionName] = !expandedRegions.value[regionName];
+};
 
 // 搜索结果
-const searchResults = ref([])
+const searchResults = ref([]);
 
 // 搜索处理
 const onSearch = () => {
-  if (!searchText.value) {
-    searchResults.value = []
-    return
-  }
+    if (!searchText.value) {
+        searchResults.value = [];
+        return;
+    }
 
-  const allCities = []
-  Object.values(allRegions).forEach(regions => {
-    regions.forEach(region => {
-      region.cities.forEach(city => {
-        allCities.push({
-          name: city
+    const allCities = [];
+    Object.values(allRegions).forEach((regions) => {
+        regions.forEach((region) => {
+            region.cities.forEach((city) => {
+                allCities.push({
+                    name: city,
+                });
+            });
+        });
+    });
+
+    const searchQuery = searchText.value.toLowerCase();
+
+    searchResults.value = allCities
+        .filter((city) => {
+            // pinyin-match 的正确用法：
+            // 1. 如果是中文，直接匹配
+            // 2. 如果是拼音，使用 pinyin.match 匹配
+            return city.name.includes(searchQuery) || pinyin.match(city.name, searchQuery);
         })
-      })
-    })
-  })
-
-  const searchQuery = searchText.value.toLowerCase()
-  
-  searchResults.value = allCities
-    .filter(city => {
-      // pinyin-match 的正确用法：
-      // 1. 如果是中文，直接匹配
-      // 2. 如果是拼音，使用 pinyin.match 匹配
-      return city.name.includes(searchQuery) || pinyin.match(city.name, searchQuery)
-    })
-    .slice(0, 20)
-}
+        .slice(0, 20);
+};
 
 const onClear = () => {
-  searchText.value = ''
-}
+    searchText.value = '';
+};
 
 // 选择城市
 const selectCity = (city) => {
-  selectedCity.value = city
-  store.dispatch('updateCity', city)
-  goBack()
-}
+    selectedCity.value = city;
+    store.dispatch('updateCity', city);
+    goBack();
+};
 
 // 返回上一页
 const goBack = () => {
-  router.back()
-}
+    router.back();
+};
 
 // 搜索框焦点事件
 const onSearchFocus = () => {
-  isSearchFocused.value = true
-}
+    isSearchFocused.value = true;
+};
 
 const onSearchBlur = () => {
-  // 延迟隐藏搜索结果，以便能够点击结果
-  setTimeout(() => {
-    isSearchFocused.value = false
-  }, 200)
-}
+    // 延迟隐藏搜索结果，以便能够点击结果
+    setTimeout(() => {
+        isSearchFocused.value = false;
+    }, 200);
+};
 </script>
 
 <style scoped>
 .city-view {
-  min-height: 100vh;
-  background-color: #FFFFFF;
-  padding-top: 46px; /* 导航栏高度 */
-  display: flex;
-  flex-direction: column;
-  position: relative;
+    min-height: 100vh;
+    background-color: #ffffff;
+    padding-top: 46px; /* 导航栏高度 */
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .custom-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background-color: #FFFFFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: #ffffff;
 }
 
 :deep(.van-nav-bar__title) {
-  color: #000000;
-  font-size: 18px;
-  font-weight: 500;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 :deep(.van-nav-bar .van-icon) {
-  color: #000000;
+    color: #000000;
 }
 
 .search-wrapper {
-  padding: 12px 20px;
-  background-color: #FFFFFF;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 1000;
+    padding: 12px 20px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1000;
 }
 
 :deep(.van-search) {
-  padding: 0;
-  background-color: transparent;
-  width: 100%;
-  margin: 0 auto;
+    padding: 0;
+    background-color: transparent;
+    width: 100%;
+    margin: 0 auto;
 }
 
 :deep(.van-search__content) {
-  background-color: #F5F5F5;
-  border-radius: 8px;
-  height: 50px;
-  padding: 0 12px;
-  display: flex;
-  align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    height: 50px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
 }
 
 :deep(.van-field__body) {
-  height: 100%;
+    height: 100%;
 }
 
 :deep(.van-field__control) {
-  height: 100%;
-  font-size: 14px;
-  color: #333;
+    height: 100%;
+    font-size: 14px;
+    color: #333;
 }
 
 :deep(.van-field__control::placeholder) {
-  color: #999;
+    color: #999;
 }
 
 :deep(.van-field__right-icon) {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  color: #999;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #999;
 }
 
 .main-container {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
 }
 
 .sidebar {
-  width: 90px;
-  background-color: #FFFFFF;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 8px 8px 8px 0;
+    width: 90px;
+    background-color: #ffffff;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 8px 8px 0;
 }
 
 .sidebar-container {
-  position: relative;
-  min-height: 420px; /* 7个州 * 60px */
+    position: relative;
+    min-height: 420px; /* 7个州 * 60px */
 }
 
 /* 基础灰色背景 */
 .sidebar-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #F0F0F0;
-  border-radius: 0 8px 8px 0;
-  z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f0f0f0;
+    border-radius: 0 8px 8px 0;
+    z-index: 1;
 }
 
 /* 选中状态时的白色间隔 */
 .sidebar-divider {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background-color: #FFFFFF;
-  z-index: 2;
-  transition: top 0.3s ease;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #ffffff;
+    z-index: 2;
+    transition: top 0.3s ease;
 }
 
 .sidebar-item {
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #333333;
-  font-size: 14px;
-  cursor: pointer;
-  position: relative;
-  z-index: 3;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333333;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
 }
 
 .sidebar-item.active {
-  color: #333333;
-  font-weight: 500;
+    color: #333333;
+    font-weight: 500;
 }
 
 /* 上半部分灰色框 */
 .upper-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: #F0F0F0;
-  border-radius: 0 8px 0 0;
-  z-index: 0;
-  transition: height 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #f0f0f0;
+    border-radius: 0 8px 0 0;
+    z-index: 0;
+    transition: height 0.3s ease;
 }
 
 /* 下半部分灰色框 */
 .lower-container {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #F0F0F0;
-  border-radius: 0 0 8px 0;
-  z-index: 0;
-  transition: height 0.3s ease;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f0f0f0;
+    border-radius: 0 0 8px 0;
+    z-index: 0;
+    transition: height 0.3s ease;
 }
 
 .content-area {
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  background-color: #FFFFFF;
-  padding-left: 12px;
-  border-left: 1px solid #F5F5F5;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: #ffffff;
+    padding-left: 12px;
+    border-left: 1px solid #f5f5f5;
 }
 
 .city-list-container {
-  padding: 8px 16px 0 0;
+    padding: 8px 16px 0 0;
 }
 
 .region-section {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .region-header {
-  margin-bottom: 12px;
-  padding: 0;
+    margin-bottom: 12px;
+    padding: 0;
 }
 
 :deep(.region-header .van-cell) {
-  padding: 0;
+    padding: 0;
 }
 
 :deep(.region-header .van-cell__title) {
-  color: #333333;
-  font-size: 16px;
-  font-weight: 500;
+    color: #333333;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 :deep(.region-header .van-cell__value) {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .more-text {
-  font-size: 12px;
-  color: #999999;
-  margin-right: 4px;
+    font-size: 12px;
+    color: #999999;
+    margin-right: 4px;
 }
 
 .city-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 20px;
-  transition: all 0.3s ease;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
 }
 
 .city-grid.expanded {
-  margin-bottom: 24px;
+    margin-bottom: 24px;
 }
 
 :deep(.van-button) {
-  height: 32px;
-  border-radius: 4px;
-  border: none;
-  background-color: #F8F8F8;
-  color: #666666;
-  font-size: 14px;
-  padding: 0 12px;
+    height: 32px;
+    border-radius: 4px;
+    border: none;
+    background-color: #f8f8f8;
+    color: #666666;
+    font-size: 14px;
+    padding: 0 12px;
 }
 
 :deep(.van-button.selected) {
-  background-color: #0094FF;
-  color: #FFFFFF;
+    background-color: #0094ff;
+    color: #ffffff;
 }
 
 /* 适配 iPhone X 及以上机型 */
-@supports (padding-bottom: constant(safe-area-inset-bottom)) or (padding-bottom: env(safe-area-inset-bottom)) {
-  .city-view {
-    padding-bottom: constant(safe-area-inset-bottom);
-    padding-bottom: env(safe-area-inset-bottom);
-  }
+@supports (padding-bottom: constant(safe-area-inset-bottom)) or
+    (padding-bottom: env(safe-area-inset-bottom)) {
+    .city-view {
+        padding-bottom: constant(safe-area-inset-bottom);
+        padding-bottom: env(safe-area-inset-bottom);
+    }
 }
 
 .search-suggestions {
-  position: fixed;
-  top: 108px; /* 导航栏高度 + 搜索框容器高度 */
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #FFFFFF;
-  z-index: 999;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+    position: fixed;
+    top: 108px; /* 导航栏高度 + 搜索框容器高度 */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    z-index: 999;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .suggestion-item {
-  padding: 16px 20px;
-  font-size: 14px;
-  color: #333;
-  cursor: pointer;
-  border-bottom: 1px solid #F5F5F5;
+    padding: 16px 20px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    border-bottom: 1px solid #f5f5f5;
 }
 
 .suggestion-item:active {
-  background-color: #F5F5F5;
+    background-color: #f5f5f5;
 }
 
 .suggestion-pinyin {
-  font-size: 12px;
-  color: #999;
-  margin-left: 8px;
+    font-size: 12px;
+    color: #999;
+    margin-left: 8px;
 }
 
 .highlight {
-  color: #0094FF;
-  font-weight: 500;
+    color: #0094ff;
+    font-weight: 500;
 }
 
 .city-name {
-  font-size: 14px;
-  color: #333;
+    font-size: 14px;
+    color: #333;
 }
 
 .city-pinyin {
-  font-size: 12px;
-  color: #999;
-  margin-left: 8px;
+    font-size: 12px;
+    color: #999;
+    margin-left: 8px;
 }
-</style> 
+</style>

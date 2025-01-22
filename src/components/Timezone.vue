@@ -10,7 +10,7 @@
         <div class="main-content">
             <div class="city-card" @click="goToCity">
                 <div class="city-row">
-                    <span class="city-label">城市</span>
+                    <span class="city-label">时区</span>
                     <div class="city-value">
                         <span class="city-name">{{ currentCity }}</span>
                         <van-icon name="arrow" />

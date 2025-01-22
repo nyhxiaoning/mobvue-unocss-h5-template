@@ -20,17 +20,17 @@
                                 line-height: 24px;
                                 height: 26px;
                                 text-align: center;
-                                margin-right: 24px;
+                                margin-right: -20px;
                             "
                         >
-                            {{ states.battery }}
+                            &nbsp;&nbsp;{{ states.battery }}%
                         </div>
                     </van-col>
                 </van-row>
 
-                <div style="position: relative; left: 100px">
+                <div style="position: relative; left: 80px">
                     <div class="green-dot"></div>
-                    <span class="status-text">&nbsp;在线</span>
+                    <div class="status-text">&nbsp;在线</div>
                 </div>
                 <van-row
                     type="flex"
@@ -43,6 +43,7 @@
                         border-radius: 6px;
                         padding-left: 5px;
                         font-size: 12px;
+                        margin-right: 20px;
                     "
                 >
                     <!-- 第一个子 div -->
@@ -61,7 +62,27 @@
 
         <!-- 亮度调节 -->
         <div class="brightness-control">
-            <van-cell-group inset>
+            <div style="font-size: 16px; margin: 20px">
+                <div>
+                    亮度&nbsp; <span style="color: #969698">|</span
+                    ><span>&nbsp;{{ brightness }}%</span>
+                </div>
+                <div style="font-size: 12px; color: #969698; margin: 20px" @click="restartCup">
+                    <van-slider
+                        bar-height="6px"
+                        active-color="#31ACF8"
+                        v-model="brightness"
+                        @change="onBrightnessChange"
+                        step="10"
+                    >
+                        <!-- <template #button>
+                        <div class="custom-button">{{ brightness }}11</div>
+                    </template> -->
+                    </van-slider>
+                </div>
+            </div>
+
+            <!-- <van-cell-group inset>
                 <van-cell center inset>
                     <van-slider v-model="brightness" @change="onBrightnessChange" step="10">
                         <template #button>
@@ -69,20 +90,44 @@
                         </template>
                     </van-slider>
                 </van-cell>
-            </van-cell-group>
+            </van-cell-group> -->
         </div>
 
         <!-- 空白间隔 -->
         <div class="spacer"></div>
-
         <!-- 时钟和天气 -->
-        <div class="features-row">
-            <div>
-                <van-cell center title="时钟" value="UTC+08:00\n北京，上海" />
+        <div class="weather-clock">
+            <div class="clock">
+                <div>
+                    <div>
+                        <div style="display: flex; font-size: 16px; margin-bottom: 5px">
+                            时钟
+                            <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #969698" @click="restartCup">
+                        <span>UTC+ 08:00 <br /></span>
+                        <span>北京，上海</span>
+                    </div>
+                </div>
+
+                <div class="clock-appcup"></div>
             </div>
 
-            <div>
-                <van-cell center title="天气" icon="cloud-o" value="北京" />
+            <div class="weather">
+                <div>
+                    <div>
+                        <div style="display: flex; font-size: 16px; margin-bottom: 5px">
+                            天气
+                            <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #969698" @click="restartCup">
+                        <span><van-icon name="location-o" />北京 <br /></span>
+                    </div>
+                </div>
+
+                <div class="weather-appcup"></div>
             </div>
         </div>
 
@@ -104,11 +149,17 @@
             >
                 <div>
                     <div>
-                        <div style="display: flex; font-size: 16px; margin-bottom: 5px">
+                        <div
+                            style="
+                                display: flex;
+                                font-size: 16px;
+                                margin-bottom: 5px;
+                                text-align: center;
+                            "
+                        >
                             应用配置
+                            <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
-
-                        <!-- <van-icon name="arrow" /> -->
                     </div>
                     <div style="font-size: 12px; color: #969698" @click="restartCup">
                         可设置应用是否在水杯中展示
@@ -166,6 +217,7 @@ export default defineComponent({
         });
 
         const batteryClass = computed(() => {
+            return 'battery-20';
             // CupDevice.setDevMessage({
             //     value: {
             //         method: 'getBatteryStatus',
@@ -262,12 +314,19 @@ export default defineComponent({
 }
 
 .status-text {
+    display: inline-block;
+    line-height: 20px;
+    height: 20px;
     color: green;
-    margin-right: 4px;
+    margin-right: 20px;
     font-size: 12px;
 }
 
 .brightness-control {
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 16px;
@@ -283,6 +342,54 @@ export default defineComponent({
     margin-right: 20px;
     border-radius: 12px;
     justify-content: center;
+}
+
+.weather-clock {
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    border-radius: 12px;
+}
+.weather {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    background-color: #ffffff;
+
+    border-radius: 12px;
+}
+
+.clock {
+    flex: 1;
+    display: flex;
+    margin-right: 20px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+    background-color: #ffffff;
+
+    border-radius: 12px;
+}
+
+.feature-item {
+    display: flex;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 16px;
+    padding: 20px;
+    background-color: #ffffff;
+    font-size: 12px;
+    border-radius: 12px;
+    margin: 10px;
 }
 
 .feature-item {
@@ -337,6 +444,7 @@ export default defineComponent({
 }
 
 .battery-20 {
+    margin-left: 20px;
     width: 24px;
     height: 24px;
     /* background-image: url('@/assets/battery20.png'); */
@@ -347,6 +455,7 @@ export default defineComponent({
 }
 
 .battery-40 {
+    margin-left: 20px;
     width: 20px;
     height: 10px;
     /* background-color: #36C449;
@@ -357,6 +466,7 @@ export default defineComponent({
 }
 
 .battery-60 {
+    margin-left: 20px;
     width: 20px;
     height: 10px;
     /* background-color: #36C449;
@@ -367,6 +477,7 @@ export default defineComponent({
 }
 
 .battery-loading {
+    margin-left: 20px;
     width: 20px;
     height: 10px;
     background-image: url('@/assets/batteryLoading.png');
@@ -426,6 +537,22 @@ export default defineComponent({
     background: url('@/assets/reboot.png') center / contain no-repeat;
     width: 16px;
     height: 16px;
+
+    display: inline-block;
+}
+
+.clock-appcup {
+    background: url('@/assets/clock.png') center / contain no-repeat;
+    width: 40px;
+    height: 47px;
+
+    display: inline-block;
+}
+
+.weather-appcup {
+    background: url('@/assets/weather.png') center / contain no-repeat;
+    width: 40px;
+    height: 47px;
 
     display: inline-block;
 }

@@ -1,147 +1,260 @@
 <template>
-    <div class="weather-view">
-        <!-- <van-nav-bar
-      title="天气"
-      left-arrow
-      @click-left="goBack"
-      class="custom-nav"
-    /> -->
+    <div class="timezone-picker">
+        <!-- 显示已选时区 -->
+        <van-cell title="时区" :value="selectedTimezone.label" is-link @click="showPopup = true" />
 
-        <div class="main-content">
-            <div class="city-card" @click="goToCity">
-                <div class="city-row">
-                    <span class="city-label">时区</span>
-                    <div class="city-value">
-                        <span class="city-name">{{ currentCity }}</span>
-                        <van-icon name="arrow" />
-                    </div>
-                </div>
+        <!-- 弹窗选择器 -->
+        <van-popup
+            v-model:show="showPopup"
+            position="bottom"
+            style="padding: 10px; border-top-left-radius: 12px; border-top-right-radius: 12px"
+        >
+            <div class="popup-header">
+                <div type="default" plain @click="cancel">取消</div>
+                <span class="popup-title">时区</span>
+                <div type="primary" plain @click="confirm">确定</div>
             </div>
-        </div>
+            <div class="popup-content">
+                <van-radio-group v-model="selectedTimezone.value">
+                    <van-cell-group>
+                        <!-- 动态渲染每个时区选项 -->
+                        <van-cell v-for="timezone in timezones" :key="timezone.value" clickable>
+                            <template #title>
+                                {{ timezone.label }}
+                            </template>
 
-        <div class="bottom-button">
-            <van-button block type="primary" @click="confirmCity">确认</van-button>
-        </div>
+                            <template #right-icon>
+                                <van-radio :name="timezone.value" />
+                            </template>
+                        </van-cell>
+                    </van-cell-group>
+                </van-radio-group>
+            </div>
+        </van-popup>
     </div>
 </template>
 
-<script setup>
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+<script>
+import { ref } from 'vue';
+import { showToast } from 'vant';
 
-const router = useRouter();
-const store = useStore();
+export default {
+    setup() {
+        const showPopup = ref(false);
+        const selectedTimezone = ref({ value: 'UTC+08:00', label: '北京，上海' });
+        const timezones = ref([
+            {
+                name: 'UTC-12:00',
+                label: '（UTC-12:00）贝克岛',
+                // value: '(UTC-12:00) Baker Island',
+                value: 'Chile/EasterIsland',
+            },
+            {
+                name: 'UTC-11:00',
+                label: '（UTC-11:00）帕果帕果',
+                // value: '(UTC-11:00) Pago Pago',
+                value: 'Pacific/Pago_Pago',
+            },
+            {
+                name: 'UTC-10:00',
+                label: '（UTC-10:00）檀香山',
+                // value: '(UTC-10:00) Honolulu',
+                value: 'Pacific/Honolulu',
+            },
+            {
+                name: 'UTC-9:00',
+                label: '（UTC-9:00）安克雷奇',
+                // value: '(UTC-9:00) Anchorage',
+                value: 'America/Anchorage',
+            },
+            {
+                name: 'UTC-8:00',
+                label: '（UTC-8:00）洛杉矶',
+                // value: '(UTC-8:00) Los Angeles',
+                value: 'America/Los_Angeles',
+            },
+            {
+                name: 'UTC-7:00',
+                label: '（UTC-7:00）丹佛',
+                // value: '(UTC-7:00) Denver',
+                value: 'America/Denver',
+            },
+            {
+                name: 'UTC-6:00',
+                label: '（UTC-6:00）芝加哥',
+                // value: '(UTC-6:00) Chicago',
+                value: 'America/Chicago',
+            },
+            {
+                name: 'UTC-5:00',
+                label: '（UTC-5:00）纽约',
+                // value: '(UTC-5:00) New York',
+                value: 'America/New_York',
+            },
+            {
+                name: 'UTC-4:00',
+                label: '（UTC-4:00）圣地亚哥',
+                // value: '(UTC-4:00) Santiago',
+                value: 'America/Argentina/Cordoba',
+            },
+            {
+                name: 'UTC-3:00',
+                label: '（UTC-3:00）布宜诺斯艾利斯',
+                // value: '(UTC-3:00) Buenos Aires',
+                value: 'America/Argentina/Buenos_Aires',
+            },
+            {
+                name: 'UTC-2:00',
+                label: '（UTC-2:00）南乔治亚岛',
+                // value: '(UTC-2:00) South Georgia Island',
+                value: 'Atlantic/South_Georgia',
+            },
+            {
+                name: 'UTC-1:00',
+                label: '（UTC-1:00）亚速尔群岛',
+                // value: '(UTC-1:00) Azores',
+                value: 'Atlantic/Azores',
+            },
+            {
+                name: 'UTC+00:00',
+                label: '（UTC+00:00）伦敦',
+                // value: '(UTC+00:00) London',
+                value: 'Europe/London',
+            },
+            {
+                name: 'UTC+01:00',
+                label: '（UTC+01:00）巴黎',
+                // value: '(UTC+01:00) Paris',
+                value: 'Europe/Paris',
+            },
+            {
+                name: 'UTC+02:00',
+                label: '（UTC+02:00）开罗',
+                // value: '(UTC+02:00) Cairo',
+                value: 'Africa/Cairo',
+            },
+            {
+                name: 'UTC+03:00',
+                label: '（UTC+03:00）莫斯科',
+                // value: '(UTC+03:00) Moscow',
+                value: 'Europe/Moscow',
+            },
+            {
+                name: 'UTC+04:00',
+                label: '（UTC+04:00）迪拜',
+                // value: '(UTC+04:00) Dubai',
+                value: 'Asia/Dubai',
+            },
+            {
+                name: 'UTC+05:00',
+                label: '（UTC+05:00）卡拉奇',
+                // value: '(UTC+05:00) Karachi',
+                value: 'Asia/Karachi',
+            },
+            {
+                name: 'UTC+06:00',
+                label: '（UTC+06:00）达卡',
+                // value: '(UTC+06:00) Dhaka',
+                value: 'Asia/Dhaka',
+            },
+            {
+                name: 'UTC+07:00',
+                label: '（UTC+07:00）曼谷',
+                // value: '(UTC+07:00) Bangkok',
+                value: 'Asia/Bangkok',
+            },
+            {
+                name: 'UTC+08:00',
+                label: '（UTC+08:00）北京',
+                // value: '(UTC+08:00) Beijing',
+                value: 'Asia/Shanghai',
+            },
+            {
+                name: 'UTC+09:00',
+                label: '（UTC+09:00）东京',
+                // value: '(UTC+09:00) Tokyo',
+                value: 'Asia/Tokyo',
+            },
+            {
+                name: 'UTC+10:00',
+                label: '（UTC+10:00）悉尼',
+                // value: '(UTC+10:00) Sydney',
+                value: 'Australia/Sydney',
+            },
+            {
+                name: 'UTC+11:00',
+                label: '（UTC+11:00）所罗门群岛',
+                // value: '(UTC+11:00) Solomon Islands',
+                value: 'Pacific/Guadalcanal',
+            },
+            {
+                name: 'UTC+12:00',
+                label: '（UTC+12:00）奥克兰',
+                // value: '(UTC+12:00) Auckland',
+                timezone: 'Pacific/Auckland',
+            },
+        ]);
 
-const currentCity = computed(() => store?.state?.currentCity || '');
+        const cancel = () => {
+            showPopup.value = false;
+            showToast('取消选择');
+        };
 
-const goToCity = () => {
-    router.push('/city');
-};
+        const confirm = () => {
+            const selected = timezones.value.find((zone) => zone.value === selectedTimezone.value);
+            if (selected) {
+                selectedTimezone.value = selected;
+                showToast(`已选择时区: ${selected.label}`);
+            }
+            showPopup.value = false;
+        };
 
-const goBack = () => {
-    router.back();
-};
-
-const confirmCity = () => {
-    // TODO: 实现确认逻辑
+        return {
+            showPopup,
+            selectedTimezone,
+            timezones,
+            cancel,
+            confirm,
+        };
+    },
 };
 </script>
 
 <style scoped>
-.weather-view {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(180.08deg, #c5e6ff -1.16%, #ecf6ff 14.34%, #f3f4f7 50%);
-}
-
-.custom-nav {
-    background: transparent;
-}
-
-:deep(.van-nav-bar) {
-    background-color: transparent;
-}
-
-:deep(.van-nav-bar .van-icon) {
-    color: #2e2f33;
-}
-
-:deep(.van-nav-bar__title) {
-    color: #2e2f33;
-    font-weight: 500;
-}
-
-.main-content {
-    flex: 1;
-    padding: 20px;
-}
-
-.city-card {
-    background: #ffffff;
-    border-radius: 12px;
+.timezone-picker {
     padding: 16px;
-    margin-bottom: 16px;
-    cursor: pointer;
 }
 
-.city-row {
+.popup-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.city-label {
-    font-family: 'PingFang SC', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 19.6px;
-    color: #2e2f33;
-    text-align: left;
-}
-
-.city-value {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.city-name {
-    font-family: 'PingFang SC', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 19.6px;
-    text-align: right;
-    color: #2e2f33;
-}
-
-.city-value .van-icon {
-    color: #909295;
-    font-size: 14px;
-}
-
-.bottom-button {
     padding: 16px;
-    display: flex;
-    justify-content: center;
+    border-bottom: 1px solid #e8e8e8;
 }
 
-:deep(.van-button--primary) {
-    background-color: #0094ff;
-    border-color: #0094ff;
-    width: 315px !important;
-    height: 48px !important;
+.popup-title {
     font-size: 16px;
-    font-weight: 500;
-    border-radius: 24px;
+    font-weight: bold;
 }
 
-:deep(.van-button--primary.van-button--disabled) {
-    opacity: 0.6;
+.popup-content {
+    max-height: 400px; /* 设置最大高度 */
+    overflow-y: auto;
+    padding: 0 16px;
 }
 
-:deep(.van-nav-bar__arrow) {
-    color: #2e2f33 !important;
+/* 调整滚动条样式（可选） */
+.popup-content::-webkit-scrollbar {
+    width: 6px; /* 滚动条宽度 */
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+    background-color: #c0c0c0; /* 滚动条滑块颜色 */
+    border-radius: 3px; /* 滑块圆角 */
+}
+
+.popup-content::-webkit-scrollbar-track {
+    background-color: #f5f5f5; /* 滚动条轨道颜色 */
 }
 </style>

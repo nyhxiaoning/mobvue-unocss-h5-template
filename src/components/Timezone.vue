@@ -223,6 +223,10 @@ export default {
 <style scoped>
 .timezone-picker {
     padding: 16px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180.08deg, #c5e6ff -1.16%, #ecf6ff 14.34%, #f3f4f7 50%);
 }
 
 .popup-header {

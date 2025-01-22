@@ -28,46 +28,51 @@
                     </van-col>
                 </van-row>
 
-                <div style="position: relative; left: 80px">
+                <div style="position: relative; margin-left: 30%">
                     <div class="green-dot"></div>
                     <div class="status-text">&nbsp;在线</div>
                 </div>
-                <van-row
-                    type="flex"
-                    justify="start"
-                    align="center"
-                    style="
-                        width: 90px;
-                        height: 24px;
-                        background-color: #ffffff;
-                        border-radius: 6px;
-                        padding-left: 5px;
-                        font-size: 12px;
-                        margin-right: 20px;
-                    "
-                >
-                    <!-- 第一个子 div -->
-                    <van-col :span="4">
-                        <div :class="temperatureClass" style="width: 16px; height: 16px"></div>
-                    </van-col>
-                    <!-- 第二个子 div -->
-                    <van-col :span="18">
-                        <div style="line-height: 24px; height: 26px; font-size: 12px">
-                            {{ states.temperature }}
-                        </div>
-                    </van-col>
-                </van-row>
+                <div style="margin-left: 20px">
+                    <van-row
+                        type="flex"
+                        justify="start"
+                        align="center"
+                        style="
+                            width: 90px;
+                            height: 24px;
+                            background-color: #ffffff;
+                            border-radius: 6px;
+                            padding-left: 5px;
+                            font-size: 12px;
+                            margin-right: 20px;
+                        "
+                    >
+                        <!-- 第一个子 div -->
+                        <van-col :span="4">
+                            <div :class="temperatureClass" style="width: 16px; height: 16px"></div>
+                        </van-col>
+                        <!-- 第二个子 div -->
+                        <van-col :span="18">
+                            <div style="line-height: 24px; height: 26px; font-size: 12px">
+                                {{ states.temperature }}
+                            </div>
+                        </van-col>
+                    </van-row>
+                </div>
             </van-row>
         </div>
 
         <!-- 亮度调节 -->
         <div class="brightness-control">
-            <div style="font-size: 16px; margin: 20px">
+            <div style="font-size: 16px; margin: 20px; margin-left: 15px">
                 <div>
                     亮度&nbsp; <span style="color: #969698">|</span
                     ><span>&nbsp;{{ brightness }}%</span>
                 </div>
-                <div style="font-size: 12px; color: #969698; margin: 20px" @click="restartCup">
+                <div
+                    style="font-size: 12px; color: #969698; margin: 20px; margin-left: 15px"
+                    @click="restartCup"
+                >
                     <van-slider
                         bar-height="6px"
                         active-color="#31ACF8"
@@ -94,7 +99,7 @@
         </div>
 
         <!-- 空白间隔 -->
-        <div class="spacer"></div>
+        <!-- <div class="spacer"></div> -->
         <!-- 时钟和天气 -->
         <div class="weather-clock">
             <div class="clock">
@@ -132,7 +137,7 @@
         </div>
 
         <!-- 空白间隔 -->
-        <div class="spacer"></div>
+        <!-- <div class="spacer"></div> -->
 
         <!-- 应用配置 -->
         <div class="feature-item">
@@ -171,7 +176,7 @@
         </div>
 
         <!-- 空白间隔 -->
-        <div class="spacer"></div>
+        <div class="spacer-bottom"></div>
 
         <!-- 底部按钮 -->
         <div class="bottom-actions">
@@ -318,12 +323,13 @@ export default defineComponent({
     line-height: 20px;
     height: 20px;
     color: green;
-    margin-right: 20px;
+    /* margin-right: 30px; */
     font-size: 12px;
 }
 
 .brightness-control {
     display: flex;
+    flex: 0.3;
     /* align-items: center; */
     flex-direction: column;
 
@@ -335,16 +341,8 @@ export default defineComponent({
     border-radius: 12px;
 }
 
-.features-row {
-    display: flex;
-    margin-top: 16px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-radius: 12px;
-    justify-content: center;
-}
-
 .weather-clock {
+    flex: 2;
     display: flex;
     margin-left: 20px;
     margin-right: 20px;
@@ -382,22 +380,11 @@ export default defineComponent({
 
 .feature-item {
     display: flex;
+    flex: 0.5;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 16px;
-    padding: 20px;
-    background-color: #ffffff;
-    font-size: 12px;
-    border-radius: 12px;
-    margin: 10px;
-}
-
-.feature-item {
-    display: flex;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 16px;
-    padding: 20px;
+    padding: 10px;
     background-color: #ffffff;
     font-size: 12px;
     border-radius: 12px;
@@ -405,10 +392,12 @@ export default defineComponent({
 
 .bottom-actions {
     display: flex;
+    flex: 0.2;
     flex-direction: row;
     margin-top: 16px;
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 16px;
     padding: 10px;
     background-color: #ffffff;
     font-size: 12px;
@@ -422,8 +411,8 @@ export default defineComponent({
     }
 }
 
-.spacer {
-    height: 24px;
+.spacer-bottom {
+    flex: 3;
     /* 调整空白间隔的高度 */
 }
 

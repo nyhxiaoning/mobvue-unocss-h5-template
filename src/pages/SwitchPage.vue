@@ -49,15 +49,6 @@
 </template>
 
 <script>
-let CupDevice = window.CupDevice;
-CupDevice = {
-    setDevMessage() {
-        return new Promise((resolve, reject) => {
-            resolve('ok');
-        });
-    },
-};
-
 export default {
     data() {
         return {

@@ -73,7 +73,7 @@
             <div style="font-size: 16px; margin: 20px; margin-left: 15px">
                 <div>
                     亮度&nbsp; <span style="color: #969698">|</span
-                    ><span>&nbsp;{{ brightness }}%</span>
+                    ><span>&nbsp;{{ states.brightness }}%</span>
                 </div>
                 <div
                     style="font-size: 12px; color: #969698; margin: 20px; margin-left: 15px"
@@ -82,7 +82,7 @@
                     <van-slider
                         bar-height="6px"
                         active-color="#31ACF8"
-                        v-model="brightness"
+                        v-model="states.brightness"
                         @change="onBrightnessChange"
                         step="10"
                     >
@@ -91,11 +91,14 @@
             </div>
         </div>
         <!-- 时钟和天气 -->
-        <div class="weather-clock" @click="appWeatherFn">
+        <div class="weather-clock">
             <div class="clock">
                 <div>
                     <div>
-                        <div style="display: flex; font-size: 16px; margin-bottom: 5px">
+                        <div
+                            @click="appWeatherFn"
+                            style="display: flex; font-size: 16px; margin-bottom: 5px"
+                        >
                             时钟
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
@@ -109,10 +112,13 @@
                 <div class="clock-appcup"></div>
             </div>
 
-            <div class="weather" @click="appCityFn">
+            <div class="weather">
                 <div>
                     <div>
-                        <div style="display: flex; font-size: 16px; margin-bottom: 5px">
+                        <div
+                            @click="appCityFn"
+                            style="display: flex; font-size: 16px; margin-bottom: 5px"
+                        >
                             天气
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
@@ -198,7 +204,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed, onMounted } from 'vue';
+import { defineComponent, reactive, computed, onMounted } from 'vue';
 
 import { timezone } from './../utils/cityzone';
 
@@ -209,14 +215,16 @@ import { showToast } from 'vant';
 
 export default defineComponent({
     name: 'SystemSettings',
+
     setup() {
         const userStore = useUserStore();
         const router = useRouter(); // 获取路由实例
-        const brightness = ref(40);
+        // const brightness = ref(40);
         console.log(timezone, 'timezone');
         const states = reactive({
-            battery: 0,
-            temperature: 80,
+            battery: userStore.$state.battery || 0,
+            brightness: userStore.$state.brightness || 0,
+            temperature: userStore.$state.temperature || 0,
             batteryStatus: false,
             address: '',
             clock: '',
@@ -253,8 +261,25 @@ export default defineComponent({
         };
 
         const restartCup = () => {
-            alert('嵌入式暂无支持');
-            console.log('重启水杯');
+            CupDevice &&
+                CupDevice.setDevMessage({
+                    value: {
+                        method: 'PixelCupRestart',
+                        params: {},
+                    },
+                })
+                    .then((res: any) => {
+                        console.log(res, '.value');
+
+                        // store.selectedTimezone(selectedTimezone.value);
+                    })
+                    .catch((err: any) => {
+                        console.log(err);
+                        showToast({
+                            message: '重启设备失败',
+                            duration: 1000,
+                        });
+                    });
         };
 
         const closeScreen = () => {
@@ -337,7 +362,8 @@ export default defineComponent({
                 })
                     .then((res: any) => {
                         console.log(res.data, '亮度获取zhi');
-                        brightness.value = res.data;
+                        states.brightness = res.data;
+                        userStore.$state.temperature = res.data;
                         // store.selectedTimezone(selectedTimezone.value);
                     })
                     .catch((err: any) => {
@@ -352,6 +378,7 @@ export default defineComponent({
             })
                 .then((res: any) => {
                     console.log(res.data, '单个温度获取');
+                    userStore.$state.temperature = res.data;
                     if (res.data) states.temperature = res.data;
                     if (states.temperature < 0) {
                         return (states.curTemperatureClass = 'temperature');
@@ -378,6 +405,7 @@ export default defineComponent({
                 .then((res: any) => {
                     console.log(res.data, '单个电池');
                     states.battery = res.data;
+                    userStore.$state.battery = res.data;
                     if (states.battery < 20) {
                         return (states.curBatteryClass = 'battery-20');
                     } else if (states.battery > 20 && states.battery < 40) {
@@ -394,7 +422,6 @@ export default defineComponent({
         });
 
         return {
-            brightness,
             onBrightnessChange,
             restartCup,
             closeScreen,
@@ -531,6 +558,14 @@ export default defineComponent({
     width: 10px;
     height: 10px;
     background-color: #36c449;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.black-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #f3f4f7;
     border-radius: 50%;
     display: inline-block;
 }

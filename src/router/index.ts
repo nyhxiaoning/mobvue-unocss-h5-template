@@ -50,6 +50,6 @@ const router = createRouter({
             component: Setting
         }
     ],
-}) as any;
+})
 
 export default router;

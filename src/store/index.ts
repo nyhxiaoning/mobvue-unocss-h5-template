@@ -7,7 +7,10 @@ export const useUserStore = defineStore('userInfo', {
         timezoneValue: 'Asia/Shanghai',
         timezoneLabel: 'UTC+08:00',
         weathername: '',
-        weathervalue: ''
+        weathervalue: '',
+        brightness: 0,
+        battery: 0,
+        temperature: 0,
 
     }),
     // 定义 getters，用于获取 state
@@ -16,7 +19,10 @@ export const useUserStore = defineStore('userInfo', {
         timezoneValue: (state) => state.timezoneValue,
         timezoneLabel: (state) => state.timezoneLabel,
         weathername: (state) => state.weathername,
-        weathervalue: (state) => state.weathervalue
+        weathervalue: (state) => state.weathervalue,
+        brightness: (state) => state.brightness,
+        battery: (state) => state.battery,
+        temperature: (state) => state.temperature,
     },
     // 定义 actions，用于修改 state,并且可以包含异步操作
     actions: {
@@ -35,6 +41,15 @@ export const useUserStore = defineStore('userInfo', {
         },
         updateWeatherValue(value: string) {
             this.weathervalue = value;
+        },
+        updateBrightness(value: number) {
+            this.brightness = value;
+        },
+        updateBattery(value: number) {
+            this.battery = value;
+        },
+        updateTemperature(value: number) {
+            this.temperature = value;
         }
     }
 

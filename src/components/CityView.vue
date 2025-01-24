@@ -1,14 +1,6 @@
 <template>
     <div class="city-view">
         <!-- 顶部导航栏 -->
-        <!-- <van-nav-bar
-      title="城市"
-      left-arrow
-      @click-left="goBack"
-      :border="false"
-      class="custom-nav"
-      :fixed="true"
-    /> -->
 
         <!-- 搜索框 -->
         <div class="search-wrapper">
@@ -100,7 +92,7 @@
                                 size="small"
                                 @click="selectCity(city)"
                             >
-                                {{ city }}
+                                {{ city.name }}
                             </van-button>
                         </div>
                     </div>
@@ -113,12 +105,13 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
+// import { useStore } from 'vuex';
+import { useUserStore } from './../store/index';
 import pinyin from 'pinyin-match';
 import { Icon as VanIcon, NavBar, Search, Cell, Button } from 'vant';
 
 const router = useRouter();
-const store = useStore();
+const store = useUserStore();
 
 // 替换模板中的组件名称
 const VanNavBar = NavBar;
@@ -136,11 +129,11 @@ const isSearchFocused = ref(false);
 const continents = computed(() => [
     { key: 'asia', name: '亚洲' },
     { key: 'europe', name: '欧洲' },
-    { key: 'namerica', name: '北美洲' },
-    { key: 'oceania', name: '大洋洲' },
-    { key: 'africa', name: '非洲' },
-    { key: 'samerica', name: '南美洲' },
-    { key: 'antarctica', name: '南极洲' },
+    // { key: 'namerica', name: '北美洲' },
+    // { key: 'oceania', name: '大洋洲' },
+    // { key: 'africa', name: '非洲' },
+    // { key: 'samerica', name: '南美洲' },
+    // { key: 'antarctica', name: '南极洲' },
 ]);
 
 // 获取选中州的索引
@@ -153,71 +146,29 @@ const allRegions = {
     asia: [
         {
             name: '中国',
-            cities: ['北京', '上海', '广州', '深圳', '成都', '杭州', '武汉', '西安'],
-        },
-        {
-            name: '日本',
-            cities: ['东京', '大阪', '京都', '名古屋', '福冈', '札幌'],
-        },
-        {
-            name: '韩国',
-            cities: ['首尔', '釜山', '仁川', '大邱', '光州', '大田'],
+            cities: [
+                { name: '北京', value: 'Beijing' },
+                { name: '上海', value: 'Shanghai' },
+                { name: '广州', value: 'Guangzhou' },
+                { name: '深圳', value: 'Shenzhen' },
+                { name: '成都', value: 'Chengdu' },
+                { name: '杭州', value: 'Hangzhou' },
+                { name: '武汉', value: 'Wuhan' },
+                { name: '西安', value: 'Xian' },
+            ],
         },
     ],
     europe: [
         {
             name: '法国',
-            cities: ['巴黎', '马赛', '里昂', '图卢兹', '尼斯', '南特'],
-        },
-        {
-            name: '德国',
-            cities: ['柏林', '慕尼黑', '汉堡', '科隆', '法兰克福', '斯图加特'],
-        },
-    ],
-    namerica: [
-        {
-            name: '加拿大',
-            cities: ['多伦多', '温哥华', '蒙特利尔', '卡尔加里', '渥太华', '魁北克'],
-        },
-        {
-            name: '美国',
-            cities: ['纽约', '洛杉矶', '芝加哥', '休斯顿', '费城', '凤凰城'],
-        },
-    ],
-    oceania: [
-        {
-            name: '澳大利亚',
-            cities: ['悉尼', '墨尔本', '布里斯班', '珀斯', '阿德莱德', '黄金海岸'],
-        },
-        {
-            name: '新西兰',
-            cities: ['奥克兰', '惠灵顿', '克莱斯特彻奇', '汉密尔顿', '但尼丁'],
-        },
-    ],
-    africa: [
-        {
-            name: '南非',
-            cities: ['约翰内斯堡', '开普敦', '德班', '比勒陀利亚', '伊丽莎白港'],
-        },
-        {
-            name: '埃及',
-            cities: ['开罗', '亚历山大', '吉萨', '苏伊士', '卢克索'],
-        },
-    ],
-    samerica: [
-        {
-            name: '巴西',
-            cities: ['圣保罗', '里约热内卢', '萨尔瓦多', '巴西利亚', '福塔莱萨'],
-        },
-        {
-            name: '阿根廷',
-            cities: ['布宜诺斯艾利斯', '科尔多瓦', '罗萨里奥', '门多萨', '拉普拉塔'],
-        },
-    ],
-    antarctica: [
-        {
-            name: '科考站',
-            cities: ['长城站', '中山站', '昆仑站', '泰山站', '格罗夫山站'],
+            cities: [
+                { name: '巴黎', value: 'Paris' },
+                { name: '马赛', value: 'Marseille' },
+                { name: '里昂', value: 'Lyon' },
+                { name: '图卢兹', value: 'Toulouse' },
+                { name: '尼斯', value: 'Nice' },
+                { name: '南特', value: 'Nantes' },
+            ],
         },
     ],
 };
@@ -234,8 +185,10 @@ const filteredRegions = computed(() => {
     return currentRegions.value
         .map((region) => ({
             ...region,
-            cities: region.cities.filter((city) =>
-                city.toLowerCase().includes(searchText.value.toLowerCase()),
+            cities: region.cities.filter(
+                (city) =>
+                    city.name.toLowerCase().includes(searchText.value.toLowerCase()) ||
+                    city.value.toLowerCase().includes(searchText.value.toLowerCase()),
             ),
         }))
         .filter((region) => region.cities.length > 0);
@@ -269,9 +222,7 @@ const onSearch = () => {
     Object.values(allRegions).forEach((regions) => {
         regions.forEach((region) => {
             region.cities.forEach((city) => {
-                allCities.push({
-                    name: city,
-                });
+                allCities.push(city);
             });
         });
     });
@@ -280,10 +231,11 @@ const onSearch = () => {
 
     searchResults.value = allCities
         .filter((city) => {
-            // pinyin-match 的正确用法：
-            // 1. 如果是中文，直接匹配
-            // 2. 如果是拼音，使用 pinyin.match 匹配
-            return city.name.includes(searchQuery) || pinyin.match(city.name, searchQuery);
+            return (
+                city.name.toLowerCase().includes(searchQuery) ||
+                city.value.toLowerCase().includes(searchQuery) ||
+                pinyin.match(city.name, searchQuery)
+            );
         })
         .slice(0, 20);
 };
@@ -294,14 +246,18 @@ const onClear = () => {
 
 // 选择城市
 const selectCity = (city) => {
-    selectedCity.value = city;
-    store.dispatch('updateCity', city);
-    goBack();
+    store.$state.weathername = city.name;
+    store.$state.weathervalue = city.value;
+    router.push('weather');
+
+    // selectedCity.value = city;
+    // store.dispatch('updateCity', { name: city.name, value: city.value });
 };
 
 // 返回上一页
 const goBack = () => {
-    router.back();
+    // router.back();
+    router.push('/city');
 };
 
 // 搜索框焦点事件
@@ -321,7 +277,7 @@ const onSearchBlur = () => {
 .city-view {
     min-height: 100vh;
     background-color: #ffffff;
-    padding-top: 46px; /* 导航栏高度 */
+    /* padding-top: 46px;  */
     display: flex;
     flex-direction: column;
     position: relative;

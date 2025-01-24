@@ -2,7 +2,7 @@
  * @Author: ningyongheng ningyongheng@jeejio.com
  * @Date: 2024-10-09 18:18:15
  * @LastEditors: ningyongheng ningyongheng@jeejio.com
- * @LastEditTime: 2025-01-22 18:23:56
+ * @LastEditTime: 2025-01-24 14:37:02
  * @FilePath: /cupsystem/src/router/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -50,6 +50,6 @@ const router = createRouter({
             component: Setting
         }
     ],
-});
+}) as any;
 
 export default router;

@@ -29,14 +29,15 @@
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import { useUserStore } from './../store/index';
 
 const router = useRouter();
-const store = useStore();
+const store = useUserStore();
 
-const currentCity = computed(() => store?.state?.currentCity || '');
+const currentCity = computed(() => store?.$state?.weathername || '');
 
 const goToCity = () => {
-    router.push('/city');
+    router.push('city');
 };
 
 const goBack = () => {
@@ -45,6 +46,23 @@ const goBack = () => {
 
 const confirmCity = () => {
     // TODO: 实现确认逻辑
+    CupDevice &&
+        CupDevice.setDevMessage({
+            value: {
+                method: 'setCity',
+                params: {
+                    value: store?.$state?.weathervalue,
+                },
+            },
+        })
+            .then((res) => {
+                console.log(res, 'city.value');
+                router.push('/');
+                // store.selectedTimezone(selectedTimezone.value);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 };
 </script>
 

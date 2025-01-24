@@ -35,13 +35,22 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { showToast } from 'vant';
+import { useUserStore } from './../store/index';
 
 export default {
     setup() {
+        const store = useUserStore();
         const showPopup = ref(false);
-        const selectedTimezone = ref({ value: 'UTC+08:00', label: '北京，上海' });
+        const selectedTimezone = ref({
+            name: store.$state.timezoneLabel || 'UTC+08:00',
+            label: store.$state.timezoneLabel
+                ? `（${store.$state.timezoneLabel}）${store.$state.timezoneAddress}`
+                : '（UTC+08:00）北京',
+            // value: '(UTC+08:00) Beijing',
+            value: store.$state.timezone || 'Asia/Shanghai',
+        });
         const timezones = ref([
             {
                 name: 'UTC-12:00',
@@ -201,13 +210,73 @@ export default {
         };
 
         const confirm = () => {
-            const selected = timezones.value.find((zone) => zone.value === selectedTimezone.value);
-            if (selected) {
-                selectedTimezone.value = selected;
-                showToast(`已选择时区: ${selected.label}`);
+            // const selected = timezones.value.find((zone) => zone.value === selectedTimezone.value);
+
+            for (let i = 0; i < timezones.value.length; i++) {
+                if (timezones.value[i].value === selectedTimezone.value.value) {
+                    selectedTimezone.value.label = timezones.value[i].label;
+                    store.$state.timezoneLabel = timezones.value[i].name;
+                    store.$state.timezoneAddress = timezones.value[i].label.split('）')[1];
+                    store.$state.timezoneValue = timezones.value[i].value;
+                    // alert(JSON.stringify(timezones.value[i].label.split('）')[1]));
+                }
+            }
+
+            if (selectedTimezone.value.label) {
+                CupDevice &&
+                    CupDevice.setDevMessage({
+                        value: {
+                            method: 'setLoaclTimeZone',
+                            params: {
+                                value: selectedTimezone.value.value,
+                            },
+                        },
+                    })
+                        .then((res) => {
+                            console.log(res, '单个getLoaclTimeZone');
+                            // store.selectedTimezone(selectedTimezone.value);
+                            for (let i = 0; i < timezones.value.length; i++) {
+                                if (timezones.value[i].value === res.data) {
+                                    selectedTimezone.value.label = timezones.value[i].label;
+                                }
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+            } else {
+                showToast(`未找到时区: ${labeled}`);
             }
             showPopup.value = false;
         };
+
+        onMounted(() => {
+            console.log('onMounted');
+            CupDevice &&
+                CupDevice.setDevMessage({
+                    value: {
+                        method: 'getLoaclTimeZone',
+                        params: {
+                            // 默认两项
+                        },
+                    },
+                })
+                    .then((res) => {
+                        console.log(res, '单个getLoaclTimeZone');
+                        if (res.data && res.data) {
+                            selectedTimezone.value.value = res.data;
+                            for (let i = 0; i < timezones.value.length; i++) {
+                                if (timezones.value[i].value === res.data) {
+                                    selectedTimezone.value.label = timezones.value[i].label;
+                                }
+                            }
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            console.log(timezones.value.value);
+        });
 
         return {
             showPopup,

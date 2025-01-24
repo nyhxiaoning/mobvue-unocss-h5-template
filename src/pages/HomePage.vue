@@ -95,8 +95,8 @@
                         </div>
                     </div>
                     <div style="font-size: 12px; color: #969698">
-                        <span>UTC+ 08:00 <br /></span>
-                        <span>北京，上海</span>
+                        <span>{{ userStore.$state.timezoneLabel }} <br /></span>
+                        <span>{{ userStore.$state.timezoneAddress }}</span>
                     </div>
                 </div>
 
@@ -198,11 +198,13 @@ import { timezone } from './../utils/cityzone';
 
 import { useRouter } from 'vue-router';
 
+import { useUserStore } from './../store/index';
+
 export default defineComponent({
     name: 'SystemSettings',
     setup() {
+        const userStore = useUserStore();
         const router = useRouter(); // 获取路由实例
-
         const brightness = ref(40);
         console.log(timezone, 'timezone');
         const states = reactive({
@@ -284,7 +286,7 @@ export default defineComponent({
         const appConfigFn = () => {
             // alert('应用设置');
             // $route.push('/setting');
-            router.push('/setting'); // 跳转到首页
+            router.push('setting'); // 跳转到首页
 
             console.log('应用设置');
         };
@@ -292,13 +294,13 @@ export default defineComponent({
         const appWeatherFn = () => {
             // alert('应用设置');
             // $route.push('/setting');
-            router.push('/timezone'); // 跳转到首页
+            router.push('timezone'); // 跳转到首页
         };
 
         const appCityFn = () => {
             // alert('应用设置');
             // $route.push('/setting');
-            router.push('/weather'); // 跳转到首页
+            router.push('weather'); // 跳转到首页
         };
 
         return {
@@ -313,6 +315,7 @@ export default defineComponent({
             states,
             batteryClass,
             temperatureClass,
+            userStore,
         };
     },
 });

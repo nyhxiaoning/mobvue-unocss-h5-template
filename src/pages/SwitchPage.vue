@@ -76,6 +76,30 @@ export default {
             },
         };
     },
+    mounted() {
+        // 初始化时获取当前系统应用显示状态
+        CupDevice.setDevMessage({
+            value: {
+                method: 'getHomeAppsVisable',
+                params: {},
+            },
+        })
+            .then((res) => {
+                if (res && res.data) {
+                    // 更新settings中的状态
+                    this.settings.enableApp = res.data.enableApp || true;
+                    this.settings.HomeGIF = res.data.HomeGIF || true;
+                    this.settings.HomeWeather = res.data.HomeWeather || true;
+                    this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon || true;
+                    this.settings.homeTigerGame = res.data.homeTigerGame || false;
+                    this.settings.HomeWaterShak = res.data.HomeWaterShak || true;
+                    this.settings.HomeCocos2 = res.data.HomeCocos2 || true;
+                }
+            })
+            .catch((err) => {
+                console.log('获取应用显示状态失败:', err);
+            });
+    },
     watch: {
         'settings.enableApp'(newVal) {
             CupDevice.setDevMessage({

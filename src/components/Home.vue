@@ -31,13 +31,25 @@
         <div class="features">
             <van-row gutter="20">
                 <van-col span="8">
-                    <van-cell center title="时钟" icon="clock-o" value="UTC+08:00\n北京，上海" is-link />
+                    <van-cell
+                        center
+                        title="时钟"
+                        icon="clock-o"
+                        value="UTC+08:00\n北京，上海"
+                        is-link
+                    />
                 </van-col>
                 <van-col span="8">
                     <van-cell center title="天气" icon="cloud-o" value="北京" is-link />
                 </van-col>
                 <van-col span="8">
-                    <van-cell center title="应用配置" icon="apps-o" value="可设置是否在水杯中展示" is-link />
+                    <van-cell
+                        center
+                        title="应用配置"
+                        icon="apps-o"
+                        value="可设置是否在水杯中展示"
+                        is-link
+                    />
                 </van-col>
             </van-row>
         </div>
@@ -54,27 +66,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-    name: "SystemSettings",
+    name: 'SystemSettings',
     setup() {
         const brightness = ref(40);
 
         const onBrightnessChange = (value: number) => {
-            console.log("当前亮度：", value);
+            console.log('当前亮度：', value);
         };
 
         const restartCup = () => {
-            console.log("重启水杯");
+            console.log('重启水杯');
         };
 
         const closeScreen = () => {
-            console.log("关闭屏幕");
+            console.log('关闭屏幕');
         };
 
         const goHome = () => {
-            console.log("返回主页");
+            console.log('返回主页');
         };
 
         return {

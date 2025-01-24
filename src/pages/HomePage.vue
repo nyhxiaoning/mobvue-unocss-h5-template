@@ -11,7 +11,10 @@
                 >
                     <!-- 第一个子 div -->
                     <van-col :span="12">
-                        <div :class="batteryClass" style="width: 24px; height: 24px"></div>
+                        <div
+                            :class="states.curBatteryClass"
+                            style="width: 24px; height: 24px"
+                        ></div>
                     </van-col>
                     <!-- 第二个子 div -->
                     <van-col :span="12">
@@ -49,7 +52,10 @@
                     >
                         <!-- 第一个子 div -->
                         <van-col :span="6">
-                            <div :class="temperatureClass" style="width: 16px; height: 16px"></div>
+                            <div
+                                :class="states.curTemperatureClass"
+                                style="width: 16px; height: 16px"
+                            ></div>
                         </van-col>
                         <!-- 第二个子 div -->
                         <van-col :span="18">
@@ -192,13 +198,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed } from 'vue';
+import { defineComponent, ref, reactive, computed, onMounted } from 'vue';
 
 import { timezone } from './../utils/cityzone';
 
 import { useRouter } from 'vue-router';
 
 import { useUserStore } from './../store/index';
+import { showToast } from 'vant';
 
 export default defineComponent({
     name: 'SystemSettings',
@@ -213,74 +220,90 @@ export default defineComponent({
             batteryStatus: false,
             address: '',
             clock: '',
+            curBatteryClass: '',
+            curTemperatureClass: '',
         });
 
-        const batteryClass = computed(() => {
-            return 'battery-20';
-            // CupDevice.setDevMessage({
-            //     value: {
-            //         method: 'getBatteryStatus',
-            //         params: {},
-            //     },
-            // })
-            //     .then((res: any) => {
-            //         console.log(res.data.value, '单个');
-            //         states.battery = res.data.value;
-            //         if (states.battery < 20) {
-            //             return 'battery-20';
-            //         } else if (states.battery > 20 && states.battery < 40) {
-            //             return 'battery-40';
-            //         } else if (states.battery > 40) {
-            //             return 'battery-60';
-            //         }
-            //         // 只有输出电量
-            //         states.batteryStatus = res.data.value.batteryStatus;
-            //     })
-            //     .catch((err: any) => {
-            //         console.log(err);
-            //     });
-        });
+        const batteryClass = computed(() => {});
 
-        const temperatureClass = computed(() => {
-            // CupDevice.setDevMessage({
-            //     value: {
-            //         method: 'getTemperature',
-            //         params: {},
-            //     },
-            // })
-            //     .then((res) => {
-            //         console.log(res.data.value, '单个');
-            //     })
-            //     .catch((err) => {
-            //         console.log(err);
-            //     });
-
-            if (states.battery < 0) {
-                return 'temperature';
-            } else if (states.battery >= 0 && states.battery < 99) {
-                return 'temperature-0';
-            } else if (states.battery >= 99) {
-                return 'temperature-99';
-            }
-        });
+        const temperatureClass = computed(() => {});
 
         const onBrightnessChange = (value: number) => {
             console.log('当前亮度：', value);
+            CupDevice &&
+                CupDevice.setDevMessage({
+                    value: {
+                        method: 'setBrightness',
+                        params: {
+                            value: value,
+                        },
+                    },
+                })
+                    .then((res: any) => {
+                        console.log(res.data, '设置亮度.value');
+                        // store.selectedTimezone(selectedTimezone.value);
+                    })
+                    .catch((err: any) => {
+                        console.log(err);
+                        showToast({
+                            message: '设置亮度失败',
+                            duration: 1000,
+                        });
+                    });
         };
 
         const restartCup = () => {
-            alert('重启水杯');
+            alert('嵌入式暂无支持');
             console.log('重启水杯');
         };
 
         const closeScreen = () => {
-            alert('关闭屏幕');
+            CupDevice &&
+                CupDevice.setDevMessage({
+                    value: {
+                        method: 'setSwitch',
+                        params: {
+                            value: false,
+                        },
+                    },
+                })
+                    .then((res: any) => {
+                        console.log(res, '.value');
+
+                        // store.selectedTimezone(selectedTimezone.value);
+                    })
+                    .catch((err: any) => {
+                        console.log(err);
+                        showToast({
+                            message: '关闭屏幕失败',
+                            duration: 1000,
+                        });
+                    });
             console.log('关闭屏幕');
         };
 
         const goHome = () => {
-            alert('回到主页');
-            console.log('返回主页');
+            console.log('return2Home');
+            CupDevice &&
+                CupDevice.setDevMessage({
+                    value: {
+                        method: 'return2Home',
+                        params: {},
+                    },
+                })
+                    .then((res: any) => {
+                        console.log(res, '.value');
+
+                        // store.selectedTimezone(selectedTimezone.value);
+                    })
+                    .catch((err: any) => {
+                        console.log(err);
+                        showToast({
+                            message: '下发命令失败',
+
+                            duration: 1000,
+                        });
+                    });
         };
 
         const appConfigFn = () => {
@@ -302,6 +325,73 @@ export default defineComponent({
             // $route.push('/setting');
             router.push('weather'); // 跳转到首页
         };
+
+        onMounted(() => {
+            console.log('onMounted');
+            CupDevice &&
+                CupDevice.setDevMessage({
+                    value: {
+                        method: 'getBrightness',
+                        params: {},
+                    },
+                })
+                    .then((res: any) => {
+                        console.log(res.data, '亮度获取zhi');
+                        brightness.value = res.data;
+                        // store.selectedTimezone(selectedTimezone.value);
+                    })
+                    .catch((err: any) => {
+                        console.log(err);
+                    });
+
+            CupDevice.setDevMessage({
+                value: {
+                    method: 'getTemperature',
+                    params: {},
+                },
+            })
+                .then((res: any) => {
+                    console.log(res.data, '单个温度获取');
+                    if (res.data) states.temperature = res.data;
+                    if (states.temperature < 0) {
+                        return (states.curTemperatureClass = 'temperature');
+                    } else if (states.temperature >= 0 && states.temperature < 99) {
+                        return (states.curTemperatureClass = 'temperature-0');
+                    } else if (states.temperature >= 99) {
+                        return (states.curTemperatureClass = 'temperature-99');
+                    }
+                })
+                .catch((err: any) => {
+                    console.log(err);
+                    showToast({
+                        message: '获取温度失败',
+                        duration: 1000,
+                    });
+                });
+
+            CupDevice.setDevMessage({
+                value: {
+                    method: 'getBatteryStatus',
+                    params: {},
+                },
+            })
+                .then((res: any) => {
+                    console.log(res.data, '单个电池');
+                    states.battery = res.data;
+                    if (states.battery < 20) {
+                        return (states.curBatteryClass = 'battery-20');
+                    } else if (states.battery > 20 && states.battery < 40) {
+                        return (states.curBatteryClass = 'battery-40');
+                    } else if (states.battery > 40) {
+                        return (states.curBatteryClass = 'battery-60');
+                    }
+                    // 只有输出电量
+                    // states.batteryStatus = res.data.value?true:false;
+                })
+                .catch((err: any) => {
+                    console.log(err);
+                });
+        });
 
         return {
             brightness,

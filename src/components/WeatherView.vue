@@ -30,6 +30,7 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { useUserStore } from './../store/index';
+import { showToast } from 'vant';
 
 const router = useRouter();
 const store = useUserStore();
@@ -62,6 +63,7 @@ const confirmCity = () => {
             })
             .catch((err) => {
                 console.log(err);
+                showToast('设置失败');
             });
 };
 </script>
@@ -141,6 +143,7 @@ const confirmCity = () => {
 
 .bottom-button {
     padding: 16px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: center;
 }

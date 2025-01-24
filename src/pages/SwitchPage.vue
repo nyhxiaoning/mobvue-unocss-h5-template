@@ -13,7 +13,7 @@
             <van-cell title="设备信息" center> </van-cell>
             <van-cell title="屏保" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeGIF" :disabled="!settings.enableApp" />
+                    <van-switch v-model="settings.HomeGIF" disabled="true" />
                 </template>
             </van-cell>
             <van-cell title="天气" center>
@@ -110,7 +110,7 @@ export default {
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        // "HomeGIF": true,
+                        HomeGIF: true,
                         HomeFreeFallIcon: newVal,
                         HomeWeather: newVal,
                         homeTigerGame: newVal,
@@ -161,7 +161,7 @@ export default {
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        // "HomeGIF": true,
+                        HomeGIF: true,
                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
                         HomeWeather: newVal,
                         homeTigerGame: this.settings.homeTigerGame,
@@ -186,7 +186,7 @@ export default {
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        // "HomeGIF": true,
+                        HomeGIF: true,
                         HomeFreeFallIcon: newVal,
                         HomeWeather: this.settings.HomeWeather,
                         homeTigerGame: this.settings.homeTigerGame,
@@ -212,7 +212,7 @@ export default {
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        // "HomeGIF": true,
+                        HomeGIF: true,
                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
                         HomeWeather: this.settings.HomeWeather,
                         homeTigerGame: newVal,
@@ -238,7 +238,7 @@ export default {
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        // "HomeGIF": true,
+                        HomeGIF: true,
                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
                         HomeWeather: this.settings.HomeWeather,
                         homeTigerGame: this.settings.homeTigerGame,
@@ -264,7 +264,7 @@ export default {
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        // "HomeGIF": true,
+                        HomeGIF: true,
                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
                         HomeWeather: this.settings.HomeWeather,
                         homeTigerGame: this.settings.homeTigerGame,

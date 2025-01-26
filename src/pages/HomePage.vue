@@ -261,6 +261,7 @@ export default defineComponent({
         };
 
         const restartCup = () => {
+            // 重启设备后，其实没有回复，所以不需要拦截
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
@@ -275,10 +276,6 @@ export default defineComponent({
                     })
                     .catch((err: any) => {
                         console.log(err);
-                        showToast({
-                            message: '重启设备失败',
-                            duration: 1000,
-                        });
                     });
         };
 
@@ -352,6 +349,7 @@ export default defineComponent({
         };
 
         onMounted(() => {
+            states.curBatteryClass = 'battery-20';
             console.log('onMounted');
             CupDevice &&
                 CupDevice.setDevMessage({
@@ -570,14 +568,6 @@ export default defineComponent({
     display: inline-block;
 }
 
-.battery {
-    width: 20px;
-    height: 10px;
-    background-image: url('@/assets/1.png');
-    border-radius: 50%;
-    display: inline-block;
-}
-
 .battery-20 {
     margin-left: 20px;
     width: 24px;
@@ -591,31 +581,31 @@ export default defineComponent({
 
 .battery-40 {
     margin-left: 20px;
-    width: 20px;
-    height: 10px;
+    width: 24px;
+    height: 24px;
     /* background-color: #36C449;
      */
-    background-image: url('@/assets/battery40.png');
+    background-image: url('@/assets/battery40.png') center / contain no-repeat;
     border-radius: 50%;
     display: inline-block;
 }
 
 .battery-60 {
     margin-left: 20px;
-    width: 20px;
-    height: 10px;
+    width: 24px;
+    height: 24px;
     /* background-color: #36C449;
      */
-    background-image: url('@/assets/battery60.png');
+    background-image: url('@/assets/battery60.png') center / contain no-repeat;
     border-radius: 50%;
     display: inline-block;
 }
 
 .battery-loading {
     margin-left: 20px;
-    width: 20px;
-    height: 10px;
-    background-image: url('@/assets/batteryLoading.png');
+    width: 24px;
+    height: 24px;
+    background-image: url('@/assets/batteryLoading.png') center / contain no-repeat;
     border-radius: 50%;
     display: inline-block;
 }

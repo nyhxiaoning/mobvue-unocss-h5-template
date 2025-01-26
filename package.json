@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "build": " vite build && node zip.js",
+        "build:prod": " vite build   --mode production  && node zip.js",
         "build:dev": " rimraf dist && vite build  --mode development && node zip.js",
         "dev": "vite",
         "format": "prettier --cache --write .",

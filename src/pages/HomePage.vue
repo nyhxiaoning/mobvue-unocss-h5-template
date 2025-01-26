@@ -349,8 +349,9 @@ export default defineComponent({
         };
 
         onMounted(() => {
-            states.curBatteryClass = 'battery-20';
             console.log('onMounted');
+            // states.curBatteryClass = 'battery-60';
+
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
@@ -585,7 +586,7 @@ export default defineComponent({
     height: 24px;
     /* background-color: #36C449;
      */
-    background-image: url('@/assets/battery40.png') center / contain no-repeat;
+    background: url('@/assets/battery40.png') center / contain no-repeat;
     border-radius: 50%;
     display: inline-block;
 }
@@ -596,7 +597,7 @@ export default defineComponent({
     height: 24px;
     /* background-color: #36C449;
      */
-    background-image: url('@/assets/battery60.png') center / contain no-repeat;
+    background: url('@/assets/battery60.png') center / contain no-repeat;
     border-radius: 50%;
     display: inline-block;
 }
@@ -605,7 +606,7 @@ export default defineComponent({
     margin-left: 20px;
     width: 24px;
     height: 24px;
-    background-image: url('@/assets/batteryLoading.png') center / contain no-repeat;
+    background: url('@/assets/batteryLoading.png') center / contain no-repeat;
     border-radius: 50%;
     display: inline-block;
 }

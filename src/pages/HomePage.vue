@@ -233,9 +233,9 @@ export default defineComponent({
             online: false,
         });
 
-        const batteryClass = computed(() => {});
+        // const batteryClass = computed(() => {});
 
-        const temperatureClass = computed(() => {});
+        // const temperatureClass = computed(() => {});
 
         const onBrightnessChange = (value: number) => {
             console.log('当前亮度：', value);
@@ -430,8 +430,8 @@ export default defineComponent({
             appWeatherFn,
             appCityFn,
             states,
-            batteryClass,
-            temperatureClass,
+            // batteryClass,
+            // temperatureClass,
             userStore,
         };
     },

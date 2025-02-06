@@ -67,7 +67,7 @@ export default {
             },
         };
     },
-    mounted() {
+    created() {
         console.log('mounted---router');
         // 初始化时获取当前系统应用显示状态
         CupDevice.setDevMessage({

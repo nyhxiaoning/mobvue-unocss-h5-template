@@ -36,7 +36,7 @@ const router = useRouter();
 const store = useUserStore();
 
 const currentCity = computed(() => store?.$state?.weathername || '');
-
+console.log(store?.$state,'当前的下发')
 const goToCity = () => {
     router.push('city');
 };
@@ -52,7 +52,7 @@ const confirmCity = () => {
             value: {
                 method: 'setCity',
                 params: {
-                    value: store?.$state?.weathervalue,
+                    value: store?.$state?.weathervalue ,
                 },
             },
         })

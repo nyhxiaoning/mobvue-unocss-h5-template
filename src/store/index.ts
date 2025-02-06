@@ -8,9 +8,9 @@ export const useUserStore = defineStore('userInfo', {
         timezoneLabel: 'UTC+08:00',
         weathername: '',
         weathervalue: '',
-        brightness: 0,
-        battery: 0,
-        temperature: 0,
+        brightness: undefined,
+        battery: undefined,
+        temperature: undefined,
 
     }),
     // 定义 getters，用于获取 state
@@ -43,13 +43,13 @@ export const useUserStore = defineStore('userInfo', {
             this.weathervalue = value;
         },
         updateBrightness(value: number) {
-            this.brightness = value;
+            this.brightness = value as any;
         },
         updateBattery(value: number) {
-            this.battery = value;
+            this.battery = value as any;
         },
         updateTemperature(value: number) {
-            this.temperature = value;
+            this.temperature = value as any;
         }
     }
 

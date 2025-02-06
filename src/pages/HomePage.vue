@@ -3,44 +3,30 @@
         <!-- 顶部状态栏 -->
         <div class="status-bar">
             <van-row justify="space-between" align="center">
-                <van-row
-                    type="flex"
-                    justify="start"
-                    align="center"
-                    style="width: 58px; height: 24px; font-size: 12px"
-                >
+                <van-row type="flex" justify="start" align="center" style="width: 58px; height: 24px; font-size: 12px">
                     <!-- 第一个子 div -->
                     <van-col :span="12">
-                        <div
-                            :class="states.curBatteryClass"
-                            style="width: 24px; height: 24px"
-                        ></div>
+                        <div :class="states.curBatteryClass" style="width: 24px; height: 24px"></div>
                     </van-col>
                     <!-- 第二个子 div -->
                     <van-col :span="12">
-                        <div
-                            style="
+                        <div style="
                                 line-height: 24px;
                                 height: 26px;
                                 text-align: center;
                                 margin-right: -20px;
-                            "
-                        >
+                            ">
                             &nbsp;&nbsp;{{ states.battery }}%
                         </div>
                     </van-col>
                 </van-row>
 
                 <div style="position: relative; margin-left: 30%">
-                    <div  :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
-                    <div  :class="[ states.online ? 'status-text' : 'status-text-offline']" >&nbsp;在线</div>
+                    <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
+                    <div :class="[states.online ? 'status-text' : 'status-text-offline']">&nbsp;在线</div>
                 </div>
                 <div style="margin-left: 20px">
-                    <van-row
-                        type="flex"
-                        justify="start"
-                        align="center"
-                        style="
+                    <van-row type="flex" justify="start" align="center" style="
                             width: 90px;
                             height: 24px;
                             background-color: #ffffff;
@@ -48,14 +34,10 @@
                             padding-left: 5px;
                             font-size: 12px;
                             margin-right: 20px;
-                        "
-                    >
+                        ">
                         <!-- 第一个子 div -->
                         <van-col :span="6">
-                            <div
-                                :class="states.curTemperatureClass"
-                                style="width: 16px; height: 16px"
-                            ></div>
+                            <div :class="states.curTemperatureClass" style="width: 16px; height: 16px"></div>
                         </van-col>
                         <!-- 第二个子 div -->
                         <van-col :span="18">
@@ -72,20 +54,11 @@
         <div class="brightness-control">
             <div style="font-size: 16px; margin: 20px; margin-left: 15px">
                 <div>
-                    亮度&nbsp; <span style="color: #969698">|</span
-                    ><span>&nbsp;{{ states.brightness }}%</span>
+                    亮度&nbsp; <span style="color: #969698">|</span><span>&nbsp;{{ states.brightness }}%</span>
                 </div>
-                <div
-                    style="font-size: 12px; color: #969698; margin: 20px; margin-left: 15px"
-                    @click="restartCup"
-                >
-                    <van-slider
-                        bar-height="6px"
-                        active-color="#31ACF8"
-                        v-model="states.brightness"
-                        @change="onBrightnessChange"
-                        step="10"
-                    >
+                <div style="font-size: 12px; color: #969698; margin: 20px; margin-left: 15px" @click="restartCup">
+                    <van-slider bar-height="6px" active-color="#31ACF8" v-model="states.brightness"
+                        @change="onBrightnessChange" step="10">
                     </van-slider>
                 </div>
             </div>
@@ -95,10 +68,7 @@
             <div class="clock">
                 <div>
                     <div>
-                        <div
-                            @click="appWeatherFn"
-                            style="display: flex; font-size: 16px; margin-bottom: 5px"
-                        >
+                        <div @click="appWeatherFn" style="display: flex; font-size: 16px; margin-bottom: 5px">
                             时钟
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
@@ -115,16 +85,13 @@
             <div class="weather">
                 <div>
                     <div>
-                        <div
-                            @click="appCityFn"
-                            style="display: flex; font-size: 16px; margin-bottom: 5px"
-                        >
+                        <div @click="appCityFn" style="display: flex; font-size: 16px; margin-bottom: 5px">
                             天气
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
                     </div>
                     <div style="font-size: 12px; color: #969698">
-                        <span><van-icon name="location-o" />北京 <br /></span>
+                        <span><van-icon name="location-o" />{{ states.weatheraddress }} <br /></span>
                     </div>
                 </div>
 
@@ -137,9 +104,7 @@
 
         <!-- 应用配置 -->
         <div class="feature-item">
-            <div
-                @click="appConfigFn"
-                style="
+            <div @click="appConfigFn" style="
                     flex: 1;
                     display: flex;
                     justify-content: space-between;
@@ -147,18 +112,15 @@
                     background-color: #ffffff;
                     border-radius: 10px;
                     align-items: center;
-                "
-            >
+                ">
                 <div>
                     <div>
-                        <div
-                            style="
+                        <div style="
                                 display: flex;
                                 font-size: 16px;
                                 margin-bottom: 5px;
                                 text-align: center;
-                            "
-                        >
+                            ">
                             应用配置
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
@@ -177,25 +139,16 @@
 
         <!-- 底部按钮 -->
         <div class="bottom-actions">
-            <div
-                @click="restartCup"
-                style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px"
-            >
+            <div @click="restartCup" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="reboot-cup"></div>
                 <div>重启水杯</div>
             </div>
 
-            <div
-                @click="closeScreen"
-                style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px"
-            >
+            <div @click="closeScreen" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="closescreen-cup"></div>
                 <div>关闭屏幕</div>
             </div>
-            <div
-                @click="goHome"
-                style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px"
-            >
+            <div @click="goHome" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="go-home"></div>
                 <div>回到主页</div>
             </div>
@@ -204,7 +157,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, onMounted } from 'vue';
+import { defineComponent, reactive, computed, onMounted, watch } from 'vue';
 
 import { timezone } from './../utils/cityzone';
 
@@ -227,6 +180,7 @@ export default defineComponent({
             temperature: userStore.$state.temperature || 0,
             batteryStatus: false,
             address: '',
+            weatheraddress: userStore.$state.weathername || '',
             clock: '',
             curBatteryClass: 'battery-20',
             curTemperatureClass: 'temperature-0',
@@ -250,6 +204,8 @@ export default defineComponent({
                 })
                     .then((res: any) => {
                         console.log(res.data, '设置亮度.value');
+                        // userStore.$state.brightness = value as any;
+
                         // store.selectedTimezone(selectedTimezone.value);
                     })
                     .catch((err: any) => {
@@ -350,10 +306,9 @@ export default defineComponent({
         };
 
         onMounted(() => {
-            console.log('onMounted');
             // states.curBatteryClass = 'battery-60';
             states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
-            console.log(JeeWeb.deviceBind[0]?.devices[0]?.online,'', JeeWeb.deviceBind[0]?.devices)
+            console.log(JeeWeb.deviceBind[0]?.devices[0]?.online, '', JeeWeb.deviceBind[0]?.devices)
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
@@ -364,7 +319,7 @@ export default defineComponent({
                     .then((res: any) => {
                         console.log(res.data, '亮度获取zhi');
                         states.brightness = res.data;
-                        userStore.$state.temperature = res.data;
+                        userStore.$state.brightness = res.data;
                         // store.selectedTimezone(selectedTimezone.value);
                     })
                     .catch((err: any) => {
@@ -421,6 +376,43 @@ export default defineComponent({
                     console.log(err);
                 });
         });
+
+
+        // // Watch battery changes
+        // watch(
+        //     () => userStore.$state.battery,
+        //     (newValue, oldValue) => {
+        //         console.log('Brightness changed:', oldValue, '->', newValue)
+        //         if (!newValue) {
+        //             return states.curBatteryClass = 'battery-20'
+        //         } else if (newValue < 20) {
+        //             return (states.curBatteryClass = 'battery-20');
+        //         } else if (newValue > 20 && newValue < 40) {
+        //             return (states.curBatteryClass = 'battery-40');
+        //         } else if (newValue > 40) {
+        //             return (states.curBatteryClass = 'battery-60');
+        //         }
+        //         // Add your logic here for brightness changes
+        //     }
+        // )
+
+        // // Watch temperature changes
+        // watch(
+        //     () => userStore.$state.temperature,
+        //     (newValue, oldValue) => {
+        //         console.log('Temperature changed:', oldValue, '->', newValue)
+        //         // Add your logic here for temperature changes
+        //         if (!newValue) {
+        //             return (states.curTemperatureClass = 'temperature');
+        //         } else if (newValue < 0) {
+        //             return (states.curTemperatureClass = 'temperature');
+        //         } else if (newValue >= 0 && newValue < 99) {
+        //             return (states.curTemperatureClass = 'temperature-0');
+        //         } else if (newValue >= 99) {
+        //             return (states.curTemperatureClass = 'temperature-99');
+        //         }
+        //     }
+        // )
 
         return {
             onBrightnessChange,
@@ -501,6 +493,7 @@ export default defineComponent({
     font-size: 12px;
     border-radius: 12px;
 }
+
 .weather {
     flex: 1;
     display: flex;
@@ -551,6 +544,7 @@ export default defineComponent({
     font-size: 12px;
     border-radius: 12px;
     justify-content: center;
+
     div {
         flex: 1;
         align-content: center;
@@ -710,6 +704,7 @@ export default defineComponent({
 
     display: inline-block;
 }
+
 .closescreen-cup {
     background: url('@/assets/closescreen.png') center / contain no-repeat;
     width: 16px;

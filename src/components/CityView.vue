@@ -248,6 +248,7 @@ const onClear = () => {
 const selectCity = (city) => {
     store.$state.weathername = city.name;
     store.$state.weathervalue = city.value;
+    console.log('selectCity', city)
     router.push('weather');
 
     // selectedCity.value = city;

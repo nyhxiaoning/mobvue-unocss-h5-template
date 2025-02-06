@@ -353,6 +353,7 @@ export default defineComponent({
             console.log('onMounted');
             // states.curBatteryClass = 'battery-60';
             states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
+            console.log(JeeWeb.deviceBind[0]?.devices[0]?.online,'', JeeWeb.deviceBind[0]?.devices)
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {

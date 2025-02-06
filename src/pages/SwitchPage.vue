@@ -13,7 +13,7 @@
             <van-cell title="设备信息" center> </van-cell>
             <van-cell title="屏保" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeGIF" disabled="true" />
+                    <van-switch v-model="settings.HomeGIF" />
                 </template>
             </van-cell>
             <van-cell title="天气" center>
@@ -61,13 +61,14 @@ export default {
                 HomeGIF: true,
                 HomeWeather: true,
                 HomeFreeFallIcon: true,
-                homeTigerGame: false,
+                homeTigerGame: true,
                 HomeWaterShak: true,
                 HomeCocos2: true,
             },
         };
     },
     mounted() {
+        console.log('mounted---router');
         // 初始化时获取当前系统应用显示状态
         CupDevice.setDevMessage({
             value: {
@@ -78,13 +79,13 @@ export default {
             .then((res) => {
                 if (res && res.data) {
                     // 更新settings中的状态
-                    this.settings.enableApp = res.data.enableApp || true;
-                    this.settings.HomeGIF = res.data.HomeGIF || true;
-                    this.settings.HomeWeather = res.data.HomeWeather || true;
-                    this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon || true;
+                    this.settings.enableApp = res.data.enableApp || false;
+                    this.settings.HomeGIF = res.data.HomeGIF || false;
+                    this.settings.HomeWeather = res.data.HomeWeather || false;
+                    this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon || false;
                     this.settings.homeTigerGame = res.data.homeTigerGame || false;
-                    this.settings.HomeWaterShak = res.data.HomeWaterShak || true;
-                    this.settings.HomeCocos2 = res.data.HomeCocos2 || true;
+                    this.settings.HomeWaterShak = res.data.HomeWaterShak || false;
+                    this.settings.HomeCocos2 = res.data.HomeCocos2 || false;
                 }
             })
             .catch((err) => {
@@ -118,7 +119,7 @@ export default {
                 });
         },
         'settings.HomeGIF'(newVal) {
-            alert(`硬件本次不支持，下版本支持: ${newVal}`);
+            // alert(`硬件本次不支持，下版本支持: ${newVal}`);
             CupDevice.setDevMessage({
                 value: {
                     method: 'setHomeAppsVisable',

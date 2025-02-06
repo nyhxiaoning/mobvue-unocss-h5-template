@@ -32,8 +32,8 @@
                 </van-row>
 
                 <div style="position: relative; margin-left: 30%">
-                    <div class="green-dot"></div>
-                    <div class="status-text">&nbsp;在线</div>
+                    <div  :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
+                    <div  :class="[ states.online ? 'status-text' : 'status-text-offline']" >&nbsp;在线</div>
                 </div>
                 <div style="margin-left: 20px">
                     <van-row
@@ -228,8 +228,9 @@ export default defineComponent({
             batteryStatus: false,
             address: '',
             clock: '',
-            curBatteryClass: '',
-            curTemperatureClass: '',
+            curBatteryClass: 'battery-20',
+            curTemperatureClass: 'temperature-0',
+            online: false,
         });
 
         const batteryClass = computed(() => {});
@@ -351,7 +352,7 @@ export default defineComponent({
         onMounted(() => {
             console.log('onMounted');
             // states.curBatteryClass = 'battery-60';
-
+            states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
@@ -464,6 +465,15 @@ export default defineComponent({
     font-size: 12px;
 }
 
+.status-text-offline {
+    display: inline-block;
+    line-height: 20px;
+    height: 20px;
+    color: #A3A3A3;
+    /* margin-right: 30px; */
+    font-size: 12px;
+}
+
 .brightness-control {
     display: flex;
     flex: 0.3;
@@ -557,6 +567,15 @@ export default defineComponent({
     width: 10px;
     height: 10px;
     background-color: #36c449;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+
+.green-dot-offline {
+    width: 10px;
+    height: 10px;
+    background-color: #A3A3A3;
     border-radius: 50%;
     display: inline-block;
 }

@@ -6,7 +6,7 @@
                 <van-row type="flex" justify="start" align="center" style="width: 58px; height: 24px; font-size: 12px">
                     <!-- 第一个子 div -->
                     <van-col :span="12">
-                        <div :class="states.curBatteryClass" style="width: 24px; height: 24px"></div>
+                        <div :class="curBatteryClass" style="width: 24px; height: 24px"></div>
                     </van-col>
                     <!-- 第二个子 div -->
                     <van-col :span="12">
@@ -37,7 +37,7 @@
                         ">
                         <!-- 第一个子 div -->
                         <van-col :span="6">
-                            <div :class="states.curTemperatureClass" style="width: 16px; height: 16px"></div>
+                            <div :class="curTemperatureClass"  style="width: 16px; height: 16px"></div>
                         </van-col>
                         <!-- 第二个子 div -->
                         <van-col :span="18">
@@ -305,11 +305,33 @@ export default defineComponent({
             router.push('weather'); // 跳转到首页
         };
 
+        // 计算温度状态的 class
+        const curTemperatureClass = computed(() => {
+            if (states.temperature < 0) {
+                return 'temperature';
+            } else if (states.temperature < 99) {
+                return 'temperature-0';
+            } else {
+                return 'temperature-99';
+            }
+        });
+
+        // 计算电池状态的 class
+        const curBatteryClass = computed(() => {
+            if (states.battery < 20) {
+                return 'battery-20';
+            } else if (states.battery < 40) { // 省略 `> 20`，因为前面已经判断 `< 20`
+                return 'battery-40';
+            } else {
+                return 'battery-60';
+            }
+        });
+
         onMounted(() => {
             // states.curBatteryClass = 'battery-60';
             states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
             console.log(JeeWeb.deviceBind[0]?.devices[0]?.online, '', JeeWeb.deviceBind[0]?.devices)
-            CupDevice &&
+            !sessionStorage.getItem('brightnessFlag') && CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
                         method: 'getBrightness',
@@ -320,13 +342,14 @@ export default defineComponent({
                         console.log(res.data, '亮度获取zhi');
                         states.brightness = res.data;
                         userStore.$state.brightness = res.data;
+                        sessionStorage.setItem('brightnessFlag', '100');// 记录1
                         // store.selectedTimezone(selectedTimezone.value);
                     })
                     .catch((err: any) => {
                         console.log(err);
                     });
 
-            CupDevice.setDevMessage({
+            !sessionStorage.getItem('temperatureFlag') && CupDevice.setDevMessage({
                 value: {
                     method: 'getTemperature',
                     params: {},
@@ -335,24 +358,32 @@ export default defineComponent({
                 .then((res: any) => {
                     console.log(res.data, '单个温度获取');
                     userStore.$state.temperature = res.data;
+                    sessionStorage.setItem('temperatureFlag', '100');// 记录1
                     if (res.data) states.temperature = res.data;
-                    if (states.temperature < 0) {
-                        return (states.curTemperatureClass = 'temperature');
-                    } else if (states.temperature >= 0 && states.temperature < 99) {
-                        return (states.curTemperatureClass = 'temperature-0');
-                    } else if (states.temperature >= 99) {
-                        return (states.curTemperatureClass = 'temperature-99');
-                    }
+                    // if (states.temperature < 0) {
+                    //     return (states.curTemperatureClass = 'temperature');
+                    // } else if (states.temperature >= 0 && states.temperature < 99) {
+                    //     return (states.curTemperatureClass = 'temperature-0');
+                    // } else if (states.temperature >= 99) {
+                    //     return (states.curTemperatureClass = 'temperature-99');
+                    // }
                 })
                 .catch((err: any) => {
                     console.log(err);
-                    showToast({
-                        message: '获取温度失败',
-                        duration: 1000,
-                    });
+                    // if (states.temperature < 0) {
+                    //     return (states.curTemperatureClass = 'temperature');
+                    // } else if (states.temperature >= 0 && states.temperature < 99) {
+                    //     return (states.curTemperatureClass = 'temperature-0');
+                    // } else if (states.temperature >= 99) {
+                    //     return (states.curTemperatureClass = 'temperature-99');
+                    // }
+                    // showToast({
+                    //     message: '获取温度失败',
+                    //     duration: 1000,
+                    // });
                 });
 
-            CupDevice.setDevMessage({
+            !sessionStorage.getItem('batteryFlag') && CupDevice.setDevMessage({
                 value: {
                     method: 'getBatteryStatus',
                     params: {},
@@ -362,18 +393,26 @@ export default defineComponent({
                     console.log(res.data, '单个电池');
                     states.battery = res.data;
                     userStore.$state.battery = res.data;
-                    if (states.battery < 20) {
-                        return (states.curBatteryClass = 'battery-20');
-                    } else if (states.battery > 20 && states.battery < 40) {
-                        return (states.curBatteryClass = 'battery-40');
-                    } else if (states.battery > 40) {
-                        return (states.curBatteryClass = 'battery-60');
-                    }
+                    sessionStorage.setItem('batteryFlag', '100');// 记录1
+                    // if (states.battery < 20) {
+                    //     return (states.curBatteryClass = 'battery-20');
+                    // } else if (states.battery > 20 && states.battery < 40) {
+                    //     return (states.curBatteryClass = 'battery-40');
+                    // } else if (states.battery > 40) {
+                    //     return (states.curBatteryClass = 'battery-60');
+                    // }
                     // 只有输出电量
                     // states.batteryStatus = res.data.value?true:false;
                 })
                 .catch((err: any) => {
                     console.log(err);
+                    // if (states.battery < 20) {
+                    //     return (states.curBatteryClass = 'battery-20');
+                    // } else if (states.battery > 20 && states.battery < 40) {
+                    //     return (states.curBatteryClass = 'battery-40');
+                    // } else if (states.battery > 40) {
+                    //     return (states.curBatteryClass = 'battery-60');
+                    // }
                 });
         });
 
@@ -423,8 +462,8 @@ export default defineComponent({
             appWeatherFn,
             appCityFn,
             states,
-            // batteryClass,
-            // temperatureClass,
+            curBatteryClass,
+            curTemperatureClass,
             userStore,
         };
     },

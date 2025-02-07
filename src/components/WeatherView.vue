@@ -63,7 +63,7 @@ const confirmCity = () => {
             })
             .catch((err) => {
                 console.log(err);
-                showToast('设置失败');
+                showToast('设置城市失败');
             });
 };
 </script>

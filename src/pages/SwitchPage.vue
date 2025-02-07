@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { showToast } from 'vant';
 export default {
     data() {
         return {
@@ -90,6 +91,7 @@ export default {
             })
             .catch((err) => {
                 console.log('获取应用显示状态失败:', err);
+                showToast('获取应用显示状态失败')
             });
     },
     watch: {

@@ -6,7 +6,7 @@
         <div class="search-wrapper">
             <van-search
                 v-model="searchText"
-                placeholder="搜索城市"
+                :placeholder="language.searchPlaceholder"
                 shape="round"
                 :clearable="true"
                 :show-left-icon="false"
@@ -75,7 +75,7 @@
                             class="region-header"
                         >
                             <template #right-icon>
-                                <span class="more-text">更多</span>
+                                <span class="more-text">{{ language.more }}</span>
                                 <van-icon
                                     :name="expandedRegions[region.name] ? 'arrow-up' : 'arrow-down'"
                                 />
@@ -103,12 +103,14 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 // import { useStore } from 'vuex';
+
+
 import { useUserStore } from './../store/index';
 import pinyin from 'pinyin-match';
-import { Icon as VanIcon, NavBar, Search, Cell, Button } from 'vant';
+import { Icon as VanIcon, NavBar, Search, Cell, Button,showToast } from 'vant';
 
 const router = useRouter();
 const store = useUserStore();
@@ -125,10 +127,29 @@ const selectedContinent = ref('asia');
 const expandedRegions = ref({});
 const isSearchFocused = ref(false);
 
+const language = reactive({
+    searchPlaceholder: JeeWeb.Language === 'zh-CN' ? '搜索城市' : 'Search City',
+    more: JeeWeb.Language === 'zh-CN' ? '更多' : 'More',
+    noContent: JeeWeb.Language === 'zh-CN' ? '暂无内容' : 'No Content',
+    continents: {
+        asia: JeeWeb.Language === 'zh-CN' ? '亚洲' : 'Asia',
+        europe: JeeWeb.Language === 'zh-CN' ? '欧洲' : 'Europe',
+        // namerica: JeeWeb.Language === 'zh-CN' ? '北美洲' : 'North America',
+        // oceania: JeeWeb.Language === 'zh-CN' ? '大洋洲' : 'Oceania',
+        // africa: JeeWeb.Language === 'zh-CN' ? '非洲' : 'Africa',
+        // samerica: JeeWeb.Language === 'zh-CN' ? '南美洲' : 'South America',
+        // antarctica: JeeWeb.Language === 'zh-CN' ? '南极洲' : 'Antarctica'
+    },
+    countries: {
+        china: JeeWeb.Language === 'zh-CN' ? '中国' : 'China',
+        france: JeeWeb.Language === 'zh-CN' ? '法国' : 'France'
+    }
+});
+
 // 获取洲列表
 const continents = computed(() => [
-    { key: 'asia', name: '亚洲' },
-    { key: 'europe', name: '欧洲' },
+    { key: 'asia', name: language.continents.asia },
+    { key: 'europe', name: language.continents.europe },
     // { key: 'namerica', name: '北美洲' },
     // { key: 'oceania', name: '大洋洲' },
     // { key: 'africa', name: '非洲' },
@@ -145,7 +166,7 @@ const getSelectedIndex = () => {
 const allRegions = {
     asia: [
         {
-            name: '中国',
+            name: language.countries.china,
             cities: [
                 { name: '北京', nameEn: 'Beijing', value: 'Beijing' },
                 { name: '上海', nameEn: 'Shanghai', value: 'Shanghai' },
@@ -160,7 +181,7 @@ const allRegions = {
     ],
     europe: [
         {
-            name: '法国',
+            name: language.countries.france,
             cities: [
                 { name: '巴黎', nameEn: 'Paris', value: 'Paris' },
                 { name: '马赛', nameEn: 'Marseille', value: 'Marseille' },
@@ -239,8 +260,12 @@ const onSearch = () => {
             );
         })
         .slice(0, 20);
+    if (!searchResults.value.length) {
+        showToast(language.noContent);
+    }
     console.log('搜索结果')
     console.log(JSON.stringify(searchResults.value))
+
 };
 
 const onClear = () => {

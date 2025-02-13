@@ -1,24 +1,22 @@
 <template>
     <div class="timezone-picker">
         <!-- 显示已选时区 -->
-        <van-cell title="时区" :value="selectedTimezone.label" is-link @click="showPopup = true" />
+        <van-cell :title="language.timezone" :value="selectedTimezone.label" is-link @click="showPopup = true" />
 
         <!-- 弹窗选择器 -->
-        <van-popup
-            v-model:show="showPopup"
-            position="bottom"
-            style="padding: 10px; border-top-left-radius: 12px; border-top-right-radius: 12px"
-        >
+        <van-popup v-model:show="showPopup" position="bottom"
+            style="padding: 10px; border-top-left-radius: 12px; border-top-right-radius: 12px">
             <div class="popup-header">
-                <div type="default" plain @click="cancel">取消</div>
-                <span class="popup-title">时区</span>
-                <div type="primary" plain @click="confirm">确定</div>
+                <div type="default" plain @click="cancel">{{ language.cancel }}</div>
+                <span class="popup-title">{{ language.timezone }}</span>
+                <div type="primary" plain @click="confirm">{{ language.confirm }}</div>
             </div>
             <div class="popup-content">
                 <van-radio-group v-model="selectedTimezone.value">
                     <van-cell-group>
                         <!-- 动态渲染每个时区选项 -->
-                        <van-cell v-for="timezone in timezones" :key="timezone.value" clickable>
+                        <van-cell v-for="timezone in timezones" :key="timezone.value" clickable
+                            @click="selectTimezone(timezone.value)">
                             <template #title>
                                 {{ timezone.label }}
                             </template>
@@ -35,7 +33,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
 import { showToast } from 'vant';
 import { useUserStore } from './../store/index';
 
@@ -43,6 +41,16 @@ export default {
     setup() {
         const store = useUserStore();
         const showPopup = ref(false);
+        const language = reactive({
+            timezone: JeeWeb.Language === 'zh-CN' ? '时区' : 'Timezone',
+            cancel: JeeWeb.Language === 'zh-CN' ? '取消' : 'Cancel',
+            confirm: JeeWeb.Language === 'zh-CN' ? '确定' : 'Confirm',
+            confirmError: JeeWeb.Language === 'zh-CN'
+                ? '时区设置失败，请重试！'
+                : 'Timezone setting failed, please try again!',
+            cancelMessage: JeeWeb.Language === 'zh-CN' ? '取消选择' : 'Selection cancelled',
+            notFoundMessage: JeeWeb.Language === 'zh-CN' ? '未找到时区' : 'Timezone not found',
+        });
         const selectedTimezone = ref({
             name: store.$state.timezoneLabel || 'UTC+08:00',
             label: store.$state.timezoneLabel
@@ -54,159 +62,187 @@ export default {
         const timezones = ref([
             {
                 name: 'UTC-12:00',
-                label: '（UTC-12:00）贝克岛',
-                // value: '(UTC-12:00) Baker Island',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-12:00）贝克岛'
+                    : '(UTC-12:00) Baker Island',
                 value: 'Chile/EasterIsland',
             },
             {
                 name: 'UTC-11:00',
-                label: '（UTC-11:00）帕果帕果',
-                // value: '(UTC-11:00) Pago Pago',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-11:00）帕果帕果'
+                    : '(UTC-11:00) Pago Pago',
                 value: 'Pacific/Pago_Pago',
             },
             {
                 name: 'UTC-10:00',
-                label: '（UTC-10:00）檀香山',
-                // value: '(UTC-10:00) Honolulu',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-10:00）檀香山'
+                    : '(UTC-10:00) Honolulu',
                 value: 'Pacific/Honolulu',
             },
             {
                 name: 'UTC-9:00',
-                label: '（UTC-9:00）安克雷奇',
-                // value: '(UTC-9:00) Anchorage',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-9:00）安克雷奇'
+                    : '(UTC-9:00) Anchorage',
                 value: 'America/Anchorage',
             },
             {
                 name: 'UTC-8:00',
-                label: '（UTC-8:00）洛杉矶',
-                // value: '(UTC-8:00) Los Angeles',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-8:00）洛杉矶'
+                    : '(UTC-8:00) Los Angeles',
                 value: 'America/Los_Angeles',
             },
             {
                 name: 'UTC-7:00',
-                label: '（UTC-7:00）丹佛',
-                // value: '(UTC-7:00) Denver',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-7:00）丹佛'
+                    : '(UTC-7:00) Denver',
                 value: 'America/Denver',
             },
             {
                 name: 'UTC-6:00',
-                label: '（UTC-6:00）芝加哥',
-                // value: '(UTC-6:00) Chicago',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-6:00）芝加哥'
+                    : '(UTC-6:00) Chicago',
                 value: 'America/Chicago',
             },
             {
                 name: 'UTC-5:00',
-                label: '（UTC-5:00）纽约',
-                // value: '(UTC-5:00) New York',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-5:00）纽约'
+                    : '(UTC-5:00) New York',
                 value: 'America/New_York',
             },
             {
                 name: 'UTC-4:00',
-                label: '（UTC-4:00）圣地亚哥',
-                // value: '(UTC-4:00) Santiago',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-4:00）圣地亚哥'
+                    : '(UTC-4:00) Santiago',
                 value: 'America/Argentina/Cordoba',
             },
             {
                 name: 'UTC-3:00',
-                label: '（UTC-3:00）布宜诺斯艾利斯',
-                // value: '(UTC-3:00) Buenos Aires',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-3:00）布宜诺斯艾利斯'
+                    : '(UTC-3:00) Buenos Aires',
                 value: 'America/Argentina/Buenos_Aires',
             },
             {
                 name: 'UTC-2:00',
-                label: '（UTC-2:00）南乔治亚岛',
-                // value: '(UTC-2:00) South Georgia Island',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-2:00）南乔治亚岛'
+                    : '(UTC-2:00) South Georgia Island',
                 value: 'Atlantic/South_Georgia',
             },
             {
                 name: 'UTC-1:00',
-                label: '（UTC-1:00）亚速尔群岛',
-                // value: '(UTC-1:00) Azores',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-1:00）亚速尔群岛'
+                    : '(UTC-1:00) Azores',
                 value: 'Atlantic/Azores',
             },
             {
                 name: 'UTC+00:00',
-                label: '（UTC+00:00）伦敦',
-                // value: '(UTC+00:00) London',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+00:00）伦敦'
+                    : '(UTC+00:00) London',
                 value: 'Europe/London',
             },
             {
                 name: 'UTC+01:00',
-                label: '（UTC+01:00）巴黎',
-                // value: '(UTC+01:00) Paris',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+01:00）巴黎'
+                    : '(UTC+01:00) Paris',
                 value: 'Europe/Paris',
             },
             {
                 name: 'UTC+02:00',
-                label: '（UTC+02:00）开罗',
-                // value: '(UTC+02:00) Cairo',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+02:00）开罗'
+                    : '(UTC+02:00) Cairo',
                 value: 'Africa/Cairo',
             },
             {
                 name: 'UTC+03:00',
-                label: '（UTC+03:00）莫斯科',
-                // value: '(UTC+03:00) Moscow',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+03:00）莫斯科'
+                    : '(UTC+03:00) Moscow',
                 value: 'Europe/Moscow',
             },
             {
                 name: 'UTC+04:00',
-                label: '（UTC+04:00）迪拜',
-                // value: '(UTC+04:00) Dubai',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+04:00）迪拜'
+                    : '(UTC+04:00) Dubai',
                 value: 'Asia/Dubai',
             },
             {
                 name: 'UTC+05:00',
-                label: '（UTC+05:00）卡拉奇',
-                // value: '(UTC+05:00) Karachi',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+05:00）卡拉奇'
+                    : '(UTC+05:00) Karachi',
                 value: 'Asia/Karachi',
             },
             {
                 name: 'UTC+06:00',
-                label: '（UTC+06:00）达卡',
-                // value: '(UTC+06:00) Dhaka',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+06:00）达卡'
+                    : '(UTC+06:00) Dhaka',
                 value: 'Asia/Dhaka',
             },
             {
                 name: 'UTC+07:00',
-                label: '（UTC+07:00）曼谷',
-                // value: '(UTC+07:00) Bangkok',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+07:00）曼谷'
+                    : '(UTC+07:00) Bangkok',
                 value: 'Asia/Bangkok',
             },
             {
                 name: 'UTC+08:00',
-                label: '（UTC+08:00）北京',
-                // value: '(UTC+08:00) Beijing',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+08:00）北京'
+                    : '(UTC+08:00) Beijing',
                 value: 'Asia/Shanghai',
             },
             {
                 name: 'UTC+09:00',
-                label: '（UTC+09:00）东京',
-                // value: '(UTC+09:00) Tokyo',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+09:00）东京'
+                    : '(UTC+09:00) Tokyo',
                 value: 'Asia/Tokyo',
             },
             {
                 name: 'UTC+10:00',
-                label: '（UTC+10:00）悉尼',
-                // value: '(UTC+10:00) Sydney',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+10:00）悉尼'
+                    : '(UTC+10:00) Sydney',
                 value: 'Australia/Sydney',
             },
             {
                 name: 'UTC+11:00',
-                label: '（UTC+11:00）所罗门群岛',
-                // value: '(UTC+11:00) Solomon Islands',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+11:00）所罗门群岛'
+                    : '(UTC+11:00) Solomon Islands',
                 value: 'Pacific/Guadalcanal',
             },
             {
                 name: 'UTC+12:00',
-                label: '（UTC+12:00）奥克兰',
-                // value: '(UTC+12:00) Auckland',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+12:00）奥克兰'
+                    : '(UTC+12:00) Auckland',
                 timezone: 'Pacific/Auckland',
             },
         ]);
 
         const cancel = () => {
             showPopup.value = false;
-            showToast('取消选择');
+            // 这里使用没有更新的回显地址：
+            selectedTimezone.value.value = store.$state.timezoneValue;
+            selectedTimezone.value.label = `（${store.$state.timezoneLabel}）${store.$state.timezoneAddress}`
+            showToast(language.cancelMessage);
         };
 
         const confirm = () => {
@@ -215,9 +251,7 @@ export default {
             for (let i = 0; i < timezones.value.length; i++) {
                 if (timezones.value[i].value === selectedTimezone.value.value) {
                     selectedTimezone.value.label = timezones.value[i].label;
-                    store.$state.timezoneLabel = timezones.value[i].name;
-                    store.$state.timezoneAddress = timezones.value[i].label.split('）')[1];
-                    store.$state.timezoneValue = timezones.value[i].value;
+
                     // alert(JSON.stringify(timezones.value[i].label.split('）')[1]));
                 }
             }
@@ -233,6 +267,11 @@ export default {
                         },
                     })
                         .then((res) => {
+                            showToast(language.confirm);
+                            // 下发成功，同步store地址数据
+                            store.$state.timezoneLabel = timezones.value[i].name;
+                            store.$state.timezoneAddress = timezones.value[i].label.split('）')[1];
+                            store.$state.timezoneValue = timezones.value[i].value;
                             console.log(res, '单个getLoaclTimeZone');
                             // store.selectedTimezone(selectedTimezone.value);
                             for (let i = 0; i < timezones.value.length; i++) {
@@ -243,11 +282,18 @@ export default {
                         })
                         .catch((err) => {
                             console.log(err);
+                            showToast(language.confirmError);
+                            selectedTimezone.value.value = store.$state.timezoneValue;
+                            selectedTimezone.value.label = `（${store.$state.timezoneLabel}）${store.$state.timezoneAddress}`
                         });
             } else {
-                showToast(`未找到时区: ${labeled}`);
+                showToast(`${language.notFoundMessage}: ${labeled}`);
             }
             showPopup.value = false;
+        };
+
+        const selectTimezone = (value) => {
+            selectedTimezone.value.value = value;
         };
 
         onMounted(() => {
@@ -284,6 +330,8 @@ export default {
             timezones,
             cancel,
             confirm,
+            language,
+            selectTimezone,
         };
     },
 };
@@ -312,22 +360,36 @@ export default {
 }
 
 .popup-content {
-    max-height: 400px; /* 设置最大高度 */
+    max-height: 400px;
+    /* 设置最大高度 */
     overflow-y: auto;
     padding: 0 16px;
 }
 
 /* 调整滚动条样式（可选） */
 .popup-content::-webkit-scrollbar {
-    width: 6px; /* 滚动条宽度 */
+    width: 6px;
+    /* 滚动条宽度 */
 }
 
 .popup-content::-webkit-scrollbar-thumb {
-    background-color: #c0c0c0; /* 滚动条滑块颜色 */
-    border-radius: 3px; /* 滑块圆角 */
+    background-color: #c0c0c0;
+    /* 滚动条滑块颜色 */
+    border-radius: 3px;
+    /* 滑块圆角 */
 }
 
 .popup-content::-webkit-scrollbar-track {
-    background-color: #f5f5f5; /* 滚动条轨道颜色 */
+    background-color: #f5f5f5;
+    /* 滚动条轨道颜色 */
+}
+
+/* Add these styles to improve click feedback */
+:deep(.van-cell) {
+    cursor: pointer;
+}
+
+:deep(.van-cell:active) {
+    background-color: #f2f3f5;
 }
 </style>

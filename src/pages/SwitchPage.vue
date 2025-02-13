@@ -1,27 +1,26 @@
 <template>
     <div class="system-settings">
         <van-cell-group inset>
-            <van-cell center title="开启切换应用" inset>
+            <van-cell center :title="language.enableSwitch" inset>
                 <template #right-icon>
                     <van-switch v-model="settings.enableApp" />
                 </template>
             </van-cell>
         </van-cell-group>
-        <van-cell-group title="水杯显示应用" inset>
-            <!-- 功能开关 -->
-            <van-cell title="时钟" center> </van-cell>
-            <van-cell title="设备信息" center> </van-cell>
-            <van-cell title="屏保" center>
+        <van-cell-group :title="language.displayApps" inset>
+            <van-cell :title="language.clock" center> </van-cell>
+            <van-cell :title="language.deviceInfo" center> </van-cell>
+            <van-cell :title="language.screensaver" center>
                 <template #right-icon>
                     <van-switch v-model="settings.HomeGIF" />
                 </template>
             </van-cell>
-            <van-cell title="天气" center>
+            <van-cell :title="language.weather" center>
                 <template #right-icon>
                     <van-switch v-model="settings.HomeWeather" :disabled="!settings.enableApp" />
                 </template>
             </van-cell>
-            <van-cell title="落球游戏" center>
+            <van-cell :title="language.ballGame" center>
                 <template #right-icon>
                     <van-switch
                         v-model="settings.HomeFreeFallIcon"
@@ -29,17 +28,17 @@
                     />
                 </template>
             </van-cell>
-            <van-cell title="老虎机游戏" center>
+            <van-cell :title="language.slotGame" center>
                 <template #right-icon>
                     <van-switch v-model="settings.homeTigerGame" :disabled="!settings.enableApp" />
                 </template>
             </van-cell>
-            <van-cell title="摇晃水杯动效" center>
+            <van-cell :title="language.shakeEffect" center>
                 <template #right-icon>
                     <van-switch v-model="settings.HomeWaterShak" :disabled="!settings.enableApp" />
                 </template>
             </van-cell>
-            <van-cell title="黑幕帝国动效" center>
+            <van-cell :title="language.darkEmpire" center>
                 <template #right-icon>
                     <van-switch v-model="settings.HomeCocos2" :disabled="!settings.enableApp" />
                 </template>
@@ -66,6 +65,18 @@ export default {
                 HomeWaterShak: true,
                 HomeCocos2: true,
             },
+            language: {
+                enableSwitch: JeeWeb.Language === 'zh-CN' ? '开启切换应用' : 'Enable App Switching',
+                displayApps: JeeWeb.Language === 'zh-CN' ? '水杯显示应用' : 'Cup Display Apps',
+                clock: JeeWeb.Language === 'zh-CN' ? '时钟' : 'Clock',
+                deviceInfo: JeeWeb.Language === 'zh-CN' ? '设备信息' : 'Device Info',
+                screensaver: JeeWeb.Language === 'zh-CN' ? '屏保' : 'Screensaver',
+                weather: JeeWeb.Language === 'zh-CN' ? '天气' : 'Weather',
+                ballGame: JeeWeb.Language === 'zh-CN' ? '落球游戏' : 'Ball Game',
+                slotGame: JeeWeb.Language === 'zh-CN' ? '老虎机游戏' : 'Slot Machine',
+                shakeEffect: JeeWeb.Language === 'zh-CN' ? '摇晃水杯动效' : 'Cup Shake Effect',
+                darkEmpire: JeeWeb.Language === 'zh-CN' ? '黑幕帝国动效' : 'Dark Empire Effect'
+            }
         };
     },
     created() {
@@ -91,8 +102,16 @@ export default {
             })
             .catch((err) => {
                 console.log('获取应用显示状态失败:', err);
-                showToast('获取应用显示状态失败')
+                this.showErrorToast();
             });
+    },
+    methods: {
+        showErrorToast() {
+            showToast(JeeWeb.Language === 'zh-CN' ?
+                '获取应用显示状态失败' :
+                'Failed to get app display status'
+            );
+        }
     },
     watch: {
         'settings.enableApp'(newVal) {

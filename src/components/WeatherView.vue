@@ -1,16 +1,9 @@
 <template>
     <div class="weather-view">
-        <!-- <van-nav-bar
-      title="天气"
-      left-arrow
-      @click-left="goBack"
-      class="custom-nav"
-    /> -->
-
         <div class="main-content">
             <div class="city-card" @click="goToCity">
                 <div class="city-row">
-                    <span class="city-label">城市</span>
+                    <span class="city-label">{{ language.city }}</span>
                     <div class="city-value">
                         <span class="city-name">{{ currentCity }}</span>
                         <van-icon name="arrow" />
@@ -20,20 +13,25 @@
         </div>
 
         <div class="bottom-button">
-            <van-button block type="primary" @click="confirmCity">确认</van-button>
+            <van-button block type="primary" @click="confirmCity">{{ language.confirm }}</van-button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStore } from 'vuex';
 import { useUserStore } from './../store/index';
 import { showToast } from 'vant';
 
 const router = useRouter();
 const store = useUserStore();
+
+const language = reactive({
+    city: JeeWeb.Language === 'zh-CN' ? '城市' : 'City',
+    confirm: JeeWeb.Language === 'zh-CN' ? '确认' : 'Confirm',
+    setCityError: JeeWeb.Language === 'zh-CN' ? '设置城市失败' : 'Failed to set city'
+});
 
 const currentCity = computed(() => store?.$state?.weathername || '');
 console.log(store?.$state,'当前的下发')
@@ -46,24 +44,22 @@ const goBack = () => {
 };
 
 const confirmCity = () => {
-    // TODO: 实现确认逻辑
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
                 method: 'setCity',
                 params: {
-                    value: store?.$state?.weathervalue ,
+                    value: store?.$state?.weathervalue,
                 },
             },
         })
             .then((res) => {
                 console.log(res, 'city.value');
                 router.push('/');
-                // store.selectedTimezone(selectedTimezone.value);
             })
             .catch((err) => {
                 console.log(err);
-                showToast('设置城市失败');
+                showToast(language.setCityError);
             });
 };
 </script>

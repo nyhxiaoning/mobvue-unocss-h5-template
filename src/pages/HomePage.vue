@@ -21,28 +21,22 @@
                     </van-col>
                 </van-row>
 
-                <div style="position: relative; margin-left: 30%">
+                <div style="position: relative; margin-left: 20%">
                     <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
-                    <div :class="[states.online ? 'status-text' : 'status-text-offline']">&nbsp;在线</div>
+                    <div :class="[states.online ? 'status-text' : 'status-text-offline']">&nbsp;{{ language.online }}</div>
                 </div>
                 <div style="margin-left: 20px">
-                    <van-row type="flex" justify="start" align="center" style="
-                            width: 90px;
-                            height: 24px;
-                            background-color: #ffffff;
-                            border-radius: 6px;
-                            padding-left: 5px;
-                            font-size: 12px;
-                            margin-right: 20px;
-                        ">
+                    <van-row type="flex" justify="start" align="center"
+                        :class="[states.languageFlag ? 'temperature-content' : 'temperature-content-en']"
+                        >
                         <!-- 第一个子 div -->
                         <van-col :span="6">
-                            <div :class="curTemperatureClass"  style="width: 16px; height: 16px"></div>
+                            <div :class="curTemperatureClass" style="width: 16px; height: 16px"></div>
                         </van-col>
                         <!-- 第二个子 div -->
                         <van-col :span="18">
                             <div style="line-height: 24px; height: 26px; font-size: 12px">
-                                水温:{{ states.temperature }}℃
+                                {{ language.waterTemp }}:{{ states.temperature }}℃
                             </div>
                         </van-col>
                     </van-row>
@@ -54,7 +48,8 @@
         <div class="brightness-control">
             <div style="font-size: 16px; margin: 20px; margin-left: 15px">
                 <div>
-                    亮度&nbsp; <span style="color: #969698">|</span><span>&nbsp;{{ states.brightness }}%</span>
+                    {{ language.brightness }}&nbsp; <span style="color: #969698">|</span><span>&nbsp;{{ states.brightness
+                    }}%</span>
                 </div>
                 <div style="font-size: 12px; color: #969698; margin: 20px; margin-left: 15px" @click="restartCup">
                     <van-slider bar-height="6px" active-color="#31ACF8" v-model="states.brightness"
@@ -69,7 +64,7 @@
                 <div>
                     <div>
                         <div @click="appWeatherFn" style="display: flex; font-size: 16px; margin-bottom: 5px">
-                            时钟
+                            {{ language.clock }}
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
                     </div>
@@ -86,7 +81,7 @@
                 <div>
                     <div>
                         <div @click="appCityFn" style="display: flex; font-size: 16px; margin-bottom: 5px">
-                            天气
+                            {{ language.weather }}
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
                     </div>
@@ -121,12 +116,12 @@
                                 margin-bottom: 5px;
                                 text-align: center;
                             ">
-                            应用配置
+                            {{ language.appConfig }}
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
                     </div>
                     <div style="font-size: 12px; color: #969698" @click="restartCup">
-                        可设置应用是否在水杯中展示
+                        {{ language.appConfigDesc }}
                     </div>
                 </div>
 
@@ -141,16 +136,16 @@
         <div class="bottom-actions">
             <div @click="restartCup" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="reboot-cup"></div>
-                <div>重启水杯</div>
+                <div>{{ language.restartCup }}</div>
             </div>
 
             <div @click="closeScreen" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="closescreen-cup"></div>
-                <div>关闭屏幕</div>
+                <div>{{ states.screenStatus ? language.closeScreen : language.openScreen }}</div>
             </div>
             <div @click="goHome" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="go-home"></div>
-                <div>回到主页</div>
+                <div>{{ language.returnHome }}</div>
             </div>
         </div>
     </div>
@@ -175,8 +170,9 @@ export default defineComponent({
         // const brightness = ref(40);
         console.log(timezone, 'timezone');
         const states = reactive({
+            languageFlag: JeeWeb.Language === 'zh-CN' ? true :false,
             battery: userStore.$state.battery || 0,
-            brightness: userStore.$state.brightness || 0,
+            brightness: userStore.$state.brightness || 1,
             temperature: userStore.$state.temperature || 0,
             batteryStatus: false,
             address: '',
@@ -185,6 +181,27 @@ export default defineComponent({
             curBatteryClass: 'battery-20',
             curTemperatureClass: 'temperature-0',
             online: false,
+            // 默认一定是开启
+            screenStatus: true,
+
+        });
+
+        const language = reactive({
+            online: JeeWeb.Language === 'zh-CN' ? '在线' : 'Online',
+            waterTemp: JeeWeb.Language === 'zh-CN' ? '水温' : 'Water Temp',
+            brightness: JeeWeb.Language === 'zh-CN' ? '亮度' : 'Brightness',
+            clock: JeeWeb.Language === 'zh-CN' ? '时钟' : 'Clock',
+            weather: JeeWeb.Language === 'zh-CN' ? '天气' : 'Weather',
+            appConfig: JeeWeb.Language === 'zh-CN' ? '应用配置' : 'App Config',
+            appConfigDesc: JeeWeb.Language === 'zh-CN' ? '可设置应用是否在水杯中展示' : 'Configure app display settings on cup',
+            restartCup: JeeWeb.Language === 'zh-CN' ? '重启水杯' : 'Restart Cup',
+            closeScreen: JeeWeb.Language === 'zh-CN' ? '关闭屏幕' : 'Turn Off Screen',
+            openScreen: JeeWeb.Language === 'zh-CN' ? '打开屏幕' : 'Turn On Screen',
+            returnHome: JeeWeb.Language === 'zh-CN' ? '回到主页' : 'Return Home',
+            setBrightnessError: JeeWeb.Language === 'zh-CN' ? '设置亮度失败' : 'Failed to set brightness',
+            returnHomeError: JeeWeb.Language === 'zh-CN' ? '回到主页下发失败' : 'Failed to return home',
+            screenOffError: JeeWeb.Language === 'zh-CN' ? '关闭屏幕失败' : 'Failed to turn off screen',
+            screenOnError: JeeWeb.Language === 'zh-CN' ? '开启屏幕失败' : 'Failed to turn on screen'
         });
 
         // const batteryClass = computed(() => {});
@@ -211,7 +228,7 @@ export default defineComponent({
                     .catch((err: any) => {
                         console.log(err);
                         showToast({
-                            message: '设置亮度失败',
+                            message: language.setBrightnessError,
                             duration: 1000,
                         });
                     });
@@ -237,12 +254,13 @@ export default defineComponent({
         };
 
         const closeScreen = () => {
+
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
                         method: 'setSwitch',
                         params: {
-                            value: false,
+                            value: states.screenStatus ? false : true,
                         },
                     },
                 })
@@ -254,7 +272,7 @@ export default defineComponent({
                     .catch((err: any) => {
                         console.log(err);
                         showToast({
-                            message: '关闭屏幕失败',
+                            message: states.screenStatus ? language.screenOffError : language.screenOnError,
                             duration: 1000,
                         });
                     });
@@ -278,7 +296,7 @@ export default defineComponent({
                     .catch((err: any) => {
                         console.log(err);
                         showToast({
-                            message: '下发命令失败',
+                            message: language.returnHomeError,
 
                             duration: 1000,
                         });
@@ -342,6 +360,7 @@ export default defineComponent({
                         console.log(res.data, '亮度获取zhi');
                         states.brightness = res.data;
                         userStore.$state.brightness = res.data;
+                        // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。
                         sessionStorage.setItem('brightnessFlag', '100');// 记录1
                         // store.selectedTimezone(selectedTimezone.value);
                     })
@@ -465,6 +484,7 @@ export default defineComponent({
             curBatteryClass,
             curTemperatureClass,
             userStore,
+            language,
         };
     },
 });
@@ -682,6 +702,26 @@ export default defineComponent({
 
     border-radius: 50%;
     display: inline-block;
+}
+
+.temperature-content-en {
+    width: 140px;
+    height: 24px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding-left: 5px;
+    font-size: 12px;
+    margin-right: 20px;
+}
+
+.temperature-content {
+    width: 90px;
+    height: 24px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding-left: 5px;
+    font-size: 12px;
+    margin-right: 20px;
 }
 
 .temperature-0 {

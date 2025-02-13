@@ -23,7 +23,7 @@
                     v-for="city in searchResults"
                     :key="city.name"
                     class="suggestion-item"
-                    @click="selectCity(city.name)"
+                    @click="selectCity(city)"
                 >
                     {{ city.name }}
                 </div>
@@ -147,14 +147,14 @@ const allRegions = {
         {
             name: '中国',
             cities: [
-                { name: '北京', value: 'Beijing' },
-                { name: '上海', value: 'Shanghai' },
-                { name: '广州', value: 'Guangzhou' },
-                { name: '深圳', value: 'Shenzhen' },
-                { name: '成都', value: 'Chengdu' },
-                { name: '杭州', value: 'Hangzhou' },
-                { name: '武汉', value: 'Wuhan' },
-                { name: '西安', value: 'Xian' },
+                { name: '北京', nameEn: 'Beijing', value: 'Beijing' },
+                { name: '上海', nameEn: 'Shanghai', value: 'Shanghai' },
+                { name: '广州', nameEn: 'Guangzhou', value: 'Guangzhou' },
+                { name: '深圳', nameEn: 'Shenzhen', value: 'Shenzhen' },
+                { name: '成都', nameEn: 'Chengdu', value: 'Chengdu' },
+                { name: '杭州', nameEn: 'Hangzhou', value: 'Hangzhou' },
+                { name: '武汉', nameEn: 'Wuhan', value: 'Wuhan' },
+                { name: '西安', nameEn: 'Xian', value: 'Xian' },
             ],
         },
     ],
@@ -162,12 +162,12 @@ const allRegions = {
         {
             name: '法国',
             cities: [
-                { name: '巴黎', value: 'Paris' },
-                { name: '马赛', value: 'Marseille' },
-                { name: '里昂', value: 'Lyon' },
-                { name: '图卢兹', value: 'Toulouse' },
-                { name: '尼斯', value: 'Nice' },
-                { name: '南特', value: 'Nantes' },
+                { name: '巴黎', nameEn: 'Paris', value: 'Paris' },
+                { name: '马赛', nameEn: 'Marseille', value: 'Marseille' },
+                { name: '里昂', nameEn: 'Lyon', value: 'Lyon' },
+                { name: '图卢兹', nameEn: 'Toulouse', value: 'Toulouse' },
+                { name: '尼斯', nameEn: 'Nice', value: 'Nice' },
+                { name: '南特', nameEn: 'Nantes', value: 'Nantes' },
             ],
         },
     ],
@@ -221,6 +221,7 @@ const onSearch = () => {
     const allCities = [];
     Object.values(allRegions).forEach((regions) => {
         regions.forEach((region) => {
+
             region.cities.forEach((city) => {
                 allCities.push(city);
             });
@@ -238,6 +239,8 @@ const onSearch = () => {
             );
         })
         .slice(0, 20);
+    console.log('搜索结果')
+    console.log(JSON.stringify(searchResults.value))
 };
 
 const onClear = () => {
@@ -248,7 +251,7 @@ const onClear = () => {
 const selectCity = (city) => {
     store.$state.weathername = city.name;
     store.$state.weathervalue = city.value;
-    console.log('selectCity', city)
+    console.log('selectCity', city);
     router.push('weather');
 
     // selectedCity.value = city;

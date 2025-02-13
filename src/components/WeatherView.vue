@@ -33,13 +33,20 @@ const language = reactive({
     setCityError: JeeWeb.Language === 'zh-CN' ? '设置城市失败' : 'Failed to set city'
 });
 
-const currentCity = computed(() => store?.$state?.weathername || '');
-console.log(store?.$state,'当前的下发')
+// store.$state.weathername = JeeWeb.Language === 'zh-CN' ? city.name : city.nameEn;
+// store.$state.weathervalue = city.value;
+
+
+//
+
+const currentCity = computed(() => sessionStorage.getItem('weathername') || '');
+console.log(store?.$state, '当前的下发')
 const goToCity = () => {
     router.push('city');
 };
 
 const goBack = () => {
+    alert('goBack')
     router.back();
 };
 
@@ -49,17 +56,20 @@ const confirmCity = () => {
             value: {
                 method: 'setCity',
                 params: {
-                    value: store?.$state?.weathervalue,
+                    value: sessionStorage.getItem('weathervalue'),
                 },
             },
         })
             .then((res) => {
+                store.$state.weathername = JeeWeb.Language === 'zh-CN' ? city.name : city.nameEn;
+                store.$state.weathervalue = city.value;
                 console.log(res, 'city.value');
                 router.push('/');
             })
             .catch((err) => {
                 console.log(err);
                 showToast(language.setCityError);
+
             });
 };
 </script>

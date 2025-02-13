@@ -276,8 +276,11 @@ const onClear = () => {
 
 // 选择城市
 const selectCity = (city) => {
-    store.$state.weathername = JeeWeb.Language === 'zh-CN'? city.name:city.nameEn;
-    store.$state.weathervalue = city.value;
+
+    // TODO:这里替换一下，如果下发成功，才会将这里的值放在store，不然首页错误更新
+    sessionStorage.setItem('weathername', JeeWeb.Language === 'zh-CN'? city.name:city.nameEn);
+    sessionStorage.setItem('weathervalue', city.value);
+
     console.log('selectCity', city);
     router.push('weather');
 

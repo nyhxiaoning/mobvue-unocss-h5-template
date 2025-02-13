@@ -172,7 +172,7 @@ export default defineComponent({
         const states = reactive({
             languageFlag: JeeWeb.Language === 'zh-CN' ? true :false,
             battery: userStore.$state.battery || 0,
-            brightness: userStore.$state.brightness || 1,
+            brightness: userStore.$state.brightness || 10,
             temperature: userStore.$state.temperature || 0,
             batteryStatus: false,
             address: '',

@@ -349,6 +349,28 @@ export default defineComponent({
             // states.curBatteryClass = 'battery-60';
             states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
             console.log(JeeWeb.deviceBind[0]?.devices[0]?.online, '', JeeWeb.deviceBind[0]?.devices)
+            // TODO:测试当前的下发接口：获取：温度，电量，亮度，屏幕状态
+            CupDevice &&
+                CupDevice.setDevMessage({
+                    value: {
+                        method: 'getCupInfo',
+                        params: {},
+                    },
+                })
+                    .then((res: any) => {
+                        console.log(res.data, '亮度获取zhi');
+                        states.brightness = res.data;
+                        userStore.$state.brightness = res.data;
+                        // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。
+                        sessionStorage.setItem('brightnessFlag', '100');// 记录1
+                        // store.selectedTimezone(selectedTimezone.value);
+                    })
+                    .catch((err: any) => {
+                        console.log(err);
+                    });
+
+
+
             !sessionStorage.getItem('brightnessFlag') && CupDevice &&
                 CupDevice.setDevMessage({
                     value: {

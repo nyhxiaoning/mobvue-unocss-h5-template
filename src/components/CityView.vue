@@ -53,7 +53,7 @@
                         :class="{ active: selectedContinent === continent.key }"
                         @click="selectContinent(continent.key)"
                     >
-                        {{ continent.name }}
+                        {{ languageFlag ?  continent.name:continent.key }}
                     </div>
                 </div>
             </div>
@@ -75,9 +75,9 @@
                             class="region-header"
                         >
                             <template #right-icon>
-                                <span class="more-text">{{ language.more }}</span>
+                                <span class="more-text">{{ languageFlag ? '更多' : 'More'}}</span>
                                 <van-icon
-                                    :name="expandedRegions[region.name] ? 'arrow-up' : 'arrow-down'"
+                                    :name="expandedRegions[region.nameEn] ? 'arrow-up' : 'arrow-down'"
                                 />
                             </template>
                         </van-cell>
@@ -92,7 +92,7 @@
                                 size="small"
                                 @click="selectCity(city)"
                             >
-                                {{ city.name }}
+                                {{ languageFlag ? city.name : city.nameEn }}
                             </van-button>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive } from 'vue';
+import { ref, computed,reactive } from 'vue';
 import { useRouter } from 'vue-router';
 // import { useStore } from 'vuex';
 
@@ -120,6 +120,10 @@ const VanNavBar = NavBar;
 const VanSearch = Search;
 const VanCell = Cell;
 const VanButton = Button;
+
+const languageFlag = computed(() => {
+    return JeeWeb.language === 'zh-CN' ? true : false;
+});
 
 const searchText = ref('');
 const selectedCity = ref('');
@@ -139,17 +143,13 @@ const language = reactive({
         // africa: JeeWeb.Language === 'zh-CN' ? '非洲' : 'Africa',
         // samerica: JeeWeb.Language === 'zh-CN' ? '南美洲' : 'South America',
         // antarctica: JeeWeb.Language === 'zh-CN' ? '南极洲' : 'Antarctica'
-    },
-    countries: {
-        china: JeeWeb.Language === 'zh-CN' ? '中国' : 'China',
-        france: JeeWeb.Language === 'zh-CN' ? '法国' : 'France'
     }
 });
 
 // 获取洲列表
 const continents = computed(() => [
-    { key: 'asia', name: language.continents.asia },
-    { key: 'europe', name: language.continents.europe },
+    { key: 'asia', name: '亚洲' },
+    { key: 'europe', name: '欧洲' },
     // { key: 'namerica', name: '北美洲' },
     // { key: 'oceania', name: '大洋洲' },
     // { key: 'africa', name: '非洲' },
@@ -166,7 +166,7 @@ const getSelectedIndex = () => {
 const allRegions = {
     asia: [
         {
-            name: language.countries.china,
+            name: JeeWeb.Language === 'zh-CN'? '中国':'China',
             cities: [
                 { name: '北京', nameEn: 'Beijing', value: 'Beijing' },
                 { name: '上海', nameEn: 'Shanghai', value: 'Shanghai' },
@@ -181,7 +181,7 @@ const allRegions = {
     ],
     europe: [
         {
-            name: language.countries.france,
+            name: JeeWeb.Language === 'zh-CN' ? '法国':'Franch',
             cities: [
                 { name: '巴黎', nameEn: 'Paris', value: 'Paris' },
                 { name: '马赛', nameEn: 'Marseille', value: 'Marseille' },
@@ -209,6 +209,7 @@ const filteredRegions = computed(() => {
             cities: region.cities.filter(
                 (city) =>
                     city.name.toLowerCase().includes(searchText.value.toLowerCase()) ||
+                    city.nameEn.toLowerCase().includes(searchText.value.toLowerCase()) ||
                     city.value.toLowerCase().includes(searchText.value.toLowerCase()),
             ),
         }))
@@ -226,6 +227,7 @@ const selectContinent = (continentKey) => {
 
 // 切换区域展开状态
 const toggleRegion = (regionName) => {
+
     expandedRegions.value[regionName] = !expandedRegions.value[regionName];
 };
 
@@ -261,7 +263,7 @@ const onSearch = () => {
         })
         .slice(0, 20);
     if (!searchResults.value.length) {
-        showToast(language.noContent);
+        showToast('暂无内容');
     }
     console.log('搜索结果')
     console.log(JSON.stringify(searchResults.value))
@@ -274,7 +276,7 @@ const onClear = () => {
 
 // 选择城市
 const selectCity = (city) => {
-    store.$state.weathername = city.name;
+    store.$state.weathername = JeeWeb.Language === 'zh-CN'? city.name:city.nameEn;
     store.$state.weathervalue = city.value;
     console.log('selectCity', city);
     router.push('weather');

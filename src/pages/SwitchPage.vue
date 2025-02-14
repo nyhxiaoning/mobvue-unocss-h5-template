@@ -3,7 +3,7 @@
         <van-cell-group inset>
             <van-cell center :title="language.enableSwitch" inset>
                 <template #right-icon>
-                    <van-switch v-model="settings.enableApp" />
+                    <van-switch v-model="settings.isSwipe" />
                 </template>
             </van-cell>
         </van-cell-group>
@@ -17,30 +17,30 @@
             </van-cell>
             <van-cell :title="language.weather" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeWeather" :disabled="!settings.enableApp" />
+                    <van-switch v-model="settings.HomeWeather" :disabled="!settings.isSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.ballGame" center>
                 <template #right-icon>
                     <van-switch
                         v-model="settings.HomeFreeFallIcon"
-                        :disabled="!settings.enableApp"
+                        :disabled="!settings.isSwipe"
                     />
                 </template>
             </van-cell>
             <van-cell :title="language.slotGame" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.homeTigerGame" :disabled="!settings.enableApp" />
+                    <van-switch v-model="settings.homeTigerGame" :disabled="!settings.isSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.shakeEffect" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeWaterShak" :disabled="!settings.enableApp" />
+                    <van-switch v-model="settings.HomeWaterShak" :disabled="!settings.isSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.darkEmpire" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeCocos2" :disabled="!settings.enableApp" />
+                    <van-switch v-model="settings.HomeCocos2" :disabled="!settings.isSwipe" />
                 </template>
             </van-cell>
         </van-cell-group>
@@ -53,7 +53,7 @@ export default {
     data() {
         return {
             settings: {
-                enableApp: true,
+                isSwipe: true,
                 // 不要变：HomeClock和HomeInfo
                 HomeClock: true,
                 HomeInfo: true,
@@ -85,14 +85,14 @@ export default {
         CupDevice.setDevMessage({
             value: {
                 // TODO:待办，这里接口暂时不能调用：嵌入式未开发
-                method: 'getHomeAppsVisable',
+                method: 'getHomeAppsParams',
                 params: {},
             },
         })
             .then((res) => {
                 if (res && res.data) {
-                    // 更新settings中的状态
-                    this.settings.enableApp = res.data.enableApp || false;
+                    // 更新settings中的状态： isSwipe
+                    this.settings.isSwipe = res.data.isSwipe || false;
                     this.settings.HomeGIF = res.data.HomeGIF || false;
                     this.settings.HomeWeather = res.data.HomeWeather || false;
                     this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon || false;
@@ -115,11 +115,12 @@ export default {
         }
     },
     watch: {
-        'settings.enableApp'(newVal) {
+        'settings.isSwipe'(newVal) {
             CupDevice.setDevMessage({
                 value: {
-                    method: 'setHomeAppsVisable',
+                    method: 'setHomeAppsParams',
                     params: {
+                        isSwipe: newVal,
                         // 默认两项
                         HomeInfo: true,
                         HomeClock: true,
@@ -144,8 +145,9 @@ export default {
             // alert(`硬件本次不支持，下版本支持: ${newVal}`);
             CupDevice.setDevMessage({
                 value: {
-                    method: 'setHomeAppsVisable',
+                    method: 'setHomeAppsParams',
                     params: {
+                        isSwipe: this.settings.isSwipe,
                         // 默认两项
                         HomeInfo: true,
                         HomeClock: true,
@@ -169,13 +171,14 @@ export default {
         'settings.HomeWeather'(newVal) {
             CupDevice.setDevMessage({
                 value: {
-                    method: 'setHomeAppsVisable',
+                    method: 'setHomeAppsParams',
                     params: {
+                         isSwipe: this.settings.isSwipe,
                         // 默认两项
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        HomeGIF: true,
+                        HomeGIF: this.settings.HomeGIF,
                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
                         HomeWeather: newVal,
                         homeTigerGame: this.settings.homeTigerGame,
@@ -194,13 +197,14 @@ export default {
         'settings.HomeFreeFallIcon'(newVal) {
             CupDevice.setDevMessage({
                 value: {
-                    method: 'setHomeAppsVisable',
+                    method: 'setHomeAppsParams',
                     params: {
+                         isSwipe: this.settings.isSwipe,
                         // 默认两项
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        HomeGIF: true,
+                        HomeGIF: this.settings.HomeGIF,
                         HomeFreeFallIcon: newVal,
                         HomeWeather: this.settings.HomeWeather,
                         homeTigerGame: this.settings.homeTigerGame,
@@ -220,13 +224,15 @@ export default {
             // alert(`老虎机游戏: ${newVal}`);
             CupDevice.setDevMessage({
                 value: {
-                    method: 'setHomeAppsVisable',
+
+                    method: 'setHomeAppsParams',
                     params: {
+                         isSwipe: this.settings.isSwipe,
                         // 默认两项
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        HomeGIF: true,
+                        HomeGIF: this.settings.HomeGIF,
                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
                         HomeWeather: this.settings.HomeWeather,
                         homeTigerGame: newVal,
@@ -246,13 +252,14 @@ export default {
             // alert(`摇晃水杯动效: ${newVal}`);
             CupDevice.setDevMessage({
                 value: {
-                    method: 'setHomeAppsVisable',
+                    method: 'setHomeAppsParams',
                     params: {
+                         isSwipe: this.settings.isSwipe,
                         // 默认两项
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        HomeGIF: true,
+                        HomeGIF: this.settings.HomeGIF,
                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
                         HomeWeather: this.settings.HomeWeather,
                         homeTigerGame: this.settings.homeTigerGame,
@@ -272,13 +279,14 @@ export default {
             // alert(`黑幕帝国动效: ${newVal}`);
             CupDevice.setDevMessage({
                 value: {
-                    method: 'setHomeAppsVisable',
+                    method: 'setHomeAppsParams',
                     params: {
+                         isSwipe: this.settings.isSwipe,
                         // 默认两项
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        HomeGIF: true,
+                        HomeGIF: this.settings.HomeGIF,
                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
                         HomeWeather: this.settings.HomeWeather,
                         homeTigerGame: this.settings.homeTigerGame,

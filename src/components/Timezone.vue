@@ -256,8 +256,8 @@ export default {
                 }
             }
 
+            alert(JSON.stringify(selectedTimezone.value.label))
             if (selectedTimezone.value.label) {
-                CupDevice &&
                     CupDevice.setDevMessage({
                         value: {
                             method: 'setLoaclTimeZone',
@@ -267,7 +267,8 @@ export default {
                         },
                     })
                         .then((res) => {
-                            showToast(language.confirm);
+                            console.log(res, 'setLoaclTimeZone---value')
+                            // showToast(language.confirm);
                             // 下发成功，同步store地址数据
                             store.$state.timezoneLabel = timezones.value[i].name;
                             store.$state.timezoneAddress = timezones.value[i].label.split('）')[1];
@@ -281,7 +282,7 @@ export default {
                             }
                         })
                         .catch((err) => {
-                            console.log(err);
+                            console.log(err,'selectedTimezone-error');
                             showToast(language.confirmError);
                             selectedTimezone.value.value = store.$state.timezoneValue;
                             selectedTimezone.value.label = `（${store.$state.timezoneLabel}）${store.$state.timezoneAddress}`
@@ -314,6 +315,7 @@ export default {
                             for (let i = 0; i < timezones.value.length; i++) {
                                 if (timezones.value[i].value === res.data) {
                                     selectedTimezone.value.label = timezones.value[i].label;
+
                                 }
                             }
                         }

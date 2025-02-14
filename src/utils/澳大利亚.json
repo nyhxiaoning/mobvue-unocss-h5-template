@@ -1,0 +1,661 @@
+{
+  "cities": [
+    {
+      "name": "奥尔巴尼",
+      "nameEn": "Albany",
+      "value": "Albany"
+    },
+    {
+      "name": "班伯里",
+      "nameEn": "Bunbury",
+      "value": "Bunbury"
+    },
+    {
+      "name": "曼杜拉",
+      "nameEn": "Mandurah",
+      "value": "Mandurah"
+    },
+    {
+      "name": "Kwinana",
+      "nameEn": "Kwinana",
+      "value": "Kwinana"
+    },
+    {
+      "name": "戈斯内尔斯",
+      "nameEn": "Gosnells",
+      "value": "Gosnells"
+    },
+    {
+      "name": "坎宁韦尔",
+      "nameEn": "Canning Vale",
+      "value": "Canning Vale"
+    },
+    {
+      "name": "珀斯",
+      "nameEn": "Perth",
+      "value": "Perth"
+    },
+    {
+      "name": "杰拉尔顿",
+      "nameEn": "Geraldton",
+      "value": "Geraldton"
+    },
+    {
+      "name": "卡尔古利",
+      "nameEn": "Kalgoorlie",
+      "value": "Kalgoorlie"
+    },
+    {
+      "name": "爱丽斯泉",
+      "nameEn": "Alice Springs",
+      "value": "Alice Springs"
+    },
+    {
+      "name": "罗伯恩",
+      "nameEn": "Roebourne",
+      "value": "Roebourne"
+    },
+    {
+      "name": "黑德兰港",
+      "nameEn": "Port Hedland",
+      "value": "Port Hedland"
+    },
+    {
+      "name": "帕默斯顿",
+      "nameEn": "Palmerston",
+      "value": "Palmerston"
+    },
+    {
+      "name": "达尔文",
+      "nameEn": "Darwin",
+      "value": "Darwin"
+    },
+    {
+      "name": "伯尔尼",
+      "nameEn": "Burnie",
+      "value": "Burnie"
+    },
+    {
+      "name": "林肯港",
+      "nameEn": "Port Lincoln",
+      "value": "Port Lincoln"
+    },
+    {
+      "name": "Morphett Vale",
+      "nameEn": "Morphett Vale",
+      "value": "Morphett Vale"
+    },
+    {
+      "name": "阿德莱德",
+      "nameEn": "Adelaide",
+      "value": "Adelaide"
+    },
+    {
+      "name": "Adelaide Hills",
+      "nameEn": "Adelaide Hills",
+      "value": "Adelaide Hills"
+    },
+    {
+      "name": "Gawler",
+      "nameEn": "Gawler",
+      "value": "Gawler"
+    },
+    {
+      "name": "默里布里奇",
+      "nameEn": "Murray Bridge",
+      "value": "Murray Bridge"
+    },
+    {
+      "name": "瓦南布尔",
+      "nameEn": "Warrnambool",
+      "value": "Warrnambool"
+    },
+    {
+      "name": "芒特甘比尔",
+      "nameEn": "Mount Gambier",
+      "value": "Mount Gambier"
+    },
+    {
+      "name": "季隆",
+      "nameEn": "Geelong",
+      "value": "Geelong"
+    },
+    {
+      "name": "Geelong West",
+      "nameEn": "Geelong West",
+      "value": "Geelong West"
+    },
+    {
+      "name": "Mornington",
+      "nameEn": "Mornington",
+      "value": "Mornington"
+    },
+    {
+      "name": "Frankston East",
+      "nameEn": "Frankston East",
+      "value": "Frankston East"
+    },
+    {
+      "name": "克蓝本",
+      "nameEn": "Cranbourne",
+      "value": "Cranbourne"
+    },
+    {
+      "name": "巴拉兰特",
+      "nameEn": "Ballarat",
+      "value": "Ballarat"
+    },
+    {
+      "name": "霍珀森",
+      "nameEn": "Hoppers Crossing",
+      "value": "Hoppers Crossing"
+    },
+    {
+      "name": "麦尔登",
+      "nameEn": "Melton",
+      "value": "Melton"
+    },
+    {
+      "name": "Saint Albans",
+      "nameEn": "Saint Albans",
+      "value": "Saint Albans"
+    },
+    {
+      "name": "森伯里",
+      "nameEn": "Sunbury",
+      "value": "Sunbury"
+    },
+    {
+      "name": "本迪戈",
+      "nameEn": "Bendigo",
+      "value": "Bendigo"
+    },
+    {
+      "name": "Brighton East",
+      "nameEn": "Brighton East",
+      "value": "Brighton East"
+    },
+    {
+      "name": "圣基尔达",
+      "nameEn": "St Kilda",
+      "value": "St Kilda"
+    },
+    {
+      "name": "墨尔本",
+      "nameEn": "Melbourne",
+      "value": "Melbourne"
+    },
+    {
+      "name": "卡内基",
+      "nameEn": "Carnegie",
+      "value": "Carnegie"
+    },
+    {
+      "name": "Notting Hill",
+      "nameEn": "Notting Hill",
+      "value": "Notting Hill"
+    },
+    {
+      "name": "East Malvern",
+      "nameEn": "East Malvern",
+      "value": "East Malvern"
+    },
+    {
+      "name": "格伦伊里斯",
+      "nameEn": "Glen Iris",
+      "value": "Glen Iris"
+    },
+    {
+      "name": "坎伯韦尔",
+      "nameEn": "Camberwell",
+      "value": "Camberwell"
+    },
+    {
+      "name": "不伦瑞克",
+      "nameEn": "Brunswick",
+      "value": "Brunswick"
+    },
+    {
+      "name": "Balwyn North",
+      "nameEn": "Balwyn North",
+      "value": "Balwyn North"
+    },
+    {
+      "name": "Greensborough",
+      "nameEn": "Greensborough",
+      "value": "Greensborough"
+    },
+    {
+      "name": "Mulgrave",
+      "nameEn": "Mulgrave",
+      "value": "Mulgrave"
+    },
+    {
+      "name": "Ferntree Gully",
+      "nameEn": "Ferntree Gully",
+      "value": "Ferntree Gully"
+    },
+    {
+      "name": "克莱基伯恩",
+      "nameEn": "Craigieburn",
+      "value": "Craigieburn"
+    },
+    {
+      "name": "米尔迪拉",
+      "nameEn": "Mildura",
+      "value": "Mildura"
+    },
+    {
+      "name": "伊丘卡",
+      "nameEn": "Echuca",
+      "value": "Echuca"
+    },
+    {
+      "name": "谢珀顿",
+      "nameEn": "Shepparton",
+      "value": "Shepparton"
+    },
+    {
+      "name": "格里菲斯",
+      "nameEn": "Griffith",
+      "value": "Griffith"
+    },
+    {
+      "name": "荷巴特",
+      "nameEn": "Hobart",
+      "value": "Hobart"
+    },
+    {
+      "name": "德文波特",
+      "nameEn": "Devonport",
+      "value": "Devonport"
+    },
+    {
+      "name": "朗塞斯顿",
+      "nameEn": "Launceston",
+      "value": "Launceston"
+    },
+    {
+      "name": "特拉拉恭",
+      "nameEn": "Traralgon",
+      "value": "Traralgon"
+    },
+    {
+      "name": "沃东加",
+      "nameEn": "Wodonga",
+      "value": "Wodonga"
+    },
+    {
+      "name": "阿尔伯里",
+      "nameEn": "Albury",
+      "value": "Albury"
+    },
+    {
+      "name": "沃加沃加",
+      "nameEn": "Wagga Wagga",
+      "value": "Wagga Wagga"
+    },
+    {
+      "name": "昆比恩",
+      "nameEn": "Queanbeyan",
+      "value": "Queanbeyan"
+    },
+    {
+      "name": "堪培拉",
+      "nameEn": "Canberra",
+      "value": "Canberra"
+    },
+    {
+      "name": "古尔本",
+      "nameEn": "Goulburn",
+      "value": "Goulburn"
+    },
+    {
+      "name": "瑙拉",
+      "nameEn": "Nowra",
+      "value": "Nowra"
+    },
+    {
+      "name": "伍伦贡",
+      "nameEn": "Wollongong",
+      "value": "Wollongong"
+    },
+    {
+      "name": "Glenmore Park",
+      "nameEn": "Glenmore Park",
+      "value": "Glenmore Park"
+    },
+    {
+      "name": "Engadine",
+      "nameEn": "Engadine",
+      "value": "Engadine"
+    },
+    {
+      "name": "Caringbah",
+      "nameEn": "Caringbah",
+      "value": "Caringbah"
+    },
+    {
+      "name": "克罗纳拉",
+      "nameEn": "Cronulla",
+      "value": "Cronulla"
+    },
+    {
+      "name": "Earlwood",
+      "nameEn": "Earlwood",
+      "value": "Earlwood"
+    },
+    {
+      "name": "Liverpool",
+      "nameEn": "Liverpool",
+      "value": "Liverpool"
+    },
+    {
+      "name": "布莱克敦",
+      "nameEn": "Blacktown",
+      "value": "Blacktown"
+    },
+    {
+      "name": "Marrickville",
+      "nameEn": "Marrickville",
+      "value": "Marrickville"
+    },
+    {
+      "name": "格兰维尔",
+      "nameEn": "Granville",
+      "value": "Granville"
+    },
+    {
+      "name": "City of Parramatta",
+      "nameEn": "City of Parramatta",
+      "value": "City of Parramatta"
+    },
+    {
+      "name": "卡灵福德",
+      "nameEn": "Carlingford",
+      "value": "Carlingford"
+    },
+    {
+      "name": "埃平",
+      "nameEn": "Epping",
+      "value": "Epping"
+    },
+    {
+      "name": "北赖德",
+      "nameEn": "North Ryde",
+      "value": "North Ryde"
+    },
+    {
+      "name": "马鲁布拉",
+      "nameEn": "Maroubra",
+      "value": "Maroubra"
+    },
+    {
+      "name": "兰德威克",
+      "nameEn": "Randwick",
+      "value": "Randwick"
+    },
+    {
+      "name": "悉尼",
+      "nameEn": "Sydney",
+      "value": "Sydney"
+    },
+    {
+      "name": "莫斯曼区",
+      "nameEn": "Mosman",
+      "value": "Mosman"
+    },
+    {
+      "name": "怀阿拉",
+      "nameEn": "Whyalla",
+      "value": "Whyalla"
+    },
+    {
+      "name": "奥古斯塔港",
+      "nameEn": "Port Augusta",
+      "value": "Port Augusta"
+    },
+    {
+      "name": "布罗肯希尔",
+      "nameEn": "Broken Hill",
+      "value": "Broken Hill"
+    },
+    {
+      "name": "达博",
+      "nameEn": "Dubbo",
+      "value": "Dubbo"
+    },
+    {
+      "name": "巴瑟斯特",
+      "nameEn": "Bathurst",
+      "value": "Bathurst"
+    },
+    {
+      "name": "奥伦奇",
+      "nameEn": "Orange",
+      "value": "Orange"
+    },
+    {
+      "name": "卡通巴",
+      "nameEn": "Katoomba",
+      "value": "Katoomba"
+    },
+    {
+      "name": "Quakers Hill",
+      "nameEn": "Quakers Hill",
+      "value": "Quakers Hill"
+    },
+    {
+      "name": "Castle Hill",
+      "nameEn": "Castle Hill",
+      "value": "Castle Hill"
+    },
+    {
+      "name": "霍恩斯比",
+      "nameEn": "Hornsby",
+      "value": "Hornsby"
+    },
+    {
+      "name": "Dee Why",
+      "nameEn": "Dee Why",
+      "value": "Dee Why"
+    },
+    {
+      "name": "塞斯诺克",
+      "nameEn": "Cessnock",
+      "value": "Cessnock"
+    },
+    {
+      "name": "纽卡斯尔",
+      "nameEn": "Newcastle",
+      "value": "Newcastle"
+    },
+    {
+      "name": "Tamworth",
+      "nameEn": "Tamworth",
+      "value": "Tamworth"
+    },
+    {
+      "name": "阿米代尔",
+      "nameEn": "Armidale",
+      "value": "Armidale"
+    },
+    {
+      "name": "Port Stephens",
+      "nameEn": "Port Stephens",
+      "value": "Port Stephens"
+    },
+    {
+      "name": "Forster",
+      "nameEn": "Forster",
+      "value": "Forster"
+    },
+    {
+      "name": "塔里",
+      "nameEn": "Taree",
+      "value": "Taree"
+    },
+    {
+      "name": "麦克夸利港",
+      "nameEn": "Port Macquarie",
+      "value": "Port Macquarie"
+    },
+    {
+      "name": "North Shore",
+      "nameEn": "North Shore",
+      "value": "North Shore"
+    },
+    {
+      "name": "科斯港",
+      "nameEn": "Coffs Harbour",
+      "value": "Coffs Harbour"
+    },
+    {
+      "name": "South Grafton",
+      "nameEn": "South Grafton",
+      "value": "South Grafton"
+    },
+    {
+      "name": "利斯莫尔",
+      "nameEn": "Lismore",
+      "value": "Lismore"
+    },
+    {
+      "name": "Banora Point",
+      "nameEn": "Banora Point",
+      "value": "Banora Point"
+    },
+    {
+      "name": "罗克汉普顿",
+      "nameEn": "Rockhampton",
+      "value": "Rockhampton"
+    },
+    {
+      "name": "Gladstone",
+      "nameEn": "Gladstone",
+      "value": "Gladstone"
+    },
+    {
+      "name": "图文巴",
+      "nameEn": "Toowoomba",
+      "value": "Toowoomba"
+    },
+    {
+      "name": "Booval",
+      "nameEn": "Booval",
+      "value": "Booval"
+    },
+    {
+      "name": "洛根市",
+      "nameEn": "Logan",
+      "value": "Logan"
+    },
+    {
+      "name": "Sunnybank",
+      "nameEn": "Sunnybank",
+      "value": "Sunnybank"
+    },
+    {
+      "name": "South Brisbane",
+      "nameEn": "South Brisbane",
+      "value": "South Brisbane"
+    },
+    {
+      "name": "布里斯班",
+      "nameEn": "Brisbane",
+      "value": "Brisbane"
+    },
+    {
+      "name": "Carindale",
+      "nameEn": "Carindale",
+      "value": "Carindale"
+    },
+    {
+      "name": "Bracken Ridge",
+      "nameEn": "Bracken Ridge",
+      "value": "Bracken Ridge"
+    },
+    {
+      "name": "Deception Bay",
+      "nameEn": "Deception Bay",
+      "value": "Deception Bay"
+    },
+    {
+      "name": "卡布尔彻",
+      "nameEn": "Caboolture",
+      "value": "Caboolture"
+    },
+    {
+      "name": "卡拉德拉",
+      "nameEn": "Caloundra",
+      "value": "Caloundra"
+    },
+    {
+      "name": "奈蕴",
+      "nameEn": "Nerang",
+      "value": "Nerang"
+    },
+    {
+      "name": "黄金海岸",
+      "nameEn": "Gold Coast",
+      "value": "Gold Coast"
+    },
+    {
+      "name": "绍斯波特",
+      "nameEn": "Southport",
+      "value": "Southport"
+    },
+    {
+      "name": "布德林姆",
+      "nameEn": "Buderim",
+      "value": "Buderim"
+    },
+    {
+      "name": "Mooloolaba",
+      "nameEn": "Mooloolaba",
+      "value": "Mooloolaba"
+    },
+    {
+      "name": "Rainbow Beach",
+      "nameEn": "Rainbow Beach",
+      "value": "Rainbow Beach"
+    },
+    {
+      "name": "马里伯勒",
+      "nameEn": "Maryborough",
+      "value": "Maryborough"
+    },
+    {
+      "name": "班德堡",
+      "nameEn": "Bundaberg",
+      "value": "Bundaberg"
+    },
+    {
+      "name": "Torquay",
+      "nameEn": "Torquay",
+      "value": "Torquay"
+    },
+    {
+      "name": "伊萨山市",
+      "nameEn": "Mount Isa",
+      "value": "Mount Isa"
+    },
+    {
+      "name": "凯恩斯",
+      "nameEn": "Cairns",
+      "value": "Cairns"
+    },
+    {
+      "name": "麦凯",
+      "nameEn": "Mackay",
+      "value": "Mackay"
+    },
+    {
+      "name": "汤斯维尔",
+      "nameEn": "Townsville",
+      "value": "Townsville"
+    }
+  ],
+  "name": "澳大利亚",
+  "nameEn": "Australia"
+}

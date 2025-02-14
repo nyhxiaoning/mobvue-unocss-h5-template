@@ -1,0 +1,3056 @@
+{
+  "cities": [
+    {
+      "name": "比亚里茨",
+      "nameEn": "Biarritz",
+      "value": "Biarritz"
+    },
+    {
+      "name": "昂格莱",
+      "nameEn": "Anglet",
+      "value": "Anglet"
+    },
+    {
+      "name": "巴约讷",
+      "nameEn": "Bayonne",
+      "value": "Bayonne"
+    },
+    {
+      "name": "卢尔德",
+      "nameEn": "Lourdes",
+      "value": "Lourdes"
+    },
+    {
+      "name": "波城",
+      "nameEn": "Pau",
+      "value": "Pau"
+    },
+    {
+      "name": "达克斯",
+      "nameEn": "Dax",
+      "value": "Dax"
+    },
+    {
+      "name": "蒙德马桑",
+      "nameEn": "Mont-de-Marsan",
+      "value": "Mont-de-Marsan"
+    },
+    {
+      "name": "拉泰斯特德比克",
+      "nameEn": "La Teste-de-Buch",
+      "value": "La Teste-de-Buch"
+    },
+    {
+      "name": "居让梅斯特拉",
+      "nameEn": "Gujan-Mestras",
+      "value": "Gujan-Mestras"
+    },
+    {
+      "name": "圣梅达尔－昂雅勒",
+      "nameEn": "Saint-Médard-en-Jalles",
+      "value": "Saint-Médard-en-Jalles"
+    },
+    {
+      "name": "塞斯塔",
+      "nameEn": "Cestas",
+      "value": "Cestas"
+    },
+    {
+      "name": "佩萨克",
+      "nameEn": "Pessac",
+      "value": "Pessac"
+    },
+    {
+      "name": "格拉迪尼昂",
+      "nameEn": "Gradignan",
+      "value": "Gradignan"
+    },
+    {
+      "name": "维勒纳沃－多农",
+      "nameEn": "Villenave-d\u0027Ornon",
+      "value": "Villenave-d\u0027Ornon"
+    },
+    {
+      "name": "塔朗斯",
+      "nameEn": "Talence",
+      "value": "Talence"
+    },
+    {
+      "name": "贝格勒",
+      "nameEn": "Bègles",
+      "value": "Bègles"
+    },
+    {
+      "name": "梅里尼亚克",
+      "nameEn": "Mérignac",
+      "value": "Mérignac"
+    },
+    {
+      "name": "Eysines",
+      "nameEn": "Eysines",
+      "value": "Eysines"
+    },
+    {
+      "name": "波尔多",
+      "nameEn": "Bordeaux",
+      "value": "Bordeaux"
+    },
+    {
+      "name": "勒布斯卡",
+      "nameEn": "Le Bouscat",
+      "value": "Le Bouscat"
+    },
+    {
+      "name": "布朗克福",
+      "nameEn": "Blanquefort",
+      "value": "Blanquefort"
+    },
+    {
+      "name": "弗卢瓦拉克",
+      "nameEn": "Floirac",
+      "value": "Floirac"
+    },
+    {
+      "name": "瑟农",
+      "nameEn": "Cenon",
+      "value": "Cenon"
+    },
+    {
+      "name": "洛尔蒙",
+      "nameEn": "Lormont",
+      "value": "Lormont"
+    },
+    {
+      "name": "利布尔讷",
+      "nameEn": "Libourne",
+      "value": "Libourne"
+    },
+    {
+      "name": "普洛埃默尔",
+      "nameEn": "Ploemeur",
+      "value": "Ploemeur"
+    },
+    {
+      "name": "洛里昂",
+      "nameEn": "Lorient",
+      "value": "Lorient"
+    },
+    {
+      "name": "拉内斯泰",
+      "nameEn": "Lanester",
+      "value": "Lanester"
+    },
+    {
+      "name": "鲁瓦扬",
+      "nameEn": "Royan",
+      "value": "Royan"
+    },
+    {
+      "name": "科尼亚克",
+      "nameEn": "Cognac",
+      "value": "Cognac"
+    },
+    {
+      "name": "罗什福尔",
+      "nameEn": "Rochefort",
+      "value": "Rochefort"
+    },
+    {
+      "name": "拉罗切利",
+      "nameEn": "La Rochelle",
+      "value": "La Rochelle"
+    },
+    {
+      "name": "桑特",
+      "nameEn": "Saintes",
+      "value": "Saintes"
+    },
+    {
+      "name": "尼奥尔",
+      "nameEn": "Niort",
+      "value": "Niort"
+    },
+    {
+      "name": "莱萨布勒－多洛讷",
+      "nameEn": "Les Sables-d\u0027Olonne",
+      "value": "Les Sables-d\u0027Olonne"
+    },
+    {
+      "name": "永河畔拉罗什",
+      "nameEn": "La Roche-sur-Yon",
+      "value": "La Roche-sur-Yon"
+    },
+    {
+      "name": "沙朗",
+      "nameEn": "Challans",
+      "value": "Challans"
+    },
+    {
+      "name": "圣纳泽尔",
+      "nameEn": "Saint-Nazaire",
+      "value": "Saint-Nazaire"
+    },
+    {
+      "name": "盖朗德",
+      "nameEn": "Guérande",
+      "value": "Guérande"
+    },
+    {
+      "name": "拉博尔埃斯库布拉克",
+      "nameEn": "La Baule-Escoublac",
+      "value": "La Baule-Escoublac"
+    },
+    {
+      "name": "瓦讷",
+      "nameEn": "Vannes",
+      "value": "Vannes"
+    },
+    {
+      "name": "布格奈",
+      "nameEn": "Bouguenais",
+      "value": "Bouguenais"
+    },
+    {
+      "name": "库埃龙",
+      "nameEn": "Couëron",
+      "value": "Couëron"
+    },
+    {
+      "name": "圣埃尔布兰",
+      "nameEn": "Saint-Herblain",
+      "value": "Saint-Herblain"
+    },
+    {
+      "name": "奥尔沃",
+      "nameEn": "Orvault",
+      "value": "Orvault"
+    },
+    {
+      "name": "勒泽",
+      "nameEn": "Rezé",
+      "value": "Rezé"
+    },
+    {
+      "name": "韦尔图",
+      "nameEn": "Vertou",
+      "value": "Vertou"
+    },
+    {
+      "name": "南特",
+      "nameEn": "Nantes",
+      "value": "Nantes"
+    },
+    {
+      "name": "卢瓦尔河畔圣塞巴斯蒂安",
+      "nameEn": "Saint-Sébastien-sur-Loire",
+      "value": "Saint-Sébastien-sur-Loire"
+    },
+    {
+      "name": "埃尔德尔河畔拉沙佩勒",
+      "nameEn": "La Chapelle-sur-Erdre",
+      "value": "La Chapelle-sur-Erdre"
+    },
+    {
+      "name": "卡尔克富",
+      "nameEn": "Carquefou",
+      "value": "Carquefou"
+    },
+    {
+      "name": "丰特奈－勒孔特",
+      "nameEn": "Fontenay-le-Comte",
+      "value": "Fontenay-le-Comte"
+    },
+    {
+      "name": "莱塞比耶",
+      "nameEn": "Les Herbiers",
+      "value": "Les Herbiers"
+    },
+    {
+      "name": "绍莱",
+      "nameEn": "Cholet",
+      "value": "Cholet"
+    },
+    {
+      "name": "布雷叙尔",
+      "nameEn": "Bressuire",
+      "value": "Bressuire"
+    },
+    {
+      "name": "索米尔",
+      "nameEn": "Saumur",
+      "value": "Saumur"
+    },
+    {
+      "name": "昂热",
+      "nameEn": "Angers",
+      "value": "Angers"
+    },
+    {
+      "name": "拉弗莱什",
+      "nameEn": "La Flèche",
+      "value": "La Flèche"
+    },
+    {
+      "name": "杜瓦讷内",
+      "nameEn": "Douarnenez",
+      "value": "Douarnenez"
+    },
+    {
+      "name": "布雷斯特",
+      "nameEn": "Brest",
+      "value": "Brest"
+    },
+    {
+      "name": "朗代诺",
+      "nameEn": "Landerneau",
+      "value": "Landerneau"
+    },
+    {
+      "name": "孔卡诺",
+      "nameEn": "Concarneau",
+      "value": "Concarneau"
+    },
+    {
+      "name": "坎佩尔",
+      "nameEn": "Quimper",
+      "value": "Quimper"
+    },
+    {
+      "name": "蓬蒂维",
+      "nameEn": "Pontivy",
+      "value": "Pontivy"
+    },
+    {
+      "name": "莫尔莱",
+      "nameEn": "Morlaix",
+      "value": "Morlaix"
+    },
+    {
+      "name": "拉尼永",
+      "nameEn": "Lannion",
+      "value": "Lannion"
+    },
+    {
+      "name": "雷恩",
+      "nameEn": "Rennes",
+      "value": "Rennes"
+    },
+    {
+      "name": "瑟松塞维涅",
+      "nameEn": "Cesson-Sévigné",
+      "value": "Cesson-Sévigné"
+    },
+    {
+      "name": "圣布里厄",
+      "nameEn": "Saint-Brieuc",
+      "value": "Saint-Brieuc"
+    },
+    {
+      "name": "圣马洛",
+      "nameEn": "St-Malo",
+      "value": "St-Malo"
+    },
+    {
+      "name": "维特雷",
+      "nameEn": "Vitré",
+      "value": "Vitré"
+    },
+    {
+      "name": "拉瓦勒",
+      "nameEn": "Laval",
+      "value": "Laval"
+    },
+    {
+      "name": "富热尔",
+      "nameEn": "Fougères",
+      "value": "Fougères"
+    },
+    {
+      "name": "马耶讷",
+      "nameEn": "Mayenne",
+      "value": "Mayenne"
+    },
+    {
+      "name": "圣洛",
+      "nameEn": "Saint-Lô",
+      "value": "Saint-Lô"
+    },
+    {
+      "name": "弗莱尔",
+      "nameEn": "Flers",
+      "value": "Flers"
+    },
+    {
+      "name": "阿让唐",
+      "nameEn": "Argentan",
+      "value": "Argentan"
+    },
+    {
+      "name": "卡昂",
+      "nameEn": "Caen",
+      "value": "Caen"
+    },
+    {
+      "name": "埃鲁维尔圣克莱",
+      "nameEn": "Hérouville-Saint-Clair",
+      "value": "Hérouville-Saint-Clair"
+    },
+    {
+      "name": "Octeville",
+      "nameEn": "Octeville",
+      "value": "Octeville"
+    },
+    {
+      "name": "埃屈厄尔德勒维尔艾纳维尔",
+      "nameEn": "Équeurdreville-Hainneville",
+      "value": "Équeurdreville-Hainneville"
+    },
+    {
+      "name": "瑟堡-奥克特维尔",
+      "nameEn": "Cherbourg-Octeville",
+      "value": "Cherbourg-Octeville"
+    },
+    {
+      "name": "图拉维尔",
+      "nameEn": "Tourlaville",
+      "value": "Tourlaville"
+    },
+    {
+      "name": "巴约",
+      "nameEn": "Bayeux",
+      "value": "Bayeux"
+    },
+    {
+      "name": "塔布",
+      "nameEn": "Tarbes",
+      "value": "Tarbes"
+    },
+    {
+      "name": "米雷",
+      "nameEn": "Muret",
+      "value": "Muret"
+    },
+    {
+      "name": "普莱桑斯迪图什",
+      "nameEn": "Plaisance-du-Touch",
+      "value": "Plaisance-du-Touch"
+    },
+    {
+      "name": "屈尼欧",
+      "nameEn": "Cugnaux",
+      "value": "Cugnaux"
+    },
+    {
+      "name": "图尔内弗伊尔",
+      "nameEn": "Tournefeuille",
+      "value": "Tournefeuille"
+    },
+    {
+      "name": "帕米耶",
+      "nameEn": "Pamiers",
+      "value": "Pamiers"
+    },
+    {
+      "name": "卡尔卡松",
+      "nameEn": "Carcassonne",
+      "value": "Carcassonne"
+    },
+    {
+      "name": "欧什",
+      "nameEn": "Auch",
+      "value": "Auch"
+    },
+    {
+      "name": "阿让",
+      "nameEn": "Agen",
+      "value": "Agen"
+    },
+    {
+      "name": "科洛米耶",
+      "nameEn": "Colomiers",
+      "value": "Colomiers"
+    },
+    {
+      "name": "布拉尼亚克",
+      "nameEn": "Blagnac",
+      "value": "Blagnac"
+    },
+    {
+      "name": "蒙托邦",
+      "nameEn": "Montauban",
+      "value": "Montauban"
+    },
+    {
+      "name": "马尔芒德",
+      "nameEn": "Marmande",
+      "value": "Marmande"
+    },
+    {
+      "name": "贝尔热拉克",
+      "nameEn": "Bergerac",
+      "value": "Bergerac"
+    },
+    {
+      "name": "洛特河畔新城",
+      "nameEn": "Villeneuve-sur-Lot",
+      "value": "Villeneuve-sur-Lot"
+    },
+    {
+      "name": "图卢兹",
+      "nameEn": "Toulouse",
+      "value": "Toulouse"
+    },
+    {
+      "name": "巴尔马",
+      "nameEn": "Balma",
+      "value": "Balma"
+    },
+    {
+      "name": "卡斯特尔",
+      "nameEn": "Castres",
+      "value": "Castres"
+    },
+    {
+      "name": "阿尔比",
+      "nameEn": "Albi",
+      "value": "Albi"
+    },
+    {
+      "name": "卡奥尔",
+      "nameEn": "Cahors",
+      "value": "Cahors"
+    },
+    {
+      "name": "罗德兹",
+      "nameEn": "Rodez",
+      "value": "Rodez"
+    },
+    {
+      "name": "欧里亚克",
+      "nameEn": "Aurillac",
+      "value": "Aurillac"
+    },
+    {
+      "name": "佩皮尼昂",
+      "nameEn": "Perpignan",
+      "value": "Perpignan"
+    },
+    {
+      "name": "纳博讷",
+      "nameEn": "Narbonne",
+      "value": "Narbonne"
+    },
+    {
+      "name": "贝济耶",
+      "nameEn": "Béziers",
+      "value": "Béziers"
+    },
+    {
+      "name": "阿格德",
+      "nameEn": "Agde",
+      "value": "Agde"
+    },
+    {
+      "name": "塞特港",
+      "nameEn": "Sète",
+      "value": "Sète"
+    },
+    {
+      "name": "弗龙蒂尼昂",
+      "nameEn": "Frontignan",
+      "value": "Frontignan"
+    },
+    {
+      "name": "拉泰",
+      "nameEn": "Lattes",
+      "value": "Lattes"
+    },
+    {
+      "name": "拉西约塔",
+      "nameEn": "La Ciotat",
+      "value": "La Ciotat"
+    },
+    {
+      "name": "布克港",
+      "nameEn": "Port-de-Bouc",
+      "value": "Port-de-Bouc"
+    },
+    {
+      "name": "马蒂格",
+      "nameEn": "Martigues",
+      "value": "Martigues"
+    },
+    {
+      "name": "马里尼亚讷",
+      "nameEn": "Marignane",
+      "value": "Marignane"
+    },
+    {
+      "name": "滨海福斯",
+      "nameEn": "Fos-sur-Mer",
+      "value": "Fos-sur-Mer"
+    },
+    {
+      "name": "伊斯特尔",
+      "nameEn": "Istres",
+      "value": "Istres"
+    },
+    {
+      "name": "米拉马斯",
+      "nameEn": "Miramas",
+      "value": "Miramas"
+    },
+    {
+      "name": "维特罗勒",
+      "nameEn": "Vitrolles",
+      "value": "Vitrolles"
+    },
+    {
+      "name": "马赛",
+      "nameEn": "Marseille",
+      "value": "Marseille"
+    },
+    {
+      "name": "莱斯佩尼斯米拉波",
+      "nameEn": "Les Pennes-Mirabeau",
+      "value": "Les Pennes-Mirabeau"
+    },
+    {
+      "name": "欧巴涅",
+      "nameEn": "Aubagne",
+      "value": "Aubagne"
+    },
+    {
+      "name": "阿洛",
+      "nameEn": "Allauch",
+      "value": "Allauch"
+    },
+    {
+      "name": "加尔达讷",
+      "nameEn": "Gardanne",
+      "value": "Gardanne"
+    },
+    {
+      "name": "普罗旺斯地区艾克斯",
+      "nameEn": "Aix-en-Provence",
+      "value": "Aix-en-Provence"
+    },
+    {
+      "name": "米约",
+      "nameEn": "Millau",
+      "value": "Millau"
+    },
+    {
+      "name": "蒙彼利埃",
+      "nameEn": "Montpellier",
+      "value": "Montpellier"
+    },
+    {
+      "name": "卡斯泰尔诺勒莱",
+      "nameEn": "Castelnau-le-Lez",
+      "value": "Castelnau-le-Lez"
+    },
+    {
+      "name": "莫吉奥",
+      "nameEn": "Mauguio",
+      "value": "Mauguio"
+    },
+    {
+      "name": "吕内勒",
+      "nameEn": "Lunel",
+      "value": "Lunel"
+    },
+    {
+      "name": "阿莱斯",
+      "nameEn": "Alès",
+      "value": "Alès"
+    },
+    {
+      "name": "尼姆",
+      "nameEn": "Nimes",
+      "value": "Nimes"
+    },
+    {
+      "name": "阿尔勒",
+      "nameEn": "Arles",
+      "value": "Arles"
+    },
+    {
+      "name": "阿维尼翁",
+      "nameEn": "Avignon",
+      "value": "Avignon"
+    },
+    {
+      "name": "莱蓬特",
+      "nameEn": "Le Pontet",
+      "value": "Le Pontet"
+    },
+    {
+      "name": "索尔格",
+      "nameEn": "Sorgues",
+      "value": "Sorgues"
+    },
+    {
+      "name": "塞兹河畔巴尼奥勒",
+      "nameEn": "Bagnols-sur-Cèze",
+      "value": "Bagnols-sur-Cèze"
+    },
+    {
+      "name": "奥朗日",
+      "nameEn": "Orange",
+      "value": "Orange"
+    },
+    {
+      "name": "普罗旺斯地区萨隆",
+      "nameEn": "Salon-de-Provence",
+      "value": "Salon-de-Provence"
+    },
+    {
+      "name": "卡瓦永",
+      "nameEn": "Cavaillon",
+      "value": "Cavaillon"
+    },
+    {
+      "name": "索尔格河畔利勒",
+      "nameEn": "L\u0027Isle-sur-la-Sorgue",
+      "value": "L\u0027Isle-sur-la-Sorgue"
+    },
+    {
+      "name": "佩尔蒂",
+      "nameEn": "Pertuis",
+      "value": "Pertuis"
+    },
+    {
+      "name": "Clavaillan",
+      "nameEn": "Clavaillan",
+      "value": "Clavaillan"
+    },
+    {
+      "name": "卡庞特拉",
+      "nameEn": "Carpentras",
+      "value": "Carpentras"
+    },
+    {
+      "name": "蒙特利马尔",
+      "nameEn": "Montélimar",
+      "value": "Montélimar"
+    },
+    {
+      "name": "瓦朗斯",
+      "nameEn": "Valence",
+      "value": "Valence"
+    },
+    {
+      "name": "瓦朗斯堡",
+      "nameEn": "Bourg-lès-Valence",
+      "value": "Bourg-lès-Valence"
+    },
+    {
+      "name": "阿雅克肖",
+      "nameEn": "Ajaccio",
+      "value": "Ajaccio"
+    },
+    {
+      "name": "滨海萨纳里",
+      "nameEn": "Sanary-sur-Mer",
+      "value": "Sanary-sur-Mer"
+    },
+    {
+      "name": "西富尔斯-勒普拉热",
+      "nameEn": "Six-Fours-les-Plages",
+      "value": "Six-Fours-les-Plages"
+    },
+    {
+      "name": "滨海拉塞讷",
+      "nameEn": "La Seyne-sur-Mer",
+      "value": "La Seyne-sur-Mer"
+    },
+    {
+      "name": "土伦",
+      "nameEn": "Toulon",
+      "value": "Toulon"
+    },
+    {
+      "name": "拉加尔德",
+      "nameEn": "La Garde",
+      "value": "La Garde"
+    },
+    {
+      "name": "拉瓦莱特－迪瓦尔",
+      "nameEn": "La Valette-du-Var",
+      "value": "La Valette-du-Var"
+    },
+    {
+      "name": "拉克罗",
+      "nameEn": "La Crau",
+      "value": "La Crau"
+    },
+    {
+      "name": "耶尔",
+      "nameEn": "Hyères",
+      "value": "Hyères"
+    },
+    {
+      "name": "圣马克西曼－圣博姆",
+      "nameEn": "Saint-Maximin-la-Sainte-Baume",
+      "value": "Saint-Maximin-la-Sainte-Baume"
+    },
+    {
+      "name": "布里尼奥勒",
+      "nameEn": "Brignoles",
+      "value": "Brignoles"
+    },
+    {
+      "name": "德拉吉尼昂",
+      "nameEn": "Draguignan",
+      "value": "Draguignan"
+    },
+    {
+      "name": "弗雷瑞斯",
+      "nameEn": "Fréjus",
+      "value": "Fréjus"
+    },
+    {
+      "name": "圣拉斐尔",
+      "nameEn": "Saint-Raphaël",
+      "value": "Saint-Raphaël"
+    },
+    {
+      "name": "芒代利厄拉纳普尔",
+      "nameEn": "Mandelieu-la-Napoule",
+      "value": "Mandelieu-la-Napoule"
+    },
+    {
+      "name": "戛纳",
+      "nameEn": "Cannes",
+      "value": "Cannes"
+    },
+    {
+      "name": "勒卡内",
+      "nameEn": "Le Cannet",
+      "value": "Le Cannet"
+    },
+    {
+      "name": "瓦洛里",
+      "nameEn": "Vallauris",
+      "value": "Vallauris"
+    },
+    {
+      "name": "昂蒂布",
+      "nameEn": "Antibes",
+      "value": "Antibes"
+    },
+    {
+      "name": "马诺斯克",
+      "nameEn": "Manosque",
+      "value": "Manosque"
+    },
+    {
+      "name": "迪涅莱班",
+      "nameEn": "Digne-les-Bains",
+      "value": "Digne-les-Bains"
+    },
+    {
+      "name": "格拉斯",
+      "nameEn": "Grasse",
+      "value": "Grasse"
+    },
+    {
+      "name": "穆然",
+      "nameEn": "Mougins",
+      "value": "Mougins"
+    },
+    {
+      "name": "加普",
+      "nameEn": "Gap",
+      "value": "Gap"
+    },
+    {
+      "name": "卡涅",
+      "nameEn": "Cagnes-sur-Mer",
+      "value": "Cagnes-sur-Mer"
+    },
+    {
+      "name": "圣罗兰度瓦",
+      "nameEn": "Saint-Laurent-du-Var",
+      "value": "Saint-Laurent-du-Var"
+    },
+    {
+      "name": "旺斯",
+      "nameEn": "Vence",
+      "value": "Vence"
+    },
+    {
+      "name": "尼斯",
+      "nameEn": "Nice",
+      "value": "Nice"
+    },
+    {
+      "name": "芒通",
+      "nameEn": "Menton",
+      "value": "Menton"
+    },
+    {
+      "name": "巴斯蒂亚",
+      "nameEn": "Bastia",
+      "value": "Bastia"
+    },
+    {
+      "name": "昂古莱姆",
+      "nameEn": "Angoulême",
+      "value": "Angoulême"
+    },
+    {
+      "name": "佩里格",
+      "nameEn": "Périgueux",
+      "value": "Périgueux"
+    },
+    {
+      "name": "里摩日",
+      "nameEn": "Limoges",
+      "value": "Limoges"
+    },
+    {
+      "name": "布里夫拉盖亚尔德",
+      "nameEn": "Brive-la-Gaillarde",
+      "value": "Brive-la-Gaillarde"
+    },
+    {
+      "name": "蒂勒",
+      "nameEn": "Tulle",
+      "value": "Tulle"
+    },
+    {
+      "name": "盖雷",
+      "nameEn": "Guéret",
+      "value": "Guéret"
+    },
+    {
+      "name": "蒙吕松",
+      "nameEn": "Montluçon",
+      "value": "Montluçon"
+    },
+    {
+      "name": "波瓦第尔",
+      "nameEn": "Poitiers",
+      "value": "Poitiers"
+    },
+    {
+      "name": "沙泰勒罗",
+      "nameEn": "Châtellerault",
+      "value": "Châtellerault"
+    },
+    {
+      "name": "茹埃莱图尔",
+      "nameEn": "Joué-lès-Tours",
+      "value": "Joué-lès-Tours"
+    },
+    {
+      "name": "图尔",
+      "nameEn": "Tours",
+      "value": "Tours"
+    },
+    {
+      "name": "卢瓦尔河畔圣西尔",
+      "nameEn": "Saint-Cyr-sur-Loire",
+      "value": "Saint-Cyr-sur-Loire"
+    },
+    {
+      "name": "圣阿韦坦",
+      "nameEn": "Saint-Avertin",
+      "value": "Saint-Avertin"
+    },
+    {
+      "name": "圣皮耶尔代科尔普",
+      "nameEn": "Saint-Pierre-des-Corps",
+      "value": "Saint-Pierre-des-Corps"
+    },
+    {
+      "name": "布卢瓦",
+      "nameEn": "Blois",
+      "value": "Blois"
+    },
+    {
+      "name": "旺多姆",
+      "nameEn": "Vendôme",
+      "value": "Vendôme"
+    },
+    {
+      "name": "沙托鲁",
+      "nameEn": "Châteauroux",
+      "value": "Châteauroux"
+    },
+    {
+      "name": "博格斯",
+      "nameEn": "Bourges",
+      "value": "Bourges"
+    },
+    {
+      "name": "罗莫朗坦朗特奈",
+      "nameEn": "Romorantin-Lanthenay",
+      "value": "Romorantin-Lanthenay"
+    },
+    {
+      "name": "维耶尔宗",
+      "nameEn": "Vierzon",
+      "value": "Vierzon"
+    },
+    {
+      "name": "日安",
+      "nameEn": "Gien",
+      "value": "Gien"
+    },
+    {
+      "name": "伊苏瓦尔",
+      "nameEn": "Issoire",
+      "value": "Issoire"
+    },
+    {
+      "name": "勒皮",
+      "nameEn": "Le Puy",
+      "value": "Le Puy"
+    },
+    {
+      "name": "Montbrison",
+      "nameEn": "Montbrison",
+      "value": "Montbrison"
+    },
+    {
+      "name": "沙马利埃",
+      "nameEn": "Chamalières",
+      "value": "Chamalières"
+    },
+    {
+      "name": "克莱蒙费朗",
+      "nameEn": "Clermont-Ferrand",
+      "value": "Clermont-Ferrand"
+    },
+    {
+      "name": "里永",
+      "nameEn": "Riom",
+      "value": "Riom"
+    },
+    {
+      "name": "库尔农多韦尔尼",
+      "nameEn": "Cournon-d\u0027Auvergne",
+      "value": "Cournon-d\u0027Auvergne"
+    },
+    {
+      "name": "维琪",
+      "nameEn": "Vichy",
+      "value": "Vichy"
+    },
+    {
+      "name": "罗阿讷",
+      "nameEn": "Roanne",
+      "value": "Roanne"
+    },
+    {
+      "name": "阿诺奈",
+      "nameEn": "Annonay",
+      "value": "Annonay"
+    },
+    {
+      "name": "菲尔米尼",
+      "nameEn": "Firminy",
+      "value": "Firminy"
+    },
+    {
+      "name": "圣艾蒂安",
+      "nameEn": "Saint-Étienne",
+      "value": "Saint-Étienne"
+    },
+    {
+      "name": "圣尚翁",
+      "nameEn": "Saint-Chamond",
+      "value": "Saint-Chamond"
+    },
+    {
+      "name": "维埃纳",
+      "nameEn": "Vienne",
+      "value": "Vienne"
+    },
+    {
+      "name": "日沃尔",
+      "nameEn": "Givors",
+      "value": "Givors"
+    },
+    {
+      "name": "Saint-Genis-Laval",
+      "nameEn": "Saint-Genis-Laval",
+      "value": "Saint-Genis-Laval"
+    },
+    {
+      "name": "韦尼雪",
+      "nameEn": "Vénissieux",
+      "value": "Vénissieux"
+    },
+    {
+      "name": "伊泽尔河畔罗芒",
+      "nameEn": "Romans-sur-Isère",
+      "value": "Romans-sur-Isère"
+    },
+    {
+      "name": "圣普列斯特",
+      "nameEn": "Saint-Priest",
+      "value": "Saint-Priest"
+    },
+    {
+      "name": "维莱丰坦",
+      "nameEn": "Villefontaine",
+      "value": "Villefontaine"
+    },
+    {
+      "name": "瓦龙",
+      "nameEn": "Voiron",
+      "value": "Voiron"
+    },
+    {
+      "name": "布尔关雅略",
+      "nameEn": "Bourgoin-Jallieu",
+      "value": "Bourgoin-Jallieu"
+    },
+    {
+      "name": "Bourgoin",
+      "nameEn": "Bourgoin",
+      "value": "Bourgoin"
+    },
+    {
+      "name": "Oullins",
+      "nameEn": "Oullins",
+      "value": "Oullins"
+    },
+    {
+      "name": "Sainte-Foy-les-Lyon",
+      "nameEn": "Sainte-Foy-les-Lyon",
+      "value": "Sainte-Foy-les-Lyon"
+    },
+    {
+      "name": "Tassin-la-Demi-Lune",
+      "nameEn": "Tassin-la-Demi-Lune",
+      "value": "Tassin-la-Demi-Lune"
+    },
+    {
+      "name": "Ecully",
+      "nameEn": "Ecully",
+      "value": "Ecully"
+    },
+    {
+      "name": "圣丰",
+      "nameEn": "Saint-Fons",
+      "value": "Saint-Fons"
+    },
+    {
+      "name": "布龙",
+      "nameEn": "Bron",
+      "value": "Bron"
+    },
+    {
+      "name": "里昂",
+      "nameEn": "Lyon",
+      "value": "Lyon"
+    },
+    {
+      "name": "Caluire-et-Cuire",
+      "nameEn": "Caluire-et-Cuire",
+      "value": "Caluire-et-Cuire"
+    },
+    {
+      "name": "维勒班",
+      "nameEn": "Villeurbanne",
+      "value": "Villeurbanne"
+    },
+    {
+      "name": "Vaulx-en-Velin",
+      "nameEn": "Vaulx-en-Velin",
+      "value": "Vaulx-en-Velin"
+    },
+    {
+      "name": "Rillieux-la-Pape",
+      "nameEn": "Rillieux-la-Pape",
+      "value": "Rillieux-la-Pape"
+    },
+    {
+      "name": "索恩河畔自由城",
+      "nameEn": "Villefranche-sur-Saone",
+      "value": "Villefranche-sur-Saone"
+    },
+    {
+      "name": "马孔",
+      "nameEn": "Mâcon",
+      "value": "Mâcon"
+    },
+    {
+      "name": "Decines-Charpieu",
+      "nameEn": "Decines-Charpieu",
+      "value": "Decines-Charpieu"
+    },
+    {
+      "name": "梅济约",
+      "nameEn": "Meyzieu",
+      "value": "Meyzieu"
+    },
+    {
+      "name": "布雷斯地区布尔格",
+      "nameEn": "Bourg-en-Bresse",
+      "value": "Bourg-en-Bresse"
+    },
+    {
+      "name": "穆兰",
+      "nameEn": "Moulins",
+      "value": "Moulins"
+    },
+    {
+      "name": "讷韦尔",
+      "nameEn": "Nevers",
+      "value": "Nevers"
+    },
+    {
+      "name": "欧塞尔",
+      "nameEn": "Auxerre",
+      "value": "Auxerre"
+    },
+    {
+      "name": "蒙索莱米讷",
+      "nameEn": "Montceau-les-Mines",
+      "value": "Montceau-les-Mines"
+    },
+    {
+      "name": "Saint-Leu",
+      "nameEn": "Saint-Leu",
+      "value": "Saint-Leu"
+    },
+    {
+      "name": "勒克勒佐",
+      "nameEn": "Le Creusot",
+      "value": "Le Creusot"
+    },
+    {
+      "name": "欧坦",
+      "nameEn": "Autun",
+      "value": "Autun"
+    },
+    {
+      "name": "索恩河畔沙隆",
+      "nameEn": "Chalon-sur-Saône",
+      "value": "Chalon-sur-Saône"
+    },
+    {
+      "name": "博讷",
+      "nameEn": "Beaune",
+      "value": "Beaune"
+    },
+    {
+      "name": "隆勒索涅",
+      "nameEn": "Lons-le-Saunier",
+      "value": "Lons-le-Saunier"
+    },
+    {
+      "name": "多勒",
+      "nameEn": "Dole",
+      "value": "Dole"
+    },
+    {
+      "name": "尚奥夫",
+      "nameEn": "Chenôve",
+      "value": "Chenôve"
+    },
+    {
+      "name": "第戎",
+      "nameEn": "Dijon",
+      "value": "Dijon"
+    },
+    {
+      "name": "勒芒",
+      "nameEn": "Le Mans",
+      "value": "Le Mans"
+    },
+    {
+      "name": "阿朗松",
+      "nameEn": "Alençon",
+      "value": "Alençon"
+    },
+    {
+      "name": "沙托丹",
+      "nameEn": "Châteaudun",
+      "value": "Châteaudun"
+    },
+    {
+      "name": "利雪",
+      "nameEn": "Lisieux",
+      "value": "Lisieux"
+    },
+    {
+      "name": "德勒",
+      "nameEn": "Dreux",
+      "value": "Dreux"
+    },
+    {
+      "name": "埃夫勒",
+      "nameEn": "Évreux",
+      "value": "Évreux"
+    },
+    {
+      "name": "卢维耶",
+      "nameEn": "Louviers",
+      "value": "Louviers"
+    },
+    {
+      "name": "奥利韦",
+      "nameEn": "Olivet",
+      "value": "Olivet"
+    },
+    {
+      "name": "圣让德拉-吕埃尔",
+      "nameEn": "Saint-Jean-de-la-Ruelle",
+      "value": "Saint-Jean-de-la-Ruelle"
+    },
+    {
+      "name": "奥尔良",
+      "nameEn": "Orléans",
+      "value": "Orléans"
+    },
+    {
+      "name": "弗勒里莱索布赖",
+      "nameEn": "Fleury-les-Aubrais",
+      "value": "Fleury-les-Aubrais"
+    },
+    {
+      "name": "萨朗",
+      "nameEn": "Saran",
+      "value": "Saran"
+    },
+    {
+      "name": "圣让德布赖埃",
+      "nameEn": "Saint-Jean-de-Braye",
+      "value": "Saint-Jean-de-Braye"
+    },
+    {
+      "name": "吕塞",
+      "nameEn": "Lucé",
+      "value": "Lucé"
+    },
+    {
+      "name": "沙特尔",
+      "nameEn": "Chartres",
+      "value": "Chartres"
+    },
+    {
+      "name": "蒙塔日",
+      "nameEn": "Montargis",
+      "value": "Montargis"
+    },
+    {
+      "name": "埃唐普",
+      "nameEn": "Étampes",
+      "value": "Étampes"
+    },
+    {
+      "name": "枫丹白露",
+      "nameEn": "Fontainebleau",
+      "value": "Fontainebleau"
+    },
+    {
+      "name": "阿翁",
+      "nameEn": "Avon",
+      "value": "Avon"
+    },
+    {
+      "name": "朗布依埃",
+      "nameEn": "Rambouillet",
+      "value": "Rambouillet"
+    },
+    {
+      "name": "Maurepas",
+      "nameEn": "Maurepas",
+      "value": "Maurepas"
+    },
+    {
+      "name": "特拉普",
+      "nameEn": "Trappes",
+      "value": "Trappes"
+    },
+    {
+      "name": "Montigny-le-Bretonneux",
+      "nameEn": "Montigny-le-Bretonneux",
+      "value": "Montigny-le-Bretonneux"
+    },
+    {
+      "name": "基扬古尔",
+      "nameEn": "Guyancourt",
+      "value": "Guyancourt"
+    },
+    {
+      "name": "Élancourt",
+      "nameEn": "Élancourt",
+      "value": "Élancourt"
+    },
+    {
+      "name": "Plaisir",
+      "nameEn": "Plaisir",
+      "value": "Plaisir"
+    },
+    {
+      "name": "Les Clayes-sous-Bois",
+      "nameEn": "Les Clayes-sous-Bois",
+      "value": "Les Clayes-sous-Bois"
+    },
+    {
+      "name": "圣西尔－莱科勒",
+      "nameEn": "Saint-Cyr-l\u0027École",
+      "value": "Saint-Cyr-l\u0027École"
+    },
+    {
+      "name": "马尔利勒鲁瓦",
+      "nameEn": "Marly-le-Roi",
+      "value": "Marly-le-Roi"
+    },
+    {
+      "name": "Mantes-la-Ville",
+      "nameEn": "Mantes-la-Ville",
+      "value": "Mantes-la-Ville"
+    },
+    {
+      "name": "芒特拉若利",
+      "nameEn": "Mantes-la-Jolie",
+      "value": "Mantes-la-Jolie"
+    },
+    {
+      "name": "利迈",
+      "nameEn": "Limay",
+      "value": "Limay"
+    },
+    {
+      "name": "韦尔农",
+      "nameEn": "Vernon",
+      "value": "Vernon"
+    },
+    {
+      "name": "莱米罗",
+      "nameEn": "Les Mureaux",
+      "value": "Les Mureaux"
+    },
+    {
+      "name": "圣日耳曼昂莱",
+      "nameEn": "Saint-Germain-en-Laye",
+      "value": "Saint-Germain-en-Laye"
+    },
+    {
+      "name": "勒佩克",
+      "nameEn": "Le Pecq",
+      "value": "Le Pecq"
+    },
+    {
+      "name": "普瓦西",
+      "nameEn": "Poissy",
+      "value": "Poissy"
+    },
+    {
+      "name": "Carrieres-sous-Poissy",
+      "nameEn": "Carrieres-sous-Poissy",
+      "value": "Carrieres-sous-Poissy"
+    },
+    {
+      "name": "Verneuil-sur-Seine",
+      "nameEn": "Verneuil-sur-Seine",
+      "value": "Verneuil-sur-Seine"
+    },
+    {
+      "name": "阿谢尔",
+      "nameEn": "Achères",
+      "value": "Achères"
+    },
+    {
+      "name": "茹伊勒穆蒂耶",
+      "nameEn": "Jouy-le-Moutier",
+      "value": "Jouy-le-Moutier"
+    },
+    {
+      "name": "沃雷阿",
+      "nameEn": "Vauréal",
+      "value": "Vauréal"
+    },
+    {
+      "name": "孔夫朗－圣奥诺里讷",
+      "nameEn": "Conflans-Sainte-Honorine",
+      "value": "Conflans-Sainte-Honorine"
+    },
+    {
+      "name": "埃拉尼",
+      "nameEn": "Éragny",
+      "value": "Éragny"
+    },
+    {
+      "name": "塞尔吉",
+      "nameEn": "Cergy",
+      "value": "Cergy"
+    },
+    {
+      "name": "奥尼",
+      "nameEn": "Osny",
+      "value": "Osny"
+    },
+    {
+      "name": "蓬图瓦兹",
+      "nameEn": "Pontoise",
+      "value": "Pontoise"
+    },
+    {
+      "name": "伊维特河畔吉夫",
+      "nameEn": "Gif-sur-Yvette",
+      "value": "Gif-sur-Yvette"
+    },
+    {
+      "name": "于利斯",
+      "nameEn": "Les Ulis",
+      "value": "Les Ulis"
+    },
+    {
+      "name": "奥尔日河畔布雷蒂尼",
+      "nameEn": "Brétigny-sur-Orge",
+      "value": "Brétigny-sur-Orge"
+    },
+    {
+      "name": "奥尔日河畔圣米舍",
+      "nameEn": "Saint-Michel-sur-Orge",
+      "value": "Saint-Michel-sur-Orge"
+    },
+    {
+      "name": "圣热讷维耶沃－德布瓦",
+      "nameEn": "Sainte-Geneviève-des-Bois",
+      "value": "Sainte-Geneviève-des-Bois"
+    },
+    {
+      "name": "奥尔日河畔莫尔桑",
+      "nameEn": "Morsang-sur-Orge",
+      "value": "Morsang-sur-Orge"
+    },
+    {
+      "name": "奥尔日河畔萨维尼",
+      "nameEn": "Savigny-sur-Orge",
+      "value": "Savigny-sur-Orge"
+    },
+    {
+      "name": "埃夫里",
+      "nameEn": "Évry",
+      "value": "Évry"
+    },
+    {
+      "name": "格里尼",
+      "nameEn": "Grigny",
+      "value": "Grigny"
+    },
+    {
+      "name": "里索朗日",
+      "nameEn": "Ris-Orangis",
+      "value": "Ris-Orangis"
+    },
+    {
+      "name": "维里沙蒂永",
+      "nameEn": "Viry-Châtillon",
+      "value": "Viry-Châtillon"
+    },
+    {
+      "name": "德拉韦伊",
+      "nameEn": "Draveil",
+      "value": "Draveil"
+    },
+    {
+      "name": "奥尔赛",
+      "nameEn": "Orsay",
+      "value": "Orsay"
+    },
+    {
+      "name": "帕莱索",
+      "nameEn": "Palaiseau",
+      "value": "Palaiseau"
+    },
+    {
+      "name": "马西",
+      "nameEn": "Massy",
+      "value": "Massy"
+    },
+    {
+      "name": "弗尔里埃勒比伊松",
+      "nameEn": "Verrières-le-Buisson",
+      "value": "Verrières-le-Buisson"
+    },
+    {
+      "name": "沙特奈马拉布里",
+      "nameEn": "Châtenay-Malabry",
+      "value": "Châtenay-Malabry"
+    },
+    {
+      "name": "凡尔赛",
+      "nameEn": "Versailles",
+      "value": "Versailles"
+    },
+    {
+      "name": "勒谢奈",
+      "nameEn": "Le Chesnay",
+      "value": "Le Chesnay"
+    },
+    {
+      "name": "维罗夫莱",
+      "nameEn": "Viroflay",
+      "value": "Viroflay"
+    },
+    {
+      "name": "韦利济－维拉库布莱",
+      "nameEn": "Vélizy-Villacoublay",
+      "value": "Vélizy-Villacoublay"
+    },
+    {
+      "name": "沙维尔",
+      "nameEn": "Chaville",
+      "value": "Chaville"
+    },
+    {
+      "name": "拉塞勒－圣克卢",
+      "nameEn": "La Celle-Saint-Cloud",
+      "value": "La Celle-Saint-Cloud"
+    },
+    {
+      "name": "加尔什",
+      "nameEn": "Garches",
+      "value": "Garches"
+    },
+    {
+      "name": "塞夫尔",
+      "nameEn": "Sèvres",
+      "value": "Sèvres"
+    },
+    {
+      "name": "默东",
+      "nameEn": "Meudon",
+      "value": "Meudon"
+    },
+    {
+      "name": "勒普莱西－罗班松",
+      "nameEn": "Le Plessis-Robinson",
+      "value": "Le Plessis-Robinson"
+    },
+    {
+      "name": "克拉马",
+      "nameEn": "Clamart",
+      "value": "Clamart"
+    },
+    {
+      "name": "伊西莱穆利诺",
+      "nameEn": "Issy-les-Moulineaux",
+      "value": "Issy-les-Moulineaux"
+    },
+    {
+      "name": "圣克卢",
+      "nameEn": "Saint-Cloud",
+      "value": "Saint-Cloud"
+    },
+    {
+      "name": "布洛涅－比扬古",
+      "nameEn": "Boulogne-Billancourt",
+      "value": "Boulogne-Billancourt"
+    },
+    {
+      "name": "隆格瑞莫",
+      "nameEn": "Longjumeau",
+      "value": "Longjumeau"
+    },
+    {
+      "name": "希利马扎兰",
+      "nameEn": "Chilly-Mazarin",
+      "value": "Chilly-Mazarin"
+    },
+    {
+      "name": "安东尼",
+      "nameEn": "Antony",
+      "value": "Antony"
+    },
+    {
+      "name": "弗雷讷",
+      "nameEn": "Fresnes",
+      "value": "Fresnes"
+    },
+    {
+      "name": "索镇",
+      "nameEn": "Sceaux",
+      "value": "Sceaux"
+    },
+    {
+      "name": "谢维利拉吕厄",
+      "nameEn": "Chevilly-Larue",
+      "value": "Chevilly-Larue"
+    },
+    {
+      "name": "阿蒂斯蒙斯",
+      "nameEn": "Athis-Mons",
+      "value": "Athis-Mons"
+    },
+    {
+      "name": "塞纳河畔维尼厄",
+      "nameEn": "Vigneux-sur-Seine",
+      "value": "Vigneux-sur-Seine"
+    },
+    {
+      "name": "蒙日龙",
+      "nameEn": "Montgeron",
+      "value": "Montgeron"
+    },
+    {
+      "name": "圣乔治新城",
+      "nameEn": "Villeneuve-Saint-Georges",
+      "value": "Villeneuve-Saint-Georges"
+    },
+    {
+      "name": "奥利",
+      "nameEn": "Orly",
+      "value": "Orly"
+    },
+    {
+      "name": "鲁瓦新城",
+      "nameEn": "Villeneuve-le-Roi",
+      "value": "Villeneuve-le-Roi"
+    },
+    {
+      "name": "蒂艾",
+      "nameEn": "Thiais",
+      "value": "Thiais"
+    },
+    {
+      "name": "舒瓦西勒鲁瓦",
+      "nameEn": "Choisy-le-Roi",
+      "value": "Choisy-le-Roi"
+    },
+    {
+      "name": "丰特奈－欧罗斯",
+      "nameEn": "Fontenay-aux-Roses",
+      "value": "Fontenay-aux-Roses"
+    },
+    {
+      "name": "巴涅",
+      "nameEn": "Bagneux",
+      "value": "Bagneux"
+    },
+    {
+      "name": "沙蒂永",
+      "nameEn": "Châtillon",
+      "value": "Châtillon"
+    },
+    {
+      "name": "马拉科夫",
+      "nameEn": "Malakoff",
+      "value": "Malakoff"
+    },
+    {
+      "name": "蒙鲁日",
+      "nameEn": "Montrouge",
+      "value": "Montrouge"
+    },
+    {
+      "name": "拉伊莱罗斯",
+      "nameEn": "L\u0027Haÿ-les-Roses",
+      "value": "L\u0027Haÿ-les-Roses"
+    },
+    {
+      "name": "卡尚",
+      "nameEn": "Cachan",
+      "value": "Cachan"
+    },
+    {
+      "name": "维勒瑞夫",
+      "nameEn": "Villejuif",
+      "value": "Villejuif"
+    },
+    {
+      "name": "让蒂根",
+      "nameEn": "Gentilly",
+      "value": "Gentilly"
+    },
+    {
+      "name": "莱克朗兰比塞特尔",
+      "nameEn": "Le Kremlin-Bicêtre",
+      "value": "Le Kremlin-Bicêtre"
+    },
+    {
+      "name": "巴黎",
+      "nameEn": "Paris",
+      "value": "Paris"
+    },
+    {
+      "name": "塞纳河畔维提",
+      "nameEn": "Vitry-sur-Seine",
+      "value": "Vitry-sur-Seine"
+    },
+    {
+      "name": "塞纳河畔伊夫里",
+      "nameEn": "Ivry-sur-Seine",
+      "value": "Ivry-sur-Seine"
+    },
+    {
+      "name": "沙朗通勒蓬",
+      "nameEn": "Charenton-le-Pont",
+      "value": "Charenton-le-Pont"
+    },
+    {
+      "name": "阿尔福维尔",
+      "nameEn": "Alfortville",
+      "value": "Alfortville"
+    },
+    {
+      "name": "迈松阿尔福",
+      "nameEn": "Maisons-Alfort",
+      "value": "Maisons-Alfort"
+    },
+    {
+      "name": "圣芒德",
+      "nameEn": "Saint-Mandé",
+      "value": "Saint-Mandé"
+    },
+    {
+      "name": "巴尼奥莱",
+      "nameEn": "Bagnolet",
+      "value": "Bagnolet"
+    },
+    {
+      "name": "万塞讷",
+      "nameEn": "Vincennes",
+      "value": "Vincennes"
+    },
+    {
+      "name": "蒙特勒伊",
+      "nameEn": "Montreuil",
+      "value": "Montreuil"
+    },
+    {
+      "name": "Le Mee-sur-Seine",
+      "nameEn": "Le Mee-sur-Seine",
+      "value": "Le Mee-sur-Seine"
+    },
+    {
+      "name": "Savigny-le-Temple",
+      "nameEn": "Savigny-le-Temple",
+      "value": "Savigny-le-Temple"
+    },
+    {
+      "name": "科尔贝－埃索讷",
+      "nameEn": "Corbeil-Essonnes",
+      "value": "Corbeil-Essonnes"
+    },
+    {
+      "name": "穆瓦西－克拉迈耶勒",
+      "nameEn": "Moissy-Cramayel",
+      "value": "Moissy-Cramayel"
+    },
+    {
+      "name": "孔拉维尔",
+      "nameEn": "Combs-la-Ville",
+      "value": "Combs-la-Ville"
+    },
+    {
+      "name": "布里孔特罗贝尔",
+      "nameEn": "Brie-Comte-Robert",
+      "value": "Brie-Comte-Robert"
+    },
+    {
+      "name": "Dammarie-les-Lys",
+      "nameEn": "Dammarie-les-Lys",
+      "value": "Dammarie-les-Lys"
+    },
+    {
+      "name": "默伦",
+      "nameEn": "Melun",
+      "value": "Melun"
+    },
+    {
+      "name": "布吕努瓦",
+      "nameEn": "Brunoy",
+      "value": "Brunoy"
+    },
+    {
+      "name": "耶尔",
+      "nameEn": "Yerres",
+      "value": "Yerres"
+    },
+    {
+      "name": "利梅伊－布雷瓦讷",
+      "nameEn": "Limeil-Brévannes",
+      "value": "Limeil-Brévannes"
+    },
+    {
+      "name": "马恩河畔博纳伊",
+      "nameEn": "Bonneuil-sur-Marne",
+      "value": "Bonneuil-sur-Marne"
+    },
+    {
+      "name": "布瓦西－圣莱热",
+      "nameEn": "Boissy-Saint-Léger",
+      "value": "Boissy-Saint-Léger"
+    },
+    {
+      "name": "叙西昂布里",
+      "nameEn": "Sucy-en-Brie",
+      "value": "Sucy-en-Brie"
+    },
+    {
+      "name": "克雷泰伊",
+      "nameEn": "Créteil",
+      "value": "Créteil"
+    },
+    {
+      "name": "圣莫代福塞",
+      "nameEn": "Saint-Maur-des-Fossés",
+      "value": "Saint-Maur-des-Fossés"
+    },
+    {
+      "name": "马恩河畔尚皮尼",
+      "nameEn": "Champigny-sur-Marne",
+      "value": "Champigny-sur-Marne"
+    },
+    {
+      "name": "马恩河畔谢纳维耶尔",
+      "nameEn": "Chennevières-sur-Marne",
+      "value": "Chennevières-sur-Marne"
+    },
+    {
+      "name": "茹安维尔勒蓬",
+      "nameEn": "Joinville-le-Pont",
+      "value": "Joinville-le-Pont"
+    },
+    {
+      "name": "马恩河畔诺让",
+      "nameEn": "Nogent-sur-Marne",
+      "value": "Nogent-sur-Marne"
+    },
+    {
+      "name": "丰特奈－苏布瓦",
+      "nameEn": "Fontenay-sous-Bois",
+      "value": "Fontenay-sous-Bois"
+    },
+    {
+      "name": "马恩河畔勒佩勒",
+      "nameEn": "Le Perreux-sur-Marne",
+      "value": "Le Perreux-sur-Marne"
+    },
+    {
+      "name": "马恩河畔布里",
+      "nameEn": "Bry-sur-Marne",
+      "value": "Bry-sur-Marne"
+    },
+    {
+      "name": "马恩河畔维利耶",
+      "nameEn": "Villiers-sur-Marne",
+      "value": "Villiers-sur-Marne"
+    },
+    {
+      "name": "讷伊普莱桑斯",
+      "nameEn": "Neuilly-Plaisance",
+      "value": "Neuilly-Plaisance"
+    },
+    {
+      "name": "莱普莱西特勒维斯",
+      "nameEn": "Le Plessis-Trévise",
+      "value": "Le Plessis-Trévise"
+    },
+    {
+      "name": "Pontault-Combault",
+      "nameEn": "Pontault-Combault",
+      "value": "Pontault-Combault"
+    },
+    {
+      "name": "马恩河畔讷伊",
+      "nameEn": "Neuilly-sur-Marne",
+      "value": "Neuilly-sur-Marne"
+    },
+    {
+      "name": "大努瓦西",
+      "nameEn": "Noisy-le-Grand",
+      "value": "Noisy-le-Grand"
+    },
+    {
+      "name": "Lognes",
+      "nameEn": "Lognes",
+      "value": "Lognes"
+    },
+    {
+      "name": "Champs-sur-Marne",
+      "nameEn": "Champs-sur-Marne",
+      "value": "Champs-sur-Marne"
+    },
+    {
+      "name": "Noisiel",
+      "nameEn": "Noisiel",
+      "value": "Noisiel"
+    },
+    {
+      "name": "奥祖瓦尔－拉费里耶尔",
+      "nameEn": "Ozoir-la-Ferrière",
+      "value": "Ozoir-la-Ferrière"
+    },
+    {
+      "name": "Roissy-en-Brie",
+      "nameEn": "Roissy-en-Brie",
+      "value": "Roissy-en-Brie"
+    },
+    {
+      "name": "托尔西",
+      "nameEn": "Torcy",
+      "value": "Torcy"
+    },
+    {
+      "name": "Lagny-sur-Marne",
+      "nameEn": "Lagny-sur-Marne",
+      "value": "Lagny-sur-Marne"
+    },
+    {
+      "name": "勒韦西内",
+      "nameEn": "Le Vésinet",
+      "value": "Le Vésinet"
+    },
+    {
+      "name": "Montesson",
+      "nameEn": "Montesson",
+      "value": "Montesson"
+    },
+    {
+      "name": "吕埃－马迈松",
+      "nameEn": "Rueil-Malmaison",
+      "value": "Rueil-Malmaison"
+    },
+    {
+      "name": "沙图",
+      "nameEn": "Chatou",
+      "value": "Chatou"
+    },
+    {
+      "name": "迈松拉菲特",
+      "nameEn": "Maisons-Laffitte",
+      "value": "Maisons-Laffitte"
+    },
+    {
+      "name": "乌耶",
+      "nameEn": "Houilles",
+      "value": "Houilles"
+    },
+    {
+      "name": "萨特鲁维尔",
+      "nameEn": "Sartrouville",
+      "value": "Sartrouville"
+    },
+    {
+      "name": "叙雷讷",
+      "nameEn": "Suresnes",
+      "value": "Suresnes"
+    },
+    {
+      "name": "皮托",
+      "nameEn": "Puteaux",
+      "value": "Puteaux"
+    },
+    {
+      "name": "楠泰尔",
+      "nameEn": "Nanterre",
+      "value": "Nanterre"
+    },
+    {
+      "name": "塞纳河畔讷伊",
+      "nameEn": "Neuilly-sur-Seine",
+      "value": "Neuilly-sur-Seine"
+    },
+    {
+      "name": "库伯瓦",
+      "nameEn": "Courbevoie",
+      "value": "Courbevoie"
+    },
+    {
+      "name": "伯宗",
+      "nameEn": "Bezons",
+      "value": "Bezons"
+    },
+    {
+      "name": "科隆布",
+      "nameEn": "Colombes",
+      "value": "Colombes"
+    },
+    {
+      "name": "塞纳河畔阿涅勒",
+      "nameEn": "Asnières-sur-Seine",
+      "value": "Asnières-sur-Seine"
+    },
+    {
+      "name": "阿让特伊",
+      "nameEn": "Argenteuil",
+      "value": "Argenteuil"
+    },
+    {
+      "name": "埃尔布莱",
+      "nameEn": "Herblay",
+      "value": "Herblay"
+    },
+    {
+      "name": "科尔梅耶－昂帕里西斯",
+      "nameEn": "Cormeilles-en-Parisis",
+      "value": "Cormeilles-en-Parisis"
+    },
+    {
+      "name": "Montigny-les-Cormeilles",
+      "nameEn": "Montigny-les-Cormeilles",
+      "value": "Montigny-les-Cormeilles"
+    },
+    {
+      "name": "弗朗孔维尔",
+      "nameEn": "Franconville",
+      "value": "Franconville"
+    },
+    {
+      "name": "萨努瓦",
+      "nameEn": "Sannois",
+      "value": "Sannois"
+    },
+    {
+      "name": "埃尔蒙",
+      "nameEn": "Ermont",
+      "value": "Ermont"
+    },
+    {
+      "name": "欧博讷",
+      "nameEn": "Eaubonne",
+      "value": "Eaubonne"
+    },
+    {
+      "name": "塔韦尼",
+      "nameEn": "Taverny",
+      "value": "Taverny"
+    },
+    {
+      "name": "圣勒拉福雷",
+      "nameEn": "Saint-Leu-la-Forêt",
+      "value": "Saint-Leu-la-Forêt"
+    },
+    {
+      "name": "勒瓦卢瓦－佩雷",
+      "nameEn": "Levallois-Perret",
+      "value": "Levallois-Perret"
+    },
+    {
+      "name": "克利希",
+      "nameEn": "Clichy",
+      "value": "Clichy"
+    },
+    {
+      "name": "Saint-Ouen",
+      "nameEn": "Saint-Ouen",
+      "value": "Saint-Ouen"
+    },
+    {
+      "name": "热讷维耶",
+      "nameEn": "Gennevilliers",
+      "value": "Gennevilliers"
+    },
+    {
+      "name": "新城-拉加伦",
+      "nameEn": "Villeneuve-la-Garenne",
+      "value": "Villeneuve-la-Garenne"
+    },
+    {
+      "name": "塞纳河畔埃皮奈",
+      "nameEn": "Épinay-sur-Seine",
+      "value": "Épinay-sur-Seine"
+    },
+    {
+      "name": "圣但尼",
+      "nameEn": "Saint-Denis",
+      "value": "Saint-Denis"
+    },
+    {
+      "name": "庞坦",
+      "nameEn": "Pantin",
+      "value": "Pantin"
+    },
+    {
+      "name": "莱利拉",
+      "nameEn": "Les Lilas",
+      "value": "Les Lilas"
+    },
+    {
+      "name": "罗曼维尔",
+      "nameEn": "Romainville",
+      "value": "Romainville"
+    },
+    {
+      "name": "博比尼",
+      "nameEn": "Bobigny",
+      "value": "Bobigny"
+    },
+    {
+      "name": "欧贝维利耶",
+      "nameEn": "Aubervilliers",
+      "value": "Aubervilliers"
+    },
+    {
+      "name": "拉库尔讷沃",
+      "nameEn": "La Courneuve",
+      "value": "La Courneuve"
+    },
+    {
+      "name": "斯坦",
+      "nameEn": "Stains",
+      "value": "Stains"
+    },
+    {
+      "name": "德朗西",
+      "nameEn": "Drancy",
+      "value": "Drancy"
+    },
+    {
+      "name": "圣格拉蒂安",
+      "nameEn": "Saint-Gratien",
+      "value": "Saint-Gratien"
+    },
+    {
+      "name": "德伊-拉巴尔",
+      "nameEn": "Deuil-la-Barre",
+      "value": "Deuil-la-Barre"
+    },
+    {
+      "name": "苏瓦西苏蒙特莫朗西",
+      "nameEn": "Soisy-sous-Montmorency",
+      "value": "Soisy-sous-Montmorency"
+    },
+    {
+      "name": "塞纳河畔皮埃尔菲特",
+      "nameEn": "Pierrefitte-sur-Seine",
+      "value": "Pierrefitte-sur-Seine"
+    },
+    {
+      "name": "Montmorency",
+      "nameEn": "Montmorency",
+      "value": "Montmorency"
+    },
+    {
+      "name": "多蒙",
+      "nameEn": "Domont",
+      "value": "Domont"
+    },
+    {
+      "name": "加尔热莱戈内塞",
+      "nameEn": "Garges-lès-Gonesse",
+      "value": "Garges-lès-Gonesse"
+    },
+    {
+      "name": "戈内斯",
+      "nameEn": "Gonesse",
+      "value": "Gonesse"
+    },
+    {
+      "name": "萨塞勒",
+      "nameEn": "Sarcelles",
+      "value": "Sarcelles"
+    },
+    {
+      "name": "维利耶勒贝勒",
+      "nameEn": "Villiers-le-Bel",
+      "value": "Villiers-le-Bel"
+    },
+    {
+      "name": "圣乌昂洛莫纳",
+      "nameEn": "Saint-Ouen-l\u0027Aumone",
+      "value": "Saint-Ouen-l\u0027Aumone"
+    },
+    {
+      "name": "罗尼苏布瓦",
+      "nameEn": "Rosny-sous-Bois",
+      "value": "Rosny-sous-Bois"
+    },
+    {
+      "name": "维勒蒙布勒",
+      "nameEn": "Villemomble",
+      "value": "Villemomble"
+    },
+    {
+      "name": "努瓦西勒塞克",
+      "nameEn": "Noisy-le-Sec",
+      "value": "Noisy-le-Sec"
+    },
+    {
+      "name": "邦迪",
+      "nameEn": "Bondy",
+      "value": "Bondy"
+    },
+    {
+      "name": "加尼",
+      "nameEn": "Gagny",
+      "value": "Gagny"
+    },
+    {
+      "name": "莱帕维永苏布瓦",
+      "nameEn": "Les Pavillons-sous-Bois",
+      "value": "Les Pavillons-sous-Bois"
+    },
+    {
+      "name": "勒布朗－梅尼勒",
+      "nameEn": "Le Blanc-Mesnil",
+      "value": "Le Blanc-Mesnil"
+    },
+    {
+      "name": "欧奈苏布瓦",
+      "nameEn": "Aulnay-sous-Bois",
+      "value": "Aulnay-sous-Bois"
+    },
+    {
+      "name": "利夫里加尔冈",
+      "nameEn": "Livry-Gargan",
+      "value": "Livry-Gargan"
+    },
+    {
+      "name": "塞夫朗",
+      "nameEn": "Sevran",
+      "value": "Sevran"
+    },
+    {
+      "name": "克利希苏布瓦",
+      "nameEn": "Clichy-sous-Bois",
+      "value": "Clichy-sous-Bois"
+    },
+    {
+      "name": "蒙费梅伊",
+      "nameEn": "Montfermeil",
+      "value": "Montfermeil"
+    },
+    {
+      "name": "谢勒",
+      "nameEn": "Chelles",
+      "value": "Chelles"
+    },
+    {
+      "name": "弗朗斯地区特朗布莱",
+      "nameEn": "Tremblay-en-France",
+      "value": "Tremblay-en-France"
+    },
+    {
+      "name": "维勒帕里西",
+      "nameEn": "Villeparisis",
+      "value": "Villeparisis"
+    },
+    {
+      "name": "维勒潘特",
+      "nameEn": "Villepinte",
+      "value": "Villepinte"
+    },
+    {
+      "name": "古桑维尔",
+      "nameEn": "Goussainville",
+      "value": "Goussainville"
+    },
+    {
+      "name": "米特里莫里",
+      "nameEn": "Mitry-Mory",
+      "value": "Mitry-Mory"
+    },
+    {
+      "name": "桑利斯",
+      "nameEn": "Senlis",
+      "value": "Senlis"
+    },
+    {
+      "name": "勒阿弗尔",
+      "nameEn": "Le Havre",
+      "value": "Le Havre"
+    },
+    {
+      "name": "蒙蒂维利耶",
+      "nameEn": "Montivilliers",
+      "value": "Montivilliers"
+    },
+    {
+      "name": "费康",
+      "nameEn": "Fécamp",
+      "value": "Fécamp"
+    },
+    {
+      "name": "埃尔伯夫",
+      "nameEn": "Elbeuf",
+      "value": "Elbeuf"
+    },
+    {
+      "name": "Le Grand-Quevilly",
+      "nameEn": "Le Grand-Quevilly",
+      "value": "Le Grand-Quevilly"
+    },
+    {
+      "name": "康特勒",
+      "nameEn": "Canteleu",
+      "value": "Canteleu"
+    },
+    {
+      "name": "圣艾蒂安－迪鲁夫赖",
+      "nameEn": "Saint-Étienne-du-Rouvray",
+      "value": "Saint-Étienne-du-Rouvray"
+    },
+    {
+      "name": "小克维伊",
+      "nameEn": "Le Petit-Quevilly",
+      "value": "Le Petit-Quevilly"
+    },
+    {
+      "name": "Sotteville-lès-Rouen",
+      "nameEn": "Sotteville-lès-Rouen",
+      "value": "Sotteville-lès-Rouen"
+    },
+    {
+      "name": "Mont-Saint-Aignan",
+      "nameEn": "Mont-Saint-Aignan",
+      "value": "Mont-Saint-Aignan"
+    },
+    {
+      "name": "鲁昂",
+      "nameEn": "Rouen",
+      "value": "Rouen"
+    },
+    {
+      "name": "迪耶普",
+      "nameEn": "Dieppe",
+      "value": "Dieppe"
+    },
+    {
+      "name": "Cayenne",
+      "nameEn": "Cayenne",
+      "value": "Cayenne"
+    },
+    {
+      "name": "博韦",
+      "nameEn": "Beauvais",
+      "value": "Beauvais"
+    },
+    {
+      "name": "克雷伊",
+      "nameEn": "Creil",
+      "value": "Creil"
+    },
+    {
+      "name": "瓦兹河畔诺让",
+      "nameEn": "Nogent-sur-Oise",
+      "value": "Nogent-sur-Oise"
+    },
+    {
+      "name": "亚眠",
+      "nameEn": "Amiens",
+      "value": "Amiens"
+    },
+    {
+      "name": "阿布维尔",
+      "nameEn": "Abbeville",
+      "value": "Abbeville"
+    },
+    {
+      "name": "Berck-Plage",
+      "nameEn": "Berck-Plage",
+      "value": "Berck-Plage"
+    },
+    {
+      "name": "贝尔克",
+      "nameEn": "Berck",
+      "value": "Berck"
+    },
+    {
+      "name": "阿拉斯",
+      "nameEn": "Arras",
+      "value": "Arras"
+    },
+    {
+      "name": "列万",
+      "nameEn": "Liévin",
+      "value": "Liévin"
+    },
+    {
+      "name": "布律埃拉比西埃",
+      "nameEn": "Bruay-la-Buissière",
+      "value": "Bruay-la-Buissière"
+    },
+    {
+      "name": "贝蒂讷",
+      "nameEn": "Béthune",
+      "value": "Béthune"
+    },
+    {
+      "name": "蒙特罗",
+      "nameEn": "Montereau-Fault-Yonne",
+      "value": "Montereau-Fault-Yonne"
+    },
+    {
+      "name": "桑斯",
+      "nameEn": "Sens",
+      "value": "Sens"
+    },
+    {
+      "name": "特鲁瓦",
+      "nameEn": "Troyes",
+      "value": "Troyes"
+    },
+    {
+      "name": "库洛米耶",
+      "nameEn": "Coulommiers",
+      "value": "Coulommiers"
+    },
+    {
+      "name": "莫城",
+      "nameEn": "Meaux",
+      "value": "Meaux"
+    },
+    {
+      "name": "蒂耶里堡",
+      "nameEn": "Château-Thierry",
+      "value": "Château-Thierry"
+    },
+    {
+      "name": "埃佩尔奈",
+      "nameEn": "Épernay",
+      "value": "Épernay"
+    },
+    {
+      "name": "肖蒙",
+      "nameEn": "Chaumont",
+      "value": "Chaumont"
+    },
+    {
+      "name": "维特里－勒弗朗索瓦",
+      "nameEn": "Vitry-le-François",
+      "value": "Vitry-le-François"
+    },
+    {
+      "name": "香槟沙隆",
+      "nameEn": "Châlons-en-Champagne",
+      "value": "Châlons-en-Champagne"
+    },
+    {
+      "name": "圣迪济耶",
+      "nameEn": "Saint-Dizier",
+      "value": "Saint-Dizier"
+    },
+    {
+      "name": "巴勒迪克山",
+      "nameEn": "Bar-le-Duc",
+      "value": "Bar-le-Duc"
+    },
+    {
+      "name": "Verdun",
+      "nameEn": "Verdun",
+      "value": "Verdun"
+    },
+    {
+      "name": "克雷皮昂瓦卢瓦",
+      "nameEn": "Crépy-en-Valois",
+      "value": "Crépy-en-Valois"
+    },
+    {
+      "name": "贡比涅",
+      "nameEn": "Compiègne",
+      "value": "Compiègne"
+    },
+    {
+      "name": "苏瓦松",
+      "nameEn": "Soissons",
+      "value": "Soissons"
+    },
+    {
+      "name": "努瓦永",
+      "nameEn": "Noyon",
+      "value": "Noyon"
+    },
+    {
+      "name": "泰尔尼耶",
+      "nameEn": "Tergnier",
+      "value": "Tergnier"
+    },
+    {
+      "name": "圣康坦",
+      "nameEn": "Saint-Quentin",
+      "value": "Saint-Quentin"
+    },
+    {
+      "name": "拉昂",
+      "nameEn": "Laon",
+      "value": "Laon"
+    },
+    {
+      "name": "兰斯",
+      "nameEn": "Reims",
+      "value": "Reims"
+    },
+    {
+      "name": "康布雷",
+      "nameEn": "Cambrai",
+      "value": "Cambrai"
+    },
+    {
+      "name": "阿维翁",
+      "nameEn": "Avion",
+      "value": "Avion"
+    },
+    {
+      "name": "朗斯",
+      "nameEn": "Lens",
+      "value": "Lens"
+    },
+    {
+      "name": "埃南博蒙",
+      "nameEn": "Hénin-Beaumont",
+      "value": "Hénin-Beaumont"
+    },
+    {
+      "name": "杜埃",
+      "nameEn": "Douai",
+      "value": "Douai"
+    },
+    {
+      "name": "Sin-le-Noble",
+      "nameEn": "Sin-le-Noble",
+      "value": "Sin-le-Noble"
+    },
+    {
+      "name": "卡尔万",
+      "nameEn": "Carvin",
+      "value": "Carvin"
+    },
+    {
+      "name": "欧布尔丹",
+      "nameEn": "Haubourdin",
+      "value": "Haubourdin"
+    },
+    {
+      "name": "洛奥",
+      "nameEn": "Loos",
+      "value": "Loos"
+    },
+    {
+      "name": "Faches-Thumesnil",
+      "nameEn": "Faches-Thumesnil",
+      "value": "Faches-Thumesnil"
+    },
+    {
+      "name": "龙尚",
+      "nameEn": "Ronchin",
+      "value": "Ronchin"
+    },
+    {
+      "name": "德南",
+      "nameEn": "Denain",
+      "value": "Denain"
+    },
+    {
+      "name": "圣阿芒莱索",
+      "nameEn": "Saint-Amand-les-Eaux",
+      "value": "Saint-Amand-les-Eaux"
+    },
+    {
+      "name": "阿斯克新城",
+      "nameEn": "Villeneuve-d\u0027Ascq",
+      "value": "Villeneuve-d\u0027Ascq"
+    },
+    {
+      "name": "欧蒙",
+      "nameEn": "Hautmont",
+      "value": "Hautmont"
+    },
+    {
+      "name": "瓦朗谢纳",
+      "nameEn": "Valenciennes",
+      "value": "Valenciennes"
+    },
+    {
+      "name": "莫伯日",
+      "nameEn": "Maubeuge",
+      "value": "Maubeuge"
+    },
+    {
+      "name": "沙勒维尔－梅济耶尔",
+      "nameEn": "Charleville-Mézières",
+      "value": "Charleville-Mézières"
+    },
+    {
+      "name": "色当",
+      "nameEn": "Sedan",
+      "value": "Sedan"
+    },
+    {
+      "name": "埃希罗莱",
+      "nameEn": "Échirolles",
+      "value": "Échirolles"
+    },
+    {
+      "name": "格勒诺布尔",
+      "nameEn": "Grenoble",
+      "value": "Grenoble"
+    },
+    {
+      "name": "圣马丹代雷",
+      "nameEn": "Saint-Martin-d\u0027Hères",
+      "value": "Saint-Martin-d\u0027Hères"
+    },
+    {
+      "name": "方丹",
+      "nameEn": "Fontaine",
+      "value": "Fontaine"
+    },
+    {
+      "name": "圣埃格雷夫",
+      "nameEn": "Saint-Égrève",
+      "value": "Saint-Égrève"
+    },
+    {
+      "name": "梅朗",
+      "nameEn": "Meylan",
+      "value": "Meylan"
+    },
+    {
+      "name": "尚贝里",
+      "nameEn": "Chambéry",
+      "value": "Chambéry"
+    },
+    {
+      "name": "艾克斯莱班",
+      "nameEn": "Aix-les-Bains",
+      "value": "Aix-les-Bains"
+    },
+    {
+      "name": "阿尔贝维尔",
+      "nameEn": "Albertville",
+      "value": "Albertville"
+    },
+    {
+      "name": "Seynod",
+      "nameEn": "Seynod",
+      "value": "Seynod"
+    },
+    {
+      "name": "Cran-Gevrier",
+      "nameEn": "Cran-Gevrier",
+      "value": "Cran-Gevrier"
+    },
+    {
+      "name": "阿讷西",
+      "nameEn": "Annecy",
+      "value": "Annecy"
+    },
+    {
+      "name": "旧阿讷西",
+      "nameEn": "Annecy-le-Vieux",
+      "value": "Annecy-le-Vieux"
+    },
+    {
+      "name": "瓦约纳克斯",
+      "nameEn": "Oyonnax",
+      "value": "Oyonnax"
+    },
+    {
+      "name": "阿讷马斯",
+      "nameEn": "Annemasse",
+      "value": "Annemasse"
+    },
+    {
+      "name": "萨朗什",
+      "nameEn": "Sallanches",
+      "value": "Sallanches"
+    },
+    {
+      "name": "克吕斯",
+      "nameEn": "Cluses",
+      "value": "Cluses"
+    },
+    {
+      "name": "托农莱班",
+      "nameEn": "Thonon-les-Bains",
+      "value": "Thonon-les-Bains"
+    },
+    {
+      "name": "蓬塔利耶",
+      "nameEn": "Pontarlier",
+      "value": "Pontarlier"
+    },
+    {
+      "name": "贝桑松",
+      "nameEn": "Besançon",
+      "value": "Besançon"
+    },
+    {
+      "name": "沃苏勒",
+      "nameEn": "Vesoul",
+      "value": "Vesoul"
+    },
+    {
+      "name": "欧丹库尔",
+      "nameEn": "Audincourt",
+      "value": "Audincourt"
+    },
+    {
+      "name": "蒙贝利亚尔",
+      "nameEn": "Montbéliard",
+      "value": "Montbéliard"
+    },
+    {
+      "name": "贝尔福",
+      "nameEn": "Belfort",
+      "value": "Belfort"
+    },
+    {
+      "name": "牟罗兹",
+      "nameEn": "Mulhouse",
+      "value": "Mulhouse"
+    },
+    {
+      "name": "维特内姆",
+      "nameEn": "Wittenheim",
+      "value": "Wittenheim"
+    },
+    {
+      "name": "伊尔扎克",
+      "nameEn": "Illzach",
+      "value": "Illzach"
+    },
+    {
+      "name": "圣路易",
+      "nameEn": "Saint-Louis",
+      "value": "Saint-Louis"
+    },
+    {
+      "name": "埃皮纳勒",
+      "nameEn": "Épinal",
+      "value": "Épinal"
+    },
+    {
+      "name": "孚日圣迪耶",
+      "nameEn": "Saint-Dié-des-Vosges",
+      "value": "Saint-Dié-des-Vosges"
+    },
+    {
+      "name": "图勒",
+      "nameEn": "Arrondissement of Toul",
+      "value": "Arrondissement of Toul"
+    },
+    {
+      "name": "维莱尔莱南西",
+      "nameEn": "Villers-lès-Nancy",
+      "value": "Villers-lès-Nancy"
+    },
+    {
+      "name": "拉克苏",
+      "nameEn": "Laxou",
+      "value": "Laxou"
+    },
+    {
+      "name": "旺多厄夫尔莱南西",
+      "nameEn": "Vandoeuvre-les-Nancy",
+      "value": "Vandoeuvre-les-Nancy"
+    },
+    {
+      "name": "南锡",
+      "nameEn": "Nancy",
+      "value": "Nancy"
+    },
+    {
+      "name": "蓬塔穆松",
+      "nameEn": "Pont-à-Mousson",
+      "value": "Pont-à-Mousson"
+    },
+    {
+      "name": "蒙蒂尼莱梅斯",
+      "nameEn": "Montigny-lès-Metz",
+      "value": "Montigny-lès-Metz"
+    },
+    {
+      "name": "梅斯",
+      "nameEn": "Metz",
+      "value": "Metz"
+    },
+    {
+      "name": "吕内维尔",
+      "nameEn": "Lunéville",
+      "value": "Lunéville"
+    },
+    {
+      "name": "圣阿沃尔德",
+      "nameEn": "Saint-Avold",
+      "value": "Saint-Avold"
+    },
+    {
+      "name": "福尔巴克",
+      "nameEn": "Forbach",
+      "value": "Forbach"
+    },
+    {
+      "name": "科尔马",
+      "nameEn": "Colmar",
+      "value": "Colmar"
+    },
+    {
+      "name": "塞莱斯塔",
+      "nameEn": "Sélestat",
+      "value": "Sélestat"
+    },
+    {
+      "name": "兰戈尔桑",
+      "nameEn": "Lingolsheim",
+      "value": "Lingolsheim"
+    },
+    {
+      "name": "伊尔基尔克格拉方斯塔当",
+      "nameEn": "Illkirch-Graffenstaden",
+      "value": "Illkirch-Graffenstaden"
+    },
+    {
+      "name": "萨尔格米讷",
+      "nameEn": "Sarreguemines",
+      "value": "Sarreguemines"
+    },
+    {
+      "name": "斯特拉斯堡",
+      "nameEn": "Strasbourg",
+      "value": "Strasbourg"
+    },
+    {
+      "name": "希尔蒂盖姆",
+      "nameEn": "Schiltigheim",
+      "value": "Schiltigheim"
+    },
+    {
+      "name": "比谢姆",
+      "nameEn": "Bischheim",
+      "value": "Bischheim"
+    },
+    {
+      "name": "阿格诺",
+      "nameEn": "Haguenau",
+      "value": "Haguenau"
+    },
+    {
+      "name": "阿扬日",
+      "nameEn": "Hayange",
+      "value": "Hayange"
+    },
+    {
+      "name": "蒂永维尔",
+      "nameEn": "Thionville",
+      "value": "Thionville"
+    },
+    {
+      "name": "伊于特",
+      "nameEn": "Yutz",
+      "value": "Yutz"
+    },
+    {
+      "name": "乌特罗",
+      "nameEn": "Outreau",
+      "value": "Outreau"
+    },
+    {
+      "name": "滨海布洛涅",
+      "nameEn": "Boulogne-sur-Mer",
+      "value": "Boulogne-sur-Mer"
+    },
+    {
+      "name": "加来",
+      "nameEn": "Calais",
+      "value": "Calais"
+    },
+    {
+      "name": "圣奥梅尔",
+      "nameEn": "Saint-Omer",
+      "value": "Saint-Omer"
+    },
+    {
+      "name": "阿兹布鲁克",
+      "nameEn": "Hazebrouck",
+      "value": "Hazebrouck"
+    },
+    {
+      "name": "格朗德桑特",
+      "nameEn": "Grande-Synthe",
+      "value": "Grande-Synthe"
+    },
+    {
+      "name": "Saint-Pol-sur-Mer",
+      "nameEn": "Saint-Pol-sur-Mer",
+      "value": "Saint-Pol-sur-Mer"
+    },
+    {
+      "name": "敦刻尔克",
+      "nameEn": "Dunkirk",
+      "value": "Dunkirk"
+    },
+    {
+      "name": "库德凯尔克－布朗什",
+      "nameEn": "Coudekerque-Branche",
+      "value": "Coudekerque-Branche"
+    },
+    {
+      "name": "阿尔芒蒂耶尔",
+      "nameEn": "Armentières",
+      "value": "Armentières"
+    },
+    {
+      "name": "Lomme",
+      "nameEn": "Lomme",
+      "value": "Lomme"
+    },
+    {
+      "name": "里尔",
+      "nameEn": "Lille",
+      "value": "Lille"
+    },
+    {
+      "name": "拉马德莱娜",
+      "nameEn": "La Madeleine",
+      "value": "La Madeleine"
+    },
+    {
+      "name": "朗贝萨尔",
+      "nameEn": "Lambersart",
+      "value": "Lambersart"
+    },
+    {
+      "name": "Mons-en-Baroeul",
+      "nameEn": "Mons-en-Baroeul",
+      "value": "Mons-en-Baroeul"
+    },
+    {
+      "name": "马尔康巴勒尔",
+      "nameEn": "Marcq-en-Barœul",
+      "value": "Marcq-en-Barœul"
+    },
+    {
+      "name": "瓦斯凯勒",
+      "nameEn": "Wasquehal",
+      "value": "Wasquehal"
+    },
+    {
+      "name": "克鲁瓦",
+      "nameEn": "Croix",
+      "value": "Croix"
+    },
+    {
+      "name": "图尔昆",
+      "nameEn": "Tourcoing",
+      "value": "Tourcoing"
+    },
+    {
+      "name": "阿吕安",
+      "nameEn": "Halluin",
+      "value": "Halluin"
+    },
+    {
+      "name": "埃姆",
+      "nameEn": "Hem",
+      "value": "Hem"
+    },
+    {
+      "name": "鲁贝",
+      "nameEn": "Roubaix",
+      "value": "Roubaix"
+    },
+    {
+      "name": "瓦特勒洛",
+      "nameEn": "Wattrelos",
+      "value": "Wattrelos"
+    }
+  ],
+  "name": "法国",
+  "nameEn": "France"
+}

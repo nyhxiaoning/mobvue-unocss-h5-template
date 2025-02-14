@@ -1,0 +1,1066 @@
+{
+  "cities": [
+    {
+      "name": "怀特霍斯",
+      "nameEn": "Whitehorse",
+      "value": "Whitehorse"
+    },
+    {
+      "name": "纳奈莫",
+      "nameEn": "Nanaimo",
+      "value": "Nanaimo"
+    },
+    {
+      "name": "坎贝尔里弗",
+      "nameEn": "Campbell River",
+      "value": "Campbell River"
+    },
+    {
+      "name": "艾伯尼港",
+      "nameEn": "Port Alberni",
+      "value": "Port Alberni"
+    },
+    {
+      "name": "科特尼",
+      "nameEn": "Courtenay",
+      "value": "Courtenay"
+    },
+    {
+      "name": "帕克斯维尔",
+      "nameEn": "Parksville",
+      "value": "Parksville"
+    },
+    {
+      "name": "鲁伯特王子港",
+      "nameEn": "Prince Rupert",
+      "value": "Prince Rupert"
+    },
+    {
+      "name": "特勒斯",
+      "nameEn": "Terrace",
+      "value": "Terrace"
+    },
+    {
+      "name": "Langford",
+      "nameEn": "Langford",
+      "value": "Langford"
+    },
+    {
+      "name": "维多利亚",
+      "nameEn": "Victoria",
+      "value": "Victoria"
+    },
+    {
+      "name": "Duncan",
+      "nameEn": "Duncan",
+      "value": "Duncan"
+    },
+    {
+      "name": "North Cowichan",
+      "nameEn": "North Cowichan",
+      "value": "North Cowichan"
+    },
+    {
+      "name": "Ladner",
+      "nameEn": "Ladner",
+      "value": "Ladner"
+    },
+    {
+      "name": "里士满",
+      "nameEn": "Richmond",
+      "value": "Richmond"
+    },
+    {
+      "name": "白石",
+      "nameEn": "White Rock",
+      "value": "White Rock"
+    },
+    {
+      "name": "德尔塔",
+      "nameEn": "Delta",
+      "value": "Delta"
+    },
+    {
+      "name": "新威斯敏斯特",
+      "nameEn": "New Westminster",
+      "value": "New Westminster"
+    },
+    {
+      "name": "萨里",
+      "nameEn": "Surrey",
+      "value": "Surrey"
+    },
+    {
+      "name": "兰利",
+      "nameEn": "Langley",
+      "value": "Langley"
+    },
+    {
+      "name": "兰利",
+      "nameEn": "Langley",
+      "value": "Langley"
+    },
+    {
+      "name": "Walnut Grove",
+      "nameEn": "Walnut Grove",
+      "value": "Walnut Grove"
+    },
+    {
+      "name": "阿伯茨福德",
+      "nameEn": "Abbotsford",
+      "value": "Abbotsford"
+    },
+    {
+      "name": "温哥华",
+      "nameEn": "Vancouver",
+      "value": "Vancouver"
+    },
+    {
+      "name": "北温哥华",
+      "nameEn": "North Vancouver",
+      "value": "North Vancouver"
+    },
+    {
+      "name": "伯纳比",
+      "nameEn": "Burnaby",
+      "value": "Burnaby"
+    },
+    {
+      "name": "穆迪港",
+      "nameEn": "Port Moody",
+      "value": "Port Moody"
+    },
+    {
+      "name": "Coquitlam",
+      "nameEn": "Coquitlam",
+      "value": "Coquitlam"
+    },
+    {
+      "name": "皮特梅多斯",
+      "nameEn": "Pitt Meadows",
+      "value": "Pitt Meadows"
+    },
+    {
+      "name": "枫树岭",
+      "nameEn": "Maple Ridge",
+      "value": "Maple Ridge"
+    },
+    {
+      "name": "彭蒂克顿",
+      "nameEn": "Penticton",
+      "value": "Penticton"
+    },
+    {
+      "name": "West Kelowna",
+      "nameEn": "West Kelowna",
+      "value": "West Kelowna"
+    },
+    {
+      "name": "基洛纳",
+      "nameEn": "Kelowna",
+      "value": "Kelowna"
+    },
+    {
+      "name": "弗农",
+      "nameEn": "Vernon",
+      "value": "Vernon"
+    },
+    {
+      "name": "Okanagan",
+      "nameEn": "Okanagan",
+      "value": "Okanagan"
+    },
+    {
+      "name": "克兰布鲁克",
+      "nameEn": "Cranbrook",
+      "value": "Cranbrook"
+    },
+    {
+      "name": "莱斯布里奇",
+      "nameEn": "Lethbridge",
+      "value": "Lethbridge"
+    },
+    {
+      "name": "坎卢普斯",
+      "nameEn": "Kamloops",
+      "value": "Kamloops"
+    },
+    {
+      "name": "Salmon Arm",
+      "nameEn": "Salmon Arm",
+      "value": "Salmon Arm"
+    },
+    {
+      "name": "乔治王子城",
+      "nameEn": "Prince George",
+      "value": "Prince George"
+    },
+    {
+      "name": "圣约翰堡",
+      "nameEn": "Fort St. John",
+      "value": "Fort St. John"
+    },
+    {
+      "name": "大草原城",
+      "nameEn": "Grande Prairie",
+      "value": "Grande Prairie"
+    },
+    {
+      "name": "科克伦",
+      "nameEn": "Cochrane",
+      "value": "Cochrane"
+    },
+    {
+      "name": "卡尔加里",
+      "nameEn": "Calgary",
+      "value": "Calgary"
+    },
+    {
+      "name": "艾尔德里",
+      "nameEn": "Airdrie",
+      "value": "Airdrie"
+    },
+    {
+      "name": "雷德迪尔",
+      "nameEn": "Red Deer",
+      "value": "Red Deer"
+    },
+    {
+      "name": "勒杜克",
+      "nameEn": "Leduc",
+      "value": "Leduc"
+    },
+    {
+      "name": "埃德蒙顿",
+      "nameEn": "Edmonton",
+      "value": "Edmonton"
+    },
+    {
+      "name": "舍伍德帕克",
+      "nameEn": "Sherwood Park",
+      "value": "Sherwood Park"
+    },
+    {
+      "name": "黄刀镇",
+      "nameEn": "Yellowknife",
+      "value": "Yellowknife"
+    },
+    {
+      "name": "梅止辛哈特",
+      "nameEn": "Medicine Hat",
+      "value": "Medicine Hat"
+    },
+    {
+      "name": "穆斯乔",
+      "nameEn": "Moose Jaw",
+      "value": "Moose Jaw"
+    },
+    {
+      "name": "里贾纳",
+      "nameEn": "Regina",
+      "value": "Regina"
+    },
+    {
+      "name": "劳埃德明斯特",
+      "nameEn": "Lloydminster",
+      "value": "Lloydminster"
+    },
+    {
+      "name": "北贝特尔福德",
+      "nameEn": "North Battleford",
+      "value": "North Battleford"
+    },
+    {
+      "name": "萨斯卡通",
+      "nameEn": "Saskatoon",
+      "value": "Saskatoon"
+    },
+    {
+      "name": "艾伯特王子城",
+      "nameEn": "Prince Albert",
+      "value": "Prince Albert"
+    },
+    {
+      "name": "约克顿",
+      "nameEn": "Yorkton",
+      "value": "Yorkton"
+    },
+    {
+      "name": "布兰登",
+      "nameEn": "Brandon",
+      "value": "Brandon"
+    },
+    {
+      "name": "温尼泊",
+      "nameEn": "Winnipeg",
+      "value": "Winnipeg"
+    },
+    {
+      "name": "麦克默里堡",
+      "nameEn": "Fort McMurray",
+      "value": "Fort McMurray"
+    },
+    {
+      "name": "丘吉尔港",
+      "nameEn": "Churchill",
+      "value": "Churchill"
+    },
+    {
+      "name": "阿克拉维克",
+      "nameEn": "Aklavik",
+      "value": "Aklavik"
+    },
+    {
+      "name": "温莎市",
+      "nameEn": "Windsor",
+      "value": "Windsor"
+    },
+    {
+      "name": "Municipality of Chatham-Kent",
+      "nameEn": "Municipality of Chatham-Kent",
+      "value": "Municipality of Chatham-Kent"
+    },
+    {
+      "name": "萨尼亚",
+      "nameEn": "Sarnia",
+      "value": "Sarnia"
+    },
+    {
+      "name": "圣托马斯",
+      "nameEn": "St. Thomas",
+      "value": "St. Thomas"
+    },
+    {
+      "name": "Norfolk County",
+      "nameEn": "Norfolk County",
+      "value": "Norfolk County"
+    },
+    {
+      "name": "伦敦",
+      "nameEn": "London",
+      "value": "London"
+    },
+    {
+      "name": "斯特拉特福",
+      "nameEn": "Stratford",
+      "value": "Stratford"
+    },
+    {
+      "name": "伍德斯托克",
+      "nameEn": "Woodstock",
+      "value": "Woodstock"
+    },
+    {
+      "name": "布兰特",
+      "nameEn": "Brant",
+      "value": "Brant"
+    },
+    {
+      "name": "布兰特福德",
+      "nameEn": "Brantford",
+      "value": "Brantford"
+    },
+    {
+      "name": "基奇纳",
+      "nameEn": "Kitchener",
+      "value": "Kitchener"
+    },
+    {
+      "name": "滑铁卢",
+      "nameEn": "Waterloo",
+      "value": "Waterloo"
+    },
+    {
+      "name": "剑桥",
+      "nameEn": "Cambridge",
+      "value": "Cambridge"
+    },
+    {
+      "name": "圭尔夫",
+      "nameEn": "Guelph",
+      "value": "Guelph"
+    },
+    {
+      "name": "Haldimand County",
+      "nameEn": "Haldimand County",
+      "value": "Haldimand County"
+    },
+    {
+      "name": "哈密尔顿",
+      "nameEn": "Hamilton",
+      "value": "Hamilton"
+    },
+    {
+      "name": "伯灵顿",
+      "nameEn": "Burlington",
+      "value": "Burlington"
+    },
+    {
+      "name": "奥克维尔",
+      "nameEn": "Oakville",
+      "value": "Oakville"
+    },
+    {
+      "name": "米西索加",
+      "nameEn": "Mississauga",
+      "value": "Mississauga"
+    },
+    {
+      "name": "科尔本港",
+      "nameEn": "Port Colborne",
+      "value": "Port Colborne"
+    },
+    {
+      "name": "韦兰",
+      "nameEn": "Welland",
+      "value": "Welland"
+    },
+    {
+      "name": "索罗尔德",
+      "nameEn": "Thorold",
+      "value": "Thorold"
+    },
+    {
+      "name": "圣凯瑟琳斯",
+      "nameEn": "St. Catharines",
+      "value": "St. Catharines"
+    },
+    {
+      "name": "伊利堡",
+      "nameEn": "Fort Erie",
+      "value": "Fort Erie"
+    },
+    {
+      "name": "尼亚加拉瀑布",
+      "nameEn": "Niagara Falls",
+      "value": "Niagara Falls"
+    },
+    {
+      "name": "欧文桑德",
+      "nameEn": "Owen Sound",
+      "value": "Owen Sound"
+    },
+    {
+      "name": "科灵伍德",
+      "nameEn": "Collingwood",
+      "value": "Collingwood"
+    },
+    {
+      "name": "奥兰治维尔",
+      "nameEn": "Orangeville",
+      "value": "Orangeville"
+    },
+    {
+      "name": "布兰普顿",
+      "nameEn": "Brampton",
+      "value": "Brampton"
+    },
+    {
+      "name": "怡陶碧谷",
+      "nameEn": "Etobicoke",
+      "value": "Etobicoke"
+    },
+    {
+      "name": "旺市",
+      "nameEn": "Vaughan",
+      "value": "Vaughan"
+    },
+    {
+      "name": "Bradford West Gwillimbury",
+      "nameEn": "Bradford West Gwillimbury",
+      "value": "Bradford West Gwillimbury"
+    },
+    {
+      "name": "纽马基特",
+      "nameEn": "Newmarket",
+      "value": "Newmarket"
+    },
+    {
+      "name": "Keswick",
+      "nameEn": "Keswick",
+      "value": "Keswick"
+    },
+    {
+      "name": "多伦多",
+      "nameEn": "Toronto",
+      "value": "Toronto"
+    },
+    {
+      "name": "北约克",
+      "nameEn": "North York",
+      "value": "North York"
+    },
+    {
+      "name": "烈治文山",
+      "nameEn": "Richmond Hill",
+      "value": "Richmond Hill"
+    },
+    {
+      "name": "马克姆",
+      "nameEn": "Markham",
+      "value": "Markham"
+    },
+    {
+      "name": "皮克林",
+      "nameEn": "Pickering",
+      "value": "Pickering"
+    },
+    {
+      "name": "埃杰克斯",
+      "nameEn": "Ajax",
+      "value": "Ajax"
+    },
+    {
+      "name": "奥沙瓦",
+      "nameEn": "Oshawa",
+      "value": "Oshawa"
+    },
+    {
+      "name": "巴里",
+      "nameEn": "Barrie",
+      "value": "Barrie"
+    },
+    {
+      "name": "米德兰",
+      "nameEn": "Midland",
+      "value": "Midland"
+    },
+    {
+      "name": "奥里利亚",
+      "nameEn": "Orillia",
+      "value": "Orillia"
+    },
+    {
+      "name": "卡沃萨湖市",
+      "nameEn": "Kawartha Lakes",
+      "value": "Kawartha Lakes"
+    },
+    {
+      "name": "科堡",
+      "nameEn": "Cobourg",
+      "value": "Cobourg"
+    },
+    {
+      "name": "Quinte West",
+      "nameEn": "Quinte West",
+      "value": "Quinte West"
+    },
+    {
+      "name": "彼得伯勒",
+      "nameEn": "Peterborough",
+      "value": "Peterborough"
+    },
+    {
+      "name": "Prince Edward",
+      "nameEn": "Prince Edward",
+      "value": "Prince Edward"
+    },
+    {
+      "name": "纳帕尼",
+      "nameEn": "Napanee",
+      "value": "Napanee"
+    },
+    {
+      "name": "金斯敦",
+      "nameEn": "Kingston",
+      "value": "Kingston"
+    },
+    {
+      "name": "布罗克维尔",
+      "nameEn": "Brockville",
+      "value": "Brockville"
+    },
+    {
+      "name": "哈利法克斯",
+      "nameEn": "Halifax",
+      "value": "Halifax"
+    },
+    {
+      "name": "达特茅斯",
+      "nameEn": "Dartmouth",
+      "value": "Dartmouth"
+    },
+    {
+      "name": "Cole Harbour",
+      "nameEn": "Cole Harbour",
+      "value": "Cole Harbour"
+    },
+    {
+      "name": "桑德贝",
+      "nameEn": "Thunder Bay",
+      "value": "Thunder Bay"
+    },
+    {
+      "name": "苏圣玛丽",
+      "nameEn": "Sault Ste Marie",
+      "value": "Sault Ste Marie"
+    },
+    {
+      "name": "亨茨维尔",
+      "nameEn": "Huntsville",
+      "value": "Huntsville"
+    },
+    {
+      "name": "诺斯贝",
+      "nameEn": "North Bay",
+      "value": "North Bay"
+    },
+    {
+      "name": "萨德伯里",
+      "nameEn": "Sudbury",
+      "value": "Sudbury"
+    },
+    {
+      "name": "蒂明斯",
+      "nameEn": "Timmins",
+      "value": "Timmins"
+    },
+    {
+      "name": "Rouyn-Noranda",
+      "nameEn": "Rouyn-Noranda",
+      "value": "Rouyn-Noranda"
+    },
+    {
+      "name": "圣朗贝尔",
+      "nameEn": "Saint-Lambert",
+      "value": "Saint-Lambert"
+    },
+    {
+      "name": "彭布罗克",
+      "nameEn": "Pembroke",
+      "value": "Pembroke"
+    },
+    {
+      "name": "渥太华",
+      "nameEn": "Ottawa",
+      "value": "Ottawa"
+    },
+    {
+      "name": "加蒂诺",
+      "nameEn": "Gatineau",
+      "value": "Gatineau"
+    },
+    {
+      "name": "Clarence-Rockland",
+      "nameEn": "Clarence-Rockland",
+      "value": "Clarence-Rockland"
+    },
+    {
+      "name": "康沃尔",
+      "nameEn": "Cornwall",
+      "value": "Cornwall"
+    },
+    {
+      "name": "瓦利菲尔德",
+      "nameEn": "Salaberry-de-Valleyfield",
+      "value": "Salaberry-de-Valleyfield"
+    },
+    {
+      "name": "圣拉扎尔",
+      "nameEn": "Saint-Lazare",
+      "value": "Saint-Lazare"
+    },
+    {
+      "name": "Vaudreuil-Dorion",
+      "nameEn": "Vaudreuil-Dorion",
+      "value": "Vaudreuil-Dorion"
+    },
+    {
+      "name": "比肯斯菲尔德",
+      "nameEn": "Beaconsfield",
+      "value": "Beaconsfield"
+    },
+    {
+      "name": "柯克兰",
+      "nameEn": "Kirkland",
+      "value": "Kirkland"
+    },
+    {
+      "name": "米拉贝尔",
+      "nameEn": "Mirabel",
+      "value": "Mirabel"
+    },
+    {
+      "name": "Deux-Montagnes",
+      "nameEn": "Deux-Montagnes",
+      "value": "Deux-Montagnes"
+    },
+    {
+      "name": "圣厄斯塔什",
+      "nameEn": "Saint-Eustache",
+      "value": "Saint-Eustache"
+    },
+    {
+      "name": "Boisbriand",
+      "nameEn": "Boisbriand",
+      "value": "Boisbriand"
+    },
+    {
+      "name": "布兰维尔",
+      "nameEn": "Blainville",
+      "value": "Blainville"
+    },
+    {
+      "name": "Saint-Jean-sur-Richelieu",
+      "nameEn": "Saint-Jean-sur-Richelieu",
+      "value": "Saint-Jean-sur-Richelieu"
+    },
+    {
+      "name": "沙托盖",
+      "nameEn": "Châteauguay",
+      "value": "Châteauguay"
+    },
+    {
+      "name": "潘特克莱尔",
+      "nameEn": "Pointe-Claire",
+      "value": "Pointe-Claire"
+    },
+    {
+      "name": "多尔瓦勒",
+      "nameEn": "Dorval",
+      "value": "Dorval"
+    },
+    {
+      "name": "多拉尔－德索莫",
+      "nameEn": "Dollard-Des Ormeaux",
+      "value": "Dollard-Des Ormeaux"
+    },
+    {
+      "name": "Cote-Saint-Luc",
+      "nameEn": "Cote-Saint-Luc",
+      "value": "Cote-Saint-Luc"
+    },
+    {
+      "name": "Saint-Laurent",
+      "nameEn": "Saint-Laurent",
+      "value": "Saint-Laurent"
+    },
+    {
+      "name": "圣康斯坦",
+      "nameEn": "Saint-Constant",
+      "value": "Saint-Constant"
+    },
+    {
+      "name": "坎迪亚克",
+      "nameEn": "Candiac",
+      "value": "Candiac"
+    },
+    {
+      "name": "La Prairie",
+      "nameEn": "La Prairie",
+      "value": "La Prairie"
+    },
+    {
+      "name": "Mont-Royal",
+      "nameEn": "Mont-Royal",
+      "value": "Mont-Royal"
+    },
+    {
+      "name": "韦斯特蒙",
+      "nameEn": "Westmount",
+      "value": "Westmount"
+    },
+    {
+      "name": "蒙特利尔",
+      "nameEn": "Montreal",
+      "value": "Montreal"
+    },
+    {
+      "name": "拉瓦勒",
+      "nameEn": "Laval",
+      "value": "Laval"
+    },
+    {
+      "name": "圣泰雷斯",
+      "nameEn": "Sainte-Thérèse",
+      "value": "Sainte-Thérèse"
+    },
+    {
+      "name": "隆格伊",
+      "nameEn": "Longueuil",
+      "value": "Longueuil"
+    },
+    {
+      "name": "泰勒博恩",
+      "nameEn": "Terrebonne",
+      "value": "Terrebonne"
+    },
+    {
+      "name": "布罗瑟德",
+      "nameEn": "Brossard",
+      "value": "Brossard"
+    },
+    {
+      "name": "尚布利",
+      "nameEn": "Chambly",
+      "value": "Chambly"
+    },
+    {
+      "name": "布谢维尔",
+      "nameEn": "Boucherville",
+      "value": "Boucherville"
+    },
+    {
+      "name": "Saint-Bruno-de-Montarville",
+      "nameEn": "Saint-Bruno-de-Montarville",
+      "value": "Saint-Bruno-de-Montarville"
+    },
+    {
+      "name": "Sainte-Julie",
+      "nameEn": "Sainte-Julie",
+      "value": "Sainte-Julie"
+    },
+    {
+      "name": "Varennes",
+      "nameEn": "Varennes",
+      "value": "Varennes"
+    },
+    {
+      "name": "Saint-Basile-le-Grand",
+      "nameEn": "Saint-Basile-le-Grand",
+      "value": "Saint-Basile-le-Grand"
+    },
+    {
+      "name": "伯勒伊",
+      "nameEn": "Beloeil",
+      "value": "Beloeil"
+    },
+    {
+      "name": "圣热罗姆",
+      "nameEn": "Saint-Jérôme",
+      "value": "Saint-Jérôme"
+    },
+    {
+      "name": "Mascouche",
+      "nameEn": "Mascouche",
+      "value": "Mascouche"
+    },
+    {
+      "name": "雷朋堤尼",
+      "nameEn": "Repentigny",
+      "value": "Repentigny"
+    },
+    {
+      "name": "拉松普雄",
+      "nameEn": "L\u0027Assomption",
+      "value": "L\u0027Assomption"
+    },
+    {
+      "name": "若列特",
+      "nameEn": "Joliette",
+      "value": "Joliette"
+    },
+    {
+      "name": "瓦勒多",
+      "nameEn": "Val-d\u0027Or",
+      "value": "Val-d\u0027Or"
+    },
+    {
+      "name": "埃默斯",
+      "nameEn": "Amos",
+      "value": "Amos"
+    },
+    {
+      "name": "圣亚森特",
+      "nameEn": "Saint-Hyacinthe",
+      "value": "Saint-Hyacinthe"
+    },
+    {
+      "name": "格兰比",
+      "nameEn": "Granby",
+      "value": "Granby"
+    },
+    {
+      "name": "梅戈格",
+      "nameEn": "Magog",
+      "value": "Magog"
+    },
+    {
+      "name": "舍布鲁克",
+      "nameEn": "Sherbrooke",
+      "value": "Sherbrooke"
+    },
+    {
+      "name": "Sorel-Tracy",
+      "nameEn": "Sorel-Tracy",
+      "value": "Sorel-Tracy"
+    },
+    {
+      "name": "德拉蒙德维尔",
+      "nameEn": "Drummondville",
+      "value": "Drummondville"
+    },
+    {
+      "name": "Sainte-Catherine",
+      "nameEn": "Sainte-Catherine",
+      "value": "Sainte-Catherine"
+    },
+    {
+      "name": "三河城",
+      "nameEn": "Trois-Rivières",
+      "value": "Trois-Rivières"
+    },
+    {
+      "name": "维多利亚维尔",
+      "nameEn": "Victoriaville",
+      "value": "Victoriaville"
+    },
+    {
+      "name": "Thetford-Mines",
+      "nameEn": "Thetford-Mines",
+      "value": "Thetford-Mines"
+    },
+    {
+      "name": "沙威尼根",
+      "nameEn": "Shawinigan",
+      "value": "Shawinigan"
+    },
+    {
+      "name": "Saint-Augustin-de-Desmaures",
+      "nameEn": "Saint-Augustin-de-Desmaures",
+      "value": "Saint-Augustin-de-Desmaures"
+    },
+    {
+      "name": "L\u0027Ancienne-Lorette",
+      "nameEn": "L\u0027Ancienne-Lorette",
+      "value": "L\u0027Ancienne-Lorette"
+    },
+    {
+      "name": "魁北克市",
+      "nameEn": "Québec",
+      "value": "Québec"
+    },
+    {
+      "name": "利维",
+      "nameEn": "Levis",
+      "value": "Levis"
+    },
+    {
+      "name": "Bellechasse Regional County Municipality",
+      "nameEn": "Bellechasse Regional County Municipality",
+      "value": "Bellechasse Regional County Municipality"
+    },
+    {
+      "name": "埃德门兹顿",
+      "nameEn": "Edmundston",
+      "value": "Edmundston"
+    },
+    {
+      "name": "Jonquiere",
+      "nameEn": "Jonquiere",
+      "value": "Jonquiere"
+    },
+    {
+      "name": "萨格奈",
+      "nameEn": "Saguenay",
+      "value": "Saguenay"
+    },
+    {
+      "name": "阿尔马",
+      "nameEn": "Alma",
+      "value": "Alma"
+    },
+    {
+      "name": "里维耶尔－迪卢",
+      "nameEn": "Rivière-du-Loup",
+      "value": "Rivière-du-Loup"
+    },
+    {
+      "name": "里穆斯基",
+      "nameEn": "Rimouski",
+      "value": "Rimouski"
+    },
+    {
+      "name": "贝科莫",
+      "nameEn": "Baie-Comeau",
+      "value": "Baie-Comeau"
+    },
+    {
+      "name": "伊魁特",
+      "nameEn": "Iqaluit",
+      "value": "Iqaluit"
+    },
+    {
+      "name": "弗雷德里克顿",
+      "nameEn": "Fredericton",
+      "value": "Fredericton"
+    },
+    {
+      "name": "圣约翰斯",
+      "nameEn": "Saint John",
+      "value": "Saint John"
+    },
+    {
+      "name": "蒙古顿",
+      "nameEn": "Moncton",
+      "value": "Moncton"
+    },
+    {
+      "name": "Miramichi",
+      "nameEn": "Miramichi",
+      "value": "Miramichi"
+    },
+    {
+      "name": "迪耶普",
+      "nameEn": "Dieppe",
+      "value": "Dieppe"
+    },
+    {
+      "name": "特鲁罗",
+      "nameEn": "Truro",
+      "value": "Truro"
+    },
+    {
+      "name": "新格拉斯哥",
+      "nameEn": "New Glasgow",
+      "value": "New Glasgow"
+    },
+    {
+      "name": "夏洛特敦",
+      "nameEn": "Charlottetown",
+      "value": "Charlottetown"
+    },
+    {
+      "name": "魁北克市",
+      "nameEn": "Quebec City",
+      "value": "Quebec City"
+    },
+    {
+      "name": "七岛港",
+      "nameEn": "Sept-iles",
+      "value": "Sept-iles"
+    },
+    {
+      "name": "悉尼",
+      "nameEn": "Sydney",
+      "value": "Sydney"
+    },
+    {
+      "name": "格莱斯贝",
+      "nameEn": "Glace Bay",
+      "value": "Glace Bay"
+    },
+    {
+      "name": "科纳布鲁克",
+      "nameEn": "Corner Brook",
+      "value": "Corner Brook"
+    },
+    {
+      "name": "Conception Bay South",
+      "nameEn": "Conception Bay South",
+      "value": "Conception Bay South"
+    },
+    {
+      "name": "Mount Pearl",
+      "nameEn": "Mount Pearl",
+      "value": "Mount Pearl"
+    },
+    {
+      "name": "圣约翰斯",
+      "nameEn": "St. John\u0027s",
+      "value": "St. John\u0027s"
+    }
+  ],
+  "name": "加拿大",
+  "nameEn": "Canada"
+}

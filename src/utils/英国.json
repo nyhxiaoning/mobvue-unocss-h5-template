@@ -1,0 +1,3346 @@
+{
+  "cities": [
+    {
+      "name": "彭赞斯",
+      "nameEn": "Penzance",
+      "value": "Penzance"
+    },
+    {
+      "name": "坎伯恩",
+      "nameEn": "Camborne",
+      "value": "Camborne"
+    },
+    {
+      "name": "法尔茅斯",
+      "nameEn": "Falmouth",
+      "value": "Falmouth"
+    },
+    {
+      "name": "特鲁罗",
+      "nameEn": "Truro",
+      "value": "Truro"
+    },
+    {
+      "name": "纽基",
+      "nameEn": "Newquay",
+      "value": "Newquay"
+    },
+    {
+      "name": "圣奥斯特尔",
+      "nameEn": "Saint Austell",
+      "value": "Saint Austell"
+    },
+    {
+      "name": "Plymstock",
+      "nameEn": "Plymstock",
+      "value": "Plymstock"
+    },
+    {
+      "name": "普利茅斯",
+      "nameEn": "Plymouth",
+      "value": "Plymouth"
+    },
+    {
+      "name": "布里克瑟姆",
+      "nameEn": "Brixham",
+      "value": "Brixham"
+    },
+    {
+      "name": "佩恩顿",
+      "nameEn": "Paignton",
+      "value": "Paignton"
+    },
+    {
+      "name": "牛顿阿伯特",
+      "nameEn": "Newton Abbot",
+      "value": "Newton Abbot"
+    },
+    {
+      "name": "托基",
+      "nameEn": "Torquay",
+      "value": "Torquay"
+    },
+    {
+      "name": "廷茅斯",
+      "nameEn": "Teignmouth",
+      "value": "Teignmouth"
+    },
+    {
+      "name": "埃克斯茅斯",
+      "nameEn": "Exmouth",
+      "value": "Exmouth"
+    },
+    {
+      "name": "韦茅斯",
+      "nameEn": "Weymouth",
+      "value": "Weymouth"
+    },
+    {
+      "name": "奥马",
+      "nameEn": "Omagh",
+      "value": "Omagh"
+    },
+    {
+      "name": "纽里",
+      "nameEn": "Newry",
+      "value": "Newry"
+    },
+    {
+      "name": "克雷加文",
+      "nameEn": "Craigavon",
+      "value": "Craigavon"
+    },
+    {
+      "name": "班布里奇",
+      "nameEn": "Banbridge",
+      "value": "Banbridge"
+    },
+    {
+      "name": "利斯本",
+      "nameEn": "Lisburn",
+      "value": "Lisburn"
+    },
+    {
+      "name": "安特里姆",
+      "nameEn": "Antrim",
+      "value": "Antrim"
+    },
+    {
+      "name": "卡斯尔雷",
+      "nameEn": "Castlereagh",
+      "value": "Castlereagh"
+    },
+    {
+      "name": "贝尔法斯特",
+      "nameEn": "Belfast ",
+      "value": "Belfast "
+    },
+    {
+      "name": "纽敦阿比",
+      "nameEn": "Newtownabbey",
+      "value": "Newtownabbey"
+    },
+    {
+      "name": "Newtownards",
+      "nameEn": "Newtownards",
+      "value": "Newtownards"
+    },
+    {
+      "name": "Bangor",
+      "nameEn": "Bangor",
+      "value": "Bangor"
+    },
+    {
+      "name": "卡里克弗格斯",
+      "nameEn": "Carrickfergus",
+      "value": "Carrickfergus"
+    },
+    {
+      "name": "Londonderry County Borough",
+      "nameEn": "Londonderry County Borough",
+      "value": "Londonderry County Borough"
+    },
+    {
+      "name": "科尔雷恩",
+      "nameEn": "Coleraine",
+      "value": "Coleraine"
+    },
+    {
+      "name": "巴利米纳",
+      "nameEn": "Ballymena",
+      "value": "Ballymena"
+    },
+    {
+      "name": "拉恩",
+      "nameEn": "Larne",
+      "value": "Larne"
+    },
+    {
+      "name": "卡马森",
+      "nameEn": "Carmarthen",
+      "value": "Carmarthen"
+    },
+    {
+      "name": "埃克塞特",
+      "nameEn": "Exeter",
+      "value": "Exeter"
+    },
+    {
+      "name": "比迪福德",
+      "nameEn": "Bideford",
+      "value": "Bideford"
+    },
+    {
+      "name": "巴恩斯特珀尔",
+      "nameEn": "Barnstaple",
+      "value": "Barnstaple"
+    },
+    {
+      "name": "Heavitree",
+      "nameEn": "Heavitree",
+      "value": "Heavitree"
+    },
+    {
+      "name": "蒂弗顿",
+      "nameEn": "Tiverton",
+      "value": "Tiverton"
+    },
+    {
+      "name": "汤顿",
+      "nameEn": "Taunton",
+      "value": "Taunton"
+    },
+    {
+      "name": "布里奇沃特",
+      "nameEn": "Bridgwater",
+      "value": "Bridgwater"
+    },
+    {
+      "name": "Burnham-on-Sea",
+      "nameEn": "Burnham-on-Sea",
+      "value": "Burnham-on-Sea"
+    },
+    {
+      "name": "戈赛嫩",
+      "nameEn": "Gorseinon",
+      "value": "Gorseinon"
+    },
+    {
+      "name": "斯旺西",
+      "nameEn": "Swansea",
+      "value": "Swansea"
+    },
+    {
+      "name": "波斯考尔",
+      "nameEn": "Porthcawl",
+      "value": "Porthcawl"
+    },
+    {
+      "name": "布里顿费里",
+      "nameEn": "Briton Ferry",
+      "value": "Briton Ferry"
+    },
+    {
+      "name": "尼思",
+      "nameEn": "Neath",
+      "value": "Neath"
+    },
+    {
+      "name": "布里真德",
+      "nameEn": "Bridgend",
+      "value": "Bridgend"
+    },
+    {
+      "name": "Coity",
+      "nameEn": "Coity",
+      "value": "Coity"
+    },
+    {
+      "name": "迈斯泰格",
+      "nameEn": "Maesteg",
+      "value": "Maesteg"
+    },
+    {
+      "name": "拉内利",
+      "nameEn": "Llanelli",
+      "value": "Llanelli"
+    },
+    {
+      "name": "Clydach",
+      "nameEn": "Clydach",
+      "value": "Clydach"
+    },
+    {
+      "name": "巴里",
+      "nameEn": "Barry",
+      "value": "Barry"
+    },
+    {
+      "name": "珀纳斯",
+      "nameEn": "Penarth",
+      "value": "Penarth"
+    },
+    {
+      "name": "加的夫",
+      "nameEn": "Cardiff",
+      "value": "Cardiff"
+    },
+    {
+      "name": "Rhondda",
+      "nameEn": "Rhondda",
+      "value": "Rhondda"
+    },
+    {
+      "name": "庞特普里斯",
+      "nameEn": "Pontypridd",
+      "value": "Pontypridd"
+    },
+    {
+      "name": "卡菲利",
+      "nameEn": "Caerphilly",
+      "value": "Caerphilly"
+    },
+    {
+      "name": "格利盖尔",
+      "nameEn": "Gelligaer",
+      "value": "Gelligaer"
+    },
+    {
+      "name": "布莱克伍德",
+      "nameEn": "Blackwood",
+      "value": "Blackwood"
+    },
+    {
+      "name": "Weston-super-Mare",
+      "nameEn": "Weston-super-Mare",
+      "value": "Weston-super-Mare"
+    },
+    {
+      "name": "Clevedon",
+      "nameEn": "Clevedon",
+      "value": "Clevedon"
+    },
+    {
+      "name": "纽波特",
+      "nameEn": "Newport",
+      "value": "Newport"
+    },
+    {
+      "name": "里斯卡",
+      "nameEn": "Risca",
+      "value": "Risca"
+    },
+    {
+      "name": "Cwmbran",
+      "nameEn": "Cwmbran",
+      "value": "Cwmbran"
+    },
+    {
+      "name": "阿伯德尔",
+      "nameEn": "Aberdare",
+      "value": "Aberdare"
+    },
+    {
+      "name": "梅瑟蒂德菲尔",
+      "nameEn": "Merthyr Tydfil",
+      "value": "Merthyr Tydfil"
+    },
+    {
+      "name": "埃布韦尔",
+      "nameEn": "Ebbw Vale",
+      "value": "Ebbw Vale"
+    },
+    {
+      "name": "庞蒂浦",
+      "nameEn": "Pontypool",
+      "value": "Pontypool"
+    },
+    {
+      "name": "阿伯里斯特威斯",
+      "nameEn": "Aberystwyth",
+      "value": "Aberystwyth"
+    },
+    {
+      "name": "班戈",
+      "nameEn": "Bangor",
+      "value": "Bangor"
+    },
+    {
+      "name": "兰迪德诺",
+      "nameEn": "Llandudno",
+      "value": "Llandudno"
+    },
+    {
+      "name": "科尔温贝",
+      "nameEn": "Colwyn Bay",
+      "value": "Colwyn Bay"
+    },
+    {
+      "name": "阿伯盖莱",
+      "nameEn": "Abergele",
+      "value": "Abergele"
+    },
+    {
+      "name": "奥斯沃斯特里",
+      "nameEn": "Oswestry",
+      "value": "Oswestry"
+    },
+    {
+      "name": "Brymbo",
+      "nameEn": "Brymbo",
+      "value": "Brymbo"
+    },
+    {
+      "name": "雷克瑟姆",
+      "nameEn": "Wrexham",
+      "value": "Wrexham"
+    },
+    {
+      "name": "里尔",
+      "nameEn": "Rhyl",
+      "value": "Rhyl"
+    },
+    {
+      "name": "普雷斯塔廷",
+      "nameEn": "Prestatyn",
+      "value": "Prestatyn"
+    },
+    {
+      "name": "Buckley",
+      "nameEn": "Buckley",
+      "value": "Buckley"
+    },
+    {
+      "name": "哈登",
+      "nameEn": "Hawarden",
+      "value": "Hawarden"
+    },
+    {
+      "name": "切斯特",
+      "nameEn": "Chester",
+      "value": "Chester"
+    },
+    {
+      "name": "赫斯沃尔",
+      "nameEn": "Heswall",
+      "value": "Heswall"
+    },
+    {
+      "name": "Moreton",
+      "nameEn": "Moreton",
+      "value": "Moreton"
+    },
+    {
+      "name": "贝宾顿",
+      "nameEn": "Bebington",
+      "value": "Bebington"
+    },
+    {
+      "name": "伯肯黑德",
+      "nameEn": "Birkenhead",
+      "value": "Birkenhead"
+    },
+    {
+      "name": "沃勒西",
+      "nameEn": "Wallasey",
+      "value": "Wallasey"
+    },
+    {
+      "name": "埃尔斯米尔港",
+      "nameEn": "Ellesmere Port",
+      "value": "Ellesmere Port"
+    },
+    {
+      "name": "利物浦",
+      "nameEn": "Liverpool",
+      "value": "Liverpool"
+    },
+    {
+      "name": "Huyton",
+      "nameEn": "Huyton",
+      "value": "Huyton"
+    },
+    {
+      "name": "约维尔",
+      "nameEn": "Yeovil",
+      "value": "Yeovil"
+    },
+    {
+      "name": "多切斯特",
+      "nameEn": "Dorchester",
+      "value": "Dorchester"
+    },
+    {
+      "name": "Mendip",
+      "nameEn": "Mendip",
+      "value": "Mendip"
+    },
+    {
+      "name": "弗罗姆",
+      "nameEn": "Frome",
+      "value": "Frome"
+    },
+    {
+      "name": "沃明斯特",
+      "nameEn": "Warminster",
+      "value": "Warminster"
+    },
+    {
+      "name": "特罗布里奇",
+      "nameEn": "Trowbridge",
+      "value": "Trowbridge"
+    },
+    {
+      "name": "普尔",
+      "nameEn": "Poole",
+      "value": "Poole"
+    },
+    {
+      "name": "伯恩茅斯",
+      "nameEn": "Bournemouth",
+      "value": "Bournemouth"
+    },
+    {
+      "name": "克赖斯特彻奇",
+      "nameEn": "Christchurch",
+      "value": "Christchurch"
+    },
+    {
+      "name": "芬当",
+      "nameEn": "Ferndown",
+      "value": "Ferndown"
+    },
+    {
+      "name": "New Milton",
+      "nameEn": "New Milton",
+      "value": "New Milton"
+    },
+    {
+      "name": "托顿",
+      "nameEn": "Totton",
+      "value": "Totton"
+    },
+    {
+      "name": "索尔兹伯里",
+      "nameEn": "Salisbury",
+      "value": "Salisbury"
+    },
+    {
+      "name": "拉姆西",
+      "nameEn": "Romsey",
+      "value": "Romsey"
+    },
+    {
+      "name": "安多弗",
+      "nameEn": "Andover",
+      "value": "Andover"
+    },
+    {
+      "name": "Nailsea",
+      "nameEn": "Nailsea",
+      "value": "Nailsea"
+    },
+    {
+      "name": "Portishead",
+      "nameEn": "Portishead",
+      "value": "Portishead"
+    },
+    {
+      "name": "凯恩舍姆",
+      "nameEn": "Keynsham",
+      "value": "Keynsham"
+    },
+    {
+      "name": "布里斯托尔",
+      "nameEn": "Bristol",
+      "value": "Bristol"
+    },
+    {
+      "name": "Kingswood",
+      "nameEn": "Kingswood",
+      "value": "Kingswood"
+    },
+    {
+      "name": "Mangotsfield",
+      "nameEn": "Mangotsfield",
+      "value": "Mangotsfield"
+    },
+    {
+      "name": "巴斯",
+      "nameEn": "Bath",
+      "value": "Bath"
+    },
+    {
+      "name": "Neston",
+      "nameEn": "Neston",
+      "value": "Neston"
+    },
+    {
+      "name": "奇彭纳姆",
+      "nameEn": "Chippenham",
+      "value": "Chippenham"
+    },
+    {
+      "name": "Yate",
+      "nameEn": "Yate",
+      "value": "Yate"
+    },
+    {
+      "name": "奇平索德伯里",
+      "nameEn": "Chipping Sodbury",
+      "value": "Chipping Sodbury"
+    },
+    {
+      "name": "斯特劳德",
+      "nameEn": "Stroud",
+      "value": "Stroud"
+    },
+    {
+      "name": "格洛斯特",
+      "nameEn": "Gloucester",
+      "value": "Gloucester"
+    },
+    {
+      "name": "斯温登",
+      "nameEn": "Swindon",
+      "value": "Swindon"
+    },
+    {
+      "name": "Grove",
+      "nameEn": "Grove",
+      "value": "Grove"
+    },
+    {
+      "name": "赛伦塞斯特",
+      "nameEn": "Cirencester",
+      "value": "Cirencester"
+    },
+    {
+      "name": "切尔滕纳姆",
+      "nameEn": "Cheltenham",
+      "value": "Cheltenham"
+    },
+    {
+      "name": "威特尼",
+      "nameEn": "Witney",
+      "value": "Witney"
+    },
+    {
+      "name": "纽波特",
+      "nameEn": "Newport",
+      "value": "Newport"
+    },
+    {
+      "name": "West Cowes",
+      "nameEn": "West Cowes",
+      "value": "West Cowes"
+    },
+    {
+      "name": "桑当",
+      "nameEn": "Sandown",
+      "value": "Sandown"
+    },
+    {
+      "name": "赖德",
+      "nameEn": "Ryde",
+      "value": "Ryde"
+    },
+    {
+      "name": "戈斯波特",
+      "nameEn": "Gosport",
+      "value": "Gosport"
+    },
+    {
+      "name": "朴次茅斯",
+      "nameEn": "Portsmouth",
+      "value": "Portsmouth"
+    },
+    {
+      "name": "南海城",
+      "nameEn": "Southsea",
+      "value": "Southsea"
+    },
+    {
+      "name": "海斯",
+      "nameEn": "Hythe",
+      "value": "Hythe"
+    },
+    {
+      "name": "南安普敦",
+      "nameEn": "Southampton",
+      "value": "Southampton"
+    },
+    {
+      "name": "伊斯特利",
+      "nameEn": "Eastleigh",
+      "value": "Eastleigh"
+    },
+    {
+      "name": "Bishopstoke",
+      "nameEn": "Bishopstoke",
+      "value": "Bishopstoke"
+    },
+    {
+      "name": "Hedge End",
+      "nameEn": "Hedge End",
+      "value": "Hedge End"
+    },
+    {
+      "name": "费勒姆",
+      "nameEn": "Fareham",
+      "value": "Fareham"
+    },
+    {
+      "name": "滑铁卢维尔",
+      "nameEn": "Waterlooville",
+      "value": "Waterlooville"
+    },
+    {
+      "name": "哈文特",
+      "nameEn": "Havant",
+      "value": "Havant"
+    },
+    {
+      "name": "埃姆斯沃思",
+      "nameEn": "Emsworth",
+      "value": "Emsworth"
+    },
+    {
+      "name": "奇切斯特",
+      "nameEn": "Chichester",
+      "value": "Chichester"
+    },
+    {
+      "name": "温切斯特",
+      "nameEn": "Winchester",
+      "value": "Winchester"
+    },
+    {
+      "name": "贝辛斯托克",
+      "nameEn": "Basingstoke",
+      "value": "Basingstoke"
+    },
+    {
+      "name": "奥尔顿",
+      "nameEn": "Alton",
+      "value": "Alton"
+    },
+    {
+      "name": "法纳姆",
+      "nameEn": "Farnham",
+      "value": "Farnham"
+    },
+    {
+      "name": "Hale",
+      "nameEn": "Hale",
+      "value": "Hale"
+    },
+    {
+      "name": "弗利特",
+      "nameEn": "Fleet",
+      "value": "Fleet"
+    },
+    {
+      "name": "奥尔德肖特",
+      "nameEn": "Aldershot",
+      "value": "Aldershot"
+    },
+    {
+      "name": "法恩伯勒",
+      "nameEn": "Farnborough",
+      "value": "Farnborough"
+    },
+    {
+      "name": "博格诺里吉斯",
+      "nameEn": "Bognor Regis",
+      "value": "Bognor Regis"
+    },
+    {
+      "name": "利特尔汉普顿",
+      "nameEn": "Littlehampton",
+      "value": "Littlehampton"
+    },
+    {
+      "name": "Worthing",
+      "nameEn": "Worthing",
+      "value": "Worthing"
+    },
+    {
+      "name": "Lancing",
+      "nameEn": "Lancing",
+      "value": "Lancing"
+    },
+    {
+      "name": "肖勒姆",
+      "nameEn": "Shoreham-by-Sea",
+      "value": "Shoreham-by-Sea"
+    },
+    {
+      "name": "Portslade",
+      "nameEn": "Portslade",
+      "value": "Portslade"
+    },
+    {
+      "name": "霍夫",
+      "nameEn": "Hove",
+      "value": "Hove"
+    },
+    {
+      "name": "布赖顿",
+      "nameEn": "Brighton",
+      "value": "Brighton"
+    },
+    {
+      "name": "Rottingdean",
+      "nameEn": "Rottingdean",
+      "value": "Rottingdean"
+    },
+    {
+      "name": "Burgess Hill",
+      "nameEn": "Burgess Hill",
+      "value": "Burgess Hill"
+    },
+    {
+      "name": "戈德尔明",
+      "nameEn": "Godalming",
+      "value": "Godalming"
+    },
+    {
+      "name": "吉尔福德",
+      "nameEn": "Guildford",
+      "value": "Guildford"
+    },
+    {
+      "name": "沃金",
+      "nameEn": "Woking",
+      "value": "Woking"
+    },
+    {
+      "name": "霍舍姆",
+      "nameEn": "Horsham",
+      "value": "Horsham"
+    },
+    {
+      "name": "克劳利",
+      "nameEn": "Crawley",
+      "value": "Crawley"
+    },
+    {
+      "name": "Haywards Heath",
+      "nameEn": "Haywards Heath",
+      "value": "Haywards Heath"
+    },
+    {
+      "name": "东格林斯特德",
+      "nameEn": "East Grinstead",
+      "value": "East Grinstead"
+    },
+    {
+      "name": "Dorking",
+      "nameEn": "Dorking",
+      "value": "Dorking"
+    },
+    {
+      "name": "赖盖特",
+      "nameEn": "Reigate",
+      "value": "Reigate"
+    },
+    {
+      "name": "莱瑟黑德",
+      "nameEn": "Leatherhead",
+      "value": "Leatherhead"
+    },
+    {
+      "name": "班斯特德",
+      "nameEn": "Banstead",
+      "value": "Banstead"
+    },
+    {
+      "name": "霍利",
+      "nameEn": "Horley",
+      "value": "Horley"
+    },
+    {
+      "name": "雷德希尔",
+      "nameEn": "Redhill",
+      "value": "Redhill"
+    },
+    {
+      "name": "Caterham",
+      "nameEn": "Caterham",
+      "value": "Caterham"
+    },
+    {
+      "name": "纽伯里",
+      "nameEn": "Newbury",
+      "value": "Newbury"
+    },
+    {
+      "name": "萨彻姆",
+      "nameEn": "Thatcham",
+      "value": "Thatcham"
+    },
+    {
+      "name": "塔德利",
+      "nameEn": "Tadley",
+      "value": "Tadley"
+    },
+    {
+      "name": "迪德科特",
+      "nameEn": "Didcot",
+      "value": "Didcot"
+    },
+    {
+      "name": "阿宾登",
+      "nameEn": "Abingdon",
+      "value": "Abingdon"
+    },
+    {
+      "name": "雷丁",
+      "nameEn": "Reading",
+      "value": "Reading"
+    },
+    {
+      "name": "Lower Earley",
+      "nameEn": "Lower Earley",
+      "value": "Lower Earley"
+    },
+    {
+      "name": "Yateley",
+      "nameEn": "Yateley",
+      "value": "Yateley"
+    },
+    {
+      "name": "克罗索恩",
+      "nameEn": "Crowthorne",
+      "value": "Crowthorne"
+    },
+    {
+      "name": "沃金厄姆",
+      "nameEn": "Wokingham",
+      "value": "Wokingham"
+    },
+    {
+      "name": "坎伯利",
+      "nameEn": "Camberley",
+      "value": "Camberley"
+    },
+    {
+      "name": "布拉克内尔",
+      "nameEn": "Bracknell",
+      "value": "Bracknell"
+    },
+    {
+      "name": "梅登黑德",
+      "nameEn": "Maidenhead",
+      "value": "Maidenhead"
+    },
+    {
+      "name": "马洛",
+      "nameEn": "Marlow",
+      "value": "Marlow"
+    },
+    {
+      "name": "海威科姆",
+      "nameEn": "High Wycombe",
+      "value": "High Wycombe"
+    },
+    {
+      "name": "牛津",
+      "nameEn": "Oxford",
+      "value": "Oxford"
+    },
+    {
+      "name": "基德灵顿",
+      "nameEn": "Kidlington",
+      "value": "Kidlington"
+    },
+    {
+      "name": "Cowley",
+      "nameEn": "Cowley",
+      "value": "Cowley"
+    },
+    {
+      "name": "比斯特",
+      "nameEn": "Bicester",
+      "value": "Bicester"
+    },
+    {
+      "name": "艾尔斯伯里",
+      "nameEn": "Aylesbury",
+      "value": "Aylesbury"
+    },
+    {
+      "name": "布莱奇利",
+      "nameEn": "Bletchley",
+      "value": "Bletchley"
+    },
+    {
+      "name": "Ascot",
+      "nameEn": "Ascot",
+      "value": "Ascot"
+    },
+    {
+      "name": "埃格姆",
+      "nameEn": "Egham",
+      "value": "Egham"
+    },
+    {
+      "name": "温莎",
+      "nameEn": "Windsor",
+      "value": "Windsor"
+    },
+    {
+      "name": "韦布里奇",
+      "nameEn": "Weybridge",
+      "value": "Weybridge"
+    },
+    {
+      "name": "科伯姆",
+      "nameEn": "Cobham",
+      "value": "Cobham"
+    },
+    {
+      "name": "Esher",
+      "nameEn": "Esher",
+      "value": "Esher"
+    },
+    {
+      "name": "泰晤士河畔沃尔顿",
+      "nameEn": "Walton-on-Thames",
+      "value": "Walton-on-Thames"
+    },
+    {
+      "name": "Sunbury-on-Thames",
+      "nameEn": "Sunbury-on-Thames",
+      "value": "Sunbury-on-Thames"
+    },
+    {
+      "name": "西莫尔西",
+      "nameEn": "West Molesey",
+      "value": "West Molesey"
+    },
+    {
+      "name": "斯泰恩斯",
+      "nameEn": "Staines-upon-Thames",
+      "value": "Staines-upon-Thames"
+    },
+    {
+      "name": "斯劳",
+      "nameEn": "Slough",
+      "value": "Slough"
+    },
+    {
+      "name": "阿默舍姆",
+      "nameEn": "Amersham",
+      "value": "Amersham"
+    },
+    {
+      "name": "Chalfont St Peter",
+      "nameEn": "Chalfont St Peter",
+      "value": "Chalfont St Peter"
+    },
+    {
+      "name": "海斯",
+      "nameEn": "Hayes",
+      "value": "Hayes"
+    },
+    {
+      "name": "沃特福德",
+      "nameEn": "Watford",
+      "value": "Watford"
+    },
+    {
+      "name": "布希",
+      "nameEn": "Bushey",
+      "value": "Bushey"
+    },
+    {
+      "name": "埃普索姆",
+      "nameEn": "Epsom",
+      "value": "Epsom"
+    },
+    {
+      "name": "东莫尔西",
+      "nameEn": "East Molesey",
+      "value": "East Molesey"
+    },
+    {
+      "name": "瑟比顿",
+      "nameEn": "Surbiton",
+      "value": "Surbiton"
+    },
+    {
+      "name": "Ewell",
+      "nameEn": "Ewell",
+      "value": "Ewell"
+    },
+    {
+      "name": "萨顿",
+      "nameEn": "Sutton",
+      "value": "Sutton"
+    },
+    {
+      "name": "Earlsfield",
+      "nameEn": "Earlsfield",
+      "value": "Earlsfield"
+    },
+    {
+      "name": "巴特锡",
+      "nameEn": "Battersea",
+      "value": "Battersea"
+    },
+    {
+      "name": "切尔西",
+      "nameEn": "Chelsea",
+      "value": "Chelsea"
+    },
+    {
+      "name": "布里克斯顿",
+      "nameEn": "Brixton",
+      "value": "Brixton"
+    },
+    {
+      "name": "Acton",
+      "nameEn": "Acton",
+      "value": "Acton"
+    },
+    {
+      "name": "Bayswater",
+      "nameEn": "Bayswater",
+      "value": "Bayswater"
+    },
+    {
+      "name": "Borehamwood",
+      "nameEn": "Borehamwood",
+      "value": "Borehamwood"
+    },
+    {
+      "name": "Camden Town",
+      "nameEn": "Camden Town",
+      "value": "Camden Town"
+    },
+    {
+      "name": "伦敦",
+      "nameEn": "London",
+      "value": "London"
+    },
+    {
+      "name": "伦敦市",
+      "nameEn": "City of London",
+      "value": "City of London"
+    },
+    {
+      "name": "Islington",
+      "nameEn": "Islington",
+      "value": "Islington"
+    },
+    {
+      "name": "Bethnal Green",
+      "nameEn": "Bethnal Green",
+      "value": "Bethnal Green"
+    },
+    {
+      "name": "Hadley Wood",
+      "nameEn": "Hadley Wood",
+      "value": "Hadley Wood"
+    },
+    {
+      "name": "切舍姆",
+      "nameEn": "Chesham",
+      "value": "Chesham"
+    },
+    {
+      "name": "伯克姆斯特德",
+      "nameEn": "Berkhamsted",
+      "value": "Berkhamsted"
+    },
+    {
+      "name": "赫默尔亨普斯特德",
+      "nameEn": "Hemel Hempstead",
+      "value": "Hemel Hempstead"
+    },
+    {
+      "name": "哈彭登",
+      "nameEn": "Harpenden",
+      "value": "Harpenden"
+    },
+    {
+      "name": "莱顿巴泽德",
+      "nameEn": "Leighton Buzzard",
+      "value": "Leighton Buzzard"
+    },
+    {
+      "name": "邓斯特布尔",
+      "nameEn": "Dunstable",
+      "value": "Dunstable"
+    },
+    {
+      "name": "卢顿",
+      "nameEn": "Luton",
+      "value": "Luton"
+    },
+    {
+      "name": "圣奥尔本斯",
+      "nameEn": "St Albans",
+      "value": "St Albans"
+    },
+    {
+      "name": "波特斯巴",
+      "nameEn": "Potters Bar",
+      "value": "Potters Bar"
+    },
+    {
+      "name": "哈特菲尔德",
+      "nameEn": "Hatfield",
+      "value": "Hatfield"
+    },
+    {
+      "name": "韦林加登城",
+      "nameEn": "Welwyn Garden City",
+      "value": "Welwyn Garden City"
+    },
+    {
+      "name": "沃尔瑟姆阿比",
+      "nameEn": "Waltham Abbey",
+      "value": "Waltham Abbey"
+    },
+    {
+      "name": "切森特",
+      "nameEn": "Cheshunt",
+      "value": "Cheshunt"
+    },
+    {
+      "name": "霍兹登",
+      "nameEn": "Hoddesdon",
+      "value": "Hoddesdon"
+    },
+    {
+      "name": "赫特福德",
+      "nameEn": "Hertford",
+      "value": "Hertford"
+    },
+    {
+      "name": "韦尔",
+      "nameEn": "Ware",
+      "value": "Ware"
+    },
+    {
+      "name": "斯蒂夫尼奇",
+      "nameEn": "Stevenage",
+      "value": "Stevenage"
+    },
+    {
+      "name": "希钦",
+      "nameEn": "Hitchin",
+      "value": "Hitchin"
+    },
+    {
+      "name": "Letchworth Garden City",
+      "nameEn": "Letchworth Garden City",
+      "value": "Letchworth Garden City"
+    },
+    {
+      "name": "赫里福德",
+      "nameEn": "Hereford",
+      "value": "Hereford"
+    },
+    {
+      "name": "Great Malvern",
+      "nameEn": "Great Malvern",
+      "value": "Great Malvern"
+    },
+    {
+      "name": "伍斯特",
+      "nameEn": "City of Worcester",
+      "value": "City of Worcester"
+    },
+    {
+      "name": "Droitwich",
+      "nameEn": "Droitwich",
+      "value": "Droitwich"
+    },
+    {
+      "name": "Stourport On Severn",
+      "nameEn": "Stourport On Severn",
+      "value": "Stourport On Severn"
+    },
+    {
+      "name": "什鲁斯伯里",
+      "nameEn": "Shrewsbury",
+      "value": "Shrewsbury"
+    },
+    {
+      "name": "惠灵顿",
+      "nameEn": "Wellington",
+      "value": "Wellington"
+    },
+    {
+      "name": "基德明斯特",
+      "nameEn": "Kidderminster",
+      "value": "Kidderminster"
+    },
+    {
+      "name": "斯陶尔布里奇",
+      "nameEn": "Stourbridge",
+      "value": "Stourbridge"
+    },
+    {
+      "name": "Kingswinford",
+      "nameEn": "Kingswinford",
+      "value": "Kingswinford"
+    },
+    {
+      "name": "布赖尔利希尔",
+      "nameEn": "Brierley Hill",
+      "value": "Brierley Hill"
+    },
+    {
+      "name": "Ryton",
+      "nameEn": "Ryton",
+      "value": "Ryton"
+    },
+    {
+      "name": "特尔福德",
+      "nameEn": "Telford",
+      "value": "Telford"
+    },
+    {
+      "name": "伍尔弗汉普顿",
+      "nameEn": "Wolverhampton",
+      "value": "Wolverhampton"
+    },
+    {
+      "name": "伊夫舍姆",
+      "nameEn": "Evesham",
+      "value": "Evesham"
+    },
+    {
+      "name": "布罗姆斯格罗夫",
+      "nameEn": "Bromsgrove",
+      "value": "Bromsgrove"
+    },
+    {
+      "name": "雷迪奇",
+      "nameEn": "Redditch",
+      "value": "Redditch"
+    },
+    {
+      "name": "埃文河畔斯特拉特福",
+      "nameEn": "Stratford-upon-Avon",
+      "value": "Stratford-upon-Avon"
+    },
+    {
+      "name": "沃里克",
+      "nameEn": "Warwick",
+      "value": "Warwick"
+    },
+    {
+      "name": "皇家利明顿矿泉市",
+      "nameEn": "Royal Leamington Spa",
+      "value": "Royal Leamington Spa"
+    },
+    {
+      "name": "凯尼尔沃思",
+      "nameEn": "Kenilworth",
+      "value": "Kenilworth"
+    },
+    {
+      "name": "黑尔斯欧文",
+      "nameEn": "Halesowen",
+      "value": "Halesowen"
+    },
+    {
+      "name": "Bartley Green",
+      "nameEn": "Bartley Green",
+      "value": "Bartley Green"
+    },
+    {
+      "name": "达德利",
+      "nameEn": "Dudley",
+      "value": "Dudley"
+    },
+    {
+      "name": "蒂普顿",
+      "nameEn": "Tipton",
+      "value": "Tipton"
+    },
+    {
+      "name": "温斯伯里",
+      "nameEn": "Wednesbury",
+      "value": "Wednesbury"
+    },
+    {
+      "name": "西布罗米奇",
+      "nameEn": "West Bromwich",
+      "value": "West Bromwich"
+    },
+    {
+      "name": "雪莉",
+      "nameEn": "Shirley",
+      "value": "Shirley"
+    },
+    {
+      "name": "索利哈尔",
+      "nameEn": "Solihull",
+      "value": "Solihull"
+    },
+    {
+      "name": "伯明翰",
+      "nameEn": "Birmingham",
+      "value": "Birmingham"
+    },
+    {
+      "name": "Wednesfield",
+      "nameEn": "Wednesfield",
+      "value": "Wednesfield"
+    },
+    {
+      "name": "威伦霍尔",
+      "nameEn": "Willenhall",
+      "value": "Willenhall"
+    },
+    {
+      "name": "沃尔索尔",
+      "nameEn": "Walsall",
+      "value": "Walsall"
+    },
+    {
+      "name": "Bloxwich",
+      "nameEn": "Bloxwich",
+      "value": "Bloxwich"
+    },
+    {
+      "name": "Cannock",
+      "nameEn": "Cannock",
+      "value": "Cannock"
+    },
+    {
+      "name": "Great Wyrley",
+      "nameEn": "Great Wyrley",
+      "value": "Great Wyrley"
+    },
+    {
+      "name": "Aldridge",
+      "nameEn": "Aldridge",
+      "value": "Aldridge"
+    },
+    {
+      "name": "Brownhills",
+      "nameEn": "Brownhills",
+      "value": "Brownhills"
+    },
+    {
+      "name": "萨顿科尔菲尔德",
+      "nameEn": "Sutton Coldfield",
+      "value": "Sutton Coldfield"
+    },
+    {
+      "name": "Burntwood",
+      "nameEn": "Burntwood",
+      "value": "Burntwood"
+    },
+    {
+      "name": "利奇菲尔德",
+      "nameEn": "Lichfield",
+      "value": "Lichfield"
+    },
+    {
+      "name": "考文垂",
+      "nameEn": "Coventry",
+      "value": "Coventry"
+    },
+    {
+      "name": "贝德沃思",
+      "nameEn": "Bedworth",
+      "value": "Bedworth"
+    },
+    {
+      "name": "纳尼顿",
+      "nameEn": "Nuneaton",
+      "value": "Nuneaton"
+    },
+    {
+      "name": "塔姆沃思",
+      "nameEn": "Tamworth",
+      "value": "Tamworth"
+    },
+    {
+      "name": "斯塔福德",
+      "nameEn": "Stafford",
+      "value": "Stafford"
+    },
+    {
+      "name": "纽卡斯尔安德莱姆",
+      "nameEn": "Newcastle-under-Lyme",
+      "value": "Newcastle-under-Lyme"
+    },
+    {
+      "name": "特伦特河畔斯托克",
+      "nameEn": "Stoke-on-Trent",
+      "value": "Stoke-on-Trent"
+    },
+    {
+      "name": "温斯福德",
+      "nameEn": "Winsford",
+      "value": "Winsford"
+    },
+    {
+      "name": "诺斯威奇",
+      "nameEn": "Northwich",
+      "value": "Northwich"
+    },
+    {
+      "name": "朗科恩",
+      "nameEn": "Runcorn",
+      "value": "Runcorn"
+    },
+    {
+      "name": "威德尼斯",
+      "nameEn": "Widnes",
+      "value": "Widnes"
+    },
+    {
+      "name": "普雷斯科特",
+      "nameEn": "Prescot",
+      "value": "Prescot"
+    },
+    {
+      "name": "Great Sankey",
+      "nameEn": "Great Sankey",
+      "value": "Great Sankey"
+    },
+    {
+      "name": "沃灵顿",
+      "nameEn": "Warrington",
+      "value": "Warrington"
+    },
+    {
+      "name": "克鲁",
+      "nameEn": "Crewe",
+      "value": "Crewe"
+    },
+    {
+      "name": "桑德巴奇",
+      "nameEn": "Sandbach",
+      "value": "Sandbach"
+    },
+    {
+      "name": "Kidsgrove",
+      "nameEn": "Kidsgrove",
+      "value": "Kidsgrove"
+    },
+    {
+      "name": "康格尔顿",
+      "nameEn": "Congleton",
+      "value": "Congleton"
+    },
+    {
+      "name": "比达尔夫",
+      "nameEn": "Biddulph",
+      "value": "Biddulph"
+    },
+    {
+      "name": "Macclesfield",
+      "nameEn": "Macclesfield",
+      "value": "Macclesfield"
+    },
+    {
+      "name": "黑尔",
+      "nameEn": "Hale",
+      "value": "Hale"
+    },
+    {
+      "name": "奥尔特灵厄姆",
+      "nameEn": "Altrincham",
+      "value": "Altrincham"
+    },
+    {
+      "name": "塞尔",
+      "nameEn": "Sale",
+      "value": "Sale"
+    },
+    {
+      "name": "Wilmslow",
+      "nameEn": "Wilmslow",
+      "value": "Wilmslow"
+    },
+    {
+      "name": "Bramhall",
+      "nameEn": "Bramhall",
+      "value": "Bramhall"
+    },
+    {
+      "name": "Cheadle Hulme",
+      "nameEn": "Cheadle Hulme",
+      "value": "Cheadle Hulme"
+    },
+    {
+      "name": "Hazel Grove",
+      "nameEn": "Hazel Grove",
+      "value": "Hazel Grove"
+    },
+    {
+      "name": "斯托克波特",
+      "nameEn": "Stockport",
+      "value": "Stockport"
+    },
+    {
+      "name": "鲁吉利",
+      "nameEn": "Rugeley",
+      "value": "Rugeley"
+    },
+    {
+      "name": "Burton-on-Trent",
+      "nameEn": "Burton-on-Trent",
+      "value": "Burton-on-Trent"
+    },
+    {
+      "name": "斯沃德林科特",
+      "nameEn": "Swadlincote",
+      "value": "Swadlincote"
+    },
+    {
+      "name": "德比",
+      "nameEn": "Derby",
+      "value": "Derby"
+    },
+    {
+      "name": "贝尔珀",
+      "nameEn": "Belper",
+      "value": "Belper"
+    },
+    {
+      "name": "利克",
+      "nameEn": "Leek",
+      "value": "Leek"
+    },
+    {
+      "name": "巴克斯顿",
+      "nameEn": "Buxton",
+      "value": "Buxton"
+    },
+    {
+      "name": "马普尔",
+      "nameEn": "Marple",
+      "value": "Marple"
+    },
+    {
+      "name": "切斯特菲尔德",
+      "nameEn": "Chesterfield",
+      "value": "Chesterfield"
+    },
+    {
+      "name": "德朗菲尔德",
+      "nameEn": "Dronfield",
+      "value": "Dronfield"
+    },
+    {
+      "name": "谢菲尔德",
+      "nameEn": "Sheffield",
+      "value": "Sheffield"
+    },
+    {
+      "name": "班伯里",
+      "nameEn": "Banbury",
+      "value": "Banbury"
+    },
+    {
+      "name": "拉格比",
+      "nameEn": "Rugby",
+      "value": "Rugby"
+    },
+    {
+      "name": "达文特里",
+      "nameEn": "Daventry",
+      "value": "Daventry"
+    },
+    {
+      "name": "米尔顿凯恩斯",
+      "nameEn": "Milton Keynes",
+      "value": "Milton Keynes"
+    },
+    {
+      "name": "纽波特帕格内尔",
+      "nameEn": "Newport Pagnell",
+      "value": "Newport Pagnell"
+    },
+    {
+      "name": "北安普敦",
+      "nameEn": "Northampton",
+      "value": "Northampton"
+    },
+    {
+      "name": "欣克利",
+      "nameEn": "Hinckley",
+      "value": "Hinckley"
+    },
+    {
+      "name": "科尔维尔",
+      "nameEn": "Coalville",
+      "value": "Coalville"
+    },
+    {
+      "name": "Great Wigston",
+      "nameEn": "Great Wigston",
+      "value": "Great Wigston"
+    },
+    {
+      "name": "莱斯特",
+      "nameEn": "Leicester",
+      "value": "Leicester"
+    },
+    {
+      "name": "Oadby",
+      "nameEn": "Oadby",
+      "value": "Oadby"
+    },
+    {
+      "name": "马基特哈伯勒",
+      "nameEn": "Market Harborough",
+      "value": "Market Harborough"
+    },
+    {
+      "name": "凯特林",
+      "nameEn": "Kettering",
+      "value": "Kettering"
+    },
+    {
+      "name": "Kempston Hardwick",
+      "nameEn": "Kempston Hardwick",
+      "value": "Kempston Hardwick"
+    },
+    {
+      "name": "肯普斯顿",
+      "nameEn": "Kempston",
+      "value": "Kempston"
+    },
+    {
+      "name": "贝德福德",
+      "nameEn": "Bedford",
+      "value": "Bedford"
+    },
+    {
+      "name": "拉什登",
+      "nameEn": "Rushden",
+      "value": "Rushden"
+    },
+    {
+      "name": "韦灵伯勒",
+      "nameEn": "Wellingborough",
+      "value": "Wellingborough"
+    },
+    {
+      "name": "比格尔斯韦德",
+      "nameEn": "Biggleswade",
+      "value": "Biggleswade"
+    },
+    {
+      "name": "圣尼茨",
+      "nameEn": "Saint Neots",
+      "value": "Saint Neots"
+    },
+    {
+      "name": "亨廷登",
+      "nameEn": "Huntingdon",
+      "value": "Huntingdon"
+    },
+    {
+      "name": "科比",
+      "nameEn": "Corby",
+      "value": "Corby"
+    },
+    {
+      "name": "斯坦福",
+      "nameEn": "Stamford",
+      "value": "Stamford"
+    },
+    {
+      "name": "彼得伯勒",
+      "nameEn": "Peterborough",
+      "value": "Peterborough"
+    },
+    {
+      "name": "朗伊顿",
+      "nameEn": "Long Eaton",
+      "value": "Long Eaton"
+    },
+    {
+      "name": "拉夫伯勒",
+      "nameEn": "Loughborough",
+      "value": "Loughborough"
+    },
+    {
+      "name": "Ilkeston",
+      "nameEn": "Ilkeston",
+      "value": "Ilkeston"
+    },
+    {
+      "name": "里普利",
+      "nameEn": "Ripley",
+      "value": "Ripley"
+    },
+    {
+      "name": "希诺",
+      "nameEn": "Heanor",
+      "value": "Heanor"
+    },
+    {
+      "name": "Eastwood",
+      "nameEn": "Eastwood",
+      "value": "Eastwood"
+    },
+    {
+      "name": "诺丁汉",
+      "nameEn": "Nottingham",
+      "value": "Nottingham"
+    },
+    {
+      "name": "西布里奇福德",
+      "nameEn": "West Bridgford",
+      "value": "West Bridgford"
+    },
+    {
+      "name": "Hucknall Torkard",
+      "nameEn": "Hucknall Torkard",
+      "value": "Hucknall Torkard"
+    },
+    {
+      "name": "Arnold",
+      "nameEn": "Arnold",
+      "value": "Arnold"
+    },
+    {
+      "name": "梅尔顿莫布雷",
+      "nameEn": "Melton Mowbray",
+      "value": "Melton Mowbray"
+    },
+    {
+      "name": "Newark upon Trent",
+      "nameEn": "Newark upon Trent",
+      "value": "Newark upon Trent"
+    },
+    {
+      "name": "奥尔弗里顿",
+      "nameEn": "Alfreton",
+      "value": "Alfreton"
+    },
+    {
+      "name": "Kirkby in Ashfield",
+      "nameEn": "Kirkby in Ashfield",
+      "value": "Kirkby in Ashfield"
+    },
+    {
+      "name": "Sutton in Ashfield",
+      "nameEn": "Sutton in Ashfield",
+      "value": "Sutton in Ashfield"
+    },
+    {
+      "name": "曼斯费尔德",
+      "nameEn": "Mansfield",
+      "value": "Mansfield"
+    },
+    {
+      "name": "Mansfield Woodhouse",
+      "nameEn": "Mansfield Woodhouse",
+      "value": "Mansfield Woodhouse"
+    },
+    {
+      "name": "斯泰夫利",
+      "nameEn": "Staveley",
+      "value": "Staveley"
+    },
+    {
+      "name": "罗瑟勒姆",
+      "nameEn": "Rotherham",
+      "value": "Rotherham"
+    },
+    {
+      "name": "沃克索普",
+      "nameEn": "Worksop",
+      "value": "Worksop"
+    },
+    {
+      "name": "莫尔特比",
+      "nameEn": "Maltby",
+      "value": "Maltby"
+    },
+    {
+      "name": "Bassetlaw District",
+      "nameEn": "Bassetlaw District",
+      "value": "Bassetlaw District"
+    },
+    {
+      "name": "东雷特福德",
+      "nameEn": "Retford",
+      "value": "Retford"
+    },
+    {
+      "name": "盖恩斯伯勒",
+      "nameEn": "Gainsborough",
+      "value": "Gainsborough"
+    },
+    {
+      "name": "格兰瑟姆",
+      "nameEn": "Grantham",
+      "value": "Grantham"
+    },
+    {
+      "name": "斯利福德",
+      "nameEn": "Sleaford",
+      "value": "Sleaford"
+    },
+    {
+      "name": "斯波尔丁",
+      "nameEn": "Spalding",
+      "value": "Spalding"
+    },
+    {
+      "name": "波士顿",
+      "nameEn": "Boston",
+      "value": "Boston"
+    },
+    {
+      "name": "林肯",
+      "nameEn": "Lincoln",
+      "value": "Lincoln"
+    },
+    {
+      "name": "劳斯",
+      "nameEn": "Louth",
+      "value": "Louth"
+    },
+    {
+      "name": "Crosby",
+      "nameEn": "Crosby",
+      "value": "Crosby"
+    },
+    {
+      "name": "布特尔",
+      "nameEn": "Bootle",
+      "value": "Bootle"
+    },
+    {
+      "name": "Litherland",
+      "nameEn": "Litherland",
+      "value": "Litherland"
+    },
+    {
+      "name": "福姆比",
+      "nameEn": "Formby",
+      "value": "Formby"
+    },
+    {
+      "name": "马格尔",
+      "nameEn": "Maghull",
+      "value": "Maghull"
+    },
+    {
+      "name": "Kirkby",
+      "nameEn": "Kirkby",
+      "value": "Kirkby"
+    },
+    {
+      "name": "奥姆斯柯克",
+      "nameEn": "Ormskirk",
+      "value": "Ormskirk"
+    },
+    {
+      "name": "绍斯波特",
+      "nameEn": "Southport",
+      "value": "Southport"
+    },
+    {
+      "name": "Lytham",
+      "nameEn": "Lytham",
+      "value": "Lytham"
+    },
+    {
+      "name": "Barrow in Furness",
+      "nameEn": "Barrow in Furness",
+      "value": "Barrow in Furness"
+    },
+    {
+      "name": "布莱克浦",
+      "nameEn": "Blackpool",
+      "value": "Blackpool"
+    },
+    {
+      "name": "弗利特伍德",
+      "nameEn": "Fleetwood",
+      "value": "Fleetwood"
+    },
+    {
+      "name": "Poulton le Fylde",
+      "nameEn": "Poulton le Fylde",
+      "value": "Poulton le Fylde"
+    },
+    {
+      "name": "Fylde Coast",
+      "nameEn": "Fylde Coast",
+      "value": "Fylde Coast"
+    },
+    {
+      "name": "莫克姆",
+      "nameEn": "Morecambe",
+      "value": "Morecambe"
+    },
+    {
+      "name": "兰卡斯特",
+      "nameEn": "Lancaster",
+      "value": "Lancaster"
+    },
+    {
+      "name": "怀特黑文",
+      "nameEn": "Whitehaven",
+      "value": "Whitehaven"
+    },
+    {
+      "name": "沃金顿",
+      "nameEn": "Workington",
+      "value": "Workington"
+    },
+    {
+      "name": "Ayr",
+      "nameEn": "Ayr",
+      "value": "Ayr"
+    },
+    {
+      "name": "Prestwick",
+      "nameEn": "Prestwick",
+      "value": "Prestwick"
+    },
+    {
+      "name": "欧文",
+      "nameEn": "Irvine",
+      "value": "Irvine"
+    },
+    {
+      "name": "基尔温宁",
+      "nameEn": "Kilwinning",
+      "value": "Kilwinning"
+    },
+    {
+      "name": "基尔马诺克",
+      "nameEn": "Kilmarnock",
+      "value": "Kilmarnock"
+    },
+    {
+      "name": "约翰斯通",
+      "nameEn": "Johnstone",
+      "value": "Johnstone"
+    },
+    {
+      "name": "佩斯利",
+      "nameEn": "Paisley",
+      "value": "Paisley"
+    },
+    {
+      "name": "巴尔黑德",
+      "nameEn": "Barrhead",
+      "value": "Barrhead"
+    },
+    {
+      "name": "Newton Mearns",
+      "nameEn": "Newton Mearns",
+      "value": "Newton Mearns"
+    },
+    {
+      "name": "Giffnock",
+      "nameEn": "Giffnock",
+      "value": "Giffnock"
+    },
+    {
+      "name": "伦弗鲁",
+      "nameEn": "Renfrew",
+      "value": "Renfrew"
+    },
+    {
+      "name": "格拉斯哥",
+      "nameEn": "Glasgow",
+      "value": "Glasgow"
+    },
+    {
+      "name": "格里诺克",
+      "nameEn": "Greenock",
+      "value": "Greenock"
+    },
+    {
+      "name": "格拉斯哥港",
+      "nameEn": "Port Glasgow",
+      "value": "Port Glasgow"
+    },
+    {
+      "name": "邓巴顿",
+      "nameEn": "Dumbarton",
+      "value": "Dumbarton"
+    },
+    {
+      "name": "克莱德班克",
+      "nameEn": "Clydebank",
+      "value": "Clydebank"
+    },
+    {
+      "name": "贝尔斯登",
+      "nameEn": "Bearsden",
+      "value": "Bearsden"
+    },
+    {
+      "name": "卡莱尔",
+      "nameEn": "Carlisle",
+      "value": "Carlisle"
+    },
+    {
+      "name": "东基尔布赖德",
+      "nameEn": "East Kilbride",
+      "value": "East Kilbride"
+    },
+    {
+      "name": "High Blantyre",
+      "nameEn": "High Blantyre",
+      "value": "High Blantyre"
+    },
+    {
+      "name": "拉瑟格伦",
+      "nameEn": "Rutherglen",
+      "value": "Rutherglen"
+    },
+    {
+      "name": "拉克霍尔",
+      "nameEn": "Larkhall",
+      "value": "Larkhall"
+    },
+    {
+      "name": "哈密尔顿",
+      "nameEn": "Hamilton",
+      "value": "Hamilton"
+    },
+    {
+      "name": "马瑟韦尔",
+      "nameEn": "Motherwell",
+      "value": "Motherwell"
+    },
+    {
+      "name": "威肖",
+      "nameEn": "Wishaw",
+      "value": "Wishaw"
+    },
+    {
+      "name": "贝尔斯希尔",
+      "nameEn": "Bellshill",
+      "value": "Bellshill"
+    },
+    {
+      "name": "科特布里奇",
+      "nameEn": "Coatbridge",
+      "value": "Coatbridge"
+    },
+    {
+      "name": "艾尔德里",
+      "nameEn": "Airdrie",
+      "value": "Airdrie"
+    },
+    {
+      "name": "Bishopbriggs",
+      "nameEn": "Bishopbriggs",
+      "value": "Bishopbriggs"
+    },
+    {
+      "name": "柯金蒂洛赫",
+      "nameEn": "Kirkintilloch",
+      "value": "Kirkintilloch"
+    },
+    {
+      "name": "坎伯诺尔德",
+      "nameEn": "Cumbernauld",
+      "value": "Cumbernauld"
+    },
+    {
+      "name": "斯特灵",
+      "nameEn": "Stirling",
+      "value": "Stirling"
+    },
+    {
+      "name": "福尔柯克",
+      "nameEn": "Falkirk",
+      "value": "Falkirk"
+    },
+    {
+      "name": "波尔蒙特",
+      "nameEn": "Polmont",
+      "value": "Polmont"
+    },
+    {
+      "name": "格兰奇茅斯",
+      "nameEn": "Grangemouth",
+      "value": "Grangemouth"
+    },
+    {
+      "name": "巴斯盖特",
+      "nameEn": "Bathgate",
+      "value": "Bathgate"
+    },
+    {
+      "name": "利文斯顿",
+      "nameEn": "Livingston",
+      "value": "Livingston"
+    },
+    {
+      "name": "阿洛厄",
+      "nameEn": "Alloa",
+      "value": "Alloa"
+    },
+    {
+      "name": "佩尼库克",
+      "nameEn": "Penicuik",
+      "value": "Penicuik"
+    },
+    {
+      "name": "邓弗姆林",
+      "nameEn": "Dunfermline",
+      "value": "Dunfermline"
+    },
+    {
+      "name": "爱丁堡",
+      "nameEn": "Edinburgh",
+      "value": "Edinburgh"
+    },
+    {
+      "name": "格伦罗西斯",
+      "nameEn": "Glenrothes",
+      "value": "Glenrothes"
+    },
+    {
+      "name": "马瑟尔堡",
+      "nameEn": "Musselburgh",
+      "value": "Musselburgh"
+    },
+    {
+      "name": "柯科迪",
+      "nameEn": "Kirkcaldy",
+      "value": "Kirkcaldy"
+    },
+    {
+      "name": "巴克黑文",
+      "nameEn": "Buckhaven",
+      "value": "Buckhaven"
+    },
+    {
+      "name": "St Helens",
+      "nameEn": "St Helens",
+      "value": "St Helens"
+    },
+    {
+      "name": "Haydock",
+      "nameEn": "Haydock",
+      "value": "Haydock"
+    },
+    {
+      "name": "Ashton in Makerfield",
+      "nameEn": "Ashton in Makerfield",
+      "value": "Ashton in Makerfield"
+    },
+    {
+      "name": "斯凯尔默斯代尔",
+      "nameEn": "Skelmersdale",
+      "value": "Skelmersdale"
+    },
+    {
+      "name": "Newton-le-Willows",
+      "nameEn": "Newton-le-Willows",
+      "value": "Newton-le-Willows"
+    },
+    {
+      "name": "Golborne",
+      "nameEn": "Golborne",
+      "value": "Golborne"
+    },
+    {
+      "name": "利",
+      "nameEn": "Leigh",
+      "value": "Leigh"
+    },
+    {
+      "name": "阿瑟顿",
+      "nameEn": "Atherton",
+      "value": "Atherton"
+    },
+    {
+      "name": "蒂尔兹利",
+      "nameEn": "Tyldesley",
+      "value": "Tyldesley"
+    },
+    {
+      "name": "威根",
+      "nameEn": "Wigan",
+      "value": "Wigan"
+    },
+    {
+      "name": "欣德利",
+      "nameEn": "Hindley",
+      "value": "Hindley"
+    },
+    {
+      "name": "霍里奇",
+      "nameEn": "Horwich",
+      "value": "Horwich"
+    },
+    {
+      "name": "Westhoughton",
+      "nameEn": "Westhoughton",
+      "value": "Westhoughton"
+    },
+    {
+      "name": "莱兰",
+      "nameEn": "Leyland",
+      "value": "Leyland"
+    },
+    {
+      "name": "普雷斯顿",
+      "nameEn": "Preston",
+      "value": "Preston"
+    },
+    {
+      "name": "乔利",
+      "nameEn": "Chorley",
+      "value": "Chorley"
+    },
+    {
+      "name": "达温",
+      "nameEn": "Darwen",
+      "value": "Darwen"
+    },
+    {
+      "name": "布莱克本",
+      "nameEn": "Blackburn",
+      "value": "Blackburn"
+    },
+    {
+      "name": "厄拉姆",
+      "nameEn": "Irlam",
+      "value": "Irlam"
+    },
+    {
+      "name": "Walkden",
+      "nameEn": "Walkden",
+      "value": "Walkden"
+    },
+    {
+      "name": "厄姆斯顿",
+      "nameEn": "Urmston",
+      "value": "Urmston"
+    },
+    {
+      "name": "Stretford",
+      "nameEn": "Stretford",
+      "value": "Stretford"
+    },
+    {
+      "name": "埃克尔斯",
+      "nameEn": "Eccles",
+      "value": "Eccles"
+    },
+    {
+      "name": "斯温顿",
+      "nameEn": "Swinton",
+      "value": "Swinton"
+    },
+    {
+      "name": "索尔福德",
+      "nameEn": "Salford",
+      "value": "Salford"
+    },
+    {
+      "name": "法恩沃思",
+      "nameEn": "Farnworth",
+      "value": "Farnworth"
+    },
+    {
+      "name": "博尔顿",
+      "nameEn": "Bolton",
+      "value": "Bolton"
+    },
+    {
+      "name": "拉德克利夫",
+      "nameEn": "Radcliffe",
+      "value": "Radcliffe"
+    },
+    {
+      "name": "怀特菲尔德",
+      "nameEn": "Whitefield",
+      "value": "Whitefield"
+    },
+    {
+      "name": "贝里",
+      "nameEn": "Bury",
+      "value": "Bury"
+    },
+    {
+      "name": "Longsight",
+      "nameEn": "Longsight",
+      "value": "Longsight"
+    },
+    {
+      "name": "曼切斯特",
+      "nameEn": "Manchester",
+      "value": "Manchester"
+    },
+    {
+      "name": "登顿",
+      "nameEn": "Denton",
+      "value": "Denton"
+    },
+    {
+      "name": "德罗伊尔斯登",
+      "nameEn": "Droylsden",
+      "value": "Droylsden"
+    },
+    {
+      "name": "Failsworth",
+      "nameEn": "Failsworth",
+      "value": "Failsworth"
+    },
+    {
+      "name": "Prestwich",
+      "nameEn": "Prestwich",
+      "value": "Prestwich"
+    },
+    {
+      "name": "米德尔顿",
+      "nameEn": "Middleton",
+      "value": "Middleton"
+    },
+    {
+      "name": "海伍德",
+      "nameEn": "Heywood",
+      "value": "Heywood"
+    },
+    {
+      "name": "奥尔德姆",
+      "nameEn": "Oldham",
+      "value": "Oldham"
+    },
+    {
+      "name": "罗伊顿",
+      "nameEn": "Royton",
+      "value": "Royton"
+    },
+    {
+      "name": "拉姆斯博滕",
+      "nameEn": "Ramsbottom",
+      "value": "Ramsbottom"
+    },
+    {
+      "name": "哈斯灵登",
+      "nameEn": "Haslingden",
+      "value": "Haslingden"
+    },
+    {
+      "name": "阿克灵顿",
+      "nameEn": "Accrington",
+      "value": "Accrington"
+    },
+    {
+      "name": "Rawtenstall",
+      "nameEn": "Rawtenstall",
+      "value": "Rawtenstall"
+    },
+    {
+      "name": "罗奇代尔",
+      "nameEn": "Rochdale",
+      "value": "Rochdale"
+    },
+    {
+      "name": "克利瑟罗",
+      "nameEn": "Clitheroe",
+      "value": "Clitheroe"
+    },
+    {
+      "name": "伯恩利",
+      "nameEn": "Burnley",
+      "value": "Burnley"
+    },
+    {
+      "name": "纳尔逊",
+      "nameEn": "Nelson",
+      "value": "Nelson"
+    },
+    {
+      "name": "科恩",
+      "nameEn": "Colne",
+      "value": "Colne"
+    },
+    {
+      "name": "海德",
+      "nameEn": "Hyde",
+      "value": "Hyde"
+    },
+    {
+      "name": "Dukinfield",
+      "nameEn": "Dukinfield",
+      "value": "Dukinfield"
+    },
+    {
+      "name": "阿什顿安德莱恩",
+      "nameEn": "Ashton-under-Lyne",
+      "value": "Ashton-under-Lyne"
+    },
+    {
+      "name": "斯泰利布里奇",
+      "nameEn": "Stalybridge",
+      "value": "Stalybridge"
+    },
+    {
+      "name": "格洛瑟普",
+      "nameEn": "Glossop",
+      "value": "Glossop"
+    },
+    {
+      "name": "哈德斯菲尔德",
+      "nameEn": "Huddersfield",
+      "value": "Huddersfield"
+    },
+    {
+      "name": "哈利法克斯",
+      "nameEn": "Halifax",
+      "value": "Halifax"
+    },
+    {
+      "name": "布里格豪斯",
+      "nameEn": "Brighouse",
+      "value": "Brighouse"
+    },
+    {
+      "name": "Chapeltown",
+      "nameEn": "Chapeltown",
+      "value": "Chapeltown"
+    },
+    {
+      "name": "Hoyland Nether",
+      "nameEn": "Hoyland Nether",
+      "value": "Hoyland Nether"
+    },
+    {
+      "name": "Darton",
+      "nameEn": "Darton",
+      "value": "Darton"
+    },
+    {
+      "name": "巴恩斯利",
+      "nameEn": "Barnsley",
+      "value": "Barnsley"
+    },
+    {
+      "name": "米菲尔德",
+      "nameEn": "Mirfield",
+      "value": "Mirfield"
+    },
+    {
+      "name": "迪斯伯里",
+      "nameEn": "Dewsbury",
+      "value": "Dewsbury"
+    },
+    {
+      "name": "Cleckheaton",
+      "nameEn": "Cleckheaton",
+      "value": "Cleckheaton"
+    },
+    {
+      "name": "巴特利",
+      "nameEn": "Batley",
+      "value": "Batley"
+    },
+    {
+      "name": "莫利",
+      "nameEn": "Morley",
+      "value": "Morley"
+    },
+    {
+      "name": "奥西特",
+      "nameEn": "Ossett",
+      "value": "Ossett"
+    },
+    {
+      "name": "韦克菲尔德",
+      "nameEn": "Wakefield",
+      "value": "Wakefield"
+    },
+    {
+      "name": "洛夫特豪斯",
+      "nameEn": "Lofthouse",
+      "value": "Lofthouse"
+    },
+    {
+      "name": "基斯利",
+      "nameEn": "Keighley",
+      "value": "Keighley"
+    },
+    {
+      "name": "宾利",
+      "nameEn": "Bingley",
+      "value": "Bingley"
+    },
+    {
+      "name": "Baildon",
+      "nameEn": "Baildon",
+      "value": "Baildon"
+    },
+    {
+      "name": "希普利",
+      "nameEn": "Shipley",
+      "value": "Shipley"
+    },
+    {
+      "name": "布拉德福德",
+      "nameEn": "Bradford",
+      "value": "Bradford"
+    },
+    {
+      "name": "盖斯利",
+      "nameEn": "Guiseley",
+      "value": "Guiseley"
+    },
+    {
+      "name": "伊登",
+      "nameEn": "Yeadon",
+      "value": "Yeadon"
+    },
+    {
+      "name": "帕德西",
+      "nameEn": "Pudsey",
+      "value": "Pudsey"
+    },
+    {
+      "name": "霍斯福斯",
+      "nameEn": "Horsforth",
+      "value": "Horsforth"
+    },
+    {
+      "name": "利兹",
+      "nameEn": "Leeds",
+      "value": "Leeds"
+    },
+    {
+      "name": "Chapel Allerton",
+      "nameEn": "Chapel Allerton",
+      "value": "Chapel Allerton"
+    },
+    {
+      "name": "哈罗盖特",
+      "nameEn": "Harrogate",
+      "value": "Harrogate"
+    },
+    {
+      "name": "里彭",
+      "nameEn": "Ripon",
+      "value": "Ripon"
+    },
+    {
+      "name": "Kendal",
+      "nameEn": "Kendal",
+      "value": "Kendal"
+    },
+    {
+      "name": "诺萨勒顿",
+      "nameEn": "Northallerton",
+      "value": "Northallerton"
+    },
+    {
+      "name": "毕晓普奥克兰",
+      "nameEn": "Bishop Auckland",
+      "value": "Bishop Auckland"
+    },
+    {
+      "name": "达灵顿",
+      "nameEn": "Darlington",
+      "value": "Darlington"
+    },
+    {
+      "name": "牛顿艾克利夫",
+      "nameEn": "Newton Aycliffe",
+      "value": "Newton Aycliffe"
+    },
+    {
+      "name": "斯彭尼穆尔",
+      "nameEn": "Spennymoor",
+      "value": "Spennymoor"
+    },
+    {
+      "name": "达拉谟",
+      "nameEn": "Durham",
+      "value": "Durham"
+    },
+    {
+      "name": "Houghton-le-Spring",
+      "nameEn": "Houghton-le-Spring",
+      "value": "Houghton-le-Spring"
+    },
+    {
+      "name": "Rawmarsh",
+      "nameEn": "Rawmarsh",
+      "value": "Rawmarsh"
+    },
+    {
+      "name": "武姆韦尔",
+      "nameEn": "Wombwell",
+      "value": "Wombwell"
+    },
+    {
+      "name": "Wath upon Dearne",
+      "nameEn": "Wath upon Dearne",
+      "value": "Wath upon Dearne"
+    },
+    {
+      "name": "梅克斯伯勒",
+      "nameEn": "Mexborough",
+      "value": "Mexborough"
+    },
+    {
+      "name": "科尼斯伯勒",
+      "nameEn": "Conisbrough",
+      "value": "Conisbrough"
+    },
+    {
+      "name": "South Elmsall",
+      "nameEn": "South Elmsall",
+      "value": "South Elmsall"
+    },
+    {
+      "name": "唐卡斯特",
+      "nameEn": "Doncaster",
+      "value": "Doncaster"
+    },
+    {
+      "name": "Bentley",
+      "nameEn": "Bentley",
+      "value": "Bentley"
+    },
+    {
+      "name": "庞蒂弗拉克特",
+      "nameEn": "Pontefract",
+      "value": "Pontefract"
+    },
+    {
+      "name": "卡斯尔福德",
+      "nameEn": "Castleford",
+      "value": "Castleford"
+    },
+    {
+      "name": "塞尔比",
+      "nameEn": "Selby",
+      "value": "Selby"
+    },
+    {
+      "name": "古尔",
+      "nameEn": "Goole",
+      "value": "Goole"
+    },
+    {
+      "name": "加福斯",
+      "nameEn": "Garforth",
+      "value": "Garforth"
+    },
+    {
+      "name": "约克",
+      "nameEn": "York",
+      "value": "York"
+    },
+    {
+      "name": "斯肯索普",
+      "nameEn": "Scunthorpe",
+      "value": "Scunthorpe"
+    },
+    {
+      "name": "克利索普斯",
+      "nameEn": "Cleethorpes",
+      "value": "Cleethorpes"
+    },
+    {
+      "name": "赫尔河畔京士顿",
+      "nameEn": "Hull",
+      "value": "Hull"
+    },
+    {
+      "name": "贝弗利",
+      "nameEn": "Beverley",
+      "value": "Beverley"
+    },
+    {
+      "name": "布里德灵顿",
+      "nameEn": "Bridlington",
+      "value": "Bridlington"
+    },
+    {
+      "name": "蒂斯河畔斯托克顿",
+      "nameEn": "Stockton-on-Tees",
+      "value": "Stockton-on-Tees"
+    },
+    {
+      "name": "索纳比",
+      "nameEn": "Thornaby",
+      "value": "Thornaby"
+    },
+    {
+      "name": "米德尔斯伯勒",
+      "nameEn": "Middlesbrough",
+      "value": "Middlesbrough"
+    },
+    {
+      "name": "比灵赫姆",
+      "nameEn": "Billingham",
+      "value": "Billingham"
+    },
+    {
+      "name": "吉斯伯勒",
+      "nameEn": "Guisborough",
+      "value": "Guisborough"
+    },
+    {
+      "name": "雷德卡",
+      "nameEn": "Redcar",
+      "value": "Redcar"
+    },
+    {
+      "name": "彼得利",
+      "nameEn": "Peterlee",
+      "value": "Peterlee"
+    },
+    {
+      "name": "锡厄姆",
+      "nameEn": "Seaham",
+      "value": "Seaham"
+    },
+    {
+      "name": "哈特尔浦",
+      "nameEn": "Hartlepool",
+      "value": "Hartlepool"
+    },
+    {
+      "name": "斯卡伯勒",
+      "nameEn": "Scarborough",
+      "value": "Scarborough"
+    },
+    {
+      "name": "康塞特",
+      "nameEn": "Consett",
+      "value": "Consett"
+    },
+    {
+      "name": "斯坦利",
+      "nameEn": "Stanley",
+      "value": "Stanley"
+    },
+    {
+      "name": "惠克姆",
+      "nameEn": "Whickham",
+      "value": "Whickham"
+    },
+    {
+      "name": "Newburn",
+      "nameEn": "Newburn",
+      "value": "Newburn"
+    },
+    {
+      "name": "泰恩河畔纽卡斯尔",
+      "nameEn": "Newcastle upon Tyne",
+      "value": "Newcastle upon Tyne"
+    },
+    {
+      "name": "盖茨黑德",
+      "nameEn": "Gateshead",
+      "value": "Gateshead"
+    },
+    {
+      "name": "Gosforth",
+      "nameEn": "Gosforth",
+      "value": "Gosforth"
+    },
+    {
+      "name": "Chester-le-Street",
+      "nameEn": "Chester-le-Street",
+      "value": "Chester-le-Street"
+    },
+    {
+      "name": "华盛顿",
+      "nameEn": "Washington",
+      "value": "Washington"
+    },
+    {
+      "name": "Felling",
+      "nameEn": "Felling",
+      "value": "Felling"
+    },
+    {
+      "name": "Hebburn",
+      "nameEn": "Hebburn",
+      "value": "Hebburn"
+    },
+    {
+      "name": "沃尔森德",
+      "nameEn": "Wallsend",
+      "value": "Wallsend"
+    },
+    {
+      "name": "贾罗",
+      "nameEn": "Jarrow",
+      "value": "Jarrow"
+    },
+    {
+      "name": "南希尔兹",
+      "nameEn": "South Shields",
+      "value": "South Shields"
+    },
+    {
+      "name": "北希尔兹",
+      "nameEn": "North Shields",
+      "value": "North Shields"
+    },
+    {
+      "name": "泰恩茅斯",
+      "nameEn": "Tynemouth",
+      "value": "Tynemouth"
+    },
+    {
+      "name": "克拉姆灵顿",
+      "nameEn": "Cramlington",
+      "value": "Cramlington"
+    },
+    {
+      "name": "贝德灵顿",
+      "nameEn": "Bedlington",
+      "value": "Bedlington"
+    },
+    {
+      "name": "惠特利贝",
+      "nameEn": "Whitley Bay",
+      "value": "Whitley Bay"
+    },
+    {
+      "name": "布莱斯",
+      "nameEn": "Blyth",
+      "value": "Blyth"
+    },
+    {
+      "name": "Berwick-Upon-Tweed",
+      "nameEn": "Berwick-Upon-Tweed",
+      "value": "Berwick-Upon-Tweed"
+    },
+    {
+      "name": "森德兰",
+      "nameEn": "Sunderland",
+      "value": "Sunderland"
+    },
+    {
+      "name": "因弗内斯",
+      "nameEn": "Inverness",
+      "value": "Inverness"
+    },
+    {
+      "name": "珀斯",
+      "nameEn": "Perth",
+      "value": "Perth"
+    },
+    {
+      "name": "邓迪",
+      "nameEn": "Dundee",
+      "value": "Dundee"
+    },
+    {
+      "name": "埃尔金",
+      "nameEn": "Elgin",
+      "value": "Elgin"
+    },
+    {
+      "name": "St Andrews",
+      "nameEn": "St Andrews",
+      "value": "St Andrews"
+    },
+    {
+      "name": "阿布罗斯",
+      "nameEn": "Arbroath",
+      "value": "Arbroath"
+    },
+    {
+      "name": "阿伯丁",
+      "nameEn": "Aberdeen",
+      "value": "Aberdeen"
+    },
+    {
+      "name": "彼得黑德",
+      "nameEn": "Peterhead",
+      "value": "Peterhead"
+    },
+    {
+      "name": "锡福德",
+      "nameEn": "Seaford",
+      "value": "Seaford"
+    },
+    {
+      "name": "伊斯特本",
+      "nameEn": "Eastbourne",
+      "value": "Eastbourne"
+    },
+    {
+      "name": "刘易斯",
+      "nameEn": "Lewes",
+      "value": "Lewes"
+    },
+    {
+      "name": "阿克菲尔德",
+      "nameEn": "Uckfield",
+      "value": "Uckfield"
+    },
+    {
+      "name": "黑尔舍姆",
+      "nameEn": "Hailsham",
+      "value": "Hailsham"
+    },
+    {
+      "name": "Bexhill on Sea",
+      "nameEn": "Bexhill on Sea",
+      "value": "Bexhill on Sea"
+    },
+    {
+      "name": "黑斯廷斯",
+      "nameEn": "Hastings",
+      "value": "Hastings"
+    },
+    {
+      "name": "Crowborough",
+      "nameEn": "Crowborough",
+      "value": "Crowborough"
+    },
+    {
+      "name": "罗亚尔坦布里奇韦尔斯",
+      "nameEn": "Royal Tunbridge Wells",
+      "value": "Royal Tunbridge Wells"
+    },
+    {
+      "name": "汤布里奇",
+      "nameEn": "Tonbridge",
+      "value": "Tonbridge"
+    },
+    {
+      "name": "塞文欧克斯",
+      "nameEn": "Sevenoaks",
+      "value": "Sevenoaks"
+    },
+    {
+      "name": "梅德斯通",
+      "nameEn": "Maidstone",
+      "value": "Maidstone"
+    },
+    {
+      "name": "阿什福德",
+      "nameEn": "Ashford",
+      "value": "Ashford"
+    },
+    {
+      "name": "法弗舍姆",
+      "nameEn": "Faversham",
+      "value": "Faversham"
+    },
+    {
+      "name": "福克斯通",
+      "nameEn": "Folkestone",
+      "value": "Folkestone"
+    },
+    {
+      "name": "多佛尔",
+      "nameEn": "Dover",
+      "value": "Dover"
+    },
+    {
+      "name": "坎特伯雷",
+      "nameEn": "Canterbury",
+      "value": "Canterbury"
+    },
+    {
+      "name": "迪尔",
+      "nameEn": "Deal",
+      "value": "Deal"
+    },
+    {
+      "name": "奥平顿",
+      "nameEn": "Orpington",
+      "value": "Orpington"
+    },
+    {
+      "name": "斯旺利",
+      "nameEn": "Swanley",
+      "value": "Swanley"
+    },
+    {
+      "name": "Blackheath",
+      "nameEn": "Blackheath",
+      "value": "Blackheath"
+    },
+    {
+      "name": "肖勒姆",
+      "nameEn": "Shoreham",
+      "value": "Shoreham"
+    },
+    {
+      "name": "Longfield",
+      "nameEn": "Longfield",
+      "value": "Longfield"
+    },
+    {
+      "name": "达特福德",
+      "nameEn": "Dartford",
+      "value": "Dartford"
+    },
+    {
+      "name": "Swanscombe",
+      "nameEn": "Swanscombe",
+      "value": "Swanscombe"
+    },
+    {
+      "name": "格雷斯",
+      "nameEn": "Grays",
+      "value": "Grays"
+    },
+    {
+      "name": "Becontree",
+      "nameEn": "Becontree",
+      "value": "Becontree"
+    },
+    {
+      "name": "达格纳姆",
+      "nameEn": "Dagenham",
+      "value": "Dagenham"
+    },
+    {
+      "name": "霍恩彻奇",
+      "nameEn": "Hornchurch",
+      "value": "Hornchurch"
+    },
+    {
+      "name": "南奥肯登",
+      "nameEn": "South Ockendon",
+      "value": "South Ockendon"
+    },
+    {
+      "name": "布伦特伍德",
+      "nameEn": "Brentwood",
+      "value": "Brentwood"
+    },
+    {
+      "name": "罗切斯特",
+      "nameEn": "Rochester",
+      "value": "Rochester"
+    },
+    {
+      "name": "Strood",
+      "nameEn": "Strood",
+      "value": "Strood"
+    },
+    {
+      "name": "格雷夫森德",
+      "nameEn": "Gravesend",
+      "value": "Gravesend"
+    },
+    {
+      "name": "查塔姆",
+      "nameEn": "Chatham",
+      "value": "Chatham"
+    },
+    {
+      "name": "吉灵厄姆",
+      "nameEn": "Gillingham",
+      "value": "Gillingham"
+    },
+    {
+      "name": "巴西尔登",
+      "nameEn": "Basildon",
+      "value": "Basildon"
+    },
+    {
+      "name": "Pitsea",
+      "nameEn": "Pitsea",
+      "value": "Pitsea"
+    },
+    {
+      "name": "比勒里基",
+      "nameEn": "Billericay",
+      "value": "Billericay"
+    },
+    {
+      "name": "威克福德",
+      "nameEn": "Wickford",
+      "value": "Wickford"
+    },
+    {
+      "name": "South Benfleet",
+      "nameEn": "South Benfleet",
+      "value": "South Benfleet"
+    },
+    {
+      "name": "Hadleigh",
+      "nameEn": "Hadleigh",
+      "value": "Hadleigh"
+    },
+    {
+      "name": "雷利",
+      "nameEn": "Rayleigh",
+      "value": "Rayleigh"
+    },
+    {
+      "name": "Harlow",
+      "nameEn": "Harlow",
+      "value": "Harlow"
+    },
+    {
+      "name": "Bishop\u0027s Stortford",
+      "nameEn": "Bishop\u0027s Stortford",
+      "value": "Bishop\u0027s Stortford"
+    },
+    {
+      "name": "切姆斯福德",
+      "nameEn": "Chelmsford",
+      "value": "Chelmsford"
+    },
+    {
+      "name": "莫尔登",
+      "nameEn": "Maldon",
+      "value": "Maldon"
+    },
+    {
+      "name": "威特姆",
+      "nameEn": "Witham",
+      "value": "Witham"
+    },
+    {
+      "name": "布伦特里",
+      "nameEn": "Braintree",
+      "value": "Braintree"
+    },
+    {
+      "name": "锡廷伯恩",
+      "nameEn": "Sittingbourne",
+      "value": "Sittingbourne"
+    },
+    {
+      "name": "惠特斯特布尔",
+      "nameEn": "Whitstable",
+      "value": "Whitstable"
+    },
+    {
+      "name": "滨海绍森德",
+      "nameEn": "Southend-on-Sea",
+      "value": "Southend-on-Sea"
+    },
+    {
+      "name": "罗奇福德",
+      "nameEn": "Rochford",
+      "value": "Rochford"
+    },
+    {
+      "name": "赫恩贝",
+      "nameEn": "Herne Bay",
+      "value": "Herne Bay"
+    },
+    {
+      "name": "马盖特",
+      "nameEn": "Margate",
+      "value": "Margate"
+    },
+    {
+      "name": "科尔切斯特",
+      "nameEn": "Colchester",
+      "value": "Colchester"
+    },
+    {
+      "name": "滨海克拉克顿",
+      "nameEn": "Clacton-on-Sea",
+      "value": "Clacton-on-Sea"
+    },
+    {
+      "name": "Frinton-on-Sea",
+      "nameEn": "Frinton-on-Sea",
+      "value": "Frinton-on-Sea"
+    },
+    {
+      "name": "哈里奇",
+      "nameEn": "Harwich",
+      "value": "Harwich"
+    },
+    {
+      "name": "费利克斯托",
+      "nameEn": "Felixstowe",
+      "value": "Felixstowe"
+    },
+    {
+      "name": "拉姆斯盖特",
+      "nameEn": "Ramsgate",
+      "value": "Ramsgate"
+    },
+    {
+      "name": "Broadstairs",
+      "nameEn": "Broadstairs",
+      "value": "Broadstairs"
+    },
+    {
+      "name": "剑桥",
+      "nameEn": "Cambridge",
+      "value": "Cambridge"
+    },
+    {
+      "name": "黑弗里尔",
+      "nameEn": "Haverhill",
+      "value": "Haverhill"
+    },
+    {
+      "name": "纽马基特",
+      "nameEn": "Newmarket",
+      "value": "Newmarket"
+    },
+    {
+      "name": "马奇",
+      "nameEn": "March",
+      "value": "March"
+    },
+    {
+      "name": "威斯贝奇",
+      "nameEn": "Wisbech",
+      "value": "Wisbech"
+    },
+    {
+      "name": "斯托马基特",
+      "nameEn": "Stowmarket",
+      "value": "Stowmarket"
+    },
+    {
+      "name": "Bury Saint Edmunds",
+      "nameEn": "Bury Saint Edmunds",
+      "value": "Bury Saint Edmunds"
+    },
+    {
+      "name": "伊普斯威奇",
+      "nameEn": "Ipswich",
+      "value": "Ipswich"
+    },
+    {
+      "name": "塞特福德",
+      "nameEn": "Thetford",
+      "value": "Thetford"
+    },
+    {
+      "name": "Dereham",
+      "nameEn": "Dereham",
+      "value": "Dereham"
+    },
+    {
+      "name": "Bowthorpe",
+      "nameEn": "Bowthorpe",
+      "value": "Bowthorpe"
+    },
+    {
+      "name": "诺里奇",
+      "nameEn": "Norwich",
+      "value": "Norwich"
+    },
+    {
+      "name": "Kings Lynn",
+      "nameEn": "Kings Lynn",
+      "value": "Kings Lynn"
+    },
+    {
+      "name": "斯凯格内斯",
+      "nameEn": "Skegness",
+      "value": "Skegness"
+    },
+    {
+      "name": "洛斯托夫特",
+      "nameEn": "Lowestoft",
+      "value": "Lowestoft"
+    },
+    {
+      "name": "大雅茅斯",
+      "nameEn": "Great Yarmouth",
+      "value": "Great Yarmouth"
+    }
+  ],
+  "name": "英国",
+  "nameEn": "Britain"
+}

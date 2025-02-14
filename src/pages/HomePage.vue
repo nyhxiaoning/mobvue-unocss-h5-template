@@ -199,6 +199,8 @@ export default defineComponent({
             openScreen: JeeWeb.Language === 'zh-CN' ? '打开屏幕' : 'Turn On Screen',
             returnHome: JeeWeb.Language === 'zh-CN' ? '回到主页' : 'Return Home',
             setBrightnessError: JeeWeb.Language === 'zh-CN' ? '设置亮度失败' : 'Failed to set brightness',
+            setRestartError: JeeWeb.Language === 'zh-CN' ? '设置重启失败' : 'Failed to set restart',
+            getCupInfoError: JeeWeb.Language === 'zh-CN' ? '获取水杯基本信息失败' : 'Failed to get basic information about water cup',
             returnHomeError: JeeWeb.Language === 'zh-CN' ? '回到主页下发失败' : 'Failed to return home',
             screenOffError: JeeWeb.Language === 'zh-CN' ? '关闭屏幕失败' : 'Failed to turn off screen',
             screenOnError: JeeWeb.Language === 'zh-CN' ? '开启屏幕失败' : 'Failed to turn on screen'
@@ -253,6 +255,11 @@ export default defineComponent({
                     })
                     .catch((err: any) => {
                         console.log(err);
+                        // 不能设置失败，因为这里设备马上离线了
+                        // showToast({
+                        //     message: language.setRestartError,
+                        //     duration: 1000,
+                        // });
                     });
         };
 
@@ -269,7 +276,7 @@ export default defineComponent({
                 })
                     .then((res: any) => {
                         console.log(res, '.value');
-
+                        states.screenStatus = !states.screenStatus;
                         // store.selectedTimezone(selectedTimezone.value);
                     })
                     .catch((err: any) => {
@@ -361,120 +368,121 @@ export default defineComponent({
                     },
                 })
                     .then((res: any) => {
-                        console.log(res.data, '亮度获取zhi');
-                        states.brightness = res.data;
-                        userStore.$state.brightness = res.data;
+                        console.log(res.data, 'getCupInfo');
+                        states.brightness = res.data.brightness;
+                        states.temperature = res.data.waterTemperature;
+                        states.battery = res.data.batteryStatus;
+                        states.screenStatus = res.data.switch;
+                        userStore.$state.brightness = res.data.brightness;
+                        // 如果可以获取当前TAL水杯信息，默认获取在线状态
+                        states.online = true;
                         // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。
-                        sessionStorage.setItem('brightnessFlag', '100');// 记录1
+                        sessionStorage.setItem('getCupInfoFlag', '100');// 记录1
                         // store.selectedTimezone(selectedTimezone.value);
                     })
                     .catch((err: any) => {
                         console.log(err);
+                        showToast({
+                            message: language.getCupInfoError,
+                            duration: 1000,
+                        });
                     });
 
 
 
-            !sessionStorage.getItem('brightnessFlag') && CupDevice &&
-                CupDevice.setDevMessage({
-                    value: {
-                        method: 'getBrightness',
-                        params: {},
-                    },
-                })
-                    .then((res: any) => {
-                        console.log(res.data, '亮度获取zhi');
-                        states.brightness = res.data;
-                        userStore.$state.brightness = res.data;
-                        // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。
-                        sessionStorage.setItem('brightnessFlag', '100');// 记录1
-                        // store.selectedTimezone(selectedTimezone.value);
-                    })
-                    .catch((err: any) => {
-                        console.log(err);
-                    });
+            // !sessionStorage.getItem('brightnessFlag') && CupDevice &&
+            //     CupDevice.setDevMessage({
+            //         value: {
+            //             method: 'getBrightness',
+            //             params: {},
+            //         },
+            //     })
+            //         .then((res: any) => {
+            //             console.log(res.data, '亮度获取zhi');
+            //             states.brightness = res.data;
+            //             userStore.$state.brightness = res.data;
+            //             // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。
+            //             sessionStorage.setItem('brightnessFlag', '100');// 记录1
+            //             // store.selectedTimezone(selectedTimezone.value);
+            //         })
+            //         .catch((err: any) => {
+            //             console.log(err);
+            //         });
 
-            !sessionStorage.getItem('temperatureFlag') && CupDevice.setDevMessage({
-                value: {
-                    method: 'getTemperature',
-                    params: {},
-                },
-            })
-                .then((res: any) => {
-                    console.log(res.data, '单个温度获取');
-                    userStore.$state.temperature = res.data;
-                    sessionStorage.setItem('temperatureFlag', '100');// 记录1
-                    if (res.data) states.temperature = res.data;
-                    // if (states.temperature < 0) {
-                    //     return (states.curTemperatureClass = 'temperature');
-                    // } else if (states.temperature >= 0 && states.temperature < 99) {
-                    //     return (states.curTemperatureClass = 'temperature-0');
-                    // } else if (states.temperature >= 99) {
-                    //     return (states.curTemperatureClass = 'temperature-99');
-                    // }
-                })
-                .catch((err: any) => {
-                    console.log(err);
-                    // if (states.temperature < 0) {
-                    //     return (states.curTemperatureClass = 'temperature');
-                    // } else if (states.temperature >= 0 && states.temperature < 99) {
-                    //     return (states.curTemperatureClass = 'temperature-0');
-                    // } else if (states.temperature >= 99) {
-                    //     return (states.curTemperatureClass = 'temperature-99');
-                    // }
-                    // showToast({
-                    //     message: '获取温度失败',
-                    //     duration: 1000,
-                    // });
-                });
+            // !sessionStorage.getItem('temperatureFlag') && CupDevice.setDevMessage({
+            //     value: {
+            //         method: 'getTemperature',
+            //         params: {},
+            //     },
+            // })
+            //     .then((res: any) => {
+            //         console.log(res.data, '单个温度获取');
+            //         userStore.$state.temperature = res.data;
+            //         sessionStorage.setItem('temperatureFlag', '100');// 记录1
+            //         if (res.data) states.temperature = res.data;
+            //         // if (states.temperature < 0) {
+            //         //     return (states.curTemperatureClass = 'temperature');
+            //         // } else if (states.temperature >= 0 && states.temperature < 99) {
+            //         //     return (states.curTemperatureClass = 'temperature-0');
+            //         // } else if (states.temperature >= 99) {
+            //         //     return (states.curTemperatureClass = 'temperature-99');
+            //         // }
+            //     })
+            //     .catch((err: any) => {
+            //         console.log(err);
+            //         // if (states.temperature < 0) {
+            //         //     return (states.curTemperatureClass = 'temperature');
+            //         // } else if (states.temperature >= 0 && states.temperature < 99) {
+            //         //     return (states.curTemperatureClass = 'temperature-0');
+            //         // } else if (states.temperature >= 99) {
+            //         //     return (states.curTemperatureClass = 'temperature-99');
+            //         // }
+            //         // showToast({
+            //         //     message: '获取温度失败',
+            //         //     duration: 1000,
+            //         // });
+            //     });
 
-            !sessionStorage.getItem('batteryFlag') && CupDevice.setDevMessage({
-                value: {
-                    method: 'getBatteryStatus',
-                    params: {},
-                },
-            })
-                .then((res: any) => {
-                    console.log(res.data, '单个电池');
-                    states.battery = res.data;
-                    userStore.$state.battery = res.data;
-                    sessionStorage.setItem('batteryFlag', '100');// 记录1
-                    // if (states.battery < 20) {
-                    //     return (states.curBatteryClass = 'battery-20');
-                    // } else if (states.battery > 20 && states.battery < 40) {
-                    //     return (states.curBatteryClass = 'battery-40');
-                    // } else if (states.battery > 40) {
-                    //     return (states.curBatteryClass = 'battery-60');
-                    // }
-                    // 只有输出电量
-                    // states.batteryStatus = res.data.value?true:false;
-                })
-                .catch((err: any) => {
-                    console.log(err);
-                    // if (states.battery < 20) {
-                    //     return (states.curBatteryClass = 'battery-20');
-                    // } else if (states.battery > 20 && states.battery < 40) {
-                    //     return (states.curBatteryClass = 'battery-40');
-                    // } else if (states.battery > 40) {
-                    //     return (states.curBatteryClass = 'battery-60');
-                    // }
-                });
+            // !sessionStorage.getItem('batteryFlag') && CupDevice.setDevMessage({
+            //     value: {
+            //         method: 'getBatteryStatus',
+            //         params: {},
+            //     },
+            // })
+            //     .then((res: any) => {
+            //         console.log(res.data, '单个电池');
+            //         states.battery = res.data;
+            //         userStore.$state.battery = res.data;
+            //         sessionStorage.setItem('batteryFlag', '100');// 记录1
+            //         // if (states.battery < 20) {
+            //         //     return (states.curBatteryClass = 'battery-20');
+            //         // } else if (states.battery > 20 && states.battery < 40) {
+            //         //     return (states.curBatteryClass = 'battery-40');
+            //         // } else if (states.battery > 40) {
+            //         //     return (states.curBatteryClass = 'battery-60');
+            //         // }
+            //         // 只有输出电量
+            //         // states.batteryStatus = res.data.value?true:false;
+            //     })
+            //     .catch((err: any) => {
+            //         console.log(err);
+            //         // if (states.battery < 20) {
+            //         //     return (states.curBatteryClass = 'battery-20');
+            //         // } else if (states.battery > 20 && states.battery < 40) {
+            //         //     return (states.curBatteryClass = 'battery-40');
+            //         // } else if (states.battery > 40) {
+            //         //     return (states.curBatteryClass = 'battery-60');
+            //         // }
+            //     });
         });
 
 
         // // Watch battery changes
         // watch(
-        //     () => userStore.$state.battery,
+        //     () => states.screenStatus,
         //     (newValue, oldValue) => {
         //         console.log('Brightness changed:', oldValue, '->', newValue)
-        //         if (!newValue) {
-        //             return states.curBatteryClass = 'battery-20'
-        //         } else if (newValue < 20) {
-        //             return (states.curBatteryClass = 'battery-20');
-        //         } else if (newValue > 20 && newValue < 40) {
-        //             return (states.curBatteryClass = 'battery-40');
-        //         } else if (newValue > 40) {
-        //             return (states.curBatteryClass = 'battery-60');
-        //         }
+        //         if(newValue){}
         //         // Add your logic here for brightness changes
         //     }
         // )

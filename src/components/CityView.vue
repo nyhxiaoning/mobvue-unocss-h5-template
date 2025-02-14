@@ -4,27 +4,13 @@
 
         <!-- 搜索框 -->
         <div class="search-wrapper">
-            <van-search
-                v-model="searchText"
-                :placeholder="language.searchPlaceholder"
-                shape="round"
-                :clearable="true"
-                :show-left-icon="false"
-                autocomplete="off"
-                @focus="onSearchFocus"
-                @blur="onSearchBlur"
-                @input="onSearch"
-                @clear="onClear"
-            />
+            <van-search v-model="searchText" :placeholder="language.searchPlaceholder" shape="round" :clearable="true"
+                :show-left-icon="false" autocomplete="off" @focus="onSearchFocus" @blur="onSearchBlur" @input="onSearch"
+                @clear="onClear" />
 
             <!-- 搜索联想结果 -->
             <div v-show="isSearchFocused && searchResults.length > 0" class="search-suggestions">
-                <div
-                    v-for="city in searchResults"
-                    :key="city.name"
-                    class="suggestion-item"
-                    @click="selectCity(city)"
-                >
+                <div v-for="city in searchResults" :key="city.name" class="suggestion-item" @click="selectCity(city)">
                     {{ city.name }}
                 </div>
             </div>
@@ -39,21 +25,13 @@
                     <div class="sidebar-background"></div>
 
                     <!-- 选中状态的白色分割线 -->
-                    <div
-                        v-if="selectedContinent"
-                        class="sidebar-divider"
-                        :style="{ top: `${getSelectedIndex() * 60}px` }"
-                    ></div>
+                    <div v-if="selectedContinent" class="sidebar-divider" :style="{ top: `${getSelectedIndex() * 60}px` }">
+                    </div>
 
                     <!-- 州列表 -->
-                    <div
-                        v-for="continent in continents"
-                        :key="continent.key"
-                        class="sidebar-item"
-                        :class="{ active: selectedContinent === continent.key }"
-                        @click="selectContinent(continent.key)"
-                    >
-                        {{ languageFlag ?  continent.name:continent.key }}
+                    <div v-for="continent in continents" :key="continent.key" class="sidebar-item"
+                        :class="{ active: selectedContinent === continent.key }" @click="selectContinent(continent.key)">
+                        {{ languageFlag ? continent.name : continent.key }}
                     </div>
                 </div>
             </div>
@@ -62,36 +40,22 @@
             <div class="content-area">
                 <!-- 城市列表区域 -->
                 <div class="city-list-container">
-                    <div
-                        v-for="region in filteredRegions"
-                        :key="region.name"
-                        class="region-section"
-                    >
-                        <van-cell
-                            :title="region.name"
-                            is-link
+                    <div v-for="region in filteredRegions" :key="region.name" class="region-section">
+                        <van-cell :title="region.name" is-link
                             :arrow-direction="expandedRegions[region.name] ? 'up' : 'down'"
-                            @click="toggleRegion(region.name)"
-                            class="region-header"
-                        >
+                            @click="toggleRegion(region.name)" class="region-header">
                             <template #right-icon>
-                                <span class="more-text">{{ languageFlag ? '更多' : 'More'}}</span>
-                                <van-icon
-                                    :name="expandedRegions[region.nameEn] ? 'arrow-up' : 'arrow-down'"
-                                />
+                                <span class="more-text">{{ languageFlag ? '更多' : 'More' }}</span>
+                                <van-icon :name="expandedRegions[region.nameEn] ? 'arrow-up' : 'arrow-down'" />
                             </template>
                         </van-cell>
 
-                        <div class="city-grid" :class="{ expanded: languageFlag? expandedRegions[region.name]: expandedRegions[region.nameEn] }">
-                            <van-button
-                                v-for="city in expandedRegions[region.name]
-                                    ? region.cities
-                                    : region.cities.slice(0, 6)"
-                                :key="city"
-                                :class="{ selected: selectedCity === city }"
-                                size="small"
-                                @click="selectCity(city)"
-                            >
+                        <div class="city-grid"
+                            :class="{ expanded: languageFlag ? expandedRegions[region.name] : expandedRegions[region.nameEn] }">
+                            <van-button v-for="city in expandedRegions[region.name]
+                                ? region.cities
+                                : region.cities.slice(0, 6)" :key="city"
+                                :class="{ selected: selectedCity === city }" size="small" @click="selectCity(city)">
                                 {{ languageFlag ? city.name : city.nameEn }}
                             </van-button>
                         </div>
@@ -103,20 +67,45 @@
 </template>
 
 <script setup>
-import { ref, computed,reactive } from 'vue';
+import { ref, computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 // import { useStore } from 'vuex';
 
 
 import { useUserStore } from './../store/index';
 import pinyin from 'pinyin-match';
-import { Icon as VanIcon, NavBar, Search, Cell, Button,showToast } from 'vant';
+import { Icon as VanIcon, NavBar, Search, Cell, Button, showToast } from 'vant';
+
+/**
+ * data：国家地区总数据
+ */
+
+import chinaData from './../utils/中国.json';
+import GermanData from './../utils/德国.json';
+import FrenchData from './../utils/法国.json';
+import CanadaData from './../utils/加拿大.json';
+import UsaData from './../utils/美国.json';
+import UsData from './../utils/英国.json';
+import AustraliaData from './../utils/澳大利亚.json';
+
+console.log(GermanData,'germanData');
+
+console.log(UsData,'UsData')
+
+let tests = {
+    asia: [
+        chinaData
+    ],
+}
+
+console.log(tests,'tests')
+
 
 const router = useRouter();
-const store = useUserStore();
+// const store = useUserStore();
 
 // 替换模板中的组件名称
-const VanNavBar = NavBar;
+// const VanNavBar = NavBar;
 const VanSearch = Search;
 const VanCell = Cell;
 const VanButton = Button;
@@ -150,8 +139,8 @@ const language = reactive({
 const continents = computed(() => [
     { key: 'asia', name: '亚洲' },
     { key: 'europe', name: '欧洲' },
-    // { key: 'namerica', name: '北美洲' },
-    // { key: 'oceania', name: '大洋洲' },
+    { key: 'namerica', name: '北美洲' },
+    { key: 'oceania', name: '大洋洲' },
     // { key: 'africa', name: '非洲' },
     // { key: 'samerica', name: '南美洲' },
     // { key: 'antarctica', name: '南极洲' },
@@ -165,35 +154,20 @@ const getSelectedIndex = () => {
 // 模拟数据
 const allRegions = {
     asia: [
-        {
-            name: '中国',
-            nameEn: 'China',
-            cities: [
-                { name: '北京', nameEn: 'Beijing', value: 'Beijing' },
-                { name: '上海', nameEn: 'Shanghai', value: 'Shanghai' },
-                { name: '广州', nameEn: 'Guangzhou', value: 'Guangzhou' },
-                { name: '深圳', nameEn: 'Shenzhen', value: 'Shenzhen' },
-                { name: '成都', nameEn: 'Chengdu', value: 'Chengdu' },
-                { name: '杭州', nameEn: 'Hangzhou', value: 'Hangzhou' },
-                { name: '武汉', nameEn: 'Wuhan', value: 'Wuhan' },
-                { name: '西安', nameEn: 'Xian', value: 'Xian' },
-            ],
-        },
+        chinaData
     ],
     europe: [
-        {
-            name: '法国',
-            nameEn: 'Franch',
-            cities: [
-                { name: '巴黎', nameEn: 'Paris', value: 'Paris' },
-                { name: '马赛', nameEn: 'Marseille', value: 'Marseille' },
-                { name: '里昂', nameEn: 'Lyon', value: 'Lyon' },
-                { name: '图卢兹', nameEn: 'Toulouse', value: 'Toulouse' },
-                { name: '尼斯', nameEn: 'Nice', value: 'Nice' },
-                { name: '南特', nameEn: 'Nantes', value: 'Nantes' },
-            ],
-        },
+        GermanData,
+        FrenchData,
+        UsData
     ],
+    namerica: [
+        UsaData,
+        CanadaData
+    ],
+    oceania: [
+        AustraliaData
+    ]
 };
 
 // 获取当前大洲的区域
@@ -280,7 +254,7 @@ const onClear = () => {
 const selectCity = (city) => {
 
     // TODO:这里替换一下，如果下发成功，才会将这里的值放在store，不然首页错误更新
-    sessionStorage.setItem('weathername', JeeWeb.Language === 'zh-CN'? city.name:city.nameEn);
+    sessionStorage.setItem('weathername', JeeWeb.Language === 'zh-CN' ? city.name : city.nameEn);
     sessionStorage.setItem('weathervalue', city.value);
 
     console.log('selectCity', city);
@@ -402,7 +376,8 @@ const onSearchBlur = () => {
 
 .sidebar-container {
     position: relative;
-    min-height: 420px; /* 7个州 * 60px */
+    min-height: 420px;
+    /* 7个州 * 60px */
 }
 
 /* 基础灰色背景 */
@@ -540,8 +515,7 @@ const onSearchBlur = () => {
 }
 
 /* 适配 iPhone X 及以上机型 */
-@supports (padding-bottom: constant(safe-area-inset-bottom)) or
-    (padding-bottom: env(safe-area-inset-bottom)) {
+@supports (padding-bottom: constant(safe-area-inset-bottom)) or (padding-bottom: env(safe-area-inset-bottom)) {
     .city-view {
         padding-bottom: constant(safe-area-inset-bottom);
         padding-bottom: env(safe-area-inset-bottom);
@@ -550,7 +524,8 @@ const onSearchBlur = () => {
 
 .search-suggestions {
     position: fixed;
-    top: 108px; /* 导航栏高度 + 搜索框容器高度 */
+    top: 108px;
+    /* 导航栏高度 + 搜索框容器高度 */
     left: 0;
     right: 0;
     bottom: 0;

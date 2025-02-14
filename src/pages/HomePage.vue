@@ -27,8 +27,7 @@
                 </div>
                 <div style="margin-left: 20px">
                     <van-row type="flex" justify="start" align="center"
-                        :class="[states.languageFlag ? 'temperature-content' : 'temperature-content-en']"
-                        >
+                        :class="[states.languageFlag ? 'temperature-content' : 'temperature-content-en']">
                         <!-- 第一个子 div -->
                         <van-col :span="6">
                             <div :class="curTemperatureClass" style="width: 16px; height: 16px"></div>
@@ -152,7 +151,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, onMounted, watch,ref } from 'vue';
+import { defineComponent, reactive, computed, onMounted, watch, ref } from 'vue';
 
 import { timezone } from './../utils/cityzone';
 
@@ -347,7 +346,7 @@ export default defineComponent({
         // const brightness = ref(40);
         console.log(timezone, 'timezone');
         const states = reactive({
-            languageFlag: JeeWeb.Language === 'zh-CN' ? true :false,
+            languageFlag: JeeWeb.Language === 'zh-CN' ? true : false,
             battery: userStore.$state.battery || 0,
             brightness: userStore.$state.brightness || 0,
             temperature: userStore.$state.temperature || 0,
@@ -388,7 +387,7 @@ export default defineComponent({
         // const temperatureClass = computed(() => {});
 
         const onBrightnessChange = (value: number) => {
-            if( value === 0 ){
+            if (value === 0) {
                 value = 1;
             }
             console.log('当前亮度：', value);
@@ -555,7 +554,7 @@ export default defineComponent({
                         const item = timezones.value.find(item => item.value === res.data.timezone);
 
                         userStore.$state.timezoneLabel = item ? item.name : '';
-                        if(JeeWeb.Language === 'zh-CN' && item){
+                        if (JeeWeb.Language === 'zh-CN' && item) {
                             userStore.$state.timezoneAddress = item.label.split("）")[1]
                         }
 
@@ -670,32 +669,38 @@ export default defineComponent({
 
 
         // // Watch battery changes
-        // watch(
-        //     () => states.screenStatus,
-        //     (newValue, oldValue) => {
-        //         console.log('Brightness changed:', oldValue, '->', newValue)
-        //         if(newValue){}
-        //         // Add your logic here for brightness changes
-        //     }
-        // )
+        watch(
+            () => states.battery,
+            (newValue, oldValue) => {
+                console.log('Brightness changed:', oldValue, '->', newValue)
+                if (newValue < 20) {
+                    return (states.curBatteryClass = 'battery-20');
+                } else if (newValue > 20 && newValue < 100) {
+                    return (states.curBatteryClass = 'battery-40');
+                } else if (newValue > 99) {
+                    return (states.curBatteryClass = 'battery-60');
+                }
+                // Add your logic here for brightness changes
+            }
+        )
 
         // // Watch temperature changes
-        // watch(
-        //     () => userStore.$state.temperature,
-        //     (newValue, oldValue) => {
-        //         console.log('Temperature changed:', oldValue, '->', newValue)
-        //         // Add your logic here for temperature changes
-        //         if (!newValue) {
-        //             return (states.curTemperatureClass = 'temperature');
-        //         } else if (newValue < 0) {
-        //             return (states.curTemperatureClass = 'temperature');
-        //         } else if (newValue >= 0 && newValue < 99) {
-        //             return (states.curTemperatureClass = 'temperature-0');
-        //         } else if (newValue >= 99) {
-        //             return (states.curTemperatureClass = 'temperature-99');
-        //         }
-        //     }
-        // )
+        watch(
+            () => states.temperature,
+            (newValue, oldValue) => {
+                console.log('Temperature changed:', oldValue, '->', newValue)
+                // Add your logic here for temperature changes
+                if (!newValue) {
+                    return (states.curTemperatureClass = 'temperature');
+                } else if (newValue < 20) {
+                    return (states.curTemperatureClass = 'temperature');
+                } else if (newValue >= 20 && newValue < 80 ) {
+                    return (states.curTemperatureClass = 'temperature-0');
+                } else if (newValue >= 80) {
+                    return (states.curTemperatureClass = 'temperature-99');
+                }
+            }
+        )
 
         return {
             onBrightnessChange,

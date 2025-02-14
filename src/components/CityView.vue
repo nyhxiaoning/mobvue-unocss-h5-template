@@ -88,18 +88,6 @@ import UsaData from './../utils/美国.json';
 import UsData from './../utils/英国.json';
 import AustraliaData from './../utils/澳大利亚.json';
 
-console.log(GermanData,'germanData');
-
-console.log(UsData,'UsData')
-
-let tests = {
-    asia: [
-        chinaData
-    ],
-}
-
-console.log(tests,'tests')
-
 
 const router = useRouter();
 // const store = useUserStore();

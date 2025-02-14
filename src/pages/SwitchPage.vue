@@ -92,7 +92,7 @@ export default {
             .then((res) => {
                 if (res && res.data) {
                     // 更新settings中的状态
-                    this.settings.enableApp = res.data.enableApp || true;
+                    this.settings.enableApp = res.data.enableApp || false;
                     this.settings.HomeGIF = res.data.HomeGIF || false;
                     this.settings.HomeWeather = res.data.HomeWeather || false;
                     this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon || false;

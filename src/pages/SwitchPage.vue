@@ -84,6 +84,7 @@ export default {
         // 初始化时获取当前系统应用显示状态
         CupDevice.setDevMessage({
             value: {
+                // TODO:待办，这里接口暂时不能调用：嵌入式未开发
                 method: 'getHomeAppsVisable',
                 params: {},
             },
@@ -91,7 +92,7 @@ export default {
             .then((res) => {
                 if (res && res.data) {
                     // 更新settings中的状态
-                    this.settings.enableApp = res.data.enableApp || false;
+                    this.settings.enableApp = res.data.enableApp || true;
                     this.settings.HomeGIF = res.data.HomeGIF || false;
                     this.settings.HomeWeather = res.data.HomeWeather || false;
                     this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon || false;

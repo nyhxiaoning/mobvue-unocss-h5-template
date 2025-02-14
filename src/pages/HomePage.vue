@@ -554,7 +554,7 @@ export default defineComponent({
                         userStore.$state.weathervalue = res.data.city;
                         const item = timezones.value.find(item => item.value === res.data.timezone);
 
-                        userStore.$state.timezoneLabel = item ? item.label : '';
+                        userStore.$state.timezoneLabel = item ? item.name : '';
                         if(JeeWeb.Language === 'zh-CN' && item){
                             userStore.$state.timezoneAddress = item.label.split("）")[1]
                         }

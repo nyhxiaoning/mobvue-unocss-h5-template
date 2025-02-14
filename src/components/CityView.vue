@@ -41,7 +41,7 @@
                 <!-- 城市列表区域 -->
                 <div class="city-list-container">
                     <div v-for="region in filteredRegions" :key="region.name" class="region-section">
-                        <van-cell :title="region.name" is-link
+                        <van-cell :title="languageFlag? region.name: region.nameEn" is-link
                             :arrow-direction="expandedRegions[region.name] ? 'up' : 'down'"
                             @click="toggleRegion(region.name)" class="region-header">
                             <template #right-icon>

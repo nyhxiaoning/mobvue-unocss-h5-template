@@ -172,7 +172,7 @@ export default defineComponent({
         const states = reactive({
             languageFlag: JeeWeb.Language === 'zh-CN' ? true :false,
             battery: userStore.$state.battery || 0,
-            brightness: userStore.$state.brightness || 10,
+            brightness: userStore.$state.brightness || 0,
             temperature: userStore.$state.temperature || 0,
             batteryStatus: false,
             address: '',
@@ -209,6 +209,9 @@ export default defineComponent({
         // const temperatureClass = computed(() => {});
 
         const onBrightnessChange = (value: number) => {
+            if( value === 0 ){
+                value = 1;
+            }
             console.log('当前亮度：', value);
             CupDevice &&
                 CupDevice.setDevMessage({

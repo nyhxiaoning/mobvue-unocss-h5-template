@@ -82,7 +82,7 @@
                             </template>
                         </van-cell>
 
-                        <div class="city-grid" :class="{ expanded: expandedRegions[region.name] }">
+                        <div class="city-grid" :class="{ expanded: languageFlag? expandedRegions[region.name]: expandedRegions[region.nameEn] }">
                             <van-button
                                 v-for="city in expandedRegions[region.name]
                                     ? region.cities
@@ -122,7 +122,7 @@ const VanCell = Cell;
 const VanButton = Button;
 
 const languageFlag = computed(() => {
-    return JeeWeb.language === 'zh-CN' ? true : false;
+    return JeeWeb.Language === 'zh-CN' ? true : false;
 });
 
 const searchText = ref('');
@@ -166,7 +166,8 @@ const getSelectedIndex = () => {
 const allRegions = {
     asia: [
         {
-            name: JeeWeb.Language === 'zh-CN'? '中国':'China',
+            name: '中国',
+            nameEn: 'China',
             cities: [
                 { name: '北京', nameEn: 'Beijing', value: 'Beijing' },
                 { name: '上海', nameEn: 'Shanghai', value: 'Shanghai' },
@@ -181,7 +182,8 @@ const allRegions = {
     ],
     europe: [
         {
-            name: JeeWeb.Language === 'zh-CN' ? '法国':'Franch',
+            name: '法国',
+            nameEn: 'Franch',
             cities: [
                 { name: '巴黎', nameEn: 'Paris', value: 'Paris' },
                 { name: '马赛', nameEn: 'Marseille', value: 'Marseille' },

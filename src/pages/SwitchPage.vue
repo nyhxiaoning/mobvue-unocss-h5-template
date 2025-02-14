@@ -84,7 +84,6 @@ export default {
         // 初始化时获取当前系统应用显示状态
         CupDevice.setDevMessage({
             value: {
-                // TODO:待办，这里接口暂时不能调用：嵌入式未开发
                 method: 'getHomeAppsParams',
                 params: {},
             },
@@ -111,6 +110,12 @@ export default {
             showToast(JeeWeb.Language === 'zh-CN' ?
                 '获取应用显示状态失败' :
                 'Failed to get app display status'
+            );
+        },
+        setShowErrorToast() {
+            showToast(JeeWeb.Language === 'zh-CN' ?
+                '设置应用失败' :
+                'Failed to set app error'
             );
         }
     },
@@ -139,6 +144,7 @@ export default {
                 })
                 .catch((err) => {
                     console.log(err);
+                    this.setShowErrorToast();
                 });
         },
         'settings.HomeGIF'(newVal) {
@@ -165,7 +171,7 @@ export default {
                     console.log(res, '单个');
                 })
                 .catch((err) => {
-                    console.log(err);
+                    this.setShowErrorToast();
                 });
         },
         'settings.HomeWeather'(newVal) {
@@ -191,7 +197,8 @@ export default {
                     console.log(res, '单个');
                 })
                 .catch((err) => {
-                    console.log(err);
+
+                    this.setShowErrorToast();
                 });
         },
         'settings.HomeFreeFallIcon'(newVal) {
@@ -214,7 +221,7 @@ export default {
                 },
             })
                 .then((res) => {
-                    console.log(res, '单个');
+                    this.setShowErrorToast();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -245,7 +252,7 @@ export default {
                     console.log(res, '单个');
                 })
                 .catch((err) => {
-                    console.log(err);
+                    this.setShowErrorToast();
                 });
         },
         'settings.HomeWaterShak'(newVal) {
@@ -273,6 +280,7 @@ export default {
                 })
                 .catch((err) => {
                     console.log(err);
+                       this.setShowErrorToast();
                 });
         },
         'settings.HomeCocos2'(newVal) {
@@ -300,6 +308,7 @@ export default {
                 })
                 .catch((err) => {
                     console.log(err);
+                    this.setShowErrorToast();
                 });
         },
     },

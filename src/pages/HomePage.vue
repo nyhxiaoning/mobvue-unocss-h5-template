@@ -152,7 +152,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed, onMounted, watch } from 'vue';
+import { defineComponent, reactive, computed, onMounted, watch,ref } from 'vue';
 
 import { timezone } from './../utils/cityzone';
 
@@ -165,6 +165,183 @@ export default defineComponent({
     name: 'SystemSettings',
 
     setup() {
+        const timezones = ref([
+            {
+                name: 'UTC-12:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-12:00）贝克岛'
+                    : '(UTC-12:00) Baker Island',
+                value: 'Chile/EasterIsland',
+            },
+            {
+                name: 'UTC-11:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-11:00）帕果帕果'
+                    : '(UTC-11:00) Pago Pago',
+                value: 'Pacific/Pago_Pago',
+            },
+            {
+                name: 'UTC-10:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-10:00）檀香山'
+                    : '(UTC-10:00) Honolulu',
+                value: 'Pacific/Honolulu',
+            },
+            {
+                name: 'UTC-9:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-9:00）安克雷奇'
+                    : '(UTC-9:00) Anchorage',
+                value: 'America/Anchorage',
+            },
+            {
+                name: 'UTC-8:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-8:00）洛杉矶'
+                    : '(UTC-8:00) Los Angeles',
+                value: 'America/Los_Angeles',
+            },
+            {
+                name: 'UTC-7:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-7:00）丹佛'
+                    : '(UTC-7:00) Denver',
+                value: 'America/Denver',
+            },
+            {
+                name: 'UTC-6:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-6:00）芝加哥'
+                    : '(UTC-6:00) Chicago',
+                value: 'America/Chicago',
+            },
+            {
+                name: 'UTC-5:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-5:00）纽约'
+                    : '(UTC-5:00) New York',
+                value: 'America/New_York',
+            },
+            {
+                name: 'UTC-4:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-4:00）圣地亚哥'
+                    : '(UTC-4:00) Santiago',
+                value: 'America/Argentina/Cordoba',
+            },
+            {
+                name: 'UTC-3:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-3:00）布宜诺斯艾利斯'
+                    : '(UTC-3:00) Buenos Aires',
+                value: 'America/Argentina/Buenos_Aires',
+            },
+            {
+                name: 'UTC-2:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-2:00）南乔治亚岛'
+                    : '(UTC-2:00) South Georgia Island',
+                value: 'Atlantic/South_Georgia',
+            },
+            {
+                name: 'UTC-1:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC-1:00）亚速尔群岛'
+                    : '(UTC-1:00) Azores',
+                value: 'Atlantic/Azores',
+            },
+            {
+                name: 'UTC+00:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+00:00）伦敦'
+                    : '(UTC+00:00) London',
+                value: 'Europe/London',
+            },
+            {
+                name: 'UTC+01:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+01:00）巴黎'
+                    : '(UTC+01:00) Paris',
+                value: 'Europe/Paris',
+            },
+            {
+                name: 'UTC+02:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+02:00）开罗'
+                    : '(UTC+02:00) Cairo',
+                value: 'Africa/Cairo',
+            },
+            {
+                name: 'UTC+03:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+03:00）莫斯科'
+                    : '(UTC+03:00) Moscow',
+                value: 'Europe/Moscow',
+            },
+            {
+                name: 'UTC+04:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+04:00）迪拜'
+                    : '(UTC+04:00) Dubai',
+                value: 'Asia/Dubai',
+            },
+            {
+                name: 'UTC+05:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+05:00）卡拉奇'
+                    : '(UTC+05:00) Karachi',
+                value: 'Asia/Karachi',
+            },
+            {
+                name: 'UTC+06:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+06:00）达卡'
+                    : '(UTC+06:00) Dhaka',
+                value: 'Asia/Dhaka',
+            },
+            {
+                name: 'UTC+07:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+07:00）曼谷'
+                    : '(UTC+07:00) Bangkok',
+                value: 'Asia/Bangkok',
+            },
+            {
+                name: 'UTC+08:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+08:00）北京'
+                    : '(UTC+08:00) Beijing',
+                value: 'Asia/Shanghai',
+            },
+            {
+                name: 'UTC+09:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+09:00）东京'
+                    : '(UTC+09:00) Tokyo',
+                value: 'Asia/Tokyo',
+            },
+            {
+                name: 'UTC+10:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+10:00）悉尼'
+                    : '(UTC+10:00) Sydney',
+                value: 'Australia/Sydney',
+            },
+            {
+                name: 'UTC+11:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+11:00）所罗门群岛'
+                    : '(UTC+11:00) Solomon Islands',
+                value: 'Pacific/Guadalcanal',
+            },
+            {
+                name: 'UTC+12:00',
+                label: JeeWeb.Language === 'zh-CN'
+                    ? '（UTC+12:00）奥克兰'
+                    : '(UTC+12:00) Auckland',
+                timezone: 'Pacific/Auckland',
+            },
+        ]);
         const userStore = useUserStore();
         const router = useRouter(); // 获取路由实例
         // const brightness = ref(40);
@@ -357,9 +534,8 @@ export default defineComponent({
 
         onMounted(() => {
             // states.curBatteryClass = 'battery-60';
-            states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
+            // states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
             console.log(JeeWeb.deviceBind[0]?.devices[0]?.online, '', JeeWeb.deviceBind[0]?.devices)
-            // TODO:测试当前的下发接口：获取：温度，电量，亮度，屏幕状态
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
@@ -373,7 +549,23 @@ export default defineComponent({
                         states.temperature = res.data.waterTemperature;
                         states.battery = res.data.batteryStatus;
                         states.screenStatus = res.data.switch;
-                        userStore.$state.brightness = res.data.brightness;
+                        states.address = res.data.timezone;
+                        states.weatheraddress = res.data.city;
+                        userStore.$state.weathervalue = res.data.city;
+                        const item = timezones.value.find(item => item.value === res.data.timezone);
+
+                        userStore.$state.timezoneLabel = item ? item.label : '';
+                        if(JeeWeb.Language === 'zh-CN' && item){
+                            userStore.$state.timezoneAddress = item.label.split("）")[1]
+                        }
+
+                        if (JeeWeb.Language !== 'zh-CN' && item) {
+                            userStore.$state.timezoneAddress = item.label.split(")")[1]
+                        }
+
+                        // userStore.$state.brightness = res.data.brightness;
+
+
                         // 如果可以获取当前TAL水杯信息，默认获取在线状态
                         states.online = true;
                         // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。

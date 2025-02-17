@@ -62,12 +62,12 @@
             <div class="clock">
                 <div>
                     <div>
-                        <div @click="appWeatherFn" style="display: flex; font-size: 16px; margin-bottom: 5px">
+                        <div @click="appWeatherFn" style="display: flex; font-size: 16px; margin-bottom: 5px; margin-left:10px">
                             {{ language.clock }}
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
                     </div>
-                    <div style="font-size: 12px; color: #969698">
+                    <div style="font-size: 12px; color: #969698; margin-left:10px">
                         <span>{{ userStore.$state.timezoneLabel }} <br /></span>
                         <span>{{ userStore.$state.timezoneAddress }}</span>
                     </div>
@@ -561,12 +561,15 @@ export default defineComponent({
                             for(let i =0;i<chinaData.cities.length;i++){
                                 if(res.data.city === chinaData.cities[i].value){
                                     states.weatheraddress = chinaData.cities[i].name;
+                                    sessionStorage.setItem('weathervalue', res.data.city);
+                                    sessionStorage.setItem('weathername', chinaData.cities[i].name);
                                 }
                             }
                         }
                         // 如果国外的环境，不用找了，默认两个值相同
                         if(JeeWeb.Language !== 'zh-CN'){
                             states.weatheraddress = res.data.city;
+                            sessionStorage.setItem('weathervalue', res.data.city);
                         }
                         userStore.$state.weathervalue = res.data.city;
                         const item = timezones.value.find(item => item.value === res.data.timezone);
@@ -953,7 +956,7 @@ export default defineComponent({
 }
 
 .temperature-content-en {
-    width: 140px;
+    width: 150px;
     height: 24px;
     background-color: #ffffff;
     border-radius: 6px;

@@ -51,24 +51,27 @@ const goBack = () => {
 };
 
 const confirmCity = () => {
+    console.log(sessionStorage.getItem('weathervalue'))
+    console.log(sessionStorage.getItem("weathername"))
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
                 method: 'setCity',
                 params: {
-                    value: sessionStorage.getItem('weathervalue'),
+                    value: sessionStorage.getItem('weathervalue')
                 },
             },
         })
             .then((res) => {
-                store.$state.weathername = JeeWeb.Language === 'zh-CN' ? city.name : city.nameEn;
-                store.$state.weathervalue = city.value;
+                console.log(res, 'setCity');
+                store.$state.weathername = sessionStorage.getItem("weathername");
+                store.$state.weathervalue = sessionStorage.getItem('weathervalue');
                 console.log(res, 'city.value');
                 router.push('/');
             })
             .catch((err) => {
                 console.log(err);
-                showToast(language.setCityError);
+
 
             });
 };

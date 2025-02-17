@@ -160,10 +160,16 @@ import { useRouter } from 'vue-router';
 import { useUserStore } from './../store/index';
 import { showToast } from 'vant';
 
+import chinaData from './../utils/中国.json';
+
 export default defineComponent({
     name: 'SystemSettings',
 
     setup() {
+
+        console.log(chinaData,'chinaData',chinaData.cities);
+
+
         const timezones = ref([
             {
                 name: 'UTC-12:00',
@@ -549,7 +555,19 @@ export default defineComponent({
                         states.battery = res.data.batteryStatus;
                         states.screenStatus = res.data.switch;
                         states.address = res.data.timezone;
-                        states.weatheraddress = res.data.city;
+                        // states.weatheraddress = res.data.city;
+                        // 设置天气地址:线上国内仅仅支持中国
+                        if(res.data.city && JeeWeb.Language === 'zh-CN'){
+                            for(let i =0;i<chinaData.cities.length;i++){
+                                if(res.data.city === chinaData.cities[i].value){
+                                    states.weatheraddress = chinaData.cities[i].name;
+                                }
+                            }
+                        }
+                        // 如果国外的环境，不用找了，默认两个值相同
+                        if(JeeWeb.Language !== 'zh-CN'){
+                            states.weatheraddress = res.data.city;
+                        }
                         userStore.$state.weathervalue = res.data.city;
                         const item = timezones.value.find(item => item.value === res.data.timezone);
 

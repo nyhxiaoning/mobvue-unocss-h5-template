@@ -269,11 +269,14 @@ export default {
                         .then((res) => {
                             // 如果设置成功后，这里使用最新的页面的数据，否则使用store之前的存储数据
                             console.log(res, 'setLoaclTimeZone---value')
+                            console.log('timezones.value', timezones.value)
+                            console.log('timezones.value', timezones.value)
                             // showToast(language.confirm);
                             // 下发成功，同步store地址数据
-                            store.$state.timezoneLabel = timezones.value[i].name;
-                            store.$state.timezoneAddress = timezones.value[i].label.split('）')[1];
-                            store.$state.timezoneValue = timezones.value[i].value;
+                            console.log()
+                            store.$state.timezoneLabel = selectedTimezone.value.label
+                            store.$state.timezoneAddress = selectedTimezone.value.label.split('）')[1];
+                            store.$state.timezoneValue = selectedTimezone.value.value;
                             console.log(res, '单个getLoaclTimeZone');
                             // store.selectedTimezone(selectedTimezone.value);
                             for (let i = 0; i < timezones.value.length; i++) {

@@ -256,7 +256,7 @@ export default {
                 }
             }
 
-            alert(JSON.stringify(selectedTimezone.value.label))
+            // alert(JSON.stringify(selectedTimezone.value.label))
             if (selectedTimezone.value.label) {
                     CupDevice.setDevMessage({
                         value: {
@@ -267,6 +267,7 @@ export default {
                         },
                     })
                         .then((res) => {
+                            // 如果设置成功后，这里使用最新的页面的数据，否则使用store之前的存储数据
                             console.log(res, 'setLoaclTimeZone---value')
                             // showToast(language.confirm);
                             // 下发成功，同步store地址数据

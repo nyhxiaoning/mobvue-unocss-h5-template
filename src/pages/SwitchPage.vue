@@ -221,7 +221,7 @@ export default {
                 },
             })
                 .then((res) => {
-                    this.setShowErrorToast();
+                    console.log(res, '单个');
                 })
                 .catch((err) => {
                     console.log(err);

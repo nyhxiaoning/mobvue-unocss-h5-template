@@ -80,12 +80,12 @@
             <div class="weather">
                 <div>
                     <div>
-                        <div @click="appCityFn" style="display: flex; font-size: 16px; margin-bottom: 5px">
+                        <div @click="appCityFn" style="display: flex; font-size: 16px; margin-bottom: 5px; margin-left:10px">
                             {{ language.weather }}
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
                     </div>
-                    <div style="font-size: 12px; color: #969698">
+                    <div style="font-size: 12px; color: #969698; margin-left:10px">
                         <span><van-icon name="location-o" />{{ states.weatheraddress }} <br /></span>
                     </div>
                 </div>

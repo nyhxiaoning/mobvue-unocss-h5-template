@@ -11,7 +11,7 @@
             <!-- 搜索联想结果 -->
             <div v-show="isSearchFocused && searchResults.length > 0" class="search-suggestions">
                 <div v-for="city in searchResults" :key="city.name" class="suggestion-item" @click="selectCity(city)">
-                    {{ city.name }}
+                     {{ languageFlag ? city.name : city.nameEn }}
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive, getCurrentInstance } from 'vue';
+import { ref, computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 // import { useStore } from 'vuex';
 

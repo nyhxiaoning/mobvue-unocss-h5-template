@@ -563,6 +563,8 @@ export default defineComponent({
                                 if(res.data.city === chinaData.cities[i].value){
                                     states.weatheraddress = chinaData.cities[i].name;
                                     sessionStorage.setItem('weathervalue', res.data.city);
+                                    sessionStorage.setItem('weatheroldvalue', res.data.city);
+                                    sessionStorage.setItem('weatheroldname', chinaData.cities[i].name);
                                     sessionStorage.setItem('weathername', chinaData.cities[i].name);
                                 }
                             }
@@ -571,6 +573,7 @@ export default defineComponent({
                         if(JeeWeb.Language !== 'zh-CN'){
                             states.weatheraddress = res.data.city;
                             sessionStorage.setItem('weathervalue', res.data.city);
+                            sessionStorage.setItem('weatheroldvalue', res.data.city);
                         }
                         userStore.$state.weathervalue = res.data.city;
                         const item = timezones.value.find(item => item.value === res.data.timezone);

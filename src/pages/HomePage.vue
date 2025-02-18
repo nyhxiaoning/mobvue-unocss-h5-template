@@ -556,21 +556,19 @@ export default defineComponent({
                         states.address = res.data.timezone;
                         // states.weatheraddress = res.data.city;
                         // 设置天气地址:线上国内仅仅支持中国
+                        console.log(res.data.city, 'res.data.city0000')
+                        console.log(res.data.city, 'res.data.city0001')
                         if(res.data.city){
                             // 循环四个数组
-
+                            console.log(res.data.city, 'res.data.city')
                             let itemsAllCity = Object.values(userStore.$state.allCitys);
                             for (let i = 0; i < itemsAllCity.length; i++) {
-                                console.log(itemsAllCity[i], 'itemsAllCity')
-                                console.log(itemsAllCity[i][0], 'cities')
-                                console.log(itemsAllCity[i][0].cities, 'cities')
                                 let currentCities = itemsAllCity[i][0].cities;
                                 for (let j = 0; j < currentCities.length; j++) {
-                                    console.log(currentCities[j].value,'currentCities[j].value')
+
                                     if (currentCities[j].value === res.data.city) {
+                                        console.log(currentCities[j].value,'currentCities[j].value')
                                         userStore.$state.weathername = JeeWeb.Language === 'zh-CN'? currentCities[j].name: currentCities[j].nameEn;
-                                        console.log(currentCities[j].name, 'currentCities[j].name')
-                                        console.log(userStore.$state.weathername,'userStore.$state.weathername')
                                         states.weatheraddress =  userStore.$state.weathername;
                                         userStore.$state.weathervalue = currentCities[j].value;
                                     }
@@ -656,7 +654,7 @@ export default defineComponent({
         watch(
             () => states.weatheraddress,
             (newValue, oldValue) => {
-                console.log('weatheraddress changed:', oldValue, '->', newValue)
+                // console.log('weatheraddress changed:', oldValue, '->', newValue)
                 // Add your logic here for temperature changes
 
             }

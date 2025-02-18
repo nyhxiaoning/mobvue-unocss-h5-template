@@ -156,20 +156,17 @@ import { defineComponent, reactive, computed, onMounted, watch, ref } from 'vue'
 
 import { timezone } from './../utils/cityzone';
 
-import { useRouter, onBeforeRouteUpdate } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 import { useUserStore } from './../store/index';
 import { showToast } from 'vant';
 
-import chinaData from './../utils/中国.json';
-import { useStore } from 'vuex';
 
 export default defineComponent({
     name: 'SystemSettings',
 
     setup() {
 
-        console.log(chinaData,'chinaData',chinaData.cities);
 
 
         const timezones = ref([
@@ -540,8 +537,6 @@ export default defineComponent({
         });
 
         onMounted(() => {
-            console.log(Object.values(userStore.$state.allCitys), 'object.values')
-
             // states.curBatteryClass = 'battery-60';
             // states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
             console.log(JeeWeb.deviceBind[0]?.devices[0]?.online, '', JeeWeb.deviceBind[0]?.devices)
@@ -563,17 +558,6 @@ export default defineComponent({
                         // 设置天气地址:线上国内仅仅支持中国
                         if(res.data.city){
                             // 循环四个数组
-
-                            // console.log(Object.values(userStore.$state.allCitys),'object.values')
-                            // for(let i =0;i< Object.values(userStore.$state.allCitys).length;i++){
-                            //     if(res.data.city === chinaData.cities[i].value){
-                            //         states.weatheraddress = chinaData.cities[i].name;
-                            //         sessionStorage.setItem('weathervalue', res.data.city);
-                            //         sessionStorage.setItem('weatheroldvalue', res.data.city);
-                            //         sessionStorage.setItem('weatheroldname', chinaData.cities[i].name);
-                            //         sessionStorage.setItem('weathername', chinaData.cities[i].name);
-                            //     }
-                            // }
 
                             let itemsAllCity = Object.values(userStore.$state.allCitys);
                             for (let i = 0; i < itemsAllCity.length; i++) {

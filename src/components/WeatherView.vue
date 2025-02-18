@@ -20,7 +20,7 @@
 
 <script setup>
 import { computed, reactive } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, onBeforeRouteUpdate } from 'vue-router';
 import { useUserStore } from './../store/index';
 import { showToast } from 'vant';
 
@@ -39,7 +39,16 @@ const language = reactive({
 
 //
 
-const currentCity = computed(() => sessionStorage.getItem('weathername') || '');
+/**
+ * current City
+ */
+const currentCity = computed(() => {
+    if (store.$state.fromHome || store.$state.weathervalue) {
+        return store.$state.weathername;
+    } else {
+        return sessionStorage.getItem('weathername') || ''
+    }
+});
 console.log(store?.$state, '当前的下发')
 const goToCity = () => {
     router.push('city');
@@ -53,6 +62,7 @@ const goBack = () => {
 const confirmCity = () => {
     console.log(sessionStorage.getItem('weathervalue'))
     console.log(sessionStorage.getItem("weathername"))
+    console.log('confirmCity')
     CupDevice &&
         CupDevice.setDevMessage({
             value: {

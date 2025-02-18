@@ -22,7 +22,7 @@
                     </van-col>
                 </van-row>
 
-                <div style="position: relative; margin-left: 20%">
+                <div style="position: relative; margin-left: 10%">
                     <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
                     <div :class="[states.online ? 'status-text' : 'status-text-offline']">&nbsp;{{ language.online }}</div>
                 </div>
@@ -156,12 +156,13 @@ import { defineComponent, reactive, computed, onMounted, watch, ref } from 'vue'
 
 import { timezone } from './../utils/cityzone';
 
-import { useRouter } from 'vue-router';
+import { useRouter, onBeforeRouteUpdate } from 'vue-router';
 
 import { useUserStore } from './../store/index';
 import { showToast } from 'vant';
 
 import chinaData from './../utils/中国.json';
+import { useStore } from 'vuex';
 
 export default defineComponent({
     name: 'SystemSettings',
@@ -539,6 +540,8 @@ export default defineComponent({
         });
 
         onMounted(() => {
+            console.log(Object.values(userStore.$state.allCitys), 'object.values')
+
             // states.curBatteryClass = 'battery-60';
             // states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
             console.log(JeeWeb.deviceBind[0]?.devices[0]?.online, '', JeeWeb.deviceBind[0]?.devices)
@@ -558,24 +561,43 @@ export default defineComponent({
                         states.address = res.data.timezone;
                         // states.weatheraddress = res.data.city;
                         // 设置天气地址:线上国内仅仅支持中国
-                        if(res.data.city && JeeWeb.Language === 'zh-CN'){
-                            for(let i =0;i<chinaData.cities.length;i++){
-                                if(res.data.city === chinaData.cities[i].value){
-                                    states.weatheraddress = chinaData.cities[i].name;
-                                    sessionStorage.setItem('weathervalue', res.data.city);
-                                    sessionStorage.setItem('weatheroldvalue', res.data.city);
-                                    sessionStorage.setItem('weatheroldname', chinaData.cities[i].name);
-                                    sessionStorage.setItem('weathername', chinaData.cities[i].name);
+                        if(res.data.city){
+                            // 循环四个数组
+
+                            // console.log(Object.values(userStore.$state.allCitys),'object.values')
+                            // for(let i =0;i< Object.values(userStore.$state.allCitys).length;i++){
+                            //     if(res.data.city === chinaData.cities[i].value){
+                            //         states.weatheraddress = chinaData.cities[i].name;
+                            //         sessionStorage.setItem('weathervalue', res.data.city);
+                            //         sessionStorage.setItem('weatheroldvalue', res.data.city);
+                            //         sessionStorage.setItem('weatheroldname', chinaData.cities[i].name);
+                            //         sessionStorage.setItem('weathername', chinaData.cities[i].name);
+                            //     }
+                            // }
+
+                            let itemsAllCity = Object.values(userStore.$state.allCitys);
+                            for (let i = 0; i < itemsAllCity.length; i++) {
+                                console.log(itemsAllCity[i], 'itemsAllCity')
+                                console.log(itemsAllCity[i][0], 'cities')
+                                console.log(itemsAllCity[i][0].cities, 'cities')
+                                let currentCities = itemsAllCity[i][0].cities;
+                                for (let j = 0; j < currentCities.length; j++) {
+                                    if (currentCities[j].value === res.data.city) {
+                                        userStore.$state.weathername = JeeWeb.Language !== 'zh-CN'? currentCities[j].name: currentCities[j].nameEn;
+                                        states.weatheraddress =  userStore.$state.weathername;
+                                        userStore.$state.weathervalue = currentCities[j].value;
+                                    }
+
                                 }
                             }
                         }
                         // 如果国外的环境，不用找了，默认两个值相同
-                        if(JeeWeb.Language !== 'zh-CN'){
-                            states.weatheraddress = res.data.city;
-                            sessionStorage.setItem('weathervalue', res.data.city);
-                            sessionStorage.setItem('weatheroldvalue', res.data.city);
-                        }
-                        userStore.$state.weathervalue = res.data.city;
+                        // if(JeeWeb.Language !== 'zh-CN'){
+                        //     states.weatheraddress = res.data.city;
+                        //     sessionStorage.setItem('weathervalue', res.data.city);
+                        //     sessionStorage.setItem('weatheroldvalue', res.data.city);
+                        // }
+                        // userStore.$state.weathervalue = res.data.city;
                         const item = timezones.value.find(item => item.value === res.data.timezone);
 
                         userStore.$state.timezoneLabel = item ? item.name : '';
@@ -604,92 +626,6 @@ export default defineComponent({
                         });
                     });
 
-
-
-            // !sessionStorage.getItem('brightnessFlag') && CupDevice &&
-            //     CupDevice.setDevMessage({
-            //         value: {
-            //             method: 'getBrightness',
-            //             params: {},
-            //         },
-            //     })
-            //         .then((res: any) => {
-            //             console.log(res.data, '亮度获取zhi');
-            //             states.brightness = res.data;
-            //             userStore.$state.brightness = res.data;
-            //             // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。
-            //             sessionStorage.setItem('brightnessFlag', '100');// 记录1
-            //             // store.selectedTimezone(selectedTimezone.value);
-            //         })
-            //         .catch((err: any) => {
-            //             console.log(err);
-            //         });
-
-            // !sessionStorage.getItem('temperatureFlag') && CupDevice.setDevMessage({
-            //     value: {
-            //         method: 'getTemperature',
-            //         params: {},
-            //     },
-            // })
-            //     .then((res: any) => {
-            //         console.log(res.data, '单个温度获取');
-            //         userStore.$state.temperature = res.data;
-            //         sessionStorage.setItem('temperatureFlag', '100');// 记录1
-            //         if (res.data) states.temperature = res.data;
-            //         // if (states.temperature < 0) {
-            //         //     return (states.curTemperatureClass = 'temperature');
-            //         // } else if (states.temperature >= 0 && states.temperature < 99) {
-            //         //     return (states.curTemperatureClass = 'temperature-0');
-            //         // } else if (states.temperature >= 99) {
-            //         //     return (states.curTemperatureClass = 'temperature-99');
-            //         // }
-            //     })
-            //     .catch((err: any) => {
-            //         console.log(err);
-            //         // if (states.temperature < 0) {
-            //         //     return (states.curTemperatureClass = 'temperature');
-            //         // } else if (states.temperature >= 0 && states.temperature < 99) {
-            //         //     return (states.curTemperatureClass = 'temperature-0');
-            //         // } else if (states.temperature >= 99) {
-            //         //     return (states.curTemperatureClass = 'temperature-99');
-            //         // }
-            //         // showToast({
-            //         //     message: '获取温度失败',
-            //         //     duration: 1000,
-            //         // });
-            //     });
-
-            // !sessionStorage.getItem('batteryFlag') && CupDevice.setDevMessage({
-            //     value: {
-            //         method: 'getBatteryStatus',
-            //         params: {},
-            //     },
-            // })
-            //     .then((res: any) => {
-            //         console.log(res.data, '单个电池');
-            //         states.battery = res.data;
-            //         userStore.$state.battery = res.data;
-            //         sessionStorage.setItem('batteryFlag', '100');// 记录1
-            //         // if (states.battery < 20) {
-            //         //     return (states.curBatteryClass = 'battery-20');
-            //         // } else if (states.battery > 20 && states.battery < 40) {
-            //         //     return (states.curBatteryClass = 'battery-40');
-            //         // } else if (states.battery > 40) {
-            //         //     return (states.curBatteryClass = 'battery-60');
-            //         // }
-            //         // 只有输出电量
-            //         // states.batteryStatus = res.data.value?true:false;
-            //     })
-            //     .catch((err: any) => {
-            //         console.log(err);
-            //         // if (states.battery < 20) {
-            //         //     return (states.curBatteryClass = 'battery-20');
-            //         // } else if (states.battery > 20 && states.battery < 40) {
-            //         //     return (states.curBatteryClass = 'battery-40');
-            //         // } else if (states.battery > 40) {
-            //         //     return (states.curBatteryClass = 'battery-60');
-            //         // }
-            //     });
         });
 
 

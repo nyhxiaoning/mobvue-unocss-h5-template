@@ -67,7 +67,7 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive } from 'vue';
+import { ref, computed, reactive, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
 // import { useStore } from 'vuex';
 
@@ -80,17 +80,19 @@ import { Icon as VanIcon, NavBar, Search, Cell, Button, showToast } from 'vant';
  * data：国家地区总数据
  */
 
-import chinaData from './../utils/中国.json';
-import GermanData from './../utils/德国.json';
-import FrenchData from './../utils/法国.json';
-import CanadaData from './../utils/加拿大.json';
-import UsaData from './../utils/美国.json';
-import UsData from './../utils/英国.json';
-import AustraliaData from './../utils/澳大利亚.json';
+// import chinaData from './../utils/中国.json';
+// import GermanData from './../utils/德国.json';
+// import FrenchData from './../utils/法国.json';
+// import CanadaData from './../utils/加拿大.json';
+// import UsaData from './../utils/美国.json';
+// import UsData from './../utils/英国.json';
+// import AustraliaData from './../utils/澳大利亚.json';
 
 
+// const instance = getCurrentInstance();
+// const cityAll = instance.appContext.config.globalProperties.$cityAll;
 const router = useRouter();
-// const store = useUserStore();
+const userStore= useUserStore();
 
 // 替换模板中的组件名称
 // const VanNavBar = NavBar;
@@ -104,7 +106,7 @@ const languageFlag = computed(() => {
 
 const searchText = ref('');
 const selectedCity = ref('');
-const selectedContinent = ref('asia');
+const selectedContinent = ref('Asia');
 const expandedRegions = ref({});
 const isSearchFocused = ref(false);
 
@@ -113,8 +115,8 @@ const language = reactive({
     more: JeeWeb.Language === 'zh-CN' ? '更多' : 'More',
     noContent: JeeWeb.Language === 'zh-CN' ? '暂无内容' : 'No Content',
     continents: {
-        asia: JeeWeb.Language === 'zh-CN' ? '亚洲' : 'Asia',
-        europe: JeeWeb.Language === 'zh-CN' ? '欧洲' : 'Europe',
+        Asia: JeeWeb.Language === 'zh-CN' ? '亚洲' : 'Asia',
+        Aurope: JeeWeb.Language === 'zh-CN' ? '欧洲' : 'Europe',
         // namerica: JeeWeb.Language === 'zh-CN' ? '北美洲' : 'North America',
         // oceania: JeeWeb.Language === 'zh-CN' ? '大洋洲' : 'Oceania',
         // africa: JeeWeb.Language === 'zh-CN' ? '非洲' : 'Africa',
@@ -125,10 +127,10 @@ const language = reactive({
 
 // 获取洲列表
 const continents = computed(() => [
-    { key: 'asia', name: '亚洲' },
-    { key: 'europe', name: '欧洲' },
-    { key: 'namerica', name: '北美洲' },
-    { key: 'oceania', name: '大洋洲' },
+    { key: 'Asia', name: '亚洲' },
+    { key: 'Europe', name: '欧洲' },
+    { key: 'Namerica', name: '北美洲' },
+    { key: 'Oceania', name: '大洋洲' },
     // { key: 'africa', name: '非洲' },
     // { key: 'samerica', name: '南美洲' },
     // { key: 'antarctica', name: '南极洲' },
@@ -140,27 +142,27 @@ const getSelectedIndex = () => {
 };
 
 // 模拟数据
-const allRegions = {
-    asia: [
-        chinaData
-    ],
-    europe: [
-        GermanData,
-        FrenchData,
-        UsData
-    ],
-    namerica: [
-        UsaData,
-        CanadaData
-    ],
-    oceania: [
-        AustraliaData
-    ]
-};
+// const allRegions = {
+//     asia: [
+//         chinaData
+//     ],
+//     europe: [
+//         GermanData,
+//         FrenchData,
+//         UsData
+//     ],
+//     namerica: [
+//         UsaData,
+//         CanadaData
+//     ],
+//     oceania: [
+//         AustraliaData
+//     ]
+// };
 
 // 获取当前大洲的区域
 const currentRegions = computed(() => {
-    return allRegions[selectedContinent.value] || [];
+    return userStore.$state.allCitys[selectedContinent.value] || [];
 });
 
 // 搜索过滤
@@ -206,7 +208,7 @@ const onSearch = () => {
     }
 
     const allCities = [];
-    Object.values(allRegions).forEach((regions) => {
+    Object.values(userStore.$state.allCitys).forEach((regions) => {
         regions.forEach((region) => {
 
             region.cities.forEach((city) => {
@@ -227,7 +229,7 @@ const onSearch = () => {
         })
         .slice(0, 20);
     if (!searchResults.value.length) {
-        showToast('暂无内容');
+        showToast(`${JeeWeb.Language === 'zh-CN'?'暂无内容':'No Result' }`);
     }
     console.log('搜索结果')
     console.log(JSON.stringify(searchResults.value))

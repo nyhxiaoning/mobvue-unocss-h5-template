@@ -14,10 +14,11 @@
                                 line-height: 24px;
                                 height: 26px;
                                 text-align: center;
-                                margin-right: -20px;
+                                margin-right: -30px;
                             ">
-                            &nbsp;&nbsp;{{ states.battery }}%
+                             {{ states.battery }}%
                         </div>
+
                     </van-col>
                 </van-row>
 

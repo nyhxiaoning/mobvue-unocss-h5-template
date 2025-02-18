@@ -43,7 +43,7 @@ const language = reactive({
  * current City
  */
 const currentCity = computed(() => {
-    if (store.$state.fromHome || store.$state.weathervalue) {
+    if (store.$state.fromHome && store.$state.weathervalue) {
         return store.$state.weathername;
     } else {
         return sessionStorage.getItem('weathername') || ''

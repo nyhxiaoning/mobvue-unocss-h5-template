@@ -583,7 +583,7 @@ export default defineComponent({
                                 let currentCities = itemsAllCity[i][0].cities;
                                 for (let j = 0; j < currentCities.length; j++) {
                                     if (currentCities[j].value === res.data.city) {
-                                        userStore.$state.weathername = JeeWeb.Language !== 'zh-CN'? currentCities[j].name: currentCities[j].nameEn;
+                                        userStore.$state.weathername = JeeWeb.Language === 'zh-CN'? currentCities[j].name: currentCities[j].nameEn;
                                         states.weatheraddress =  userStore.$state.weathername;
                                         userStore.$state.weathervalue = currentCities[j].value;
                                     }

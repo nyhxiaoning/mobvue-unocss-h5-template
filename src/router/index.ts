@@ -2,7 +2,7 @@
  * @Author: ningyongheng ningyongheng@jeejio.com
  * @Date: 2024-10-09 18:18:15
  * @LastEditors: ningyongheng ningyongheng@jeejio.com
- * @LastEditTime: 2025-02-18 16:15:40
+ * @LastEditTime: 2025-02-18 17:08:17
  * @FilePath: /cupsystem/src/router/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -40,6 +40,18 @@ const router = createRouter({
             path: '/city',
             name: 'city',
             component: CityView,
+            beforeEnter: (to, from, next) => {
+                const userStore = useUserStore();
+                if (from.name === 'weather' && to.name ==='city' ) {
+                    // 重置城市信息: 用户如果点击返回的时候，需要重置城市信息，使用全局store
+                    sessionStorage.setItem('weathername', userStore.$state.weathername);
+                    sessionStorage.setItem('weathervalue', userStore.$state.weathervalue);
+                }else {
+                    next();
+                }
+                next();
+
+            }
         },
         {
             path: '/timezone',
@@ -68,11 +80,13 @@ const router = createRouter({
 
                 if (from.name === 'city' && to.name === 'weather') {
                     // city->weather
-                    // 取sessionStorage 查询一下当前的城市信息
+                    // 取sessionStorage 查询一下当前的城市信息,同时
                      userStore.$state.fromHome = false;
+                    //   sessionStorage.setItem('weathervalue',userStore.$state.weathervalue)
+                    //   sessionStorage.setItem('weathername', userStore.$state.weathername);
+                    //  userStore.$state.weathername = sessionStorage.getItem('weathername') || '';
                 }
 
-                console.log(from, 'from-weather');
                 next();
             },
         },

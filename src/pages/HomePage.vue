@@ -357,7 +357,7 @@ export default defineComponent({
             temperature: userStore.$state.temperature || 0,
             batteryStatus: false,
             address: '',
-            weatheraddress:  '',
+            weatheraddress:  userStore.$state.weathername ||'',
             clock: '',
             curBatteryClass: 'battery-20',
             curTemperatureClass: 'temperature-0',
@@ -558,7 +558,8 @@ export default defineComponent({
                         // 设置天气地址:线上国内仅仅支持中国
                         console.log(res.data.city, 'res.data.city0000')
                         console.log(res.data.city, 'res.data.city0001')
-                        if(res.data.city){
+                        // 如果是默认值地区是空的，那么接口查询，否则使用store地区和value
+                        if(res.data.city && userStore.$state.weathername ===''){
                             // 循环四个数组
                             console.log(res.data.city, 'res.data.city')
                             let itemsAllCity = Object.values(userStore.$state.allCitys);
@@ -575,6 +576,9 @@ export default defineComponent({
 
                                 }
                             }
+                        }else {
+                            states.weatheraddress =  userStore.$state.weathername;
+                            userStore.$state.weathervalue = res.data.city
                         }
                         // 如果国外的环境，不用找了，默认两个值相同
                         // if(JeeWeb.Language !== 'zh-CN'){

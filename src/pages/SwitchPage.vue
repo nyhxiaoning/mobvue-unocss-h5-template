@@ -25,7 +25,7 @@
                     <van-switch
                         v-model="settings.HomeFreeFallIcon"
                         :disabled="!settings.isSwipe"
-                         @change="handleSwitchHomeFreeFallIcon"
+                         @change="handleSwitchisSwipe"
                     />
                 </template>
             </van-cell>

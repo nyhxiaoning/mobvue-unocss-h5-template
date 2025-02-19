@@ -558,6 +558,17 @@ export default defineComponent({
                         // 设置天气地址:线上国内仅仅支持中国
                         console.log(res.data.city, 'res.data.city0000')
                         console.log(res.data.city, 'res.data.city0001')
+                        const word = res.data.city
+                        // 兼容实现一下大小写
+                        const firstLetter = word.charAt(0)
+
+                        const firstLetterCap = firstLetter.toUpperCase()
+
+                        const remainingLetters = word.slice(1)
+
+                        const capitalizedWord = firstLetterCap + remainingLetters
+
+                        console.log(capitalizedWord)
                         // 如果是默认值地区是空的，那么接口查询，否则使用store地区和value
                         if(res.data.city && userStore.$state.weathername ===''){
                             // 循环四个数组
@@ -567,7 +578,7 @@ export default defineComponent({
                                 let currentCities = itemsAllCity[i][0].cities;
                                 for (let j = 0; j < currentCities.length; j++) {
 
-                                    if (currentCities[j].value === res.data.city) {
+                                    if (currentCities[j].value === res.data.city || currentCities[j].value === capitalizedWord) {
                                         console.log(currentCities[j].value,'currentCities[j].value')
                                         userStore.$state.weathername = JeeWeb.Language === 'zh-CN'? currentCities[j].name: currentCities[j].nameEn;
                                         states.weatheraddress =  userStore.$state.weathername;
@@ -655,14 +666,14 @@ export default defineComponent({
         )
 
 
-        watch(
-            () => states.weatheraddress,
-            (newValue, oldValue) => {
-                // console.log('weatheraddress changed:', oldValue, '->', newValue)
-                // Add your logic here for temperature changes
+        // watch(
+        //     () => states.weatheraddress,
+        //     (newValue, oldValue) => {
+        //         // console.log('weatheraddress changed:', oldValue, '->', newValue)
+        //         // Add your logic here for temperature changes
 
-            }
-        )
+        //     }
+        // )
 
 
         // function onDevicesOnlineChanged() {

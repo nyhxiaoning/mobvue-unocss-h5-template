@@ -90,15 +90,16 @@ export default {
             },
         })
             .then((res) => {
+                console.log('getHomeAppsParams', res,'响应结果');
                 if (res && res.data) {
                     // 更新settings中的状态： isSwipe
-                    this.settings.isSwipe = res.data.isSwipe || true;
-                    this.settings.HomeGIF = res.data.HomeGIF || true;
-                    this.settings.HomeWeather = res.data.HomeWeather || true;
-                    this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon || true;
-                    this.settings.homeTigerGame = res.data.homeTigerGame || true;
-                    this.settings.HomeWaterShak = res.data.HomeWaterShak || true;
-                    this.settings.HomeCocos2 = res.data.HomeCocos2 || true;
+                    this.settings.isSwipe = res.data.isSwipe;
+                    this.settings.HomeGIF = res.data.HomeGIF;
+                    this.settings.HomeWeather = res.data.HomeWeather
+                    this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon
+                    this.settings.homeTigerGame = res.data.homeTigerGame
+                    this.settings.HomeWaterShak = res.data.HomeWaterShak
+                    this.settings.HomeCocos2 = res.data.HomeCocos2
                 }
             })
             .catch((err) => {

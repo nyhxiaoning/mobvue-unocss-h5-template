@@ -16,7 +16,7 @@
                                 text-align: center;
                                 margin-right: -30px;
                             ">
-                             {{ states.battery }}%
+                            {{ states.battery }}%
                         </div>
 
                     </van-col>
@@ -63,7 +63,8 @@
             <div class="clock">
                 <div>
                     <div>
-                        <div @click="appWeatherFn" style="display: flex; font-size: 16px; margin-bottom: 5px; margin-left:10px">
+                        <div @click="appWeatherFn"
+                            style="display: flex; font-size: 16px; margin-bottom: 5px; margin-left:10px">
                             {{ language.clock }}
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
@@ -80,7 +81,8 @@
             <div class="weather">
                 <div>
                     <div>
-                        <div @click="appCityFn" style="display: flex; font-size: 16px; margin-bottom: 5px; margin-left:10px">
+                        <div @click="appCityFn"
+                            style="display: flex; font-size: 16px; margin-bottom: 5px; margin-left:10px">
                             {{ language.weather }}
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
@@ -357,7 +359,7 @@ export default defineComponent({
             temperature: userStore.$state.temperature || 0,
             batteryStatus: false,
             address: '',
-            weatheraddress:  userStore.$state.weathername ||'',
+            weatheraddress: userStore.$state.weathername || '',
             clock: '',
             curBatteryClass: 'battery-20',
             curTemperatureClass: 'temperature-0',
@@ -569,28 +571,27 @@ export default defineComponent({
                         const capitalizedWord = firstLetterCap + remainingLetters
 
                         console.log(capitalizedWord)
+                        console.log(capitalizedWord, 'capitalizedWord')
                         // 如果是默认值地区是空的，那么接口查询，否则使用store地区和value
-                        if(res.data.city && userStore.$state.weathername ===''){
-                            // 循环四个数组
-                            console.log(res.data.city, 'res.data.city')
-                            let itemsAllCity = Object.values(userStore.$state.allCitys);
-                            for (let i = 0; i < itemsAllCity.length; i++) {
-                                let currentCities = itemsAllCity[i][0].cities;
-                                for (let j = 0; j < currentCities.length; j++) {
-
-                                    if (currentCities[j].value === res.data.city || currentCities[j].value === capitalizedWord) {
-                                        console.log(currentCities[j].value,'currentCities[j].value')
-                                        userStore.$state.weathername = JeeWeb.Language === 'zh-CN'? currentCities[j].name: currentCities[j].nameEn;
-                                        states.weatheraddress =  userStore.$state.weathername;
-                                        userStore.$state.weathervalue = currentCities[j].value;
-                                    }
-
+                        // if(res.data.city){
+                        // 循环四个数组
+                        console.log(res.data.city, 'res.data.city')
+                        let itemsAllCity = Object.values(userStore.$state.allCitys);
+                        for (let i = 0; i < itemsAllCity.length; i++) {
+                            let currentCities = itemsAllCity[i][0].cities;
+                            for (let j = 0; j < currentCities.length; j++) {
+                                if (currentCities[j].value === res.data.city || currentCities[j].value === capitalizedWord) {
+                                    userStore.$state.weathername = JeeWeb.Language === 'zh-CN' ? currentCities[j].name : currentCities[j].nameEn;
+                                    states.weatheraddress = userStore.$state.weathername;
+                                    userStore.$state.weathervalue = currentCities[j].value;
                                 }
+
                             }
-                        }else {
-                            states.weatheraddress =  userStore.$state.weathername;
-                            userStore.$state.weathervalue = res.data.city
                         }
+                        // }else {
+                        //     states.weatheraddress =  userStore.$state.weathername;
+                        //     userStore.$state.weathervalue = res.data.city
+                        // }
                         // 如果国外的环境，不用找了，默认两个值相同
                         // if(JeeWeb.Language !== 'zh-CN'){
                         //     states.weatheraddress = res.data.city;
@@ -626,8 +627,8 @@ export default defineComponent({
                         });
                     });
 
-                // 订阅在线状态
-                // onDevicesOnlineChanged()
+            // 订阅在线状态
+            // onDevicesOnlineChanged()
         });
 
 
@@ -657,7 +658,7 @@ export default defineComponent({
                     return (states.curTemperatureClass = 'temperature');
                 } else if (newValue < 20) {
                     return (states.curTemperatureClass = 'temperature');
-                } else if (newValue >= 20 && newValue < 80 ) {
+                } else if (newValue >= 20 && newValue < 80) {
                     return (states.curTemperatureClass = 'temperature-0');
                 } else if (newValue >= 80) {
                     return (states.curTemperatureClass = 'temperature-99');

@@ -3,7 +3,7 @@
         <van-cell-group inset>
             <van-cell center :title="language.enableSwitch" inset>
                 <template #right-icon>
-                    <van-switch v-model="settings.isSwipe" />
+                    <van-switch v-model="settings.isSwipe"  @change="handleSwitchisSwipe"  />
                 </template>
             </van-cell>
         </van-cell-group>
@@ -12,12 +12,12 @@
             <van-cell :title="language.deviceInfo" center> </van-cell>
             <van-cell :title="language.screensaver" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeGIF" />
+                    <van-switch v-model="settings.HomeGIF"  @change="handleSwitchisSwipe"      />
                 </template>
             </van-cell>
             <van-cell :title="language.weather" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeWeather" :disabled="!settings.isSwipe" />
+                    <van-switch v-model="settings.HomeWeather" :disabled="!settings.isSwipe"  @change="handleSwitchisSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.ballGame" center>
@@ -25,22 +25,23 @@
                     <van-switch
                         v-model="settings.HomeFreeFallIcon"
                         :disabled="!settings.isSwipe"
+                         @change="handleSwitchHomeFreeFallIcon"
                     />
                 </template>
             </van-cell>
             <van-cell :title="language.slotGame" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.homeTigerGame" :disabled="!settings.isSwipe" />
+                    <van-switch v-model="settings.homeTigerGame" :disabled="!settings.isSwipe"   @change="handleSwitchisSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.shakeEffect" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeWaterShak" :disabled="!settings.isSwipe" />
+                    <van-switch v-model="settings.HomeWaterShak" :disabled="!settings.isSwipe"   @change="handleSwitchisSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.darkEmpire" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeCocos2" :disabled="!settings.isSwipe" />
+                    <van-switch v-model="settings.HomeCocos2" :disabled="!settings.isSwipe"    @change="handleSwitchisSwipe"  />
                 </template>
             </van-cell>
         </van-cell-group>
@@ -91,13 +92,13 @@ export default {
             .then((res) => {
                 if (res && res.data) {
                     // 更新settings中的状态： isSwipe
-                    this.settings.isSwipe = res.data.isSwipe || false;
-                    this.settings.HomeGIF = res.data.HomeGIF || false;
-                    this.settings.HomeWeather = res.data.HomeWeather || false;
-                    this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon || false;
-                    this.settings.homeTigerGame = res.data.homeTigerGame || false;
-                    this.settings.HomeWaterShak = res.data.HomeWaterShak || false;
-                    this.settings.HomeCocos2 = res.data.HomeCocos2 || false;
+                    this.settings.isSwipe = res.data.isSwipe || true;
+                    this.settings.HomeGIF = res.data.HomeGIF || true;
+                    this.settings.HomeWeather = res.data.HomeWeather || true;
+                    this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon || true;
+                    this.settings.homeTigerGame = res.data.homeTigerGame || true;
+                    this.settings.HomeWaterShak = res.data.HomeWaterShak || true;
+                    this.settings.HomeCocos2 = res.data.HomeCocos2 || true;
                 }
             })
             .catch((err) => {
@@ -117,38 +118,9 @@ export default {
                 '设置应用失败' :
                 'Failed to set app error'
             );
-        }
-    },
-    watch: {
-        'settings.isSwipe'(newVal) {
-            CupDevice.setDevMessage({
-                value: {
-                    method: 'setHomeAppsParams',
-                    params: {
-                        isSwipe: newVal,
-                        // 默认两项
-                        HomeInfo: true,
-                        HomeClock: true,
-                        // 可能废弃
-                        HomeGIF: true,
-                        HomeFreeFallIcon: newVal,
-                        HomeWeather: newVal,
-                        homeTigerGame: newVal,
-                        HomeCocos2: newVal,
-                        HomeWaterShak: newVal,
-                    },
-                },
-            })
-                .then((res) => {
-                    console.log(res, '单个');
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.setShowErrorToast();
-                });
         },
-        'settings.HomeGIF'(newVal) {
-            // alert(`硬件本次不支持，下版本支持: ${newVal}`);
+
+        handleSwitchisSwipe(){
             CupDevice.setDevMessage({
                 value: {
                     method: 'setHomeAppsParams',
@@ -158,147 +130,11 @@ export default {
                         HomeInfo: true,
                         HomeClock: true,
                         // 可能废弃
-                        HomeGIF: newVal,
+                        HomeGIF: true,
                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
                         HomeWeather: this.settings.HomeWeather,
                         homeTigerGame: this.settings.homeTigerGame,
                         HomeCocos2: this.settings.HomeCocos2,
-                        HomeWaterShak: this.settings.HomeWaterShak,
-                    },
-                },
-            })
-                .then((res) => {
-                    console.log(res, '单个');
-                })
-                .catch((err) => {
-                    this.setShowErrorToast();
-                });
-        },
-        'settings.HomeWeather'(newVal) {
-            CupDevice.setDevMessage({
-                value: {
-                    method: 'setHomeAppsParams',
-                    params: {
-                         isSwipe: this.settings.isSwipe,
-                        // 默认两项
-                        HomeInfo: true,
-                        HomeClock: true,
-                        // 可能废弃
-                        HomeGIF: this.settings.HomeGIF,
-                        HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
-                        HomeWeather: newVal,
-                        homeTigerGame: this.settings.homeTigerGame,
-                        HomeCocos2: this.settings.HomeCocos2,
-                        HomeWaterShak: this.settings.HomeWaterShak,
-                    },
-                },
-            })
-                .then((res) => {
-                    console.log(res, '单个');
-                })
-                .catch((err) => {
-
-                    this.setShowErrorToast();
-                });
-        },
-        'settings.HomeFreeFallIcon'(newVal) {
-            CupDevice.setDevMessage({
-                value: {
-                    method: 'setHomeAppsParams',
-                    params: {
-                         isSwipe: this.settings.isSwipe,
-                        // 默认两项
-                        HomeInfo: true,
-                        HomeClock: true,
-                        // 可能废弃
-                        HomeGIF: this.settings.HomeGIF,
-                        HomeFreeFallIcon: newVal,
-                        HomeWeather: this.settings.HomeWeather,
-                        homeTigerGame: this.settings.homeTigerGame,
-                        HomeCocos2: this.settings.HomeCocos2,
-                        HomeWaterShak: this.settings.HomeWaterShak,
-                    },
-                },
-            })
-                .then((res) => {
-                    console.log(res, '单个');
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
-        'settings.homeTigerGame'(newVal) {
-            // alert(`老虎机游戏: ${newVal}`);
-            CupDevice.setDevMessage({
-                value: {
-
-                    method: 'setHomeAppsParams',
-                    params: {
-                         isSwipe: this.settings.isSwipe,
-                        // 默认两项
-                        HomeInfo: true,
-                        HomeClock: true,
-                        // 可能废弃
-                        HomeGIF: this.settings.HomeGIF,
-                        HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
-                        HomeWeather: this.settings.HomeWeather,
-                        homeTigerGame: newVal,
-                        HomeCocos2: this.settings.HomeCocos2,
-                        HomeWaterShak: this.settings.HomeWaterShak,
-                    },
-                },
-            })
-                .then((res) => {
-                    console.log(res, '单个');
-                })
-                .catch((err) => {
-                    this.setShowErrorToast();
-                });
-        },
-        'settings.HomeWaterShak'(newVal) {
-            // alert(`摇晃水杯动效: ${newVal}`);
-            CupDevice.setDevMessage({
-                value: {
-                    method: 'setHomeAppsParams',
-                    params: {
-                         isSwipe: this.settings.isSwipe,
-                        // 默认两项
-                        HomeInfo: true,
-                        HomeClock: true,
-                        // 可能废弃
-                        HomeGIF: this.settings.HomeGIF,
-                        HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
-                        HomeWeather: this.settings.HomeWeather,
-                        homeTigerGame: this.settings.homeTigerGame,
-                        HomeCocos2: this.settings.HomeCocos2,
-                        HomeWaterShak: newVal,
-                    },
-                },
-            })
-                .then((res) => {
-                    console.log(res, '单个');
-                })
-                .catch((err) => {
-                    console.log(err);
-                       this.setShowErrorToast();
-                });
-        },
-        'settings.HomeCocos2'(newVal) {
-            // alert(`黑幕帝国动效: ${newVal}`);
-            CupDevice.setDevMessage({
-                value: {
-                    method: 'setHomeAppsParams',
-                    params: {
-                         isSwipe: this.settings.isSwipe,
-                        // 默认两项
-                        HomeInfo: true,
-                        HomeClock: true,
-                        // 可能废弃
-                        HomeGIF: this.settings.HomeGIF,
-                        HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
-                        HomeWeather: this.settings.HomeWeather,
-                        homeTigerGame: this.settings.homeTigerGame,
-                        HomeCocos2: newVal,
                         HomeWaterShak: this.settings.HomeWaterShak,
                     },
                 },
@@ -312,6 +148,208 @@ export default {
                 });
         },
     },
+
+    // watch: {
+    //     'settings.isSwipe'(newVal) {
+    //         if( this.settings.isSwipe ){
+    //             CupDevice.setDevMessage({
+    //                 value: {
+    //                     method: 'setHomeAppsParams',
+    //                     params: {
+    //                         isSwipe: newVal,
+    //                         // 默认两项
+    //                         HomeInfo: true,
+    //                         HomeClock: true,
+    //                         // 可能废弃
+    //                         HomeGIF: true,
+    //                         HomeFreeFallIcon: newVal,
+    //                         HomeWeather: newVal,
+    //                         homeTigerGame: newVal,
+    //                         HomeCocos2: newVal,
+    //                         HomeWaterShak: newVal,
+    //                     },
+    //                 },
+    //             })
+    //                 .then((res) => {
+    //                     console.log(res, '单个');
+    //                 })
+    //                 .catch((err) => {
+    //                     console.log(err);
+    //                     this.setShowErrorToast();
+    //                 });
+    //         }
+
+    //     },
+    //     'settings.HomeGIF'(newVal) {
+    //         if (this.settings.isSwipe) {
+    //             CupDevice.setDevMessage({
+    //                 value: {
+    //                     method: 'setHomeAppsParams',
+    //                     params: {
+    //                         isSwipe: this.settings.isSwipe,
+    //                         // 默认两项
+    //                         HomeInfo: true,
+    //                         HomeClock: true,
+    //                         // 可能废弃
+    //                         HomeGIF: newVal,
+    //                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
+    //                         HomeWeather: this.settings.HomeWeather,
+    //                         homeTigerGame: this.settings.homeTigerGame,
+    //                         HomeCocos2: this.settings.HomeCocos2,
+    //                         HomeWaterShak: this.settings.HomeWaterShak,
+    //                     },
+    //                 },
+    //             })
+    //                 .then((res) => {
+    //                     console.log(res, '单个');
+    //                 })
+    //                 .catch((err) => {
+    //                     this.setShowErrorToast();
+    //                 });
+    //         }
+
+    //     },
+    //     'settings.HomeWeather'(newVal) {
+    //         if (this.settings.isSwipe) {
+    //             CupDevice.setDevMessage({
+    //                 value: {
+    //                     method: 'setHomeAppsParams',
+    //                     params: {
+    //                         isSwipe: this.settings.isSwipe,
+    //                         // 默认两项
+    //                         HomeInfo: true,
+    //                         HomeClock: true,
+    //                         // 可能废弃
+    //                         HomeGIF: this.settings.HomeGIF,
+    //                         HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
+    //                         HomeWeather: newVal,
+    //                         homeTigerGame: this.settings.homeTigerGame,
+    //                         HomeCocos2: this.settings.HomeCocos2,
+    //                         HomeWaterShak: this.settings.HomeWaterShak,
+    //                     },
+    //                 },
+    //             })
+    //                 .then((res) => {
+    //                     console.log(res, '单个');
+    //                 })
+    //                 .catch((err) => {
+
+    //                     this.setShowErrorToast();
+    //                 });
+    //         }
+
+    //     },
+    //     'settings.HomeFreeFallIcon'(newVal) {
+    //         CupDevice.setDevMessage({
+    //             value: {
+    //                 method: 'setHomeAppsParams',
+    //                 params: {
+    //                      isSwipe: this.settings.isSwipe,
+    //                     // 默认两项
+    //                     HomeInfo: true,
+    //                     HomeClock: true,
+    //                     // 可能废弃
+    //                     HomeGIF: this.settings.HomeGIF,
+    //                     HomeFreeFallIcon: newVal,
+    //                     HomeWeather: this.settings.HomeWeather,
+    //                     homeTigerGame: this.settings.homeTigerGame,
+    //                     HomeCocos2: this.settings.HomeCocos2,
+    //                     HomeWaterShak: this.settings.HomeWaterShak,
+    //                 },
+    //             },
+    //         })
+    //             .then((res) => {
+    //                 console.log(res, '单个');
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //             });
+    //     },
+    //     'settings.homeTigerGame'(newVal) {
+    //         // alert(`老虎机游戏: ${newVal}`);
+    //         CupDevice.setDevMessage({
+    //             value: {
+
+    //                 method: 'setHomeAppsParams',
+    //                 params: {
+    //                      isSwipe: this.settings.isSwipe,
+    //                     // 默认两项
+    //                     HomeInfo: true,
+    //                     HomeClock: true,
+    //                     // 可能废弃
+    //                     HomeGIF: this.settings.HomeGIF,
+    //                     HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
+    //                     HomeWeather: this.settings.HomeWeather,
+    //                     homeTigerGame: newVal,
+    //                     HomeCocos2: this.settings.HomeCocos2,
+    //                     HomeWaterShak: this.settings.HomeWaterShak,
+    //                 },
+    //             },
+    //         })
+    //             .then((res) => {
+    //                 console.log(res, '单个');
+    //             })
+    //             .catch((err) => {
+    //                 this.setShowErrorToast();
+    //             });
+    //     },
+    //     'settings.HomeWaterShak'(newVal) {
+    //         // alert(`摇晃水杯动效: ${newVal}`);
+    //         CupDevice.setDevMessage({
+    //             value: {
+    //                 method: 'setHomeAppsParams',
+    //                 params: {
+    //                      isSwipe: this.settings.isSwipe,
+    //                     // 默认两项
+    //                     HomeInfo: true,
+    //                     HomeClock: true,
+    //                     // 可能废弃
+    //                     HomeGIF: this.settings.HomeGIF,
+    //                     HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
+    //                     HomeWeather: this.settings.HomeWeather,
+    //                     homeTigerGame: this.settings.homeTigerGame,
+    //                     HomeCocos2: this.settings.HomeCocos2,
+    //                     HomeWaterShak: newVal,
+    //                 },
+    //             },
+    //         })
+    //             .then((res) => {
+    //                 console.log(res, '单个');
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //                    this.setShowErrorToast();
+    //             });
+    //     },
+    //     'settings.HomeCocos2'(newVal) {
+    //         // alert(`黑幕帝国动效: ${newVal}`);
+    //         CupDevice.setDevMessage({
+    //             value: {
+    //                 method: 'setHomeAppsParams',
+    //                 params: {
+    //                      isSwipe: this.settings.isSwipe,
+    //                     // 默认两项
+    //                     HomeInfo: true,
+    //                     HomeClock: true,
+    //                     // 可能废弃
+    //                     HomeGIF: this.settings.HomeGIF,
+    //                     HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
+    //                     HomeWeather: this.settings.HomeWeather,
+    //                     homeTigerGame: this.settings.homeTigerGame,
+    //                     HomeCocos2: newVal,
+    //                     HomeWaterShak: this.settings.HomeWaterShak,
+    //                 },
+    //             },
+    //         })
+    //             .then((res) => {
+    //                 console.log(res, '单个');
+    //             })
+    //             .catch((err) => {
+    //                 console.log(err);
+    //                 this.setShowErrorToast();
+    //             });
+    //     },
+    // },
 };
 </script>
 

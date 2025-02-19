@@ -51,7 +51,7 @@
                     {{ language.brightness }}&nbsp; <span style="color: #969698">|</span><span>&nbsp;{{ states.brightness
                     }}%</span>
                 </div>
-                <div style="font-size: 12px; color: #969698; margin: 20px; margin-left: 15px" @click="restartCup">
+                <div style="font-size: 12px; color: #969698; margin: 20px; margin-left: 15px">
                     <van-slider bar-height="6px" active-color="#31ACF8" v-model="states.brightness"
                         @change="onBrightnessChange" step="10">
                     </van-slider>
@@ -120,7 +120,7 @@
                             <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
                         </div>
                     </div>
-                    <div style="font-size: 12px; color: #969698" @click="restartCup">
+                    <div style="font-size: 12px; color: #969698">
                         {{ language.appConfigDesc }}
                     </div>
                 </div>

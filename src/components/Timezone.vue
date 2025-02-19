@@ -52,12 +52,12 @@ export default {
             notFoundMessage: JeeWeb.Language === 'zh-CN' ? '未找到时区' : 'Timezone not found',
         });
         const selectedTimezone = ref({
-            name: store.$state.timezoneLabel || 'UTC+08:00',
+            name: store.$state.timezoneLabel || 'UTC+00:00',
             label: store.$state.timezoneLabel
                 ? `（${store.$state.timezoneLabel}）${store.$state.timezoneAddress}`
-                : '（UTC+08:00）北京',
+                : '(UTC+00:00) London',
             // value: '(UTC+08:00) Beijing',
-            value: store.$state.timezone || 'Asia/Shanghai',
+            value: store.$state.timezone || 'Europe/London',
         });
         const timezones = ref([
             {

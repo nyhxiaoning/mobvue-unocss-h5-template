@@ -73,7 +73,7 @@ export default {
                 deviceInfo: JeeWeb.Language === 'zh-CN' ? '设备信息' : 'Device Info',
                 screensaver: JeeWeb.Language === 'zh-CN' ? '屏保' : 'Screensaver',
                 weather: JeeWeb.Language === 'zh-CN' ? '天气' : 'Weather',
-                ballGame: JeeWeb.Language === 'zh-CN' ? '落球游戏' : 'Ball Game',
+                ballGame: JeeWeb.Language === 'zh-CN' ? '落球游戏' : 'Gravity',
                 slotGame: JeeWeb.Language === 'zh-CN' ? '老虎机游戏' : 'Slot Machine',
                 shakeEffect: JeeWeb.Language === 'zh-CN' ? '摇晃水杯动效' : 'Cup Shake Effect',
                 darkEmpire: JeeWeb.Language === 'zh-CN' ? '黑幕帝国动效' : 'Dark Empire Effect'

@@ -398,4 +398,9 @@ export default {
 :deep(.van-cell:active) {
     background-color: #f2f3f5;
 }
+
+:deep(.van-cell__value) {
+  overflow: visible !important;
+  white-space: nowrap;
+}
 </style>

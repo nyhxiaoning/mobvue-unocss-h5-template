@@ -129,7 +129,7 @@ const language = reactive({
 const continents = computed(() => [
     { key: 'Asia', name: '亚洲' },
     { key: 'Europe', name: '欧洲' },
-    { key: 'Namerica', name: '北美洲' },
+    { key: 'N.America', name: '北美洲' },
     { key: 'Oceania', name: '大洋洲' },
     // { key: 'africa', name: '非洲' },
     // { key: 'samerica', name: '南美洲' },

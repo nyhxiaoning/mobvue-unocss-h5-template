@@ -559,46 +559,28 @@ export default defineComponent({
                         // states.weatheraddress = res.data.city;
                         // 设置天气地址:线上国内仅仅支持中国
                         console.log(res.data.city, 'res.data.city0000')
-                        console.log(res.data.city, 'res.data.city0001')
-                        const word = res.data.city
-                        // 兼容实现一下大小写
-                        const firstLetter = word.charAt(0)
+                        // TODO:特殊处理一下 北京：beijing,这个默认值：Beijing
+                        if( res.data.city === 'beijing' ){
+                            // 减少第一次缓存值
+                            userStore.$state.weathername = JeeWeb.Language === 'zh-CN' ? '北京':'Beijing';
+                            states.weatheraddress = userStore.$state.weathername;
+                            userStore.$state.weathervalue = 'Beijing';
 
-                        const firstLetterCap = firstLetter.toUpperCase()
+                        }else {
+                            console.log(res.data.city, 'res.data.city')
+                            let itemsAllCity = Object.values(userStore.$state.allCitys);
+                            for (let i = 0; i < itemsAllCity.length; i++) {
+                                let currentCities = itemsAllCity[i][0].cities;
+                                for (let j = 0; j < currentCities.length; j++) {
+                                    if (currentCities[j].value === res.data.city ) {
+                                        userStore.$state.weathername = JeeWeb.Language === 'zh-CN' ? currentCities[j].name : currentCities[j].nameEn;
+                                        states.weatheraddress = userStore.$state.weathername;
+                                        userStore.$state.weathervalue = currentCities[j].value;
+                                    }
 
-                        const remainingLetters = word.slice(1)
-
-                        const capitalizedWord = firstLetterCap + remainingLetters
-
-                        console.log(capitalizedWord)
-                        console.log(capitalizedWord, 'capitalizedWord')
-                        // 如果是默认值地区是空的，那么接口查询，否则使用store地区和value
-                        // if(res.data.city){
-                        // 循环四个数组
-                        console.log(res.data.city, 'res.data.city')
-                        let itemsAllCity = Object.values(userStore.$state.allCitys);
-                        for (let i = 0; i < itemsAllCity.length; i++) {
-                            let currentCities = itemsAllCity[i][0].cities;
-                            for (let j = 0; j < currentCities.length; j++) {
-                                if (currentCities[j].value === res.data.city || currentCities[j].value === capitalizedWord) {
-                                    userStore.$state.weathername = JeeWeb.Language === 'zh-CN' ? currentCities[j].name : currentCities[j].nameEn;
-                                    states.weatheraddress = userStore.$state.weathername;
-                                    userStore.$state.weathervalue = currentCities[j].value;
                                 }
-
                             }
                         }
-                        // }else {
-                        //     states.weatheraddress =  userStore.$state.weathername;
-                        //     userStore.$state.weathervalue = res.data.city
-                        // }
-                        // 如果国外的环境，不用找了，默认两个值相同
-                        // if(JeeWeb.Language !== 'zh-CN'){
-                        //     states.weatheraddress = res.data.city;
-                        //     sessionStorage.setItem('weathervalue', res.data.city);
-                        //     sessionStorage.setItem('weatheroldvalue', res.data.city);
-                        // }
-                        // userStore.$state.weathervalue = res.data.city;
                         const item = timezones.value.find(item => item.value === res.data.timezone);
                         userStore.$state.timezoneValue = res.data.timezone;
                         userStore.$state.timezoneLabel = item ? item.name : '';

@@ -2,7 +2,7 @@
  * @Author: ningyongheng ningyongheng@jeejio.com
  * @Date: 2025-01-24 11:23:53
  * @LastEditors: ningyongheng ningyongheng@jeejio.com
- * @LastEditTime: 2025-02-18 16:14:10
+ * @LastEditTime: 2025-02-21 14:28:44
  * @FilePath: /cupsystem/src/store/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -23,7 +23,7 @@ import AustraliaData from './../utils/澳大利亚.json';
 const allRegions = {
     Asia: [chinaData],
     Europe: [GermanData, FrenchData, UsData],
-    Namerica: [UsaData, CanadaData],
+    'N.America': [UsaData, CanadaData],
     Oceania: [AustraliaData],
 };
 

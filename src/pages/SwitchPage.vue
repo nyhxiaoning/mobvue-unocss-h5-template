@@ -11,9 +11,9 @@
             <van-cell :title="language.clock" center> </van-cell>
             <van-cell :title="language.deviceInfo" center> </van-cell>
             <van-cell :title="language.screensaver" center>
-                <template #right-icon>
+                <!-- <template #right-icon>
                     <van-switch v-model="settings.HomeGIF"  @change="handleSwitchisSwipe"      />
-                </template>
+                </template> -->
             </van-cell>
             <van-cell :title="language.weather" center>
                 <template #right-icon>

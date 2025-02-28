@@ -142,8 +142,8 @@
             </div>
 
             <div @click="closeScreen" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
-                <div class="closescreen-cup"></div>
-                <div>{{ states.screenStatus ? language.closeScreen : language.openScreen }}</div>
+                <div  :class="[ states.screenStatus ? 'openscreen-cup':'closescreen-cup']"  ></div>
+                <div>{{ states.screenStatus ?  language.openScreen:language.closeScreen }}</div>
             </div>
             <div @click="goHome" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="go-home"></div>
@@ -983,6 +983,13 @@ export default defineComponent({
 
 .closescreen-cup {
     background: url('@/assets/closescreen.png') center / contain no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.openscreen-cup {
+    background: url('@/assets/openscreen.png') center / contain no-repeat;
     width: 16px;
     height: 16px;
     display: inline-block;

@@ -142,8 +142,8 @@
             </div>
 
             <div @click="closeScreen" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
-                <div  :class="[ states.screenStatus ? 'openscreen-cup':'closescreen-cup']"  ></div>
-                <div>{{ states.screenStatus ?  language.openScreen:language.closeScreen }}</div>
+                <div  :class="[ states.screenStatus ? 'closescreen-cup': 'openscreen-cup']"  ></div>
+                <div>{{ states.screenStatus ?  language.closeScreen: language.openScreen }}</div>
             </div>
             <div @click="goHome" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="go-home"></div>

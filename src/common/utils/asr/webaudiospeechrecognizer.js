@@ -1,0 +1,127 @@
+import SpeechRecognizer from "./speechrecognizer.js"
+import WebRecorder from "./webrecorder.js"
+
+export default class WebAudioSpeechRecognizer {
+  constructor(params) {
+    this.params = params
+    this.recorder = null
+    this.speechRecognizer = null
+    this.isCanSendData = false
+    this.audioData = []
+    this.timer = null
+  }
+
+  start() {
+    this.recorder = new WebRecorder()
+    this.recorder.OnReceivedData = (res) => {
+      this.audioData.push(...new Int8Array(res))
+      const engineModelType = this.params.engine_model_type.includes("8k") ? 640 : 1280
+      if (this.timer) {
+        return false
+      }
+      if (this.isCanSendData) {
+        let data = this.audioData.splice(0, engineModelType)
+        let audioData = new Int8Array(data)
+        this.speechRecognizer.write(audioData)
+        // 发送数据
+        this.timer = setInterval(() => {
+          if (this.isCanSendData) {
+            data = this.audioData.splice(0, engineModelType)
+            audioData = new Int8Array(data)
+            this.speechRecognizer.write(audioData)
+          }
+        }, 40)
+      }
+    }
+    // 录音失败时
+    this.recorder.OnError = (err) => {
+      this.stop()
+      new this.OnError(err)
+    }
+    this.recorder.start()
+    if (!this.speechRecognizer) {
+      this.speechRecognizer = new SpeechRecognizer(this.params)
+    }
+    // 开始识别
+    this.speechRecognizer.OnRecognitionStart = (res) => {
+      this.OnRecognitionStart(res)
+      this.isCanSendData = true
+    }
+    // 一句话开始
+    this.speechRecognizer.OnSentenceBegin = (res) => {
+      this.OnSentenceBegin(res)
+    }
+    // 识别变化时
+    this.speechRecognizer.OnRecognitionResultChange = (res) => {
+      this.OnRecognitionResultChange(res)
+    }
+    // 一句话结束
+    this.speechRecognizer.OnSentenceEnd = (res) => {
+      this.OnSentenceEnd(res)
+    }
+    // 识别结束
+    this.speechRecognizer.OnRecognitionComplete = (res) => {
+      this.OnRecognitionComplete(res)
+      this.isCanSendData = false
+    }
+    // 识别错误
+    this.speechRecognizer.OnError = (res) => {
+      new this.OnError(res)
+      this.recorder.stop()
+      this.isCanSendData = false
+      if (this.timer) {
+        clearInterval(this.timer)
+        this.timer = null
+      }
+    }
+    // 建立连接
+    this.speechRecognizer.start()
+  }
+
+  stop() {
+    if (this.recorder) {
+      this.recorder.stop()
+    }
+    if (this.speechRecognizer) {
+      this.speechRecognizer.stop()
+    }
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
+  }
+
+  getAnalyser() {
+    return this.recorder.getAnalyser()
+  }
+
+  // 开始识别的时候
+  OnRecognitionStart(res) {
+
+  }
+
+  // 一句话开始的时候
+  OnSentenceBegin(res) {
+
+  }
+
+  // 识别结果发生变化的时候
+  OnRecognitionResultChange() {
+
+  }
+
+  // 一句话结束的时候
+  OnSentenceEnd() {
+
+  }
+
+  // 识别结束的时候
+  OnRecognitionComplete() {
+
+  }
+
+  // 识别失败
+  OnError(err) {
+    console.error("WebAudioSpeechRecognizer OnError :>> ", err)
+  }
+}

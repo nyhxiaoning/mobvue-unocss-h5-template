@@ -1,12 +1,12 @@
 import type { AxiosInstance, AxiosRequestConfig } from "axios"
-import { useUserStore } from "@/pinia/stores/user"
-import { getToken } from "@@/utils/cache/cookies"
+// import { useUserStore } from "@/pinia/stores/user"
+// import { getToken } from "@@/utils/cache/cookies"
 import axios from "axios"
 import { get, merge } from "lodash-es"
 
 /** 退出登录并强制刷新页面（会重定向到登录页） */
 function logout() {
-  useUserStore().resetToken()
+  // useUserStore().resetToken()
   location.reload()
 }
 
@@ -36,8 +36,8 @@ function createInstance() {
         return Promise.reject(new Error("非本系统的接口"))
       }
       switch (code) {
-        case 0:
-          // 本系统采用 code === 0 来表示没有业务错误
+        case 200:
+          // 本系统采用 code === 200 来表示没有业务错误
           return apiData
         case 401:
           // 登录过期
@@ -83,6 +83,8 @@ function createInstance() {
           break
         case 504:
           error.message = "网关超时"
+          console.log(error.message, "error.message", "报错啦啦啦啦啦啦")
+
           break
         case 505:
           error.message = "HTTP 版本不受支持"
@@ -97,15 +99,15 @@ function createInstance() {
 /** 创建请求方法 */
 function createRequest(instance: AxiosInstance) {
   return <T>(config: AxiosRequestConfig): Promise<T> => {
-    const token = getToken()
+    // const token = getToken()
     // 默认配置
     const defaultConfig: AxiosRequestConfig = {
       // 接口地址
-      baseURL: import.meta.env.VITE_BASE_URL,
+      baseURL: import.meta.env.VITE_API_URL,
       // 请求头
       headers: {
         // 携带 Token
-        "Authorization": token ? `Bearer ${token}` : undefined,
+        // "Authorization": token ? `Bearer ${token}` : undefined,
         "Content-Type": "application/json"
       },
       // 请求体

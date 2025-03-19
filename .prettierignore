@@ -1,0 +1,8 @@
+dist
+logs
+node_modules
+scripts/*
+!scripts/.gitkeep
+src/inject/sdk.js
+.env
+*.log

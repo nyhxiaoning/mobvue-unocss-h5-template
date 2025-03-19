@@ -37,7 +37,13 @@ export default antfu(
       "no-debugger": "off",
       "symbol-description": "off",
       "antfu/if-newline": "off",
-      "unicorn/no-instanceof-builtins": "off"
+      "unicorn/no-instanceof-builtins": "off",
+      "unused-imports/no-unused-vars": "off",
+      "no-new": "off",
+      "vue/valid-template-root": "off",
+      "array-callback-return": "off",
+      "eslint-comments/no-unlimited-disable": "off",
+      "no-case-declarations": "off"
     }
   }
 )

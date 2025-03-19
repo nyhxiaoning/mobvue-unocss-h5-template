@@ -1,10 +1,13 @@
 /* eslint-disable perfectionist/sort-imports */
 
 // core
-import { pinia } from "@/pinia"
+import { createPinia } from "pinia"
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate"
 import { router } from "@/router"
 import { installPlugins } from "@/plugins"
 import App from "@/App.vue"
+// import Vue3Lottie from "vue3-lottie"
+
 // vant
 import "@vant/touch-emulator"
 // css
@@ -17,9 +20,11 @@ import "virtual:uno.css"
 const app = createApp(App)
 
 // 安装插件（全局组件、自定义指令等）
-installPlugins(app)
+installPlugins()
+const pinia = createPinia()
 
-// 安装 pinia 和 router
+pinia.use(piniaPluginPersistedstate)
+// 安装 pinia 和 router and lottie
 app.use(pinia).use(router)
 
 // router 准备就绪后挂载应用

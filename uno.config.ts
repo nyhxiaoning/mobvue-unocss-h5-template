@@ -1,9 +1,11 @@
 import presetRemToPx from "@unocss/preset-rem-to-px"
 import { defineConfig, presetAttributify, presetWind3 } from "unocss"
+import { presetAnimations } from "unocss-preset-animations"
 
 export default defineConfig({
   // 预设
   presets: [
+    presetAnimations(),
     // 属性化模式 & 无值的属性模式
     presetAttributify({
       prefix: "un-",

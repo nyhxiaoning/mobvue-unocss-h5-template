@@ -31,7 +31,10 @@ const stores = useUserStore()
 const router = useRouter()
 const isRecording = ref(false)
 const inputLength = computed(() => {
-  return inputText.value.length
+  if (states.asrText.length > 100) {
+    return
+  }
+  return states.asrText.length
 })
 
 interface stateType {
@@ -82,9 +85,9 @@ const showVoiceModal = ref(false)
 function switchTab(tab: string) {
   console.log(tab, "tab")
   if (tab === "text") {
-    stores.tab = 1
+    stores.tabNum = 1
   } else {
-    stores.tab = 2
+    stores.tabNum = 2
   }
   if (tab === activeTab.value) return
   activeTab.value = tab
@@ -135,12 +138,24 @@ function regenerateImage(params: any) {
 }
 
 async function generateImg(params: any) {
-  if (params?.type !== 1) {
-    stores.generatedPixImgFlag = false
-    states.lastStepFlag = true
+  // if (params?.regenerateFlag !== 1) {
+  //   stores.generatedPixImgFlag = false
+  //   states.lastStepFlag = true
+  // }
+
+  if (stores.tabNum === 1) {
+    stores.generatedPixImgFlag = true
+    states.lastStepFlag = false
+  } else if (stores.tabNum === 2) {
+    if (stores.tab2AiFlag) {
+      stores.generatedPixImgFlag = true
+      states.lastStepFlag = false
+    }
   }
 
-  if (activeTab.value === "text") {
+  if (activeTab.value === "text" || stores.tabNum === 1) {
+    // 如果此时是tab= 1文字
+    stores.currentText = states.asrText
     await fetch(generateImageUrl, {
       method: "POST",
       // 显式指定header请求头
@@ -149,9 +164,9 @@ async function generateImg(params: any) {
         "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
       },
       body: JSON.stringify({
-        prompt: params?.type === 1 ? "" : inputText.value,
+        prompt: states.asrText,
         token: tmToken,
-        imgUrl: params?.type === 1 ? params?.url : ""
+        imgUrl: ""
       })
     })
       .then((response) => {
@@ -174,8 +189,8 @@ async function generateImg(params: any) {
         if (data.code === 200) {
           states.aiOriFileUrl = encodeURI(JSON.parse(data.result).image_url)
           console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
-          stores.currentUploadImg = encodeURI(JSON.parse(data.result).image_url)
-          console.log(stores.currentUploadImg, "stores.currentUploadImg")
+          stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
+          console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
           if (params?.type !== 1) {
             stores.generatedPixImgFlag = false
             states.lastStepFlag = true
@@ -192,6 +207,7 @@ async function generateImg(params: any) {
   } else {
     if (!stores.tab2AiFlag) {
       // 传统的图片下发给服务端，生成bin图
+      console.log("传统png-转化成bin文件路径，参考之前实现")
     } else {
       // ai图生成图
       await fetch(generateImageUrl, {
@@ -227,8 +243,8 @@ async function generateImg(params: any) {
           if (data.code === 200) {
             states.aiOriFileUrl = encodeURI(JSON.parse(data.result).image_url)
             console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
-            stores.currentUploadImg = encodeURI(JSON.parse(data.result).image_url)
-            console.log(stores.currentUploadImg, "stores.currentUploadImg")
+            stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
+            console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
             if (params?.type !== 1) {
               stores.generatedPixImgFlag = false
               states.lastStepFlag = true
@@ -330,7 +346,7 @@ console.log(import.meta.env.MODE, "import.meta.env.MODE")
 
       <div class="relative">
         <textarea
-          v-model="inputText" class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none"
+          v-model="states.asrText" class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none"
           :maxlength="100" placeholder="点击输入文字"
         />
         <button

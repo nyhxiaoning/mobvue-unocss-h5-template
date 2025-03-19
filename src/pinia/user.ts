@@ -2,11 +2,15 @@ import { defineStore } from "pinia"
 
 export const useUserStore = defineStore("user", {
   state: () => ({
-    tab: 1, // 1: 文字生成 2: 图片生成
+    tabNum: 1, // 1: 文字生成 2: 图片生成
     tab2AiFlag: false,
     count: 0,
     message: "Hello, Pinia!",
+    currentText: "",
+    localImg: "",
     currentUploadImg: "",
+    aiGeneratedPixImg: "",
+    pixImgBin: "",
     generatedPixImgFlag: false
 
   }),

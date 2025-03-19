@@ -60,9 +60,7 @@ async function handleUpload(fileObj: any) {
   // 发起请求
   /** 登录并返回 Token */
   await uploadImg(formData).then((res: any) => {
-    console.log(res, "res")
     if (res.code === 200) {
-      console.log(res)
       userStore.currentUploadImg = res.result?.oriFileUrl
     }
     console.log(res, "------------")

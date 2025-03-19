@@ -14,7 +14,8 @@ const emit = defineEmits(["regenerateImage"])
 const tmToken: string = "677fb12b-646d-41b2-9149-9933de02b9d7"// 临时测试token
 
 const stores = useUserStore()
-console.log(useUserStore, "useUserStore")
+console.log(stores, "stores")
+console.log(stores.tabNum, "stores.tabNum")
 // const currentImage = stores.currentUploadImg;
 
 // 获取当前的token配置：
@@ -33,7 +34,10 @@ function regenerateImage() {
   // 重新生成图片
   console.log("重新生成图片")
   emit("regenerateImage", {
-    type: 1,
+    // 是否重新生成
+    regenerateFlag: 1,
+    // 当前tab，1为文字，2为图片
+    tabNum: stores.tabNum,
     url: stores.currentUploadImg
   })
 }

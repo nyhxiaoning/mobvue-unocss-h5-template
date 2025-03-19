@@ -219,11 +219,11 @@ async function generateImg(params: any) {
         console.log(error)
       })
 
-    staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+    staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
     stores.generatedPixImgFlag = false
     states.lastStepFlag = true
     stores.resultLastImgFlag = true
-
+    debugger
     router.push("/finished")
   } else {
     if (!stores.tab2AiFlag) {
@@ -287,6 +287,7 @@ async function generateImg(params: any) {
     // TODO:待修改吧
     token: tmToken || currentToken
   }
+  console.log(postData, "postData----------")
   await fetch(apiBinUrl, {
     method: "POST",
     // 显式指定header请求头

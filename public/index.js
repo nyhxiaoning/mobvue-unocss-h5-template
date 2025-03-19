@@ -1,1 +1,1 @@
-// const CupDevice = DeviceManager.createJeejioXie('cup');
+const CupDevice = DeviceManager.createJeejioXie("cup")

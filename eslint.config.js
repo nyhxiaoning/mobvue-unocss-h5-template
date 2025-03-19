@@ -43,7 +43,9 @@ export default antfu(
       "vue/valid-template-root": "off",
       "array-callback-return": "off",
       "eslint-comments/no-unlimited-disable": "off",
-      "no-case-declarations": "off"
+      "no-case-declarations": "off",
+      "no-undef": "off",
+      "no-unused-vars": "off"
     }
   }
 )

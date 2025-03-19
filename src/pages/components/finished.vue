@@ -40,9 +40,10 @@ async function regenerateImage() {
   stores.generatedPixImgFlag = true
   stores.resultLastImgFlag = false
   stores.generateBtnFlag = true
+  router.push("/")
   if (stores.tabNum === 1) {
     // 如果此时是tab= 1文字
-    router.push("/")
+
     await fetch(generateImageUrl, {
       method: "POST",
       // 显式指定header请求头
@@ -210,6 +211,16 @@ if (stores.tabNum === 2) {
 }
 
 function setStaticTalFile() {
+  // let staticArr = null as any
+  // if(stores.tabNum === 1){
+  //     staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+  // }else if(stores.tabNum === 2){
+  //   if(!stores.tab2AiFlag){
+  //     staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+  //   }else{
+  //     staticArr =  resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
+  //   }
+  // }
   CupDevice.setDevMessage({
     value: {
       method: "showRGBBitmap",

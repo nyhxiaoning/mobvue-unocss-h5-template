@@ -11,7 +11,9 @@ export const useUserStore = defineStore("user", {
     currentUploadImg: "",
     aiGeneratedPixImg: "",
     pixImgBin: "",
-    generatedPixImgFlag: false
+    generatedPixImgFlag: false,
+    // 最后一个页面标记
+    resultLastImgFlag: false
 
   }),
   getters: {

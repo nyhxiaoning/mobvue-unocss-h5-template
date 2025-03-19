@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from "vue-router"
-// import { registerNavigationGuard } from "@/router/guard"
 import { createRouter, createWebHashHistory, createWebHistory } from "vue-router"
 
 const VITE_PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH
@@ -30,12 +29,8 @@ export const systemRoutes: RouteRecordRaw[] = [
 /** 业务页面 */
 export const routes: RouteRecordRaw[] = [
   {
-    path: "/login",
-    component: () => import("@/pages/login/index.vue"),
-    name: "Login",
-    meta: {
-      title: "登录"
-    }
+    path: "/",
+    component: () => import("@/pages/login/index.vue")
   },
   {
     path: "/test",
@@ -56,24 +51,6 @@ export const routes: RouteRecordRaw[] = [
     path: "/upload",
     component: () => import("@/pages/components/upload.vue"),
     name: "upload"
-  },
-  {
-    path: "/",
-    component: () => import("@/pages/home/index.vue"),
-    name: "Home",
-    meta: {
-      title: "首页",
-      layout: {
-        navBar: {
-          showNavBar: false,
-          showLeftArrow: false
-        },
-        tabbar: {
-          showTabbar: true,
-          icon: "home-o"
-        }
-      }
-    }
   },
   {
     path: "/me",
@@ -217,3 +194,6 @@ export const router = createRouter({
   history: VITE_ROUTER_HISTORY === "hash" ? createWebHashHistory(VITE_PUBLIC_PATH) : createWebHistory(VITE_PUBLIC_PATH),
   routes: [...systemRoutes, ...routes]
 })
+
+// 注册路由导航守卫
+// registerNavigationGuard(router)

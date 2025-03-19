@@ -2,54 +2,235 @@
 
 <script lang="ts" setup>
 import againImg from "@/assets/againImg.png"
-
+import { resampleStaticUrlImage } from "@/common/utils/tools"
 // import OssService from "@/common/utils/oss"
 // import { artifactStsToken } from "@/http/userApi"
 import { useUserStore } from "@/pinia/user"
+import { showToast } from "vant"
 
-import { defineEmits } from "vue"
+import { defineEmits, ref, watch } from "vue"
+
+import { useRouter } from "vue-router"
 
 const emit = defineEmits(["regenerateImage"])
+declare const CupDevice: any
+declare const JeeWeb: any
 
+const router = useRouter()
 const tmToken: string = "677fb12b-646d-41b2-9149-9933de02b9d7"// 临时测试token
+const apiBinUrl = `${import.meta.env.VITE_API_URL}/im/cup/bin` // 替换为你的 API 地址
+const generateImageUrl = `${import.meta.env.VITE_API_URL}/llm/chat/generate/image` // 替换为你的 API 地址
+
+const currentImg = ref("")
 
 const stores = useUserStore()
-console.log(stores, "stores")
-console.log(stores.tabNum, "stores.tabNum")
-// const currentImage = stores.currentUploadImg;
 
-// 获取当前的token配置：
-// const stsTokenObj = {
-//   type: 7,
-//   token: tmToken
-// }
-
-// const stsTokenResult = await artifactStsToken(JSON.stringify(stsTokenObj))
-// console.log(stsTokenResult, "stsTokenResultstsTokenResult")
-
-// 创建 OssService 实例
-// const ossService = new OssService("your-region", "your-accessKeyId", "your-accessKeySecret", "your-bucket")
-
-function regenerateImage() {
+async function regenerateImage() {
   // 重新生成图片
   console.log("重新生成图片")
-  emit("regenerateImage", {
-    // 是否重新生成
-    regenerateFlag: 1,
-    // 当前tab，1为文字，2为图片
-    tabNum: stores.tabNum,
-    url: stores.currentUploadImg
+
+  const currentToken = ""
+  // JeeWeb.requestFileUploadToken(({ result }: { result: any }) => {
+  //   currentToken = result.token
+  // })
+  // result.token
+
+  let staticArr = null as any
+
+  if (stores.tabNum === 1) {
+    // 如果此时是tab= 1文字
+
+    await fetch(generateImageUrl, {
+      method: "POST",
+      // 显式指定header请求头
+      headers: {
+        "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
+        "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
+      },
+      body: JSON.stringify({
+        prompt: stores.currentText,
+        token: tmToken || currentToken,
+        imgUrl: ""
+      })
+    })
+      .then((response) => {
+        if (!response.ok) {
+          if (response.status === 504) {
+            // 处理 504 错误
+            stores.generatedPixImgFlag = false
+            stores.resultLastImgFlag = false
+            console.error("请求超时，状态码: 504")
+            throw new Error("请求超时，请稍后重试")
+          }
+          // 处理其他错误
+          throw new Error(`请求失败，状态码: ${response.status}`)
+        }
+        return response.json()
+      }
+      )
+      .then((data: any) => {
+        if (data.code === 200) {
+          stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
+          currentImg.value = stores.aiGeneratedPixImg
+          console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
+          // router.push("/finished")
+        }
+      })
+      .catch((error: any) => {
+        showToast("请求超时，请稍后重试")
+        stores.generatedPixImgFlag = false
+
+        stores.resultLastImgFlag = false
+        console.log(error)
+      })
+
+    staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+    stores.generatedPixImgFlag = false
+    stores.resultLastImgFlag = true
+
+    router.push("/finished")
+  } else {
+    if (!stores.tab2AiFlag) {
+      // 传统的图片下发给服务端，生成bin图
+      console.log("传统png-转化成bin文件路径，参考之前实现")
+      staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
+    } else {
+      // ai图生成图
+      fetch(generateImageUrl, {
+        method: "POST",
+        // 显式指定header请求头
+        headers: {
+          "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
+          "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
+        },
+        body: JSON.stringify({
+          prompt: "",
+          token: tmToken || currentToken,
+          imgUrl: stores.currentUploadImg
+        })
+      })
+        .then((response) => {
+          if (!response.ok) {
+            if (response.status === 504) {
+              // 处理 504 错误
+              stores.generatedPixImgFlag = false
+              stores.resultLastImgFlag = false
+              console.error("请求超时，状态码: 504")
+              throw new Error("请求超时，请稍后重试")
+            }
+            // 处理其他错误
+            throw new Error(`请求失败，状态码: ${response.status}`)
+          }
+          return response.json()
+        }
+        )
+        .then((data: any) => {
+          if (data.code === 200) {
+            stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
+            console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
+            currentImg.value = stores.aiGeneratedPixImg
+
+            router.push("/finished")
+          }
+        })
+        .catch((error: any) => {
+          stores.generatedPixImgFlag = false
+          stores.resultLastImgFlag = true
+          console.log(error)
+        })
+
+      staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+    }
+  }
+
+  const postData = {
+    data: staticArr.rgb565Array as any,
+    // TODO:待修改吧
+    token: tmToken || currentToken
+  }
+  await fetch(apiBinUrl, {
+    method: "POST",
+    // 显式指定header请求头
+    headers: {
+      "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
+      "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
+    },
+    body: JSON.stringify(postData)
   })
+    .then(response => response.json())
+    .then((data: any) => {
+      console.log(data, JSON.stringify(data))
+      if (data.code === 200) {
+        stores.pixImgBin = data.result?.binFileUrl
+        // 1024 静态图，默认都是，除非后面拓展
+        stores.generatedPixImgFlag = false
+        stores.resultLastImgFlag = true
+      }
+    })
+    .catch((error: any) => {
+      console.log(error)
+    })
 }
 
 function saveToGallery() {
   // 保存到图库
   console.log("保存到图库")
+  // 等待接入oss
 }
 
 function sendToWater() {
+  setStaticTalFile()
   // 发送到水杯
-  console.log("发送到水杯")
+  console.log("发送到水杯---setStaticTalFile")
+}
+
+watch(() => stores.tabNum, (newVal) => {
+  debugger
+  if (newVal === 2) {
+    currentImg.value = stores.aiGeneratedPixImg
+    console.log("tabNum为2", "stores.aiGeneratedPixImg", stores.aiGeneratedPixImg)
+  } else if (newVal === 1) {
+    console.log("tabNum为1", "stores.currentUploadImg", stores.currentUploadImg)
+    currentImg.value = stores.currentUploadImg
+  }
+})
+
+console.log(currentImg.value, "currentImg.value")
+if (stores.tabNum === 2) {
+  if (stores.tab2AiFlag) {
+    currentImg.value = stores.aiGeneratedPixImg
+  } else {
+    currentImg.value = stores.currentUploadImg
+  }
+
+  console.log("tabNum为2--------", "stores.aiGeneratedPixImg", stores.aiGeneratedPixImg)
+} else if (stores.tabNum === 1) {
+  debugger
+  console.log("tabNum为1", "stores.currentUploadImg", stores.currentUploadImg)
+  currentImg.value = stores.aiGeneratedPixImg
+}
+
+function setStaticTalFile() {
+  CupDevice.setDevMessage({
+    value: {
+      method: "showRGBBitmap",
+      params: {
+        imageContent: {
+          url: stores.pixImgBin,
+          size: 1024,
+          type: "application/bin" //  type:image/gif
+        }
+      }
+    }
+  })
+    .then((res: any) => {
+      // message.success(getLocalizedText('静态图已推送至水杯', 'Static image has been sent to the cup'));
+      console.log(res, "单个")
+    })
+    .catch((err: any) => {
+      console.log(err)
+      // message.success(getLocalizedText('静态图推送失败', 'Static image push failed'));
+    })
 }
 </script>
 
@@ -58,7 +239,7 @@ function sendToWater() {
     <!-- 主要内容区 -->
     <main class="pt-4 px-4 pb-4 mt-4 bg-white">
       <div class="mt-4 h-[150px] rounded-lg overflow-hidden">
-        <img :src="stores.currentUploadImg" alt="AI generated pixel art" class="w-full h-full object-cover">
+        <img :src="currentImg" alt="AI generated pixel art" class="w-full h-full object-cover">
       </div>
 
       <!-- 重新生成按钮 -->
@@ -78,7 +259,10 @@ function sendToWater() {
       <button @click="saveToGallery" class="flex-1 py-3 rounded-full bg-white border-white border-none">
         收藏到"我的图库"
       </button>
-      <button @click="sendToWater" class="flex-1 py-3 bg-[#0088ff] rounded-full border-[#0088ff] border-none">
+      <button
+        @click="sendToWater"
+        class="flex-1 py-3 bg-[#0088ff] rounded-full border-[#0088ff] border-none text-white font-400"
+      >
         发送到水杯
       </button>
     </div>

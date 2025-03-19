@@ -6,12 +6,12 @@ import imgTab from "@/assets/img.png"
 import radioImg from "@/assets/radio.png"
 import wordTab from "@/assets/word.png"
 import recorder from "@/common/utils/asr/recorder"
+import { resampleStaticUrlImage } from "@/common/utils/tools"
 
 /**
  * Components
  */
 
-import Finished from "@/pages/components/finished.vue"
 import Loading from "@/pages/components/loading.vue"
 // import Voice from "@/pages/components/voice.vue"
 import Upload from "@/pages/components/upload.vue"
@@ -20,6 +20,7 @@ import Upload from "@/pages/components/upload.vue"
  */
 
 import { useUserStore } from "@/pinia/user"
+import { showToast } from "vant"
 /**
  * API
  *
@@ -53,6 +54,10 @@ interface stateType {
   lastStepFlag: boolean
 }
 
+declare const CupDevice: any
+declare const JeeWeb: any
+
+const apiBinUrl = `${import.meta.env.VITE_API_URL}/im/cup/bin` // 替换为你的 API 地址
 const asrTokenUrl = `${import.meta.env.VITE_API_URL}/llm/resource/tencent/speech/token` // 替换为你的 API 地址
 const generateImageUrl = `${import.meta.env.VITE_API_URL}/llm/chat/generate/image` // 替换为你的 API 地址
 const tmToken: string = "677fb12b-646d-41b2-9149-9933de02b9d7"// 临时测试token
@@ -138,20 +143,27 @@ function regenerateImage(params: any) {
 }
 
 async function generateImg(params: any) {
-  // if (params?.regenerateFlag !== 1) {
-  //   stores.generatedPixImgFlag = false
-  //   states.lastStepFlag = true
-  // }
-
+  let currentToken = ""
+  JeeWeb.requestFileUploadToken(({ result }: { result: any }) => {
+    currentToken = result.token
+  })
+  // result.token
   if (stores.tabNum === 1) {
     stores.generatedPixImgFlag = true
     states.lastStepFlag = false
+    stores.resultLastImgFlag = false
   } else if (stores.tabNum === 2) {
     if (stores.tab2AiFlag) {
       stores.generatedPixImgFlag = true
       states.lastStepFlag = false
+      stores.resultLastImgFlag = false
     }
   }
+
+  // 文字生成的图片：stores.aiGeneratedPixImg
+  // ai开启，图片生成的图片：stores.aiGeneratedPixImg
+  // 自定义上传生成的图片：stores.currentUploadImg
+  let staticArr = null as any
 
   if (activeTab.value === "text" || stores.tabNum === 1) {
     // 如果此时是tab= 1文字
@@ -165,7 +177,7 @@ async function generateImg(params: any) {
       },
       body: JSON.stringify({
         prompt: states.asrText,
-        token: tmToken,
+        token: tmToken || currentToken,
         imgUrl: ""
       })
     })
@@ -175,7 +187,7 @@ async function generateImg(params: any) {
             // 处理 504 错误
             stores.generatedPixImgFlag = false
             states.lastStepFlag = false
-
+            stores.resultLastImgFlag = false
             console.error("请求超时，状态码: 504")
             throw new Error("请求超时，请稍后重试")
           }
@@ -191,26 +203,32 @@ async function generateImg(params: any) {
           console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
           stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
           console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
-          if (params?.type !== 1) {
-            stores.generatedPixImgFlag = false
-            states.lastStepFlag = true
-          }
-
           // router.push("/finished")
         }
       })
       .catch((error: any) => {
+        showToast("请求超时，请稍后重试")
         stores.generatedPixImgFlag = false
         states.lastStepFlag = false
+
+        stores.resultLastImgFlag = false
         console.log(error)
       })
+
+    staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+    stores.generatedPixImgFlag = false
+    states.lastStepFlag = true
+    stores.resultLastImgFlag = true
+
+    router.push("/finished")
   } else {
     if (!stores.tab2AiFlag) {
       // 传统的图片下发给服务端，生成bin图
       console.log("传统png-转化成bin文件路径，参考之前实现")
+      staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
     } else {
       // ai图生成图
-      await fetch(generateImageUrl, {
+      fetch(generateImageUrl, {
         method: "POST",
         // 显式指定header请求头
         headers: {
@@ -219,17 +237,17 @@ async function generateImg(params: any) {
         },
         body: JSON.stringify({
           prompt: "",
-          token: tmToken,
+          token: tmToken || currentToken,
           imgUrl: stores.currentUploadImg
         })
       })
         .then((response) => {
           if (!response.ok) {
             if (response.status === 504) {
-            // 处理 504 错误
+              // 处理 504 错误
               stores.generatedPixImgFlag = false
               states.lastStepFlag = false
-
+              stores.resultLastImgFlag = false
               console.error("请求超时，状态码: 504")
               throw new Error("请求超时，请稍后重试")
             }
@@ -245,21 +263,84 @@ async function generateImg(params: any) {
             console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
             stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
             console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
-            if (params?.type !== 1) {
-              stores.generatedPixImgFlag = false
-              states.lastStepFlag = true
-            }
 
-          // router.push("/finished")
+            router.push("/finished")
           }
         })
         .catch((error: any) => {
           stores.generatedPixImgFlag = false
           states.lastStepFlag = false
+          stores.resultLastImgFlag = true
           console.log(error)
         })
+
+      staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
     }
   }
+
+  const postData = {
+    data: staticArr.rgb565Array as any,
+    // TODO:待修改吧
+    token: tmToken || currentToken
+  }
+  await fetch(apiBinUrl, {
+    method: "POST",
+    // 显式指定header请求头
+    headers: {
+      "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
+      "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
+    },
+    body: JSON.stringify(postData)
+  })
+    .then(response => response.json())
+    .then((data: any) => {
+      console.log(data, JSON.stringify(data))
+      if (data.code === 200) {
+        stores.pixImgBin = data.result?.binFileUrl
+        // 1024 静态图，默认都是，除非后面拓展
+        stores.generatedPixImgFlag = false
+        states.lastStepFlag = true
+        stores.resultLastImgFlag = true
+      }
+    })
+    .catch((error: any) => {
+      console.log(error)
+    })
+}
+
+function setStaticTalFile() {
+  CupDevice.setDevMessage({
+    value: {
+      method: "showRGBBitmap",
+      params: {
+        imageContent: {
+          url: stores.pixImgBin,
+          size: 1024,
+          type: "application/bin" //  type:image/gif
+        }
+      }
+    }
+  })
+    .then((res: any) => {
+      // message.success(getLocalizedText('静态图已推送至水杯', 'Static image has been sent to the cup'));
+      console.log(res, "单个")
+    })
+    .catch((err: any) => {
+      console.log(err)
+      // message.success(getLocalizedText('静态图推送失败', 'Static image push failed'));
+    })
+}
+
+function saveToGallery(params: any) {
+  // 保存到图库
+  console.log(params, "子组件触发")
+  console.log("保存到图库")
+}
+
+function sendToWater() {
+  // 发送到水杯
+  setStaticTalFile()
+  console.log("发送到水杯")
 }
 
 watch([activeTab, inputLength, fileList], ([newValue1, newValue2, newValue3], [oldValue1, oldValue2, oldValue3]) => {
@@ -320,7 +401,10 @@ console.log(import.meta.env.MODE, "import.meta.env.MODE")
 </script>
 
 <template>
-  <div v-if="!stores.generatedPixImgFlag && !states.lastStepFlag" class="container mx-auto   items-center flex flex-col h-screen bg-[#F5F4F7] p-4 bg-image">
+  <div
+    v-if="!stores.generatedPixImgFlag && !stores.resultLastImgFlag"
+    class="container mx-auto   items-center flex flex-col h-screen bg-[#F5F4F7] p-4 bg-image"
+  >
     <div class="flex space-x-4 mb-4 w-full">
       <!-- <button className="bg-white hover:bg-gray-100 border border-gray-300 text-gray-800 rounded-xl py-2 px-4 rounded button-with-triangle"> -->
       <div :class="activeTab === 'text' ? 'bubble' : 'bubble-img'" class="flex-1 py-3 px-8 rounded">
@@ -346,8 +430,9 @@ console.log(import.meta.env.MODE, "import.meta.env.MODE")
 
       <div class="relative">
         <textarea
-          v-model="states.asrText" class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none"
-          :maxlength="100" placeholder="点击输入文字"
+          v-model="states.asrText"
+          class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none" :maxlength="100"
+          placeholder="点击输入文字"
         />
         <button
           v-if="!isRecording"
@@ -393,11 +478,8 @@ console.log(import.meta.env.MODE, "import.meta.env.MODE")
     <!-- <Radio :show-voice-modal="showVoiceModal" :is-recording="isRecording" /> -->
     <!-- <Voice @toggle-recording="toggleRecording" @cancel-recording="cancelRecording" :show-voice-modal="showVoiceModal" :is-recording="isRecording" /> -->
   </div>
-  <div v-if="stores.generatedPixImgFlag && !states.lastStepFlag">
+  <div v-if="stores.generatedPixImgFlag && !stores.resultLastImgFlag">
     <Loading />
-  </div>
-  <div v-if="states.lastStepFlag && !stores.generatedPixImgFlag">
-    <Finished @regenerate-image="regenerateImage" />
   </div>
 </template>
 

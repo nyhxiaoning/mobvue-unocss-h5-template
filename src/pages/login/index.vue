@@ -7,19 +7,18 @@ import radioImg from "@/assets/radio.png"
 import wordTab from "@/assets/word.png"
 import recorder from "@/common/utils/asr/recorder"
 import { resampleStaticUrlImage } from "@/common/utils/tools"
-
+import Loading from "@/pages/components/loading.vue"
 /**
  * Components
  */
 
-import Loading from "@/pages/components/loading.vue"
 // import Voice from "@/pages/components/voice.vue"
 import Upload from "@/pages/components/upload.vue"
+import { useUserStore } from "@/pinia/user"
 /**
  * Hooks
  */
 
-import { useUserStore } from "@/pinia/user"
 import { showToast } from "vant"
 /**
  * API
@@ -27,6 +26,7 @@ import { showToast } from "vant"
  */
 import { computed, reactive, ref, watch } from "vue"
 import { useRouter } from "vue-router"
+import "./index.css"
 
 const stores = useUserStore()
 const router = useRouter()
@@ -509,83 +509,3 @@ function cancelRecording() {
     <Loading />
   </div>
 </template>
-
-<style scoped>
-.bg-image {
-  background-image: url("./../../assets/bg-image.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top center;
-}
-
-.bubble {
-  padding: 20px 20px;
-  border-radius: 20px;
-  position: relative;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  font-size: 15px;
-  background: #ffffff;
-  border: 1px solid #ffffff;
-  color: #725e47;
-  font-weight: 600;
-}
-
-.bubble:after,
-.bubble:before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-top-color: #ffffff;
-  left: 45%;
-  margin-left: 0px;
-  bottom: -20px;
-}
-
-.bubble:after {
-  border-top-color: #ffffff;
-  bottom: -20px;
-}
-
-.bubble-img {
-  padding: 20px 20px;
-  border-radius: 20px;
-  position: relative;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  font-size: 15px;
-  border: 1px solid #dfeffc;
-  color: #725e47;
-  background: #dfeffc;
-  font-weight: 600;
-}
-
-.audio-wave-animation {
-  animation: wave 1.2s infinite ease-in-out;
-  transform-origin: center;
-}
-
-@keyframes wave {
-  0% {
-    transform: scaleY(0.3);
-  }
-
-  50% {
-    transform: scaleY(1);
-  }
-
-  100% {
-    transform: scaleY(0.3);
-  }
-}
-
-button {
-  transition: all 0.2s ease;
-}
-
-button:active {
-  transform: scale(0.98);
-}
-</style>

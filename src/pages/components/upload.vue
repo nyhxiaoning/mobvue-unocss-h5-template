@@ -62,6 +62,7 @@ async function handleUpload(fileObj: any) {
   await uploadImg(formData).then((res: any) => {
     if (res.code === 200) {
       userStore.currentUploadImg = res.result?.oriFileUrl
+      userStore.enableBtnflag = true
     }
     console.log(res, "------------")
   }).catch((err) => {

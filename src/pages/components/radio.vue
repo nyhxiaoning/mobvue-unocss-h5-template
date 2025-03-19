@@ -11,15 +11,15 @@ const props = defineProps<{
   audioWave: number[]
   recordingTime: string
   showVoiceModal: boolean
-  confirmRecording: () => void
+  toggleRecording: () => void
 }>()
 
 /**
  * Emits
  */
 const emit = defineEmits<[
-  "cancelRecording",
-  "toggleRecording"
+  "toggleRecording",
+  "cancelRecording"
 ]>()
 
 /**
@@ -29,7 +29,10 @@ function cancelRecording() {
   emit("cancelRecording")
 }
 
-function toggleRecording() {
+const audioWave = ref(Array.from({ length: 20 }, () =>
+  Math.floor(Math.random() * 16 + 8)))
+
+function toggleRecordingFn() {
   emit("toggleRecording")
 }
 </script>
@@ -37,7 +40,7 @@ function toggleRecording() {
 <template>
   <div v-if="showVoiceModal" class="bg-white fixed bottom-80 left-0 right-0 p-4  border-t">
     <div class="relative flex items-center  rounded-lg px-4 py-2 mb-4">
-      <button class="bg-white border-none flex items-center justify-center" @click="toggleRecording">
+      <button class="bg-white border-none flex items-center justify-center">
         <van-icon v-if="isRecording" name="pause-circle-o" size="40" color="#3b82f6" />
       </button>
       <div class="flex-1 mx-2">
@@ -51,7 +54,6 @@ function toggleRecording() {
       </div>
       <button
         v-if="isRecording" class="bg-white border-none items-center justify-center"
-        @click="confirmRecording"
       >
         <van-icon name="passed" size="40" color="#3b82f6" />
       </button>

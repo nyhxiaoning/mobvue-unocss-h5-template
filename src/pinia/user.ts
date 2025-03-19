@@ -13,7 +13,9 @@ export const useUserStore = defineStore("user", {
     pixImgBin: "",
     generatedPixImgFlag: false,
     // 最后一个页面标记
-    resultLastImgFlag: false
+    resultLastImgFlag: false,
+    enableBtnflag: false,
+    generateBtnFlag: false
 
   }),
   getters: {
@@ -37,7 +39,7 @@ export const useUserStore = defineStore("user", {
   persist: [
     {
       key: "user-store",
-      storage: localStorage
+      storage: sessionStorage
     }
   ]
 })

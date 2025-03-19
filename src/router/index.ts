@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from "vue-router"
+import { registerNavigationGuard } from "@/router/guard"
 import { createRouter, createWebHashHistory, createWebHistory } from "vue-router"
 
 const VITE_PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH
@@ -30,7 +31,8 @@ export const systemRoutes: RouteRecordRaw[] = [
 export const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    component: () => import("@/pages/login/index.vue")
+    component: () => import("@/pages/login/index.vue"),
+    name: "index"
   },
   {
     path: "/test",
@@ -196,4 +198,4 @@ export const router = createRouter({
 })
 
 // 注册路由导航守卫
-// registerNavigationGuard(router)
+registerNavigationGuard(router)

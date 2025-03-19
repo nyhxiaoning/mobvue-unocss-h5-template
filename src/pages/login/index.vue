@@ -84,7 +84,8 @@ const states = reactive<stateType>({
 const inputText = ref("")
 const activeTab = ref("text")
 const fileList = ref([]) // 用于存储上传的图片
-
+const audioWave = ref(Array.from({ length: 20 }, () =>
+  Math.floor(Math.random() * 16 + 8)))
 const showVoiceModal = ref(false)
 
 function switchTab(tab: string) {
@@ -143,10 +144,10 @@ function regenerateImage(params: any) {
 }
 
 async function generateImg(params: any) {
-  let currentToken = ""
-  JeeWeb.requestFileUploadToken(({ result }: { result: any }) => {
-    currentToken = result.token
-  })
+  const currentToken = ""
+  // JeeWeb.requestFileUploadToken(({ result }: { result: any }) => {
+  //   currentToken = result.token
+  // })
   // result.token
   if (stores.tabNum === 1) {
     stores.generatedPixImgFlag = true
@@ -207,7 +208,10 @@ async function generateImg(params: any) {
         }
       })
       .catch((error: any) => {
-        showToast("请求超时，请稍后重试")
+        showToast({
+          message: "请求超时，请稍后重试",
+          position: "top"
+        })
         stores.generatedPixImgFlag = false
         states.lastStepFlag = false
 
@@ -348,17 +352,21 @@ watch([activeTab, inputLength, fileList], ([newValue1, newValue2, newValue3], [o
     if (inputLength.value === 0) {
       console.log("inputLength.value === 0")
       states.genetatedImgFlag = false
+      stores.enableBtnflag = false
     } else {
       console.log("inputLength.value !== 0")
       states.genetatedImgFlag = true
+      stores.enableBtnflag = true
     }
   } else if (activeTab.value === "image") {
     if (fileList.value.length === 0) {
       console.log("fileList.value.length === 0")
       states.genetatedImgFlag = false
+      stores.enableBtnflag = false
     } else {
       console.log("fileList.value.length !== 0")
       states.genetatedImgFlag = true
+      stores.enableBtnflag = true
     }
   }
 }, {
@@ -381,7 +389,16 @@ recorder.setAudioInputCallback((data: any) => {
       const text = states.asrText + voiceText
       inputText.value = text
       // setAsrText(text);
-      states.asrText = text
+      if (inputText.value.length > 100) {
+        showToast({
+          message: "输入内容已超过100个字符",
+          position: "top"
+        })
+        states.asrText = text
+      } else {
+        states.asrText = text
+      }
+
       break
     default:
       break
@@ -398,6 +415,14 @@ recorder.setAudioErrorCallback(() => { })
 console.log(import.meta.env.MODE, "import.meta.env.MODE")
 
 // 定义响应式数据
+
+function toggleRecording() {
+  console.log("toggleRecording-----")
+}
+
+function cancelRecording() {
+  console.log("cancelRecording-----")
+}
 </script>
 
 <template>
@@ -407,13 +432,13 @@ console.log(import.meta.env.MODE, "import.meta.env.MODE")
   >
     <div class="flex space-x-4 mb-4 w-full">
       <!-- <button className="bg-white hover:bg-gray-100 border border-gray-300 text-gray-800 rounded-xl py-2 px-4 rounded button-with-triangle"> -->
-      <div :class="activeTab === 'text' ? 'bubble' : 'bubble-img'" class="flex-1 py-3 px-8 rounded">
+      <div :class="stores.tabNum === 1 ? 'bubble' : 'bubble-img'" class="flex-1 py-3 px-8 rounded">
         <span class="inline-flex items-center" @click="switchTab('text')">
           <img :src="wordTab" alt="文字图标" class="w-4 h-4 mr-2">
           文字生图
         </span>
       </div>
-      <div :class="activeTab === 'image' ? 'bubble' : 'bubble-img'" class="flex-1  py-3 px-8 rounded">
+      <div :class="stores.tabNum === 2 ? 'bubble' : 'bubble-img'" class="flex-1  py-3 px-8 rounded">
         <span class="inline-flex items-center" @click="switchTab('image')">
           <img :src="imgTab" alt="图片图标" class="w-4 h-4 mr-2">
           图片生图
@@ -422,7 +447,7 @@ console.log(import.meta.env.MODE, "import.meta.env.MODE")
       <!-- </button> -->
     </div>
     <!-- 输入区域 -->
-    <div v-if="activeTab === 'text'" class="bg-white rounded-xl p-4  bg-white border border-gray-300 rounded p-4 w-full">
+    <div v-if="stores.tabNum === 1" class="bg-white rounded-xl p-4  bg-white border border-gray-300 rounded p-4 w-full">
       <div class="flex justify-between items-center mb-3">
         <span class="text-gray-900 text-sm">画面关键词</span>
         <span class="text-gray-400 text-sm">{{ inputLength }}/100</span>
@@ -442,32 +467,50 @@ console.log(import.meta.env.MODE, "import.meta.env.MODE")
           <img :src="radioImg" alt="">
           <!-- <i class="fa-solid fa-microphone text-xl" /> -->
         </button>
-        <div class="absolute blue-gray-400 mt-3  p-4 flex items-center gap-4 rounded-lg" v-if="isRecording">
+        <!-- <div class="absolute blue-gray-400 mt-3  p-4 flex items-center gap-4 rounded-lg" v-if="isRecording">
           <div class="flex-1">
             <p class="text-sm text-gray-500 mt-1">
               正在录音...
             </p>
           </div>
-          <button
-            class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white shadow-sm"
-            @click="stopAsr"
-          >
+          <button class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white shadow-sm"
+            >
             <img :src="radioImg" alt="">
           </button>
+        </div> -->
+        <div v-if="showVoiceModal" class="bg-white absolute bottom-0   border-t">
+          <div class="relative flex items-center  rounded-lg px-4 py-0 mb-0">
+            <button class="bg-white border-none flex items-center justify-center">
+              <van-icon v-if="isRecording" name="pause-circle-o" size="40" color="#3b82f6" />
+            </button>
+            <div class="flex-1 mx-2">
+              <div v-if="isRecording" class="h-6 flex items-center justify-center">
+                <div
+                  v-for="(bar, index) in audioWave" :key="index"
+                  :style="{ height: `${bar}px`, animationDelay: `${index * 0.05}s` }"
+                  class="w-1 mx-0.5 bg-blue-500 rounded-full audio-wave-animation"
+                />
+              </div>
+            </div>
+            <button @click="stopAsr" v-if="isRecording" class="bg-white border-none items-center justify-center">
+              <van-icon name="passed" size="40" color="#3b82f6" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
     <!-- 图片区域 -->
     <div
-      v-if="activeTab === 'image'" :class="activeTab === 'image' ? 'bg-white' : 'bg-[#DFEFFC]'"
+      v-if="stores.tabNum === 2" :class="stores.tabNum === 2 ? 'bg-white' : 'bg-[#DFEFFC]'"
       class="rounded-xl p-4 border border-gray-300 rounded p-4 w-full bg-[#DFEFFC]"
     >
-      <Upload v-model="fileList" :custom-size="{ width: 300, height: 150 }" />
+      <Upload :custom-size="{ width: 300, height: 150 }" />
     </div>
 
     <div class="text-center fixed bottom-10 ">
       <button
-        @click="generateImg" :class="states.genetatedImgFlag ? 'bg-[#0094FF]' : 'bg-[#D7D7D7]'"
+        :disabled="!stores.enableBtnflag" @click="generateImg"
+        :class="stores.enableBtnflag ? 'bg-[#0094FF]' : 'bg-[#D7D7D7]'"
         class=" border-none  rounded-full text-white  py-2 px-4 rounded w-80 h-[49px] font-size-[15px] "
       >
         生成像素图
@@ -475,7 +518,7 @@ console.log(import.meta.env.MODE, "import.meta.env.MODE")
     </div>
 
     <!-- 录音弹窗 -->
-    <!-- <Radio :show-voice-modal="showVoiceModal" :is-recording="isRecording" /> -->
+    <!-- <Radio :showVoiceModal="showVoiceModal" @toggleRecording="toggleRecording" :is-recording="isRecording" @cancel-recording="cancelRecording"  /> -->
     <!-- <Voice @toggle-recording="toggleRecording" @cancel-recording="cancelRecording" :show-voice-modal="showVoiceModal" :is-recording="isRecording" /> -->
   </div>
   <div v-if="stores.generatedPixImgFlag && !stores.resultLastImgFlag">
@@ -534,23 +577,24 @@ console.log(import.meta.env.MODE, "import.meta.env.MODE")
   font-weight: 600;
 }
 
-.bubble-img:after,
-.bubble-img:before {
-  /* content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-top-color: #ffffff;
-  left: 45%;
-  margin-left: 0px; */
-  /* bottom: -20px; */
+.audio-wave-animation {
+  animation: wave 1.2s infinite ease-in-out;
+  transform-origin: center;
 }
 
-/* .bubble-img:after {
-  border-top-color: #ffffff;
-  bottom: -20px;
-} */
+@keyframes wave {
+  0% {
+    transform: scaleY(0.3);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+
+  100% {
+    transform: scaleY(0.3);
+  }
+}
 
 button {
   transition: all 0.2s ease;

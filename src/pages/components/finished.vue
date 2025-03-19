@@ -8,11 +8,11 @@ import { resampleStaticUrlImage } from "@/common/utils/tools"
 import { useUserStore } from "@/pinia/user"
 import { showToast } from "vant"
 
-import { defineEmits, ref, watch } from "vue"
+import { ref, watch } from "vue"
 
 import { useRouter } from "vue-router"
 
-const emit = defineEmits(["regenerateImage"])
+// const emit = defineEmits(["regenerateImage"])
 declare const CupDevice: any
 declare const JeeWeb: any
 
@@ -37,9 +37,12 @@ async function regenerateImage() {
 
   let staticArr = null as any
 
+  stores.generatedPixImgFlag = true
+  stores.resultLastImgFlag = false
+  stores.generateBtnFlag = true
   if (stores.tabNum === 1) {
     // 如果此时是tab= 1文字
-
+    router.push("/")
     await fetch(generateImageUrl, {
       method: "POST",
       // 显式指定header请求头
@@ -73,7 +76,6 @@ async function regenerateImage() {
           stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
           currentImg.value = stores.aiGeneratedPixImg
           console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
-          // router.push("/finished")
         }
       })
       .catch((error: any) => {
@@ -84,9 +86,7 @@ async function regenerateImage() {
         console.log(error)
       })
 
-    staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
-    stores.generatedPixImgFlag = false
-    stores.resultLastImgFlag = true
+    // staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
 
     router.push("/finished")
   } else {
@@ -129,7 +129,6 @@ async function regenerateImage() {
             stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
             console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
             currentImg.value = stores.aiGeneratedPixImg
-
             router.push("/finished")
           }
         })
@@ -139,37 +138,37 @@ async function regenerateImage() {
           console.log(error)
         })
 
-      staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+      // staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
     }
   }
 
-  const postData = {
-    data: staticArr.rgb565Array as any,
-    // TODO:待修改吧
-    token: tmToken || currentToken
-  }
-  await fetch(apiBinUrl, {
-    method: "POST",
-    // 显式指定header请求头
-    headers: {
-      "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
-      "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
-    },
-    body: JSON.stringify(postData)
-  })
-    .then(response => response.json())
-    .then((data: any) => {
-      console.log(data, JSON.stringify(data))
-      if (data.code === 200) {
-        stores.pixImgBin = data.result?.binFileUrl
-        // 1024 静态图，默认都是，除非后面拓展
-        stores.generatedPixImgFlag = false
-        stores.resultLastImgFlag = true
-      }
-    })
-    .catch((error: any) => {
-      console.log(error)
-    })
+  // const postData = {
+  //   data: staticArr.rgb565Array as any,
+  //   // TODO:待修改吧
+  //   token: tmToken || currentToken
+  // }
+  // await fetch(apiBinUrl, {
+  //   method: "POST",
+  //   // 显式指定header请求头
+  //   headers: {
+  //     "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
+  //     "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
+  //   },
+  //   body: JSON.stringify(postData)
+  // })
+  //   .then(response => response.json())
+  //   .then((data: any) => {
+  //     console.log(data, JSON.stringify(data))
+  //     if (data.code === 200) {
+  //       stores.pixImgBin = data.result?.binFileUrl
+  //       // 1024 静态图，默认都是，除非后面拓展
+  //       stores.generatedPixImgFlag = false
+  //       stores.resultLastImgFlag = true
+  //     }
+  //   })
+  //   .catch((error: any) => {
+  //     console.log(error)
+  //   })
 }
 
 function saveToGallery() {

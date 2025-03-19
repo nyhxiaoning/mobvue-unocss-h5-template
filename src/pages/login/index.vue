@@ -465,21 +465,9 @@ function cancelRecording() {
           @click="startAsr"
         >
           <img :src="radioImg" alt="">
-          <!-- <i class="fa-solid fa-microphone text-xl" /> -->
         </button>
-        <!-- <div class="absolute blue-gray-400 mt-3  p-4 flex items-center gap-4 rounded-lg" v-if="isRecording">
-          <div class="flex-1">
-            <p class="text-sm text-gray-500 mt-1">
-              正在录音...
-            </p>
-          </div>
-          <button class="w-10 h-10 rounded-full bg-red-500 flex items-center justify-center text-white shadow-sm"
-            >
-            <img :src="radioImg" alt="">
-          </button>
-        </div> -->
         <div v-if="showVoiceModal" class="bg-white absolute bottom-0   border-t">
-          <div class="relative flex items-center  rounded-lg px-4 py-0 mb-0">
+          <div class="relative flex items-center  rounded-lg  py-0 mb-0">
             <button class="bg-white border-none flex items-center justify-center">
               <van-icon v-if="isRecording" name="pause-circle-o" size="40" color="#3b82f6" />
             </button>
@@ -516,10 +504,6 @@ function cancelRecording() {
         生成像素图
       </button>
     </div>
-
-    <!-- 录音弹窗 -->
-    <!-- <Radio :showVoiceModal="showVoiceModal" @toggleRecording="toggleRecording" :is-recording="isRecording" @cancel-recording="cancelRecording"  /> -->
-    <!-- <Voice @toggle-recording="toggleRecording" @cancel-recording="cancelRecording" :show-voice-modal="showVoiceModal" :is-recording="isRecording" /> -->
   </div>
   <div v-if="stores.generatedPixImgFlag && !stores.resultLastImgFlag">
     <Loading />
@@ -530,6 +514,7 @@ function cancelRecording() {
 .bg-image {
   background-image: url("./../../assets/bg-image.png");
   background-repeat: no-repeat;
+  background-size: cover;
   background-position: top center;
 }
 

@@ -143,12 +143,20 @@ function regenerateImage(params: any) {
   generateImg(params)
 }
 
+function requestFileUploadTokenPromise() {
+  return new Promise((resolve, reject) => {
+    JeeWeb && JeeWeb.requestFileUploadToken((result: any) => {
+      console.log(result, "result")
+      if (result && result.result.token) {
+        resolve(result.result.token)
+      } else {
+        reject(new Error("未获取到有效的上传令牌"))
+      }
+    })
+  })
+}
+
 async function generateImg(params: any) {
-  const currentToken = ""
-  // JeeWeb.requestFileUploadToken(({ result }: { result: any }) => {
-  //   currentToken = result.token
-  // })
-  // result.token
   if (stores.tabNum === 1) {
     stores.generatedPixImgFlag = true
     states.lastStepFlag = false
@@ -160,6 +168,10 @@ async function generateImg(params: any) {
       stores.resultLastImgFlag = false
     }
   }
+  let currentToken = ""
+  currentToken = await requestFileUploadTokenPromise() as string
+  console.log(currentToken, "currentToken-----generateImg")
+  // result.token
 
   // 文字生成的图片：stores.aiGeneratedPixImg
   // ai开启，图片生成的图片：stores.aiGeneratedPixImg

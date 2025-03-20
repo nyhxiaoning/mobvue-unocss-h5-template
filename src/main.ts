@@ -18,6 +18,14 @@ import "virtual:uno.css"
 import "vant/lib/index.css"
 import "./main.css"
 
+declare const JeeWeb: any
+
+if (JeeWeb && JeeWeb.Language === "zh-CN") {
+  document.title = "AI像素图"
+} else {
+  document.title = "AI pixel map"
+}
+
 // 创建应用实例
 const app = createApp(App)
 

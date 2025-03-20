@@ -13,6 +13,7 @@ import { useRouter } from "vue-router"
 
 // const emit = defineEmits(["regenerateImage"])
 declare const CupDevice: any
+declare const JeeWeb: any
 
 const router = useRouter()
 const tmToken: string = "677fb12b-646d-41b2-9149-9933de02b9d7"// 临时测试token
@@ -22,6 +23,10 @@ const generateImageUrl = `${import.meta.env.VITE_API_URL}/llm/chat/generate/imag
 const currentImg = ref("")
 
 const stores = useUserStore()
+
+function getLocalizedText(zhText: string, enText: string) {
+  return JeeWeb.Language === "zh-CN" ? zhText : enText
+}
 
 async function regenerateImage() {
   let currentToken = ""
@@ -103,8 +108,9 @@ async function regenerateImage() {
               // 处理 504 错误
               stores.generatedPixImgFlag = false
               stores.resultLastImgFlag = false
-              console.error("请求超时，状态码: 504")
-              throw new Error("请求超时，请稍后重试")
+              console.error(`${getLocalizedText("请求超时，状态码: ", "Request timeout, status code: ")}504`)
+              throw new Error(getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"))
+              throw new Error(getLocalizedText("请求失败，状态码: ", "Request failed, status code: ") + response.status)
             }
             // 处理其他错误
             throw new Error(`请求失败，状态码: ${response.status}`)
@@ -160,14 +166,14 @@ async function regenerateImage() {
 
 function saveToGallery() {
   // 保存到图库
-  console.log("保存到图库")
+  console.log(getLocalizedText("保存到图库", "Save to gallery"))
   // 等待接入oss
 }
 
 function sendToWater() {
   setStaticTalFile()
   // 发送到水杯
-  console.log("发送到水杯---setStaticTalFile")
+  console.log(getLocalizedText("发送到水杯---setStaticTalFile", "Send to cup---setStaticTalFile"))
 }
 
 watch(() => stores.tabNum, (newVal) => {
@@ -232,34 +238,35 @@ function setStaticTalFile() {
 
 <template>
   <div class="min-h-screen bg-gray-100 px-4">
-    <!-- 主要内容区 -->
     <main class="pt-4 px-4 pb-4 mt-4 bg-white">
       <div class="mt-4 h-[150px] rounded-lg overflow-hidden">
-        <img :src="currentImg" alt="AI generated pixel art" class="w-full h-full object-cover">
+        <img
+          :src="currentImg"
+          :alt="getLocalizedText('AI生成的像素图', 'AI generated pixel art')"
+          class="w-full h-full object-cover"
+        >
       </div>
 
-      <!-- 重新生成按钮 -->
       <div class="w-full mt-4 flex justify-center text-sm font-500">
         <button
           @click="regenerateImage"
-          class="w-full  flex items-center justify-center gap-2 px-6 py-2.5 bg-[#F3F3F3] border-none border-gray-200 rounded-full"
+          class="w-full flex items-center justify-center gap-2 px-6 py-2.5 bg-[#F3F3F3] border-none border-gray-200 rounded-full"
         >
-          <img :src="againImg" alt="">
-          <span class="text-[#636363]">重新生图</span>
+          <img :src="againImg" :alt="getLocalizedText('重新生成', 'Regenerate')">
+          <span class="text-[#636363]">{{ getLocalizedText('重新生图', 'Regenerate Image') }}</span>
         </button>
       </div>
     </main>
 
-    <!-- 底部操作栏 -->
-    <div class="fixed bottom-10 left-0 w-full px-4 py-3   flex gap-4 text-sm ">
+    <div class="fixed bottom-10 left-0 w-full px-4 py-3 flex gap-4 text-sm">
       <button @click="saveToGallery" class="flex-1 py-3 rounded-full bg-white border-white border-none">
-        收藏到"我的图库"
+        {{ getLocalizedText('收藏到"我的图库"', 'Save to "My Gallery"') }}
       </button>
       <button
         @click="sendToWater"
         class="flex-1 py-3 bg-[#0088ff] rounded-full border-[#0088ff] border-none text-white font-400"
       >
-        发送到水杯
+        {{ getLocalizedText('发送到水杯', 'Send to Cup') }}
       </button>
     </div>
   </div>

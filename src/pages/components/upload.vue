@@ -1,5 +1,6 @@
 <!-- 代码已包含 CSS：使用 TailwindCSS , 安装 TailwindCSS 后方可看到布局样式效果 -->
 <script lang="ts" setup>
+import { requestFileUploadTokenPromise } from "@/common/utils/tools"
 import { uploadImg } from "@/http/userApi.ts"
 import { useUserStore } from "@/pinia/user"
 import { showToast } from "vant"
@@ -19,8 +20,6 @@ const userStore = useUserStore()
 
 const checked = ref(false)
 const localFileList = ref(props.modelValue || []) as any // 维护本地 fileList
-
-// TODO: 替换为你的 token
 const tmToken: string = "677fb12b-646d-41b2-9149-9933de02b9d7"
 
 // 监听外部传入的 fileList 变化
@@ -55,8 +54,9 @@ async function handleUpload(fileObj: any) {
   const file = fileObj.file
   if (!file) return
   const formData = new FormData()
+  const currentToken = await requestFileUploadTokenPromise() as string
   formData.append("file", fileObj.file as any)
-  formData.append("token", tmToken) // 一个月的token：dev
+  formData.append("token", currentToken || tmToken)
   // 发起请求
   /** 登录并返回 Token */
   await uploadImg(formData).then((res: any) => {
@@ -64,7 +64,6 @@ async function handleUpload(fileObj: any) {
       userStore.currentUploadImg = res.result?.oriFileUrl
       userStore.enableBtnflag = true
     }
-    console.log(res, "------------")
   }).catch((err) => {
     console.log(err)
   })
@@ -76,8 +75,6 @@ async function handleUpload(fileObj: any) {
   }
   reader.readAsDataURL(file)
 }
-
-console.log(handleUpload)
 
 // 删除图片
 function removeImage() {
@@ -118,14 +115,7 @@ const isUploaderVisible = computed(() => localFileList.value.length === 0)
                 添加图片
               </van-button>
             </van-uploader>
-
-            <!-- </button> -->
-            <!-- <span class="text-sm text-gray-500 font-700">添加图片</span> -->
           </div>
-          <!-- <div class="flex items-center justify-center">
-            <img :src="fileList" alt="上传的图片" class="w-10 h-10 rounded-full" />
-          </div> -->
-
           <!-- 上传后显示的图片 -->
           <div v-if="localFileList.length > 0" class="image-preview relative">
             <!-- 关闭按钮 -->

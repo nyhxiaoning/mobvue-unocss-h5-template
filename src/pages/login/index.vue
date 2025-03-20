@@ -63,12 +63,6 @@ const asrTokenUrl = `${import.meta.env.VITE_API_URL}/llm/resource/tencent/speech
 const generateImageUrl = `${import.meta.env.VITE_API_URL}/llm/chat/generate/image` // 替换为你的 API 地址
 const tmToken: string = "677fb12b-646d-41b2-9149-9933de02b9d7"// 临时测试token
 
-// 临时文件token获取内容
-// JeeWeb.requestFileUploadToken(({ result }: { result: any }) => {
-//   console.log(result.token)
-//   states.fileToken = result.token
-// })
-
 const states = reactive<stateType>({
   activeTab: 1,
   recordingTime: 0,
@@ -283,10 +277,9 @@ async function generateImg(params: any) {
 
   const postData = {
     data: staticArr.rgb565Array as any,
-    // TODO:待修改吧
-    token: tmToken || currentToken
+    token: currentToken || tmToken
   }
-  console.log(postData, "postData----------")
+
   await fetch(apiBinUrl, {
     method: "POST",
     // 显式指定header请求头
@@ -313,41 +306,6 @@ async function generateImg(params: any) {
     })
 }
 
-function setStaticTalFile() {
-  CupDevice.setDevMessage({
-    value: {
-      method: "showRGBBitmap",
-      params: {
-        imageContent: {
-          url: stores.pixImgBin,
-          size: 1024,
-          type: "application/bin" //  type:image/gif
-        }
-      }
-    }
-  })
-    .then((res: any) => {
-      // message.success(getLocalizedText('静态图已推送至水杯', 'Static image has been sent to the cup'));
-      console.log(res, "单个")
-    })
-    .catch((err: any) => {
-      console.log(err)
-      // message.success(getLocalizedText('静态图推送失败', 'Static image push failed'));
-    })
-}
-
-function saveToGallery(params: any) {
-  // 保存到图库
-  console.log(params, "子组件触发")
-  console.log("保存到图库")
-}
-
-function sendToWater() {
-  // 发送到水杯
-  setStaticTalFile()
-  console.log("发送到水杯")
-}
-
 watch([activeTab, inputLength], ([newValue1, newValue2], [oldValue1, oldValue2]) => {
   if (activeTab.value === "text") {
     if (inputLength.value === 0) {
@@ -361,15 +319,6 @@ watch([activeTab, inputLength], ([newValue1, newValue2], [oldValue1, oldValue2])
     }
   } else if (activeTab.value === "image") {
     stores.enableBtnflag = true
-    // if (fileList.value.length === 0) {
-    //   console.log("fileList.value.length === 0")
-    //   states.genetatedImgFlag = false
-    //   stores.enableBtnflag = false
-    // } else {
-    //   console.log("fileList.value.length !== 0")
-    //   states.genetatedImgFlag = true
-
-    // }
   }
 }, {
   immediate: true

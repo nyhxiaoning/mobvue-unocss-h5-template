@@ -9,6 +9,8 @@
     "dev": "vite",
     "qa": "vite  --mode qa",
     "build:qa": "vite build --mode qa",
+    "build:us": "vite build --mode us",
+    "build:production": "vite build --mode production",
     "build:staging": "vue-tsc && vite build --mode staging",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",

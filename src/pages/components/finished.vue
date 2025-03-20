@@ -133,8 +133,7 @@ async function regenerateImage() {
 
   const postData = {
     data: staticArr.rgb565Array as any,
-    // TODO:待修改吧
-    token: tmToken || currentToken
+    token: currentToken || tmToken
   }
   await fetch(apiBinUrl, {
     method: "POST",

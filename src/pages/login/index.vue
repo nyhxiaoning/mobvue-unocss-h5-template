@@ -87,8 +87,15 @@ function switchTab(tab: string) {
   console.log(tab, "tab")
   if (tab === "text") {
     stores.tabNum = 1
+    // 图片清空
+    stores.enableBtnflag = false
+    stores.aiGeneratedPixImg = ""
   } else {
     stores.tabNum = 2
+    // 文字清空
+    stores.currentText = ""
+    states.asrText = ""
+    stores.enableBtnflag = false
   }
   if (tab === activeTab.value) return
   activeTab.value = tab
@@ -141,18 +148,22 @@ function regenerateImage(params: any) {
 async function generateImg(params: any) {
   if (stores.tabNum === 1) {
     stores.generatedPixImgFlag = true
-    states.lastStepFlag = false
     stores.resultLastImgFlag = false
   } else if (stores.tabNum === 2) {
     if (stores.tab2AiFlag) {
       stores.generatedPixImgFlag = true
-      states.lastStepFlag = false
       stores.resultLastImgFlag = false
     }
   }
   let currentToken = ""
-  currentToken = await requestFileUploadTokenPromise() as string
-  console.log(currentToken, "currentToken-----generateImg")
+  try {
+    currentToken = await requestFileUploadTokenPromise() as string
+    console.log(currentToken, "currentToken-----generateImg")
+  } catch (error) {
+    stores.generatedPixImgFlag = false
+    stores.resultLastImgFlag = false
+  }
+
   // result.token
 
   // 文字生成的图片：stores.aiGeneratedPixImg
@@ -172,7 +183,7 @@ async function generateImg(params: any) {
       },
       body: JSON.stringify({
         prompt: states.asrText,
-        token: tmToken || currentToken,
+        token: currentToken || tmToken,
         imgUrl: ""
       })
     })
@@ -181,9 +192,9 @@ async function generateImg(params: any) {
           if (response.status === 504) {
             // 处理 504 错误
             stores.generatedPixImgFlag = false
-            states.lastStepFlag = false
+
             stores.resultLastImgFlag = false
-            console.error("请求超时，状态码: 504")
+
             throw new Error(getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"))
           }
           // 处理其他错误
@@ -203,11 +214,10 @@ async function generateImg(params: any) {
       })
       .catch((error: any) => {
         showToast({
-          message: "请求超时，请稍后重试",
+          message: getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"),
           position: "top"
         })
         stores.generatedPixImgFlag = false
-        states.lastStepFlag = false
 
         stores.resultLastImgFlag = false
         console.log(error)
@@ -222,12 +232,23 @@ async function generateImg(params: any) {
     if (!stores.tab2AiFlag) {
       // 传统的图片下发给服务端，生成bin图
       console.log("传统png-转化成bin文件路径，参考之前实现")
-      staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
+
+      try {
+        staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
+      } catch (error) {
+        showToast({
+          message: "rbg565 tranfrom error",
+          position: "top"
+
+        })
+        stores.generatedPixImgFlag = false
+        stores.resultLastImgFlag = false
+      }
       stores.generatedPixImgFlag = false
       stores.resultLastImgFlag = true
     } else {
       // ai图生成图
-      fetch(generateImageUrl, {
+      await fetch(generateImageUrl, {
         method: "POST",
         // 显式指定header请求头
         headers: {
@@ -245,7 +266,6 @@ async function generateImg(params: any) {
             if (response.status === 504) {
               // 处理 504 错误
               stores.generatedPixImgFlag = false
-              states.lastStepFlag = false
               stores.resultLastImgFlag = false
               console.error("请求超时，状态码: 504")
               throw new Error("请求超时，请稍后重试")
@@ -266,12 +286,21 @@ async function generateImg(params: any) {
         })
         .catch((error: any) => {
           stores.generatedPixImgFlag = false
-          states.lastStepFlag = false
           stores.resultLastImgFlag = true
           console.log(error)
         })
 
-      staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+      try {
+        staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+      } catch (error) {
+        showToast({
+          message: "rbg565 tranfrom error",
+          position: "top"
+
+        })
+        stores.generatedPixImgFlag = false
+        stores.resultLastImgFlag = true
+      }
     }
   }
 
@@ -280,30 +309,37 @@ async function generateImg(params: any) {
     token: currentToken || tmToken
   }
 
-  await fetch(apiBinUrl, {
-    method: "POST",
-    // 显式指定header请求头
-    headers: {
-      "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
-      "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
-    },
-    body: JSON.stringify(postData)
-  })
-    .then(response => response.json())
-    .then((data: any) => {
-      console.log(data, JSON.stringify(data))
-      if (data.code === 200) {
-        stores.pixImgBin = data.result?.binFileUrl
-        // 1024 静态图，默认都是，除非后面拓展
-        stores.generatedPixImgFlag = false
-        states.lastStepFlag = true
-        stores.resultLastImgFlag = true
-        router.push("/finished")
-      }
+  try {
+    await fetch(apiBinUrl, {
+      method: "POST",
+      // 显式指定header请求头
+      headers: {
+        "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
+        "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
+      },
+      body: JSON.stringify(postData)
     })
-    .catch((error: any) => {
-      console.log(error)
+      .then(response => response.json())
+      .then((data: any) => {
+        console.log(data, JSON.stringify(data))
+        if (data.code === 200) {
+          stores.pixImgBin = data.result?.binFileUrl
+          // 1024 静态图，默认都是，除非后面拓展
+          stores.generatedPixImgFlag = false
+          stores.resultLastImgFlag = true
+          router.push("/finished")
+        }
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
+  } catch (error) {
+    console.log(error)
+    showToast({
+      message: "img图片报错",
+      position: "top"
     })
+  }
 }
 
 watch([activeTab, inputLength], ([newValue1, newValue2], [oldValue1, oldValue2]) => {
@@ -318,7 +354,11 @@ watch([activeTab, inputLength], ([newValue1, newValue2], [oldValue1, oldValue2])
       stores.enableBtnflag = true
     }
   } else if (activeTab.value === "image") {
-    stores.enableBtnflag = true
+    if (!stores.currentUploadImg) {
+      stores.enableBtnflag = false
+    } else {
+      stores.enableBtnflag = true
+    }
   }
 }, {
   immediate: true
@@ -411,8 +451,7 @@ function getLocalizedText(zhText: string, enText: string) {
       <div class="relative">
         <textarea
           v-model="states.asrText"
-          class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none"
-          :maxlength="100"
+          class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none" :maxlength="100"
           :placeholder="getLocalizedText('点击输入文字', 'Click to input text')"
         />
         <button
@@ -453,8 +492,7 @@ function getLocalizedText(zhText: string, enText: string) {
 
     <div class="text-center fixed bottom-10 ">
       <button
-        :disabled="!stores.enableBtnflag"
-        @click="generateImg"
+        :disabled="!stores.enableBtnflag" @click="generateImg"
         :class="stores.enableBtnflag ? 'bg-[#0094FF]' : 'bg-[#D7D7D7]'"
         class="border-none rounded-full text-white py-2 px-4 w-80 h-[49px] font-size-[15px]"
       >

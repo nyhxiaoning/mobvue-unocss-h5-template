@@ -31,12 +31,24 @@ function getLocalizedText(zhText: string, enText: string) {
 async function regenerateImage() {
   let currentToken = ""
   let staticArr = null as any
-  stores.generatedPixImgFlag = true
-  stores.resultLastImgFlag = false
-  stores.generateBtnFlag = true
-  currentToken = await requestFileUploadTokenPromise() as string
+
   console.log(currentToken, "currentToken")
-  router.push("/")
+  // 如果是重新生成非ai的图片，不用调到loading页面
+  if (!stores.tab2AiFlag && stores.tabNum === 2) {
+    // 可以什么都不做，直接调接口，当前页面生成图片
+    // stores.generatedPixImgFlag = true
+    // stores.resultLastImgFlag = false
+    // stores.regenerateBtnFlag = false
+  } else {
+    stores.regenerateBtnFlag = true
+    stores.generatedPixImgFlag = true
+    stores.resultLastImgFlag = false
+    debugger
+
+    router.push("/")
+  }
+
+  currentToken = await requestFileUploadTokenPromise() as string
   if (stores.tabNum === 1) {
     await fetch(generateImageUrl, {
       method: "POST",
@@ -85,7 +97,7 @@ async function regenerateImage() {
   } else {
     if (!stores.tab2AiFlag) {
       // 传统的图片下发给服务端，生成bin图
-      console.log("传统png-转化成bin文件路径，参考之前实现")
+      // 注意：非ai的重新生成，还是原图 currentUploadImg
       staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
     } else {
       // ai图生成图
@@ -98,7 +110,7 @@ async function regenerateImage() {
         },
         body: JSON.stringify({
           prompt: "",
-          token: tmToken || currentToken,
+          token: currentToken || tmToken,
           imgUrl: stores.currentUploadImg
         })
       })
@@ -110,7 +122,6 @@ async function regenerateImage() {
               stores.resultLastImgFlag = false
               console.error(`${getLocalizedText("请求超时，状态码: ", "Request timeout, status code: ")}504`)
               throw new Error(getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"))
-              throw new Error(getLocalizedText("请求失败，状态码: ", "Request failed, status code: ") + response.status)
             }
             // 处理其他错误
             throw new Error(`请求失败，状态码: ${response.status}`)
@@ -155,8 +166,6 @@ async function regenerateImage() {
       if (data.code === 200) {
         stores.pixImgBin = data.result?.binFileUrl
         // 1024 静态图，默认都是，除非后面拓展
-        stores.generatedPixImgFlag = false
-        stores.resultLastImgFlag = true
       }
     })
     .catch((error: any) => {
@@ -241,8 +250,7 @@ function setStaticTalFile() {
     <main class="pt-4 px-4 pb-4 mt-4 bg-white">
       <div class="mt-4 h-[150px] rounded-lg overflow-hidden">
         <img
-          :src="currentImg"
-          :alt="getLocalizedText('AI生成的像素图', 'AI generated pixel art')"
+          :src="currentImg" :alt="getLocalizedText('AI生成的像素图', 'AI generated pixel art')"
           class="w-full h-full object-cover"
         >
       </div>

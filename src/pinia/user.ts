@@ -15,7 +15,7 @@ export const useUserStore = defineStore("user", {
     // 最后一个页面标记
     resultLastImgFlag: false,
     enableBtnflag: false,
-    generateBtnFlag: false
+    regenerateBtnFlag: false
 
   }),
   getters: {

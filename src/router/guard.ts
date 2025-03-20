@@ -17,21 +17,25 @@ export function registerNavigationGuard(router: Router) {
     console.log(to.path, "to.path---beforeEach")
     console.log(from.path)
     // 如果已经登录，并准备进入 Login 页面，则重定向到主页
-    debugger
-    if (from.path === "/finished" && to.path === "/" && !userStore.generateBtnFlag) {
-      // next({ name: 'index' })
+
+    if (from.path === "/finished" && to.path === "/" && !userStore.regenerateBtnFlag) {
+      // 单纯返回
       userStore.generatedPixImgFlag = false
       userStore.resultLastImgFlag = false
-      userStore.generateBtnFlag = false
+      userStore.regenerateBtnFlag = false
+      userStore.currentUploadImg = ""
+      userStore.aiGeneratedPixImg = ""
     }
-    if (from.path === "/finished" && to.path === "/" && userStore.generateBtnFlag) {
+    if (from.path === "/finished" && to.path === "/" && userStore.regenerateBtnFlag) {
       // next({ name: 'index' })
+      // 再次生成的逻辑，再次生成的标记：regenerateBtnFlag，这里生成中页面
+      // 重新生成的逻辑，重新生成的标记：resultLastImgFlag，这里生成中页面
+      debugger
       userStore.generatedPixImgFlag = true
       userStore.resultLastImgFlag = false
-      userStore.generateBtnFlag = false
+      userStore.regenerateBtnFlag = false
     }
 
-    debugger
     next()
   })
   // 全局后置钩子

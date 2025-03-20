@@ -52,11 +52,9 @@ async function resampleStaticImage(imageFile: any, targetWidth: any, targetHeigh
 }
 
 async function resampleStaticUrlImage(imageFile: string, targetWidth: number, targetHeight: number) {
-  debugger
-  // const img = "http://localhost:3333/favicon.png";
   const response = await fetch(imageFile)
   if (!response.ok) {
-    throw new Error(`请求失败，状态码: ${response.status}`)
+    throw new Error(`url transform blob failed`)
   }
   // 将响应数据转换为 Blob 对象
   const blob = await response.blob()
@@ -73,7 +71,7 @@ async function resampleStaticUrlImage(imageFile: string, targetWidth: number, ta
       const ctx = canvas.getContext("2d")
 
       if (!ctx) {
-        reject(new Error("无法获取 canvas 2D 上下文"))
+        reject(new Error("Canvas 2D context cannot be obtained"))
         return
       }
 
@@ -103,7 +101,7 @@ async function resampleStaticUrlImage(imageFile: string, targetWidth: number, ta
       )
     }
     img.onerror = () => {
-      reject(new Error("图像加载失败，请检查 URL 是否正确或资源是否可访问"))
+      reject(new Error("rbg565 image format conversion failed"))
     }
 
     img.src = objectUrl
@@ -113,11 +111,10 @@ async function resampleStaticUrlImage(imageFile: string, targetWidth: number, ta
 function requestFileUploadTokenPromise() {
   return new Promise((resolve, reject) => {
     JeeWeb && JeeWeb.requestFileUploadToken((result: any) => {
-      console.log(result, "result")
       if (result && result.result.token) {
         resolve(result.result.token)
       } else {
-        reject(new Error("未获取到有效的上传令牌"))
+        reject(new Error("jeeweb token get failed"))
       }
     })
   })

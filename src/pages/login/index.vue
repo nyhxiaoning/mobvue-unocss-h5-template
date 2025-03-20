@@ -449,9 +449,9 @@ function cancelRecording() {
       <!-- </button> -->
     </div>
     <!-- 输入区域 -->
-    <div v-if="stores.tabNum === 1" class="bg-white rounded-xl p-4  bg-white border border-gray-300 rounded p-4 w-full">
+    <div v-if="stores.tabNum === 1" class="bg-white rounded-xl p-4  bg-white border border-gray-300 rounded p-4 w-full ">
       <div class="flex justify-between items-center mb-3">
-        <span class="text-gray-900 text-sm">画面关键词</span>
+        <span class="text-gray-900 text-sm font-700">画面关键词</span>
         <span class="text-gray-400 text-sm">{{ inputLength }}/100</span>
       </div>
 

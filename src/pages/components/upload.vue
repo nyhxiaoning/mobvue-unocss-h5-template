@@ -15,6 +15,9 @@ const props = defineProps({
   }
 })
 const emit = defineEmits(["update:modelValue"])
+
+declare const JeeWeb: any
+
 const userStore = useUserStore()
 // 用于 v-model 事件
 
@@ -41,9 +44,18 @@ watch(checked, (newVal) => {
 })
 
 // 上传前检查文件
+// 添加获取本地化文本的函数
+function getLocalizedText(zhText: string, enText: string) {
+  return JeeWeb.Language === "zh-CN" ? zhText : enText
+}
+
 function beforeRead(file: any) {
   if (file?.type.indexOf("image") === -1) {
-    showToast("请上传图片文件")
+    showToast(getLocalizedText("请上传图片文件", "Please upload an image file"))
+    return false
+  }
+  if (file.size > 1024 * 1024 * 2) {
+    showToast(getLocalizedText("上传图片过大", "Uploaded image is too large"))
     return false
   }
   return true
@@ -52,11 +64,14 @@ function beforeRead(file: any) {
 // 处理上传
 async function handleUpload(fileObj: any) {
   const file = fileObj.file
+  console.log(file, "file")
+
   if (!file) return
   const formData = new FormData()
   const currentToken = await requestFileUploadTokenPromise() as string
+  console.log(currentToken, "currentToken---handleUpload")
   formData.append("file", fileObj.file as any)
-  formData.append("token", currentToken || tmToken)
+  formData.append("token", currentToken)
   // 发起请求
   /** 登录并返回 Token */
   await uploadImg(formData).then((res: any) => {
@@ -66,6 +81,7 @@ async function handleUpload(fileObj: any) {
     }
   }).catch((err) => {
     console.log(err)
+    showToast(getLocalizedText("上传失败", "Upload failed"))
   })
 
   const reader = new FileReader()
@@ -79,6 +95,8 @@ async function handleUpload(fileObj: any) {
 // 删除图片
 function removeImage() {
   localFileList.value = []
+  userStore.currentUploadImg = ""
+  userStore.enableBtnflag = false
   emit("update:modelValue", []) // 同步更新父组件
 };
 
@@ -93,43 +111,36 @@ const isUploaderVisible = computed(() => localFileList.value.length === 0)
       <!-- 图片上传区域 -->
       <div class="mb-2 pt-0">
         <div class="flex items-center justify-between mb-3">
-          <span class="text-sm text-gray-600 font-700">图片</span>
+          <span class="text-sm text-gray-600 font-700">{{ getLocalizedText('图片', 'Image') }}</span>
           <div class="flex items-center">
-            <span class="text-[13px] text-gray-600 mr-2">AI 魔法效果</span>
+            <span class="text-[13px] text-gray-600 mr-2">{{ getLocalizedText('AI 魔法效果', 'AI Magic Effect') }}</span>
             <van-switch v-model="checked" size="13px" />
           </div>
         </div>
         <div
           :class="isUploaderVisible ? 'p-10' : ''"
-          class="border-2 border-dashed border-gray-100 rounded-lg   flex flex-col items-center justify-center bg-[#D9D9D90F]"
+          class="border-2 border-dashed border-gray-100 rounded-lg flex flex-col items-center justify-center bg-[#D9D9D90F]"
         >
           <div class="flex items-center">
             <van-uploader
               :before-read="beforeRead" v-model="localFileList" :max-count="1" :after-read="handleUpload"
               v-show="isUploaderVisible"
             >
-              <van-button
-                class="p-1  bg-[#D9D9D90F] mr-2 text-black border-none" icon="plus"
-                type="primary"
-              >
-                添加图片
+              <van-button class="p-1 bg-[#D9D9D90F] mr-2 text-black border-none" icon="plus" type="primary">
+                {{ getLocalizedText('添加图片', 'Add Image') }}
               </van-button>
             </van-uploader>
           </div>
-          <!-- 上传后显示的图片 -->
           <div v-if="localFileList.length > 0" class="image-preview relative">
-            <!-- 关闭按钮 -->
             <button
               @click="removeImage"
               class="absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-opacity-80 transition"
             >
               ✕
             </button>
-
-            <!-- 图片 -->
             <img
               :src="localFileList[0].url" class="rounded-md shadow-md" :style="{ width: '300px', height: '150px' }"
-              alt="Uploaded Image"
+              :alt="getLocalizedText('已上传图片', 'Uploaded Image')"
             >
           </div>
         </div>

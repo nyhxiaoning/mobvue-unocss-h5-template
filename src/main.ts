@@ -15,6 +15,8 @@ import "normalize.css"
 import "nprogress/nprogress.css"
 import "@@/assets/styles/index.css"
 import "virtual:uno.css"
+import "vant/lib/index.css"
+import "./main.css"
 
 // 创建应用实例
 const app = createApp(App)

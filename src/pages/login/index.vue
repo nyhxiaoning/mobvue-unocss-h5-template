@@ -184,7 +184,7 @@ async function generateImg(params: any) {
             states.lastStepFlag = false
             stores.resultLastImgFlag = false
             console.error("请求超时，状态码: 504")
-            throw new Error("请求超时，请稍后重试")
+            throw new Error(getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"))
           }
           // 处理其他错误
           throw new Error(`请求失败，状态码: ${response.status}`)
@@ -374,6 +374,10 @@ function toggleRecording() {
 function cancelRecording() {
   console.log("cancelRecording-----")
 }
+// 添加获取本地化文本的函数
+function getLocalizedText(zhText: string, enText: string) {
+  return JeeWeb.Language === "zh-CN" ? zhText : enText
+}
 </script>
 
 <template>
@@ -385,14 +389,14 @@ function cancelRecording() {
       <!-- <button className="bg-white hover:bg-gray-100 border border-gray-300 text-gray-800 rounded-xl py-2 px-4 rounded button-with-triangle"> -->
       <div :class="stores.tabNum === 1 ? 'bubble' : 'bubble-img'" class="flex-1 py-3 px-8 rounded">
         <span class="inline-flex items-center" @click="switchTab('text')">
-          <img :src="wordTab" alt="文字图标" class="w-4 h-4 mr-2">
-          文字生图
+          <img :src="wordTab" :alt="getLocalizedText('文字图标', 'Text Icon')" class="w-4 h-4 mr-2">
+          {{ getLocalizedText('文字生图', 'Text to Image') }}
         </span>
       </div>
       <div :class="stores.tabNum === 2 ? 'bubble' : 'bubble-img'" class="flex-1  py-3 px-8 rounded">
         <span class="inline-flex items-center" @click="switchTab('image')">
-          <img :src="imgTab" alt="图片图标" class="w-4 h-4 mr-2">
-          图片生图
+          <img :src="imgTab" :alt="getLocalizedText('图片图标', 'Image Icon')" class="w-4 h-4 mr-2">
+          {{ getLocalizedText('图片生图', 'Image to Image') }}
         </span>
       </div>
       <!-- </button> -->
@@ -400,15 +404,16 @@ function cancelRecording() {
     <!-- 输入区域 -->
     <div v-if="stores.tabNum === 1" class="bg-white rounded-xl p-4  bg-white border border-gray-300 rounded p-4 w-full ">
       <div class="flex justify-between items-center mb-3">
-        <span class="text-gray-900 text-sm font-700">画面关键词</span>
+        <span class="text-gray-900 text-sm font-700">{{ getLocalizedText('画面关键词', 'Scene Keywords') }}</span>
         <span class="text-gray-400 text-sm">{{ inputLength }}/100</span>
       </div>
 
       <div class="relative">
         <textarea
           v-model="states.asrText"
-          class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none" :maxlength="100"
-          placeholder="点击输入文字"
+          class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none"
+          :maxlength="100"
+          :placeholder="getLocalizedText('点击输入文字', 'Click to input text')"
         />
         <button
           v-if="!isRecording"
@@ -448,11 +453,12 @@ function cancelRecording() {
 
     <div class="text-center fixed bottom-10 ">
       <button
-        :disabled="!stores.enableBtnflag" @click="generateImg"
+        :disabled="!stores.enableBtnflag"
+        @click="generateImg"
         :class="stores.enableBtnflag ? 'bg-[#0094FF]' : 'bg-[#D7D7D7]'"
-        class=" border-none  rounded-full text-white  py-2 px-4 rounded w-80 h-[49px] font-size-[15px] "
+        class="border-none rounded-full text-white py-2 px-4 rounded w-80 h-[49px] font-size-[15px]"
       >
-        生成像素图
+        {{ getLocalizedText('生成像素图', 'Generate Pixel Image') }}
       </button>
     </div>
   </div>

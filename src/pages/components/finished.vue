@@ -13,7 +13,6 @@ import { useRouter } from "vue-router"
 
 // const emit = defineEmits(["regenerateImage"])
 declare const CupDevice: any
-declare const JeeWeb: any
 
 const router = useRouter()
 const tmToken: string = "677fb12b-646d-41b2-9149-9933de02b9d7"// 临时测试token

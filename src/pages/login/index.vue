@@ -456,7 +456,7 @@ function getLocalizedText(zhText: string, enText: string) {
         :disabled="!stores.enableBtnflag"
         @click="generateImg"
         :class="stores.enableBtnflag ? 'bg-[#0094FF]' : 'bg-[#D7D7D7]'"
-        class="border-none rounded-full text-white py-2 px-4 rounded w-80 h-[49px] font-size-[15px]"
+        class="border-none rounded-full text-white py-2 px-4 w-80 h-[49px] font-size-[15px]"
       >
         {{ getLocalizedText('生成像素图', 'Generate Pixel Image') }}
       </button>

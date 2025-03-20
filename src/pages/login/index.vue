@@ -220,16 +220,17 @@ async function generateImg(params: any) {
       })
 
     staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
-    stores.generatedPixImgFlag = false
-    states.lastStepFlag = true
-    stores.resultLastImgFlag = true
-    debugger
+    stores.generatedPixImgFlag = true
+
+    stores.resultLastImgFlag = false
     router.push("/finished")
   } else {
     if (!stores.tab2AiFlag) {
       // 传统的图片下发给服务端，生成bin图
       console.log("传统png-转化成bin文件路径，参考之前实现")
       staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
+      stores.generatedPixImgFlag = false
+      stores.resultLastImgFlag = true
     } else {
       // ai图生成图
       fetch(generateImageUrl, {
@@ -267,8 +268,6 @@ async function generateImg(params: any) {
             console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
             stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
             console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
-
-            router.push("/finished")
           }
         })
         .catch((error: any) => {
@@ -306,6 +305,7 @@ async function generateImg(params: any) {
         stores.generatedPixImgFlag = false
         states.lastStepFlag = true
         stores.resultLastImgFlag = true
+        router.push("/finished")
       }
     })
     .catch((error: any) => {
@@ -348,7 +348,7 @@ function sendToWater() {
   console.log("发送到水杯")
 }
 
-watch([activeTab, inputLength, fileList], ([newValue1, newValue2, newValue3], [oldValue1, oldValue2, oldValue3]) => {
+watch([activeTab, inputLength], ([newValue1, newValue2], [oldValue1, oldValue2]) => {
   if (activeTab.value === "text") {
     if (inputLength.value === 0) {
       console.log("inputLength.value === 0")
@@ -360,15 +360,16 @@ watch([activeTab, inputLength, fileList], ([newValue1, newValue2, newValue3], [o
       stores.enableBtnflag = true
     }
   } else if (activeTab.value === "image") {
-    if (fileList.value.length === 0) {
-      console.log("fileList.value.length === 0")
-      states.genetatedImgFlag = false
-      stores.enableBtnflag = false
-    } else {
-      console.log("fileList.value.length !== 0")
-      states.genetatedImgFlag = true
-      stores.enableBtnflag = true
-    }
+    stores.enableBtnflag = true
+    // if (fileList.value.length === 0) {
+    //   console.log("fileList.value.length === 0")
+    //   states.genetatedImgFlag = false
+    //   stores.enableBtnflag = false
+    // } else {
+    //   console.log("fileList.value.length !== 0")
+    //   states.genetatedImgFlag = true
+
+    // }
   }
 }, {
   immediate: true

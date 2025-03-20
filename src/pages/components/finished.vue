@@ -2,9 +2,8 @@
 
 <script lang="ts" setup>
 import againImg from "@/assets/againImg.png"
-import { resampleStaticUrlImage } from "@/common/utils/tools"
-// import OssService from "@/common/utils/oss"
-// import { artifactStsToken } from "@/http/userApi"
+import { requestFileUploadTokenPromise, resampleStaticUrlImage } from "@/common/utils/tools"
+
 import { useUserStore } from "@/pinia/user"
 import { showToast } from "vant"
 
@@ -26,24 +25,15 @@ const currentImg = ref("")
 const stores = useUserStore()
 
 async function regenerateImage() {
-  // 重新生成图片
-  console.log("重新生成图片")
-
-  const currentToken = ""
-  // JeeWeb.requestFileUploadToken(({ result }: { result: any }) => {
-  //   currentToken = result.token
-  // })
-  // result.token
-
+  let currentToken = ""
   let staticArr = null as any
-
   stores.generatedPixImgFlag = true
   stores.resultLastImgFlag = false
   stores.generateBtnFlag = true
+  currentToken = await requestFileUploadTokenPromise() as string
+  console.log(currentToken, "currentToken")
   router.push("/")
   if (stores.tabNum === 1) {
-    // 如果此时是tab= 1文字
-
     await fetch(generateImageUrl, {
       method: "POST",
       // 显式指定header请求头
@@ -66,7 +56,6 @@ async function regenerateImage() {
             console.error("请求超时，状态码: 504")
             throw new Error("请求超时，请稍后重试")
           }
-          // 处理其他错误
           throw new Error(`请求失败，状态码: ${response.status}`)
         }
         return response.json()
@@ -82,12 +71,11 @@ async function regenerateImage() {
       .catch((error: any) => {
         showToast("请求超时，请稍后重试")
         stores.generatedPixImgFlag = false
-
         stores.resultLastImgFlag = false
         console.log(error)
       })
 
-    // staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+    staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
 
     router.push("/finished")
   } else {
@@ -139,37 +127,37 @@ async function regenerateImage() {
           console.log(error)
         })
 
-      // staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+      staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
     }
   }
 
-  // const postData = {
-  //   data: staticArr.rgb565Array as any,
-  //   // TODO:待修改吧
-  //   token: tmToken || currentToken
-  // }
-  // await fetch(apiBinUrl, {
-  //   method: "POST",
-  //   // 显式指定header请求头
-  //   headers: {
-  //     "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
-  //     "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
-  //   },
-  //   body: JSON.stringify(postData)
-  // })
-  //   .then(response => response.json())
-  //   .then((data: any) => {
-  //     console.log(data, JSON.stringify(data))
-  //     if (data.code === 200) {
-  //       stores.pixImgBin = data.result?.binFileUrl
-  //       // 1024 静态图，默认都是，除非后面拓展
-  //       stores.generatedPixImgFlag = false
-  //       stores.resultLastImgFlag = true
-  //     }
-  //   })
-  //   .catch((error: any) => {
-  //     console.log(error)
-  //   })
+  const postData = {
+    data: staticArr.rgb565Array as any,
+    // TODO:待修改吧
+    token: tmToken || currentToken
+  }
+  await fetch(apiBinUrl, {
+    method: "POST",
+    // 显式指定header请求头
+    headers: {
+      "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
+      "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
+    },
+    body: JSON.stringify(postData)
+  })
+    .then(response => response.json())
+    .then((data: any) => {
+      console.log(data, JSON.stringify(data))
+      if (data.code === 200) {
+        stores.pixImgBin = data.result?.binFileUrl
+        // 1024 静态图，默认都是，除非后面拓展
+        stores.generatedPixImgFlag = false
+        stores.resultLastImgFlag = true
+      }
+    })
+    .catch((error: any) => {
+      console.log(error)
+    })
 }
 
 function saveToGallery() {

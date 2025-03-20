@@ -6,7 +6,8 @@ import imgTab from "@/assets/img.png"
 import radioImg from "@/assets/radio.png"
 import wordTab from "@/assets/word.png"
 import recorder from "@/common/utils/asr/recorder"
-import { resampleStaticUrlImage } from "@/common/utils/tools"
+import { requestFileUploadTokenPromise, resampleStaticUrlImage } from "@/common/utils/tools"
+
 import Loading from "@/pages/components/loading.vue"
 /**
  * Components
@@ -141,19 +142,6 @@ function stopAsr() {
 function regenerateImage(params: any) {
   console.log("重新生成图片", params)
   generateImg(params)
-}
-
-function requestFileUploadTokenPromise() {
-  return new Promise((resolve, reject) => {
-    JeeWeb && JeeWeb.requestFileUploadToken((result: any) => {
-      console.log(result, "result")
-      if (result && result.result.token) {
-        resolve(result.result.token)
-      } else {
-        reject(new Error("未获取到有效的上传令牌"))
-      }
-    })
-  })
 }
 
 async function generateImg(params: any) {

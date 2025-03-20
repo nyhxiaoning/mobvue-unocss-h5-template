@@ -1,3 +1,6 @@
+declare const CupDevice: any
+declare const JeeWeb: any
+
 async function resampleStaticImage(imageFile: any, targetWidth: any, targetHeight: any) {
   const response = await fetch(imageFile)
   if (!response.ok) {
@@ -107,7 +110,21 @@ async function resampleStaticUrlImage(imageFile: string, targetWidth: number, ta
   })
 }
 
+function requestFileUploadTokenPromise() {
+  return new Promise((resolve, reject) => {
+    JeeWeb && JeeWeb.requestFileUploadToken((result: any) => {
+      console.log(result, "result")
+      if (result && result.result.token) {
+        resolve(result.result.token)
+      } else {
+        reject(new Error("未获取到有效的上传令牌"))
+      }
+    })
+  })
+}
+
 export {
+  requestFileUploadTokenPromise,
   resampleStaticImage,
   resampleStaticUrlImage
 }

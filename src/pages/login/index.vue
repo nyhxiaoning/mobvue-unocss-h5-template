@@ -40,7 +40,7 @@ const inputLength = computed(() => {
 })
 
 interface stateType {
-  activeTab: 1 | 2
+  // activeTab: 1 | 2
   recordingTime: number
   recordingInterval: any
   genetatedImgFlag: boolean
@@ -56,7 +56,11 @@ interface stateType {
 }
 
 declare const CupDevice: any
-declare const JeeWeb: any
+// declare const JeeWeb: any
+// TODO:
+const JeeWeb = {
+  Language: "zh-CN"
+}
 
 const apiBinUrl = `${import.meta.env.VITE_API_URL}/im/cup/bin` // 替换为你的 API 地址
 const asrTokenUrl = `${import.meta.env.VITE_API_URL}/llm/resource/tencent/speech/token` // 替换为你的 API 地址
@@ -64,7 +68,7 @@ const generateImageUrl = `${import.meta.env.VITE_API_URL}/llm/chat/generate/imag
 const tmToken: string = "677fb12b-646d-41b2-9149-9933de02b9d7"// 临时测试token
 
 const states = reactive<stateType>({
-  activeTab: 1,
+  // activeTab: 1,
   recordingTime: 0,
   recordingInterval: null,
   genetatedImgFlag: false,
@@ -83,22 +87,24 @@ const audioWave = ref(Array.from({ length: 20 }, () =>
   Math.floor(Math.random() * 16 + 8)))
 const showVoiceModal = ref(false)
 
-function switchTab(tab: string) {
+function switchTab(tab: any) {
   console.log(tab, "tab")
-  if (tab === "text") {
+  // if (tab === states.activeTab) return
+  if (tab === 1) {
     stores.tabNum = 1
     // 图片清空
     stores.enableBtnflag = false
     stores.aiGeneratedPixImg = ""
+    stores.currentUploadImg = ""
+    activeTab.value = "text"
   } else {
     stores.tabNum = 2
+    stores.enableBtnflag = false
     // 文字清空
     stores.currentText = ""
     states.asrText = ""
-    stores.enableBtnflag = false
+    activeTab.value = "image"
   }
-  if (tab === activeTab.value) return
-  activeTab.value = tab
 }
 
 function getAsrToken(token: string) {
@@ -171,7 +177,7 @@ async function generateImg(params: any) {
   // 自定义上传生成的图片：stores.currentUploadImg
   let staticArr = null as any
 
-  if (activeTab.value === "text" || stores.tabNum === 1) {
+  if (stores.tabNum === 1) {
     // 如果此时是tab= 1文字
     stores.currentText = states.asrText
     await fetch(generateImageUrl, {
@@ -354,6 +360,7 @@ watch([activeTab, inputLength], ([newValue1, newValue2], [oldValue1, oldValue2])
       stores.enableBtnflag = true
     }
   } else if (activeTab.value === "image") {
+    console.log("activeTab.value === 'image----'", stores.currentUploadImg, activeTab.value)
     if (!stores.currentUploadImg) {
       stores.enableBtnflag = false
     } else {
@@ -428,13 +435,13 @@ function getLocalizedText(zhText: string, enText: string) {
     <div class="flex space-x-4 mb-4 w-full">
       <!-- <button className="bg-white hover:bg-gray-100 border border-gray-300 text-gray-800 rounded-xl py-2 px-4 rounded button-with-triangle"> -->
       <div :class="stores.tabNum === 1 ? 'bubble' : 'bubble-img'" class="flex-1 py-3 px-8 rounded">
-        <span class="inline-flex items-center" @click="switchTab('text')">
+        <span class="inline-flex items-center" @click="switchTab(1)">
           <img :src="wordTab" :alt="getLocalizedText('文字图标', 'Text Icon')" class="w-4 h-4 mr-2">
           {{ getLocalizedText('文字生图', 'Text to Image') }}
         </span>
       </div>
       <div :class="stores.tabNum === 2 ? 'bubble' : 'bubble-img'" class="flex-1  py-3 px-8 rounded">
-        <span class="inline-flex items-center" @click="switchTab('image')">
+        <span class="inline-flex items-center" @click="switchTab(2)">
           <img :src="imgTab" :alt="getLocalizedText('图片图标', 'Image Icon')" class="w-4 h-4 mr-2">
           {{ getLocalizedText('图片生图', 'Image to Image') }}
         </span>

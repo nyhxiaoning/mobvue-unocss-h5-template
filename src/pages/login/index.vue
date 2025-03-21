@@ -445,13 +445,15 @@ function getLocalizedText(zhText: string, enText: string) {
     <div v-if="stores.tabNum === 1" class="bg-white rounded-xl p-4  bg-white border border-gray-300 rounded p-4 w-full ">
       <div class="flex justify-between items-center mb-3">
         <span class="text-gray-900 text-sm font-700">{{ getLocalizedText('画面关键词', 'Scene Keywords') }}</span>
-        <span class="text-gray-400 text-sm">{{ inputLength }}/100</span>
+        <span class="text-gray-400 text-sm">
+          <span :class="inputLength === 0 ? 'text-gray-400' : 'text-black'">{{ inputLength }}</span>
+          /100</span>
       </div>
 
       <div class="relative">
         <textarea
           v-model="states.asrText"
-          class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none" :maxlength="100"
+          class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none border-none" :maxlength="100"
           :placeholder="getLocalizedText('点击输入文字', 'Click to input text')"
         />
         <button

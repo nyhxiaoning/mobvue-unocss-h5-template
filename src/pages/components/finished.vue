@@ -237,9 +237,11 @@ function setStaticTalFile() {
     .then((res: any) => {
       // message.success(getLocalizedText('静态图已推送至水杯', 'Static image has been sent to the cup'));
       console.log(res, "单个")
+      showToast(getLocalizedText("静态图已推送至水杯", "Static image has been sent to the cup"))
     })
     .catch((err: any) => {
       console.log(err)
+      showToast(getLocalizedText("静态图推送失败", "Static image push failed"))
       // message.success(getLocalizedText('静态图推送失败', 'Static image push failed'));
     })
 }

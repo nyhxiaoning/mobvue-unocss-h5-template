@@ -1,4 +1,5 @@
 :root {
   --van-toast-text-color: #000000;
+  --van-toast-background: #ffffff;
   /* 将 Toast 文本颜色改为黑色 */
 }

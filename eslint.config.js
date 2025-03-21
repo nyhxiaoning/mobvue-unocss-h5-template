@@ -27,6 +27,8 @@ export default antfu(
       "ts/no-use-before-define": "off",
       // node
       "node/prefer-global/process": "off",
+      "prefer-promise-reject-errors": "off",
+      "node/handle-callback-err": "off",
       // style
       "style/comma-dangle": ["error", "never"],
       "style/brace-style": ["error", "1tbs"],

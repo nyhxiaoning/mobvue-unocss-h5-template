@@ -3,7 +3,7 @@
 <script lang="ts" setup>
 import againImg from "@/assets/againImg.png"
 import { requestFileUploadTokenPromise, resampleStaticUrlImage } from "@/common/utils/tools"
-
+import { addArtifact } from "@/http/userApi.ts"
 import { useUserStore } from "@/pinia/user"
 import { showToast } from "vant"
 
@@ -173,10 +173,26 @@ async function regenerateImage() {
     })
 }
 
-function saveToGallery() {
+async function saveToGallery() {
   // 保存到图库
-  console.log(getLocalizedText("保存到图库", "Save to gallery"))
+  const currentToken = await requestFileUploadTokenPromise() as string
   // 等待接入oss
+
+  addArtifact({
+    cover: stores.addImgArtifactParam.fileUrl,
+    fileUrl: stores.addImgArtifactParam.fileUrl,
+    fileSize: stores.addImgArtifactParam.fileSize,
+    binFileUrl: stores.addImgArtifactParam.binFileUrl,
+    binSize: 1024,
+    type: 0,
+    token: currentToken || tmToken
+  }).then((res) => {
+    console.log(res, "res")
+    showToast(getLocalizedText("保存成功", "Save successfully"))
+  }).catch((err) => {
+    console.log(err, "err")
+    showToast(getLocalizedText("保存失败", "Save error"))
+  })
 }
 
 function sendToWater() {

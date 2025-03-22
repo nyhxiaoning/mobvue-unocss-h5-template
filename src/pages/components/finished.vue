@@ -2,7 +2,8 @@
 
 <script lang="ts" setup>
 import againImg from "@/assets/againImg.png"
-import { requestFileUploadTokenPromise, resampleStaticUrlImage } from "@/common/utils/tools"
+import { createOssClient, uploadFileToOss } from "@/common/utils/oss"
+import { convertImageToRGB565Blob, requestFileUploadTokenPromise, resampleStaticUrlImage, urlTranfromFile } from "@/common/utils/tools"
 import { addArtifact } from "@/http/userApi.ts"
 import { useUserStore } from "@/pinia/user"
 import { showToast } from "vant"
@@ -43,14 +44,13 @@ async function regenerateImage() {
     stores.regenerateBtnFlag = true
     stores.generatedPixImgFlag = true
     stores.resultLastImgFlag = false
-    debugger
-
     router.push("/")
   }
 
   currentToken = await requestFileUploadTokenPromise() as string
   if (stores.tabNum === 1) {
-    await fetch(generateImageUrl, {
+    const mock = false
+    mock && await fetch(generateImageUrl, {
       method: "POST",
       // 显式指定header请求头
       headers: {
@@ -69,8 +69,9 @@ async function regenerateImage() {
             // 处理 504 错误
             stores.generatedPixImgFlag = false
             stores.resultLastImgFlag = false
-            console.error("请求超时，状态码: 504")
-            throw new Error("请求超时，请稍后重试")
+            // console.error("请求超时，状态码: 504")
+            showToast(getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"))
+            // throw new Error("请求超时，请稍后重试")
           }
           throw new Error(`请求失败，状态码: ${response.status}`)
         }
@@ -96,7 +97,45 @@ async function regenerateImage() {
         console.log(error)
       })
 
-    staticArr = resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+    try {
+      /**
+       * 7 静态图oss上传流程：
+       * 转换图片
+       * 第一步：ossclient客户端
+       * 第二步：上传文件、bin到oss
+       * 第三步：存储oss数据到全局
+       */
+      // TODO: stores.aiGeneratedPixImg
+      staticArr = await resampleStaticUrlImage("https://devstorage.jeejio.com/jeejio-debug/cup/cup-static-img/1.png", 32, 16)
+      const files = await urlTranfromFile("https://devstorage.jeejio.com/jeejio-debug/cup/cup-static-img/1.png") as any
+
+      const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
+      const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
+      console.log(ossObj, "ossObj-----------------")
+
+      // 想办法，当前的url换成files对象：
+      const ossResult = await uploadFileToOss(ossObj, files, 7) as any
+      const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
+      const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
+      stores.pixImgBin = ossResultBin.fileUrl
+      stores.addImgArtifactParam = {
+        cover: ossResult.fileUrl,
+        fileUrl: ossResult.fileUrl,
+        fileSize: ossResult.fileSize,
+        binFileUrl: ossResultBin.fileUrl,
+        binSize: ossResultBin.fileSize,
+        type: 0
+      }
+    } catch (error) {
+      // stores.currentUploadImg = ossResult.fileUrl
+      router.push("/finished")
+      showToast({
+        message: "regenerate img tranfrom error4",
+        position: "top"
+      })
+
+      return
+    }
 
     router.push("/finished")
   } else {
@@ -106,7 +145,7 @@ async function regenerateImage() {
       staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
     } else {
       // ai图生成图
-      fetch(generateImageUrl, {
+      await fetch(generateImageUrl, {
         method: "POST",
         // 显式指定header请求头
         headers: {
@@ -148,34 +187,45 @@ async function regenerateImage() {
           console.log(error)
         })
 
-      staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+      try {
+        /**
+         * 7 静态图oss上传流程：
+         * 转换图片
+         * 第一步：ossclient客户端
+         * 第二步：上传文件、bin到oss
+         * 第三步：存储oss数据到全局
+         */
+        // TODO: stores.aiGeneratedPixImg
+        staticArr = await resampleStaticUrlImage("https://devstorage.jeejio.com/jeejio-debug/cup/cup-static-img/1.png", 32, 16)
+        const files = await urlTranfromFile("https://devstorage.jeejio.com/jeejio-debug/cup/cup-static-img/1.png") as any
+
+        const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
+        const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
+        console.log(ossObj, "ossObj-----------------")
+
+        // 想办法，当前的url换成files对象：
+        const ossResult = await uploadFileToOss(ossObj, files, 7) as any
+        const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
+        const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
+        stores.pixImgBin = ossResultBin.fileUrl
+        stores.addImgArtifactParam = {
+          cover: ossResult.fileUrl,
+          fileUrl: ossResult.fileUrl,
+          fileSize: ossResult.fileSize,
+          binFileUrl: ossResultBin.fileUrl,
+          binSize: ossResultBin.fileSize,
+          type: 0
+        }
+      } catch (error) {
+        // stores.currentUploadImg = ossResult.fileUrl
+        router.push("/finished")
+        showToast({
+          message: "regenerate img tranfrom error3",
+          position: "top"
+        })
+      }
     }
   }
-
-  const postData = {
-    data: staticArr.rgb565Array as any,
-    token: currentToken || tmToken
-  }
-  await fetch(apiBinUrl, {
-    method: "POST",
-    // 显式指定header请求头
-    headers: {
-      "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
-      "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
-    },
-    body: JSON.stringify(postData)
-  })
-    .then(response => response.json())
-    .then((data: any) => {
-      console.log(data, JSON.stringify(data))
-      if (data.code === 200) {
-        stores.pixImgBin = data.result?.binFileUrl
-        // 1024 静态图，默认都是，除非后面拓展
-      }
-    })
-    .catch((error: any) => {
-      console.log(error)
-    })
 }
 
 async function saveToGallery() {
@@ -207,7 +257,6 @@ function sendToWater() {
 }
 
 watch(() => stores.tabNum, (newVal) => {
-  debugger
   if (newVal === 2) {
     currentImg.value = stores.aiGeneratedPixImg
     console.log("tabNum为2", "stores.aiGeneratedPixImg", stores.aiGeneratedPixImg)

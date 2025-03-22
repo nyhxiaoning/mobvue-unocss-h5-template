@@ -265,7 +265,7 @@ async function generateImg(params: any) {
       console.log(ossObjBin, "ossObjBin-----------------")
       const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
       console.log(ossResultBin, "ossResultBin-----------------")
-
+      stores.pixImgBin = ossResultBin.fileUrl
       stores.addImgArtifactParam = {
         cover: ossResult.fileUrl,
         fileUrl: ossResult.fileUrl,
@@ -361,6 +361,13 @@ async function generateImg(params: any) {
         })
 
       try {
+        /**
+         * 7 静态图oss上传流程：
+         * 转换图片
+         * 第一步：ossclient客户端
+         * 第二步：上传文件、bin到oss
+         * 第三步：存储oss数据到全局
+         */
         staticArr = await resampleStaticUrlImage("https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png", 32, 16)
         console.log(staticArr, "staticArr---staticArrstaticArrstaticArrstaticArr")
         // file文件生成
@@ -369,36 +376,18 @@ async function generateImg(params: any) {
 
         const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
         console.log(rbg565blob, "rbg565-----------------")
-        /**
-         * 7 静态图oss上传流程：
-         * 第一步：ossclient客户端
-         * 第二步：上传文件到oss
-         * 第三步：
-         */
+
         const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
         debugger
         console.log(ossObj, "ossObj-----------------")
 
         // 想办法，当前的url换成files对象：
         const ossResult = await uploadFileToOss(ossObj, files, 7) as any
-        console.log(ossResult, "ossResult-----------------")
-        console.log(ossResult.fileUrl, "ossResult.url-----------------")
-        // const ossResultBlob = await uploadFileToOss(ossObj, rbg565blob, 9) as any
-        // console.log(ossResultBlob, "ossResultBlob-----------------")
-        // userStore.enableBtnflag = true
-        /**
-         * 9 bin的oss上传流程：
-         * 第一步：ossclient客户端
-         * 第二步：上传文件到oss
-         * 第三步：
-         */
         const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
-        debugger
-        console.log(ossObjBin, "ossObjBin-----------------")
         const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
-        console.log(ossResultBin, "ossResultBin-----------------")
-
+        stores.pixImgBin = ossResultBin.fileUrl
         stores.addImgArtifactParam = {
+
           cover: ossResult.fileUrl,
           fileUrl: ossResult.fileUrl,
           fileSize: ossResult.fileSize,
@@ -414,49 +403,8 @@ async function generateImg(params: any) {
           message: "rbg565 tranfrom error2",
           position: "top"
         })
-
-        return
       }
     }
-  }
-
-  const postData = {
-    data: staticArr?.rgb565Array as any,
-    token: currentToken || tmToken
-  }
-
-  console.log(postData, "postData-------")
-
-  try {
-    await fetch(apiBinUrl, {
-      method: "POST",
-      // 显式指定header请求头
-      headers: {
-        "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
-        "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
-      },
-      body: JSON.stringify(postData)
-    })
-      .then(response => response.json())
-      .then((data: any) => {
-        console.log(data, JSON.stringify(data))
-        if (data.code === 200) {
-          stores.pixImgBin = data.result?.binFileUrl
-          // 1024 静态图，默认都是，除非后面拓展
-          stores.generatedPixImgFlag = false
-          stores.resultLastImgFlag = true
-          router.push("/finished")
-        }
-      })
-      .catch((error: any) => {
-        console.log(error)
-      })
-  } catch (error) {
-    console.log(error)
-    showToast({
-      message: "img  generate error",
-      position: "top"
-    })
   }
 }
 

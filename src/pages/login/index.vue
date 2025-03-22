@@ -212,10 +212,19 @@ async function generateImg(params: any) {
       )
       .then((data: any) => {
         if (data.code === 200) {
-          states.aiOriFileUrl = encodeURI(JSON.parse(data.result).image_url)
-          console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
-          stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
-          console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
+          try {
+            states.aiOriFileUrl = encodeURI(JSON.parse(data.result).image_url)
+            console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
+            stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
+            console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
+          } catch (error) {
+            showToast({
+              message: getLocalizedText("服务器超时，请稍后重试4001", "Server timeout, please try again later"),
+              position: "top"
+            })
+            stores.generatedPixImgFlag = false
+            stores.resultLastImgFlag = false
+          }
         }
       })
       .catch((error: any) => {
@@ -229,42 +238,14 @@ async function generateImg(params: any) {
       })
 
     try {
-      staticArr = await resampleStaticUrlImage("https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png", 32, 16)
-      console.log(staticArr, "staticArr---staticArrstaticArrstaticArrstaticArr")
-      // file文件生成
-      const files = await urlTranfromFile("https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png") as any
-      console.log(files, "files-------urlTranfromFileurlTranfromFile----------")
-
+      staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+      const files = await urlTranfromFile(stores.aiGeneratedPixImg) as any
       const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
-      console.log(rbg565blob, "rbg565-----------------")
-      /**
-       * 7 静态图oss上传流程：
-       * 第一步：ossclient客户端
-       * 第二步：上传文件到oss
-       * 第三步：
-       */
       const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
-      debugger
-      console.log(ossObj, "ossObj-----------------")
-
-      // 想办法，当前的url换成files对象：
       const ossResult = await uploadFileToOss(ossObj, files, 7) as any
-      console.log(ossResult, "ossResult-----------------")
-      console.log(ossResult.fileUrl, "ossResult.url-----------------")
-      // const ossResultBlob = await uploadFileToOss(ossObj, rbg565blob, 9) as any
-      // console.log(ossResultBlob, "ossResultBlob-----------------")
-      // userStore.enableBtnflag = true
-      /**
-       * 9 bin的oss上传流程：
-       * 第一步：ossclient客户端
-       * 第二步：上传文件到oss
-       * 第三步：
-       */
       const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
-      debugger
-      console.log(ossObjBin, "ossObjBin-----------------")
+
       const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
-      console.log(ossResultBin, "ossResultBin-----------------")
       stores.pixImgBin = ossResultBin.fileUrl
       stores.addImgArtifactParam = {
         cover: ossResult.fileUrl,
@@ -278,10 +259,7 @@ async function generateImg(params: any) {
       // stores.currentUploadImg = ossResult.fileUrl
       stores.generatedPixImgFlag = false
       stores.resultLastImgFlag = false
-      showToast({
-        message: "rbg565 tranfrom error3",
-        position: "top"
-      })
+      showToast(getLocalizedText("服务器超时，请稍后重试5002", "Server abnormal, please try again later"))
 
       return
     }
@@ -289,30 +267,12 @@ async function generateImg(params: any) {
     router.push("/finished")
   } else {
     if (!stores.tab2AiFlag) {
-      // 传统的图片下发给服务端，生成bin图
-      console.log("传统png-转化成bin文件路径，参考之前实现")
-
-      try {
-        staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
-      } catch (error) {
-        stores.generatedPixImgFlag = false
-        stores.resultLastImgFlag = false
-        showToast({
-          message: "rbg565 tranfrom error",
-          position: "top"
-
-        })
-        return
-      }
-      stores.generatedPixImgFlag = false
-      stores.resultLastImgFlag = true
+      // upload组件 img 已经完成了数据准备，这里不处理
+      router.push("/finished")
     } else {
       // ai图生成图
-      // TODO:mock标记
-      const mock = true
-
       console.log("ai图生成图---接口不稳定")
-      !mock && await fetch(generateImageUrl, {
+      await fetch(generateImageUrl, {
         method: "POST",
         // 显式指定header请求头
         headers: {
@@ -332,10 +292,13 @@ async function generateImg(params: any) {
               stores.generatedPixImgFlag = false
               stores.resultLastImgFlag = false
               console.error("请求超时，状态码: 504")
+              showToast(getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"))
+
               throw new Error("请求超时，请稍后重试")
             }
             // 处理其他错误
             throw new Error(`请求失败，状态码: ${response.status}`)
+            return
           }
           return response.json()
         }
@@ -348,6 +311,8 @@ async function generateImg(params: any) {
               stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
               console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
             } catch (error) {
+              showToast(getLocalizedText("服务器超时，请稍后重试", "Server abnormal, please try again later"))
+
               stores.generatedPixImgFlag = false
               stores.resultLastImgFlag = false
               stores.tab2AiFlag = true
@@ -368,26 +333,15 @@ async function generateImg(params: any) {
          * 第二步：上传文件、bin到oss
          * 第三步：存储oss数据到全局
          */
-        staticArr = await resampleStaticUrlImage("https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png", 32, 16)
-        console.log(staticArr, "staticArr---staticArrstaticArrstaticArrstaticArr")
-        // file文件生成
-        const files = await urlTranfromFile("https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png") as any
-        console.log(files, "files-------urlTranfromFileurlTranfromFile----------")
-
+        staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+        const files = await urlTranfromFile(stores.aiGeneratedPixImg) as any
         const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
-        console.log(rbg565blob, "rbg565-----------------")
-
         const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
-        debugger
-        console.log(ossObj, "ossObj-----------------")
-
-        // 想办法，当前的url换成files对象：
         const ossResult = await uploadFileToOss(ossObj, files, 7) as any
         const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
         const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
         stores.pixImgBin = ossResultBin.fileUrl
         stores.addImgArtifactParam = {
-
           cover: ossResult.fileUrl,
           fileUrl: ossResult.fileUrl,
           fileSize: ossResult.fileSize,
@@ -396,13 +350,9 @@ async function generateImg(params: any) {
           type: 0
         }
       } catch (error) {
-        // stores.currentUploadImg = ossResult.fileUrl
         stores.generatedPixImgFlag = false
         stores.resultLastImgFlag = false
-        showToast({
-          message: "rbg565 tranfrom error2",
-          position: "top"
-        })
+        showToast(getLocalizedText("服务器超时，请稍后重试5003", "Server abnormal, please try again later"))
       }
     }
   }
@@ -556,7 +506,7 @@ function getLocalizedText(zhText: string, enText: string) {
       v-if="stores.tabNum === 2" :class="stores.tabNum === 2 ? 'bg-white' : 'bg-[#DFEFFC]'"
       class="rounded-xl p-4 border border-gray-300 rounded p-4 w-full bg-[#DFEFFC]"
     >
-      <Upload :custom-size="{ width: 300, height: 150 }" />
+      <Upload :file-list-value="stores.currentUploadImg" :custom-size="{ width: 300, height: 150 }" />
     </div>
 
     <div class="text-center fixed bottom-10 ">

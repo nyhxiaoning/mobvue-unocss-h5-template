@@ -45,14 +45,13 @@ async function regenerateImage() {
     stores.generatedPixImgFlag = true
     stores.resultLastImgFlag = false
     router.push("/")
+    // 因为这里有一个路由，所以下面需要成功或失败后，有路由跳转
   }
 
   currentToken = await requestFileUploadTokenPromise() as string
   if (stores.tabNum === 1) {
-    const mock = false
-    mock && await fetch(generateImageUrl, {
+    await fetch(generateImageUrl, {
       method: "POST",
-      // 显式指定header请求头
       headers: {
         "Content-Type": "application/json", // 表示请求体是 JSON 格式数据
         "Accept": "application/json" // 表示客户端期望接收 JSON 格式的响应
@@ -86,7 +85,8 @@ async function regenerateImage() {
             console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
           } catch (error) {
             stores.generatedPixImgFlag = false
-            stores.resultLastImgFlag = true
+            stores.resultLastImgFlag = false
+            router.push("/finished")
           }
         }
       })
@@ -106,14 +106,11 @@ async function regenerateImage() {
        * 第三步：存储oss数据到全局
        */
       // TODO: stores.aiGeneratedPixImg
-      staticArr = await resampleStaticUrlImage("https://devstorage.jeejio.com/jeejio-debug/cup/cup-static-img/1.png", 32, 16)
-      const files = await urlTranfromFile("https://devstorage.jeejio.com/jeejio-debug/cup/cup-static-img/1.png") as any
+      staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+      const files = await urlTranfromFile(stores.aiGeneratedPixImg) as any
 
       const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
       const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
-      console.log(ossObj, "ossObj-----------------")
-
-      // 想办法，当前的url换成files对象：
       const ossResult = await uploadFileToOss(ossObj, files, 7) as any
       const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
       const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
@@ -126,23 +123,17 @@ async function regenerateImage() {
         binSize: ossResultBin.fileSize,
         type: 0
       }
+      router.push("/finished")
     } catch (error) {
-      // stores.currentUploadImg = ossResult.fileUrl
       router.push("/finished")
       showToast({
-        message: "regenerate img tranfrom error4",
+        message: "regenerate text to img  error4",
         position: "top"
       })
-
-      return
     }
-
-    router.push("/finished")
   } else {
     if (!stores.tab2AiFlag) {
-      // 传统的图片下发给服务端，生成bin图
-      // 注意：非ai的重新生成，还是原图 currentUploadImg
-      staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
+      // no code 不需要处理了
     } else {
       // ai图生成图
       await fetch(generateImageUrl, {
@@ -178,7 +169,6 @@ async function regenerateImage() {
             stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
             console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
             currentImg.value = stores.aiGeneratedPixImg
-            router.push("/finished")
           }
         })
         .catch((error: any) => {
@@ -196,16 +186,12 @@ async function regenerateImage() {
          * 第三步：存储oss数据到全局
          */
         // TODO: stores.aiGeneratedPixImg
-        staticArr = await resampleStaticUrlImage("https://devstorage.jeejio.com/jeejio-debug/cup/cup-static-img/1.png", 32, 16)
-        const files = await urlTranfromFile("https://devstorage.jeejio.com/jeejio-debug/cup/cup-static-img/1.png") as any
-
+        staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+        const files = await urlTranfromFile(stores.aiGeneratedPixImg) as any
         const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
         const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
-        console.log(ossObj, "ossObj-----------------")
-
-        // 想办法，当前的url换成files对象：
         const ossResult = await uploadFileToOss(ossObj, files, 7) as any
-        const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
+        const ossObjBin = await createOssClient(9, currentToken)
         const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
         stores.pixImgBin = ossResultBin.fileUrl
         stores.addImgArtifactParam = {
@@ -216,8 +202,8 @@ async function regenerateImage() {
           binSize: ossResultBin.fileSize,
           type: 0
         }
+        router.push("/finished")
       } catch (error) {
-        // stores.currentUploadImg = ossResult.fileUrl
         router.push("/finished")
         showToast({
           message: "regenerate img tranfrom error3",

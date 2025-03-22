@@ -3,7 +3,6 @@
 import { createOssClient, uploadFileToOss } from "@/common/utils/oss"
 import { convertImageToRGB565Blob, requestFileUploadTokenPromise } from "@/common/utils/tools"
 // import { requestFileUploadTokenPromise } from "@/common/utils/tools"
-import { uploadImg } from "@/http/userApi.ts"
 import { useUserStore } from "@/pinia/user"
 import { showToast } from "vant"
 import { computed, ref, watch } from "vue"
@@ -56,7 +55,7 @@ function beforeRead(file: any) {
     showToast(getLocalizedText("请上传图片文件", "Please upload an image file"))
     return false
   }
-  if (file.size > 1024 * 1024 * 2) {
+  if (file.size > 1024 * 1024 * 10) {
     showToast(getLocalizedText("上传图片过大", "Uploaded image is too large"))
     return false
   }
@@ -68,39 +67,12 @@ async function handleUpload(fileObj: any) {
   console.log(files, "files")
   if (!files) return
   const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
-  console.log(rbg565blob, "rbg565-----------------")
   const currentToken = await requestFileUploadTokenPromise() as string
-  console.log(currentToken, "currentToken---handleUpload")
-  /**
-   * 7 静态图oss上传流程：
-   * 第一步：ossclient客户端
-   * 第二步：上传文件到oss
-   * 第三步：
-   */
   const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
-  debugger
-  console.log(ossObj, "ossObj-----------------")
   const ossResult = await uploadFileToOss(ossObj, files, 7) as any
-
-  console.log(ossResult, "ossResult-----------------")
-  console.log(ossResult.fileUrl, "ossResult.url-----------------")
-  // const ossResultBlob = await uploadFileToOss(ossObj, rbg565blob,9) as any
-  // console.log(ossResultBlob, "ossResultBlob-----------------")
-
-  /**
-   * 9 bin的oss上传流程：
-   * 第一步：ossclient客户端
-   * 第二步：上传文件到oss
-   * 第三步：
-   */
   const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
-  debugger
-  console.log(ossObjBin, "ossObjBin-----------------")
   const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
-  console.log(ossResultBin, "ossResultBin-----------------")
-
   userStore.currentUploadImg = ossResult.fileUrl
-  console.log(userStore.currentUploadImg, "userStore.currentUploadImg---ossResult.fileUrl--------------")
   userStore.enableBtnflag = true
 
   userStore.addImgArtifactParam = {
@@ -112,68 +84,12 @@ async function handleUpload(fileObj: any) {
     type: 0
   }
 
-  // let filesResponse = await uploadFile(rbg565, 'cupImg.bin', 7)
-  // console.log(filesResponse, "filesResponse-----------------")
-  // let params = await uploadUserFile(files) as any;
-  // console.log('上传参数---handleFileChange', params);
-
-  // let addParams = {
-  //   ...params,
-  //   token: currentToken,
-  // }
-  // 上传成功后，调用 addArtifact 方法
-  // let artRes = await addArtifact(addParams) as any;
-  // console.log('创建成功---handleFileChange---artRes', artRes);
-  // uploadUserFile(file).then((param: any) => {
-  //   console.log('上传成功---handleFileChange', param);
-  //   return addArtifact(param);
-  // }).then((res) => {
-  //   console.log('创建成功---handleFileChange', res);
-
-  // }).catch((error) => {
-  //   console.log('保存失败', error);
-  //   showToast(error.message);
-  // });
-
-  debugger
   const reader = new FileReader()
   reader.onload = (e) => {
-    debugger
     localFileList.value = [{ url: e.target?.result }]
-    emit("update:modelValue", localFileList.value) // 更新父组件的 fileList
+    // emit("update:modelValue", localFileList.value) // 更新父组件的 fileList
   }
   reader.readAsDataURL(files)
-}
-
-// 处理上传
-async function handleUpload1(fileObj: any) {
-  const file = fileObj.file
-  console.log(file, "file")
-
-  if (!file) return
-  const formData = new FormData()
-  const currentToken = await requestFileUploadTokenPromise() as string
-  console.log(currentToken, "currentToken---handleUpload")
-  formData.append("file", fileObj.file as any)
-  formData.append("token", currentToken)
-  // 发起请求
-  /** 登录并返回 Token */
-  await uploadImg(formData).then((res: any) => {
-    if (res.code === 200) {
-      userStore.currentUploadImg = res.result?.oriFileUrl
-      userStore.enableBtnflag = true
-    }
-  }).catch((err) => {
-    console.log(err)
-    showToast(getLocalizedText("上传失败", "Upload failed"))
-  })
-
-  const reader = new FileReader()
-  reader.onload = (e) => {
-    localFileList.value = [{ url: e.target?.result }]
-    emit("update:modelValue", localFileList.value) // 更新父组件的 fileList
-  }
-  reader.readAsDataURL(file)
 }
 
 // 删除图片

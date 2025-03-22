@@ -79,15 +79,20 @@ async function regenerateImage() {
       )
       .then((data: any) => {
         if (data.code === 200) {
-          stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
-          currentImg.value = stores.aiGeneratedPixImg
-          console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
+          try {
+            stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
+            currentImg.value = stores.aiGeneratedPixImg
+            console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
+          } catch (error) {
+            stores.generatedPixImgFlag = false
+            stores.resultLastImgFlag = true
+          }
         }
       })
       .catch((error: any) => {
-        showToast("请求超时，请稍后重试")
+        showToast(getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"))
         stores.generatedPixImgFlag = false
-        stores.resultLastImgFlag = false
+        stores.resultLastImgFlag = true
         console.log(error)
       })
 
@@ -273,7 +278,7 @@ function setStaticTalFile() {
         >
       </div>
 
-      <div class="w-full mt-4 flex justify-center text-sm font-500">
+      <div v-if="stores.tabNum === 1 || stores.tab2AiFlag" class="w-full mt-4 flex justify-center text-sm font-500">
         <button
           @click="regenerateImage"
           class="w-full flex items-center justify-center gap-2 px-6 py-2.5 bg-[#F3F3F3] border-none border-gray-200 rounded-full"
@@ -286,7 +291,7 @@ function setStaticTalFile() {
 
     <div class="fixed bottom-10 left-0 w-full px-4 py-3 flex gap-4 text-sm">
       <button @click="saveToGallery" class="flex-1 py-3 rounded-full bg-white border-white border-none">
-        {{ getLocalizedText('收藏到"我的图库"', 'Save to "My Gallery"') }}
+        {{ getLocalizedText('保存到"我的图库"', 'Save to "My Gallery"') }}
       </button>
       <button
         @click="sendToWater"

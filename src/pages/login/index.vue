@@ -6,8 +6,8 @@ import imgTab from "@/assets/img.png"
 import radioImg from "@/assets/radio.png"
 import wordTab from "@/assets/word.png"
 import recorder from "@/common/utils/asr/recorder"
-import { requestFileUploadTokenPromise, resampleStaticUrlImage } from "@/common/utils/tools"
-
+import { createOssClient, uploadFileToOss } from "@/common/utils/oss"
+import { convertImageToRGB565Blob, requestFileUploadTokenPromise, resampleStaticUrlImage, urlTranfromFile } from "@/common/utils/tools"
 import Loading from "@/pages/components/loading.vue"
 /**
  * Components
@@ -168,10 +168,12 @@ async function generateImg(params: any) {
   } catch (error) {
     stores.generatedPixImgFlag = false
     stores.resultLastImgFlag = false
+    showToast({
+      message: "token get fail",
+      position: "top"
+    })
+    return
   }
-
-  // result.token
-
   // 文字生成的图片：stores.aiGeneratedPixImg
   // ai开启，图片生成的图片：stores.aiGeneratedPixImg
   // 自定义上传生成的图片：stores.currentUploadImg
@@ -198,9 +200,7 @@ async function generateImg(params: any) {
           if (response.status === 504) {
             // 处理 504 错误
             stores.generatedPixImgFlag = false
-
             stores.resultLastImgFlag = false
-
             throw new Error(getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"))
           }
           // 处理其他错误
@@ -224,7 +224,6 @@ async function generateImg(params: any) {
           position: "top"
         })
         stores.generatedPixImgFlag = false
-
         stores.resultLastImgFlag = false
         console.log(error)
       })
@@ -242,18 +241,20 @@ async function generateImg(params: any) {
       try {
         staticArr = await resampleStaticUrlImage(stores.currentUploadImg, 32, 16)
       } catch (error) {
+        stores.generatedPixImgFlag = false
+        stores.resultLastImgFlag = false
         showToast({
           message: "rbg565 tranfrom error",
           position: "top"
 
         })
-        stores.generatedPixImgFlag = false
-        stores.resultLastImgFlag = false
+        return
       }
       stores.generatedPixImgFlag = false
       stores.resultLastImgFlag = true
     } else {
       // ai图生成图
+      console.log("ai图生成图---接口不稳定")
       await fetch(generateImageUrl, {
         method: "POST",
         // 显式指定header请求头
@@ -263,7 +264,7 @@ async function generateImg(params: any) {
         },
         body: JSON.stringify({
           prompt: "",
-          token: tmToken || currentToken,
+          token: currentToken || tmToken,
           imgUrl: stores.currentUploadImg
         })
       })
@@ -284,36 +285,92 @@ async function generateImg(params: any) {
         )
         .then((data: any) => {
           if (data.code === 200) {
-            states.aiOriFileUrl = encodeURI(JSON.parse(data.result).image_url)
-            console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
-            stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
-            console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
+            try {
+              states.aiOriFileUrl = encodeURI(JSON.parse(data.result).image_url)
+              console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
+              stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
+              console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
+            } catch (error) {
+              stores.generatedPixImgFlag = false
+              stores.resultLastImgFlag = false
+              stores.tab2AiFlag = true
+            }
           }
         })
         .catch((error: any) => {
           stores.generatedPixImgFlag = false
-          stores.resultLastImgFlag = true
+          stores.resultLastImgFlag = false
           console.log(error)
         })
 
       try {
         staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
-      } catch (error) {
-        showToast({
-          message: "rbg565 tranfrom error",
-          position: "top"
+        console.log(staticArr, "staticArr---staticArrstaticArrstaticArrstaticArr")
+        // file文件生成
+        const files = await urlTranfromFile(stores.aiGeneratedPixImg) as any
+        console.log(files, "files-------urlTranfromFileurlTranfromFile----------")
 
-        })
+        const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
+        console.log(rbg565blob, "rbg565-----------------")
+        /**
+         * 7 静态图oss上传流程：
+         * 第一步：ossclient客户端
+         * 第二步：上传文件到oss
+         * 第三步：
+         */
+        const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
+        debugger
+        console.log(ossObj, "ossObj-----------------")
+
+        // 想办法，当前的url换成files对象：
+        const ossResult = await uploadFileToOss(ossObj, files, 7) as any
+        console.log(ossResult, "ossResult-----------------")
+        console.log(ossResult.fileUrl, "ossResult.url-----------------")
+        // const ossResultBlob = await uploadFileToOss(ossObj, rbg565blob, 9) as any
+        // console.log(ossResultBlob, "ossResultBlob-----------------")
+        // userStore.enableBtnflag = true
+        /**
+         * 9 bin的oss上传流程：
+         * 第一步：ossclient客户端
+         * 第二步：上传文件到oss
+         * 第三步：
+         */
+        const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
+        debugger
+        console.log(ossObjBin, "ossObjBin-----------------")
+        const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
+        console.log(ossResultBin, "ossResultBin-----------------")
+
+        // stores.aiGeneratedPixImg = ossResult.fileUrl
+        stores.addImgArtifactParam = {
+          cover: ossResult.fileUrl,
+          fileUrl: ossResult.fileUrl,
+          fileSize: ossResult.fileSize,
+          binFileUrl: ossResultBin.fileUrl,
+          binSize: ossResultBin.fileSize,
+          type: 0
+        }
+      } catch (error) {
+        stores.tab2AiFlag = true
+        // stores.currentUploadImg = ossResult.fileUrl
         stores.generatedPixImgFlag = false
-        stores.resultLastImgFlag = true
+        stores.resultLastImgFlag = false
+        showToast({
+          message: "rbg565 tranfrom error2",
+          position: "top"
+        })
+
+        return
       }
     }
   }
 
   const postData = {
-    data: staticArr.rgb565Array as any,
+    data: staticArr?.rgb565Array as any,
     token: currentToken || tmToken
   }
+
+  console.log(postData, "postData-------")
 
   try {
     await fetch(apiBinUrl, {
@@ -460,8 +517,8 @@ function getLocalizedText(zhText: string, enText: string) {
       <div class="relative">
         <textarea
           v-model="states.asrText"
-          class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none border-none" :maxlength="100"
-          :placeholder="getLocalizedText('点击输入文字', 'Click to input text')"
+          class="w-full h-40 resize-none bg-gray-50 rounded-lg p-4 text-gray-800 outline-none border-none"
+          :maxlength="100" :placeholder="getLocalizedText('点击输入文字', 'Click to input text')"
         />
         <button
           v-if="!isRecording"

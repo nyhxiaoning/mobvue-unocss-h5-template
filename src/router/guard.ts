@@ -25,7 +25,7 @@ export function registerNavigationGuard(router: Router) {
       userStore.regenerateBtnFlag = false
       userStore.currentUploadImg = ""
       userStore.aiGeneratedPixImg = ""
-
+      userStore.pixImgBin = ""
       // 清空当前的oss的文件对象
       userStore.addImgArtifactParam = {
         type: 0

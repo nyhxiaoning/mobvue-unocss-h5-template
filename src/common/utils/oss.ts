@@ -46,10 +46,11 @@ export async function createOssClient(type: number, token: string) {
  * @param type 7: 静态图，9: bin文件
  * @returns Promise
  */
-export function uploadFileToOss(ossConfig: any, file: any) {
+export function uploadFileToOss(ossConfig: any, file: any, type: number) {
   return new Promise((resolve, reject) => {
     try {
-      const ossFileName = `${ossConfig.path}/${file.name}`
+      const fileNameBin = `${ossConfig.path}/img.bin`
+      const ossFileName = type === 7 ? `${ossConfig.path}/${file.name}` : fileNameBin
       // TODO:这里的oss的文件对象
       ossConfig.client
         .put(ossFileName, file, {})
@@ -57,7 +58,7 @@ export function uploadFileToOss(ossConfig: any, file: any) {
           debugger
           console.log(uploadResponse, "createOssClient---uploadResponse")
           resolve({
-            fileUrl: `${ossConfig.fullPath}/${file.name}`,
+            fileUrl: type === 7 ? `${ossConfig.fullPath}/${file.name}` : `${ossConfig.fullPath}/img.bin`,
             fileSize: file.size
           })
         })

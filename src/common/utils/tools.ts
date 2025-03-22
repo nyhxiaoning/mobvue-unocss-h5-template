@@ -167,15 +167,29 @@ async function convertImageToRGB565Blob(imageFile: any, targetWidth = 32, target
  * @param url 当前的url文件对象
  * @returns 文件file对象
  */
+/**
+ *
+ * @param url 当前的url文件对象
+ * @returns 文件file对象
+ */
 async function urlTranfromFile(url: string) {
   const response = await fetch(url)
   if (!response.ok) {
     throw new Error(`请求失败，状态码: ${response.status}`)
   }
   const blob = await response.blob()
+  // const url = 'https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png';
+  // 从URL中获取最后一个斜杠后的部分
+  const lastPart = url.substring(url.lastIndexOf("/") + 1)
+  // 获取文件名
+  const fileName = lastPart.split(".")[0]
+  // 获取扩展名
+  const fileExtension = lastPart.split(".")[1]
+  // 创建新的文件名称
+  const fileNameNow = `${fileName}.${fileExtension}`
   // 从 Blob 对象创建 File 对象
-  const fileName = "downloaded_file.pdf" // 可以根据实际情况设置文件名
-  const file = new File([blob], fileName, { type: blob.type })
+  // const fileName = "downloaded_file.pdf" // 可以根据实际情况设置文件名
+  const file = new File([blob], fileNameNow, { type: blob.type })
 
   return new Promise((resolve, reject) => {
     if (!file) {

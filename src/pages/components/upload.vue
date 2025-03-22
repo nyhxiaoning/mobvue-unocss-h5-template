@@ -80,12 +80,12 @@ async function handleUpload(fileObj: any) {
   const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
   debugger
   console.log(ossObj, "ossObj-----------------")
-  const ossResult = await uploadFileToOss(ossObj, files) as any
+  const ossResult = await uploadFileToOss(ossObj, files, 7) as any
 
   console.log(ossResult, "ossResult-----------------")
   console.log(ossResult.fileUrl, "ossResult.url-----------------")
-  const ossResultBlob = await uploadFileToOss(ossObj, rbg565blob) as any
-  console.log(ossResultBlob, "ossResultBlob-----------------")
+  // const ossResultBlob = await uploadFileToOss(ossObj, rbg565blob,9) as any
+  // console.log(ossResultBlob, "ossResultBlob-----------------")
 
   /**
    * 9 bin的oss上传流程：
@@ -96,7 +96,7 @@ async function handleUpload(fileObj: any) {
   const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
   debugger
   console.log(ossObjBin, "ossObjBin-----------------")
-  const ossResultBin = await uploadFileToOss(ossObjBin, files) as any
+  const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
   console.log(ossResultBin, "ossResultBin-----------------")
 
   userStore.currentUploadImg = ossResult.fileUrl

@@ -11,6 +11,12 @@ import { useRouter } from "vue-router"
 const stores = useUserStore()
 const router = useRouter()
 
+declare const JeeWeb: any
+
+function getLocalizedText(zhText: string, enText: string) {
+  return JeeWeb.Language === "zh-CN" ? zhText : enText
+}
+
 watch(() => stores.generatedPixImgFlag, (newValue) => {
   if (newValue) {
     // 显示加载动画
@@ -40,10 +46,10 @@ watch(() => stores.generatedPixImgFlag, (newValue) => {
           <img :src="loadingImg" alt="">
         </div>
         <p class="text-white font-size-[16px] font-400">
-          AI中生成图中
+          {{ getLocalizedText('AI中生图中...', 'AI generating image...') }}
         </p>
         <p class="text-gray-500 font-size-[13px] font-400">
-          正在生成图片效果
+          {{ getLocalizedText('正在生成图片效果', 'Picture effect being generated') }}
         </p>
       </div>
     </main>

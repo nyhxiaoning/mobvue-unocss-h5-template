@@ -182,7 +182,8 @@ async function generateImg(params: any) {
   if (stores.tabNum === 1) {
     // 如果此时是tab= 1文字
     stores.currentText = states.asrText
-    await fetch(generateImageUrl, {
+    const mock1 = true
+    !mock1 && await fetch(generateImageUrl, {
       method: "POST",
       // 显式指定header请求头
       headers: {
@@ -215,7 +216,6 @@ async function generateImg(params: any) {
           console.log(states.aiOriFileUrl, "states.aiOriFileUrl")
           stores.aiGeneratedPixImg = encodeURI(JSON.parse(data.result).image_url)
           console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
-          // router.push("/finished")
         }
       })
       .catch((error: any) => {
@@ -228,10 +228,64 @@ async function generateImg(params: any) {
         console.log(error)
       })
 
-    staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
-    stores.generatedPixImgFlag = true
+    try {
+      staticArr = await resampleStaticUrlImage("https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png", 32, 16)
+      console.log(staticArr, "staticArr---staticArrstaticArrstaticArrstaticArr")
+      // file文件生成
+      const files = await urlTranfromFile("https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png") as any
+      console.log(files, "files-------urlTranfromFileurlTranfromFile----------")
 
-    stores.resultLastImgFlag = false
+      const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
+      console.log(rbg565blob, "rbg565-----------------")
+      /**
+       * 7 静态图oss上传流程：
+       * 第一步：ossclient客户端
+       * 第二步：上传文件到oss
+       * 第三步：
+       */
+      const ossObj = await createOssClient(7, currentToken)// 创建 OSS 客户端
+      debugger
+      console.log(ossObj, "ossObj-----------------")
+
+      // 想办法，当前的url换成files对象：
+      const ossResult = await uploadFileToOss(ossObj, files, 7) as any
+      console.log(ossResult, "ossResult-----------------")
+      console.log(ossResult.fileUrl, "ossResult.url-----------------")
+      // const ossResultBlob = await uploadFileToOss(ossObj, rbg565blob, 9) as any
+      // console.log(ossResultBlob, "ossResultBlob-----------------")
+      // userStore.enableBtnflag = true
+      /**
+       * 9 bin的oss上传流程：
+       * 第一步：ossclient客户端
+       * 第二步：上传文件到oss
+       * 第三步：
+       */
+      const ossObjBin = await createOssClient(9, currentToken)// 创建 OSS 客户端
+      debugger
+      console.log(ossObjBin, "ossObjBin-----------------")
+      const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
+      console.log(ossResultBin, "ossResultBin-----------------")
+
+      stores.addImgArtifactParam = {
+        cover: ossResult.fileUrl,
+        fileUrl: ossResult.fileUrl,
+        fileSize: ossResult.fileSize,
+        binFileUrl: ossResultBin.fileUrl,
+        binSize: ossResultBin.fileSize,
+        type: 0
+      }
+    } catch (error) {
+      // stores.currentUploadImg = ossResult.fileUrl
+      stores.generatedPixImgFlag = false
+      stores.resultLastImgFlag = false
+      showToast({
+        message: "rbg565 tranfrom error3",
+        position: "top"
+      })
+
+      return
+    }
+
     router.push("/finished")
   } else {
     if (!stores.tab2AiFlag) {
@@ -254,8 +308,11 @@ async function generateImg(params: any) {
       stores.resultLastImgFlag = true
     } else {
       // ai图生成图
+      // TODO:mock标记
+      const mock = true
+
       console.log("ai图生成图---接口不稳定")
-      await fetch(generateImageUrl, {
+      !mock && await fetch(generateImageUrl, {
         method: "POST",
         // 显式指定header请求头
         headers: {
@@ -304,10 +361,10 @@ async function generateImg(params: any) {
         })
 
       try {
-        staticArr = await resampleStaticUrlImage(stores.aiGeneratedPixImg, 32, 16)
+        staticArr = await resampleStaticUrlImage("https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png", 32, 16)
         console.log(staticArr, "staticArr---staticArrstaticArrstaticArrstaticArr")
         // file文件生成
-        const files = await urlTranfromFile(stores.aiGeneratedPixImg) as any
+        const files = await urlTranfromFile("https://devstorage.jeejio.com/im/artifact/image/01JPR1V6EF56CVN61N4QS9SKSD/45.png") as any
         console.log(files, "files-------urlTranfromFileurlTranfromFile----------")
 
         const rbg565blob = await convertImageToRGB565Blob(files, 32, 16)
@@ -341,7 +398,6 @@ async function generateImg(params: any) {
         const ossResultBin = await uploadFileToOss(ossObjBin, files, 9) as any
         console.log(ossResultBin, "ossResultBin-----------------")
 
-        // stores.aiGeneratedPixImg = ossResult.fileUrl
         stores.addImgArtifactParam = {
           cover: ossResult.fileUrl,
           fileUrl: ossResult.fileUrl,
@@ -351,7 +407,6 @@ async function generateImg(params: any) {
           type: 0
         }
       } catch (error) {
-        stores.tab2AiFlag = true
         // stores.currentUploadImg = ossResult.fileUrl
         stores.generatedPixImgFlag = false
         stores.resultLastImgFlag = false
@@ -399,7 +454,7 @@ async function generateImg(params: any) {
   } catch (error) {
     console.log(error)
     showToast({
-      message: "img图片报错",
+      message: "img  generate error",
       position: "top"
     })
   }

@@ -9,37 +9,41 @@ import { computed, ref, watch } from "vue"
 
 // Props
 const props = defineProps({
-  modelValue: Array, // 用于 v-model 绑定 fileList
+  // modelValue: Array, // 用于 v-model 绑定 fileList
+  checkAiFlag: Boolean,
   customSize: {
     type: Object,
     default: () => ({ width: 150, height: 150 })
   }
 })
-const emit = defineEmits(["update:modelValue"])
-
 declare const JeeWeb: any
-
 const userStore = useUserStore()
-// 用于 v-model 事件
-
-const checked = ref(false)
-const localFileList = ref(props.modelValue || []) as any // 维护本地 fileList
+const checked = ref(props.checkAiFlag)
+// const localFileList = ref([userStore.currentUploadImg] || []) as any // 维护本地 fileList
 const tmToken: string = "677fb12b-646d-41b2-9149-9933de02b9d7"
 
-// 监听外部传入的 fileList 变化
-watch(
-  () => props.modelValue,
-  (newVal) => {
-    localFileList.value = newVal
+const localFileList = computed(() => {
+  if (userStore.currentUploadImg) {
+    return [{ url: userStore.currentUploadImg }]
+  } else {
+    return []
   }
-)
+})
+// 监听外部传入的 fileList 变化
+// watch(
+//   () => props.modelValue,
+//   (newVal) => {
+//     localFileList.value = newVal
+//   }
+// )
 
 watch(checked, (newVal) => {
+  console.log(newVal, "checked------")
   if (newVal) {
-    console.log(checked.value)
+    console.log(checked.value, "tab2AiFlag")
     userStore.tab2AiFlag = true
   } else {
-    console.log(checked.value)
+    console.log(checked.value, "tab2AiFlag")
     userStore.tab2AiFlag = false
   }
 })
@@ -86,7 +90,8 @@ async function handleUpload(fileObj: any) {
 
   const reader = new FileReader()
   reader.onload = (e) => {
-    localFileList.value = [{ url: e.target?.result }]
+    userStore.currentUploadImg = e.target?.result as string
+    // localFileList.value = [{ url: e.target?.result }]
     // emit("update:modelValue", localFileList.value) // 更新父组件的 fileList
   }
   reader.readAsDataURL(files)
@@ -94,10 +99,8 @@ async function handleUpload(fileObj: any) {
 
 // 删除图片
 function removeImage() {
-  localFileList.value = []
   userStore.currentUploadImg = ""
   userStore.enableBtnflag = false
-  emit("update:modelValue", []) // 同步更新父组件
 };
 
 // 控制上传按钮是否显示

@@ -97,6 +97,7 @@ function switchTab(tab: any) {
     stores.aiGeneratedPixImg = ""
     stores.currentUploadImg = ""
     activeTab.value = "text"
+    stores.tab2AiFlag = false
   } else {
     stores.tabNum = 2
     stores.enableBtnflag = false
@@ -291,6 +292,7 @@ async function generateImg(params: any) {
               // 处理 504 错误
               stores.generatedPixImgFlag = false
               stores.resultLastImgFlag = false
+              stores.tab2AiFlag = true
               console.error("请求超时，状态码: 504")
               showToast(getLocalizedText("请求超时，请稍后重试", "Request timeout, please try again later"))
 
@@ -312,16 +314,16 @@ async function generateImg(params: any) {
               console.log(stores.aiGeneratedPixImg, "stores.aiGeneratedPixImg")
             } catch (error) {
               showToast(getLocalizedText("服务器超时，请稍后重试", "Server abnormal, please try again later"))
-
+              stores.tab2AiFlag = true
               stores.generatedPixImgFlag = false
               stores.resultLastImgFlag = false
-              stores.tab2AiFlag = true
             }
           }
         })
         .catch((error: any) => {
           stores.generatedPixImgFlag = false
           stores.resultLastImgFlag = false
+          stores.tab2AiFlag = true
           console.log(error)
         })
 
@@ -352,6 +354,7 @@ async function generateImg(params: any) {
       } catch (error) {
         stores.generatedPixImgFlag = false
         stores.resultLastImgFlag = false
+        stores.tab2AiFlag = true
         showToast(getLocalizedText("服务器超时，请稍后重试5003", "Server abnormal, please try again later"))
       }
     }
@@ -506,7 +509,7 @@ function getLocalizedText(zhText: string, enText: string) {
       v-if="stores.tabNum === 2" :class="stores.tabNum === 2 ? 'bg-white' : 'bg-[#DFEFFC]'"
       class="rounded-xl p-4 border border-gray-300 rounded p-4 w-full bg-[#DFEFFC]"
     >
-      <Upload :file-list-value="stores.currentUploadImg" :custom-size="{ width: 300, height: 150 }" />
+      <Upload :file-list-value="stores.currentUploadImg" :check-ai-flag="stores.tab2AiFlag" :custom-size="{ width: 300, height: 150 }" />
     </div>
 
     <div class="text-center fixed bottom-10 ">

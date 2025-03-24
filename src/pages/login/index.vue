@@ -183,8 +183,7 @@ async function generateImg(params: any) {
   if (stores.tabNum === 1) {
     // 如果此时是tab= 1文字
     stores.currentText = states.asrText
-    const mock1 = true
-    !mock1 && await fetch(generateImageUrl, {
+    await fetch(generateImageUrl, {
       method: "POST",
       // 显式指定header请求头
       headers: {

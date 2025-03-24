@@ -14,7 +14,7 @@
   font-size: 15px;
   background: #ffffff;
   border: 1px solid #ffffff;
-  color: #725e47;
+  color: #000000;
   font-weight: 600;
 }
 
@@ -44,7 +44,7 @@
   flex-shrink: 0;
   font-size: 15px;
   border: 1px solid #dfeffc;
-  color: #725e47;
+  color: rgba(0, 0, 0, 0.36);
   background: #dfeffc;
   font-weight: 600;
 }

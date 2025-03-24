@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import imgTabUnselect from "@/assets/img-unselect.png"
 /**
  * Resources
  */
 import imgTab from "@/assets/img.png"
 import radioImg from "@/assets/radio.png"
+import wordTabUnselect from "@/assets/word-unselect.png"
 import wordTab from "@/assets/word.png"
 import recorder from "@/common/utils/asr/recorder"
 import { createOssClient, uploadFileToOss } from "@/common/utils/oss"
@@ -448,13 +450,13 @@ function getLocalizedText(zhText: string, enText: string) {
       <!-- <button className="bg-white hover:bg-gray-100 border border-gray-300 text-gray-800 rounded-xl py-2 px-4 rounded button-with-triangle"> -->
       <div :class="stores.tabNum === 1 ? 'bubble' : 'bubble-img'" class="flex-1 py-3 px-8 rounded">
         <span class="inline-flex items-center" @click="switchTab(1)">
-          <img :src="wordTab" :alt="getLocalizedText('文字图标', 'Text Icon')" class="w-4 h-4 mr-2">
+          <img :src="stores.tabNum === 1 ? wordTab : wordTabUnselect" :alt="getLocalizedText('文字图标', 'Text Icon')" class="w-4 h-4 mr-2">
           {{ getLocalizedText('文字生图', 'Text to Image') }}
         </span>
       </div>
       <div :class="stores.tabNum === 2 ? 'bubble' : 'bubble-img'" class="flex-1  py-3 px-8 rounded">
         <span class="inline-flex items-center" @click="switchTab(2)">
-          <img :src="imgTab" :alt="getLocalizedText('图片图标', 'Image Icon')" class="w-4 h-4 mr-2">
+          <img :src="stores.tabNum === 2 ? imgTab : imgTabUnselect" :alt="getLocalizedText('图片图标', 'Image Icon')" class="w-4 h-4 mr-2">
           {{ getLocalizedText('图片生图', 'Image to Image') }}
         </span>
       </div>

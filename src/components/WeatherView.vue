@@ -1,5 +1,8 @@
 <template>
     <div class="weather-view">
+        <van-loading v-if="language.globalWeatherLoading" class="global-loading" type="spinner" color="#fff"
+            text="..."></van-loading>
+
         <div class="main-content">
             <div class="city-card" @click="goToCity">
                 <div class="city-row">
@@ -30,11 +33,13 @@ const store = useUserStore();
 const language = reactive({
     city: JeeWeb.Language === 'zh-CN' ? '城市' : 'City',
     confirm: JeeWeb.Language === 'zh-CN' ? '确认' : 'Confirm',
-    setCityError: JeeWeb.Language === 'zh-CN' ? '设置城市失败' : 'Failed to set city'
+    setCityError: JeeWeb.Language === 'zh-CN' ? '设置城市失败' : 'Failed to set city',
+    globalWeatherLoading: false
 });
 
 // store.$state.weathername = JeeWeb.Language === 'zh-CN' ? city.name : city.nameEn;
 // store.$state.weathervalue = city.value;
+
 
 
 //
@@ -55,7 +60,7 @@ const goToCity = () => {
 };
 
 const goBack = () => {
-    alert('goBack')
+
     router.back();
 };
 
@@ -63,6 +68,7 @@ const confirmCity = () => {
     console.log(sessionStorage.getItem('weathervalue'))
     console.log(sessionStorage.getItem("weathername"))
     console.log('confirmCity')
+    language.globalWeatherLoading = true
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
@@ -80,6 +86,7 @@ const confirmCity = () => {
                 sessionStorage.setItem('weatheroldname', sessionStorage.getItem("weathername"));
                 sessionStorage.setItem('weatheroldvalue', sessionStorage.getItem('weathervalue'));
                 console.log(res, 'city.value');
+                language.globalWeatherLoading = false
                 router.push('/');
             })
             .catch((err) => {
@@ -89,6 +96,13 @@ const confirmCity = () => {
                 sessionStorage.setItem('weathername',sessionStorage.getItem("weatheroldname"))
                 sessionStorage.setItem('weathervalue', sessionStorage.getItem("weatheroldvalue"))
                 // store.$state.weathervalue = '';
+                setTimeout(() => {
+                    language.globalWeatherLoading = false
+                    showToast({
+                        message: language.setCityError,
+                        duration: 1000,
+                    });
+                }, 1000)
 
             });
 };
@@ -190,5 +204,18 @@ const confirmCity = () => {
 
 :deep(.van-nav-bar__arrow) {
     color: #2e2f33 !important;
+}
+
+.global-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 </style>

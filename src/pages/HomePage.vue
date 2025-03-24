@@ -1,5 +1,6 @@
 <template>
     <div class="system-settings">
+        <van-loading v-if="states.globalLoading" class="global-loading" type="spinner" color="#fff" text="..."></van-loading>
         <!-- 顶部状态栏 -->
         <div class="status-bar">
             <van-row justify="space-between" align="center">
@@ -24,7 +25,8 @@
 
                 <div style="position: relative; margin-left: 10%">
                     <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
-                    <div :class="[states.online ? 'status-text' : 'status-text-offline']">&nbsp;{{ language.online }}</div>
+                    <div :class="[states.online ? 'status-text' : 'status-text-offline']">&nbsp;{{ language.online }}
+                    </div>
                 </div>
                 <div style="margin-left: 20px">
                     <van-row type="flex" justify="start" align="center"
@@ -48,8 +50,9 @@
         <div class="brightness-control">
             <div style="font-size: 16px; margin: 20px; margin-left: 15px">
                 <div>
-                    {{ language.brightness }}&nbsp; <span style="color: #969698">|</span><span>&nbsp;{{ states.brightness
-                    }}%</span>
+                    {{ language.brightness }}&nbsp; <span style="color: #969698">|</span><span>&nbsp;{{
+                        states.brightness
+                        }}%</span>
                 </div>
                 <div style="font-size: 12px; color: #969698; margin: 20px; margin-left: 15px">
                     <van-slider bar-height="6px" active-color="#31ACF8" v-model="states.brightness"
@@ -136,14 +139,16 @@
 
         <!-- 底部按钮 -->
         <div class="bottom-actions">
-            <div @click="restartCup" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
+            <div @click="restartCup"
+                style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="reboot-cup"></div>
                 <div>{{ language.restartCup }}</div>
             </div>
 
-            <div @click="closeScreen" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
-                <div  :class="[ states.screenStatus ? 'closescreen-cup': 'openscreen-cup']"  ></div>
-                <div>{{ states.screenStatus ?  language.closeScreen: language.openScreen }}</div>
+            <div @click="closeScreen"
+                style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
+                <div :class="[ states.screenStatus ? 'closescreen-cup': 'openscreen-cup']"></div>
+                <div>{{ states.screenStatus ? language.closeScreen: language.openScreen }}</div>
             </div>
             <div @click="goHome" style="flex: 1; text-align: center; background-color: #ffffff; border-radius: 10px">
                 <div class="go-home"></div>
@@ -161,7 +166,7 @@ import { timezone } from './../utils/cityzone';
 import { useRouter } from 'vue-router';
 
 import { useUserStore } from './../store/index';
-import { showToast } from 'vant';
+import { showToast, Loading } from 'vant';
 
 
 export default defineComponent({
@@ -354,9 +359,9 @@ export default defineComponent({
         console.log(timezone, 'timezone');
         const states = reactive({
             languageFlag: JeeWeb.Language === 'zh-CN' ? true : false,
-            battery: userStore.$state.battery || 0,
+            battery: userStore.$state.battery || 10,
             brightness: userStore.$state.brightness || 0,
-            temperature: userStore.$state.temperature || 0,
+            temperature: userStore.$state.temperature || 90,
             batteryStatus: false,
             address: '',
             weatheraddress: userStore.$state.weathername || '',
@@ -366,6 +371,7 @@ export default defineComponent({
             online: false,
             // 默认一定是开启
             screenStatus: true,
+            globalLoading:true,
 
         });
 
@@ -600,13 +606,18 @@ export default defineComponent({
                         // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。
                         sessionStorage.setItem('getCupInfoFlag', '100');// 记录1
                         // store.selectedTimezone(selectedTimezone.value);
+                        states.globalLoading = false
                     })
                     .catch((err: any) => {
                         console.log(err);
-                        showToast({
-                            message: language.getCupInfoError,
-                            duration: 1000,
-                        });
+                        setTimeout(()=>{
+                            states.globalLoading = false
+                            showToast({
+                                message: language.getCupInfoError,
+                                duration: 1000,
+                            });
+                        },1000)
+
                     });
 
             // 订阅在线状态
@@ -1001,5 +1012,18 @@ export default defineComponent({
     height: 16px;
     border-radius: 50%;
     display: inline-block;
+}
+
+.global-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 </style>

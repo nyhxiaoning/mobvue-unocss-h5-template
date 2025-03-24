@@ -9,6 +9,7 @@
         "build:dev": " rimraf dist && vite build  --mode development && node zip.js",
         "build:us": " rimraf dist && vite build  --mode us && node zip.js",
         "dev": "vite",
+        "dev:qa": "rimraf dist && vite  --mode qa",
         "format": "prettier --cache --write .",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --report-unused-disable-directives",
         "prepare": "husky install",

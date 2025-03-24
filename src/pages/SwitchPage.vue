@@ -1,9 +1,11 @@
 <template>
     <div class="system-settings">
+        <van-loading v-if="settings.globalSwitchLoading" class="global-loading" type="spinner" color="#fff"
+            text="..."></van-loading>
         <van-cell-group inset>
             <van-cell center :title="language.enableSwitch" inset>
                 <template #right-icon>
-                    <van-switch v-model="settings.isSwipe"  @change="handleSwitchisSwipe"  />
+                    <van-switch v-model="settings.isSwipe" @change="handleSwitchisSwipe" />
                 </template>
             </van-cell>
         </van-cell-group>
@@ -17,31 +19,32 @@
             </van-cell>
             <van-cell :title="language.weather" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeWeather" :disabled="!settings.isSwipe"  @change="handleSwitchisSwipe" />
+                    <van-switch v-model="settings.HomeWeather" :disabled="!settings.isSwipe"
+                        @change="handleSwitchisSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.ballGame" center>
                 <template #right-icon>
-                    <van-switch
-                        v-model="settings.HomeFreeFallIcon"
-                        :disabled="!settings.isSwipe"
-                         @change="handleSwitchisSwipe"
-                    />
+                    <van-switch v-model="settings.HomeFreeFallIcon" :disabled="!settings.isSwipe"
+                        @change="handleSwitchisSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.slotGame" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.homeTigerGame" :disabled="!settings.isSwipe"   @change="handleSwitchisSwipe" />
+                    <van-switch v-model="settings.homeTigerGame" :disabled="!settings.isSwipe"
+                        @change="handleSwitchisSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.shakeEffect" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeWaterShak" :disabled="!settings.isSwipe"   @change="handleSwitchisSwipe" />
+                    <van-switch v-model="settings.HomeWaterShak" :disabled="!settings.isSwipe"
+                        @change="handleSwitchisSwipe" />
                 </template>
             </van-cell>
             <van-cell :title="language.darkEmpire" center>
                 <template #right-icon>
-                    <van-switch v-model="settings.HomeCocos2" :disabled="!settings.isSwipe"    @change="handleSwitchisSwipe"  />
+                    <van-switch v-model="settings.HomeCocos2" :disabled="!settings.isSwipe"
+                        @change="handleSwitchisSwipe" />
                 </template>
             </van-cell>
         </van-cell-group>
@@ -65,6 +68,7 @@ export default {
                 homeTigerGame: true,
                 HomeWaterShak: true,
                 HomeCocos2: true,
+                globalSwitchLoading: true
             },
             language: {
                 enableSwitch: JeeWeb.Language === 'zh-CN' ? '开启切换应用' : 'Enable App Switching',
@@ -104,7 +108,11 @@ export default {
             })
             .catch((err) => {
                 console.log('获取应用显示状态失败:', err);
-                this.showErrorToast();
+                setTimeout(() => {
+                    this.settings.globalSwitchLoading = false
+                    this.showErrorToast();
+                }, 1000)
+
             });
     },
     methods: {
@@ -363,5 +371,18 @@ export default {
     display: flex;
     flex-direction: column;
     background: linear-gradient(180.08deg, #c5e6ff -1.16%, #ecf6ff 14.34%, #f3f4f7 50%);
+}
+
+.global-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 </style>

@@ -240,8 +240,8 @@ export default {
         const cancel = () => {
             showPopup.value = false;
             // 这里使用没有更新的回显地址：
-            selectedTimezone.value.value = store.$state.timezoneValue;
-            selectedTimezone.value.label = `（${store.$state.timezoneLabel}）${store.$state.timezoneAddress}`
+            // selectedTimezone.value.value = store.$state.timezoneValue;
+            // selectedTimezone.value.label = `（${store.$state.timezoneLabel}）${store.$state.timezoneAddress}`
             showToast(language.cancelMessage);
         };
 

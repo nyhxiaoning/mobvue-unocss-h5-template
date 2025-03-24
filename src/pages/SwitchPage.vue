@@ -105,6 +105,7 @@ export default {
                     this.settings.HomeWaterShak = res.data.HomeWaterShak
                     this.settings.HomeCocos2 = res.data.HomeCocos2
                 }
+                this.settings.globalSwitchLoading = false
             })
             .catch((err) => {
                 console.log('获取应用显示状态失败:', err);

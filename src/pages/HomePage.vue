@@ -1,6 +1,7 @@
 <template>
     <div class="system-settings">
-        <van-loading v-if="states.globalLoading" class="global-loading" type="spinner" color="#fff" text="..."></van-loading>
+        <van-loading v-if="states.globalLoading" class="global-loading" type="spinner" color="#fff"
+            text="..."></van-loading>
         <!-- 顶部状态栏 -->
         <div class="status-bar">
             <van-row justify="space-between" align="center">
@@ -154,6 +155,12 @@
                 <div class="go-home"></div>
                 <div>{{ language.returnHome }}</div>
             </div>
+        </div>
+        <div>
+            <button @click="jumpNewTalFn" style="display: flex; font-size: 16px; margin-bottom: 5px; margin-left:10px">
+                点击跳转到其他的新的TAL汇总测试表
+            </button>
+
         </div>
     </div>
 </template>
@@ -407,9 +414,9 @@ export default defineComponent({
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'setBrightness',
+                        method: 'talSetBrightness',
                         params: {
-                            value: value,
+                            percent: value,
                         },
                     },
                 })
@@ -433,7 +440,7 @@ export default defineComponent({
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'PixelCupRestart',
+                        method: 'talRebootDevice',
                         params: {},
                     },
                 })
@@ -457,9 +464,9 @@ export default defineComponent({
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'setSwitch',
+                        method: 'talSetDisplayOnOff',
                         params: {
-                            value: states.screenStatus ? false : true,
+                            onoff: states.screenStatus ? false : true,
                         },
                     },
                 })
@@ -479,11 +486,11 @@ export default defineComponent({
         };
 
         const goHome = () => {
-            console.log('return2Home');
+            console.log('talReturn2Home');
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'return2Home',
+                        method: 'talReturn2Home',
                         params: {},
                     },
                 })
@@ -551,17 +558,18 @@ export default defineComponent({
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'getCupInfo',
+                        method: 'talGetCupInfo',
                         params: {},
                     },
                 })
                     .then((res: any) => {
-                        console.log(res.data, 'getCupInfo');
+                        console.log(res.data, 'talGetCupInfo');
                         states.brightness = res.data.brightness;
                         states.temperature = res.data.waterTemperature;
                         states.battery = res.data.batteryStatus;
                         states.screenStatus = res.data.switch;
                         states.address = res.data.timezone;
+                        console.log(res.data?.wifiSsid,"wifiSsid是否有wifi信息")
                         // states.weatheraddress = res.data.city;
                         // 设置天气地址:线上国内仅仅支持中国
                         console.log(res.data.city, 'res.data.city0000')
@@ -678,8 +686,12 @@ export default defineComponent({
         //     JeeWeb.onDevicesOnlineChanged(callback);
         // }
 
+        function jumpNewTalFn() {
+            router.push('/newTal');
+        }
 
         return {
+            jumpNewTalFn,
             onBrightnessChange,
             restartCup,
             closeScreen,

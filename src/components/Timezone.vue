@@ -260,9 +260,10 @@ export default {
             if (selectedTimezone.value.label) {
                     CupDevice.setDevMessage({
                         value: {
-                            method: 'setLoaclTimeZone',
+                            method: 'talSetTimeZone',
                             params: {
-                                value: selectedTimezone.value.value,
+                                // value: selectedTimezone.value.value,
+                                "timeZone": selectedTimezone.value.value,
                             },
                         },
                     })
@@ -306,7 +307,7 @@ export default {
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'getLoaclTimeZone',
+                        method: 'talGetTimeZone',
                         params: {
                             // 默认两项
                         },

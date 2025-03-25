@@ -72,9 +72,9 @@ const confirmCity = () => {
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
-                method: 'setCity',
+                method: 'talSetCity',
                 params: {
-                    value: sessionStorage.getItem('weathervalue')
+                    city: sessionStorage.getItem('weathervalue')
                 },
             },
         })

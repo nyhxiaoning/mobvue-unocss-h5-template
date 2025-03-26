@@ -185,7 +185,7 @@ export default defineComponent({
             console.log('---------onReceive--------', res);
             showToast({
                 message: JSON.stringify(res),
-                duration: 1000,
+                duration: 2000,
             });
         });
 

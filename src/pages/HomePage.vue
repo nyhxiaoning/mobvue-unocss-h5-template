@@ -182,7 +182,11 @@ export default defineComponent({
     setup() {
 
         CupDevice.onReceive((res:any) => {
-            console.log('%c收到的上报消息是-onReceive：', 'color: red; background-color: yellow', res);
+            console.log('---------onReceive--------', res);
+            showToast({
+                message: JSON.stringify(res),
+                duration: 1000,
+            });
         });
 
         const timezones = ref([

@@ -156,12 +156,6 @@
                 <div>{{ language.returnHome }}</div>
             </div>
         </div>
-        <div>
-            <button @click="jumpNewTalFn" style="display: flex; font-size: 16px; margin-bottom: 5px; margin-left:10px">
-                点击跳转到其他的新的TAL汇总测试表
-            </button>
-
-        </div>
     </div>
 </template>
 
@@ -182,11 +176,18 @@ export default defineComponent({
     setup() {
 
         CupDevice.onReceive((res:any) => {
+            if(res?.CurScreenState){
+                states.screenStatus = res?.CurScreenState.value
+            }
+            // if(res?.Brightness){
+            //     states.brightness = res?.Brightness.value
+            // }
+
             console.log('---------onReceive--------', res);
-            showToast({
-                message: JSON.stringify(res),
-                duration: 2000,
-            });
+            // showToast({
+            //     message: JSON.stringify(res),
+            //     duration: 2000,
+            // });
         });
 
         const timezones = ref([

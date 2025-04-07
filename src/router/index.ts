@@ -27,6 +27,9 @@ const WeatherView = defineAsyncComponent(() => import('@/components/WeatherView.
 const Setting = defineAsyncComponent(() => import('@/pages/SwitchPage.vue'));
 const TimeZone = defineAsyncComponent(() => import('@/components/Timezone.vue'));
 const newTal = defineAsyncComponent(() => import('@/components/newTal.vue'));
+const CutTimeDown = defineAsyncComponent(() => import('@/components/CutTimeDown.vue'));
+const TigerView = defineAsyncComponent(() => import('@/components/TigerView.vue'));
+const PlayList = defineAsyncComponent(() => import('@/components/PlayList.vue'));
 
 
 
@@ -35,71 +38,19 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: HomePage,
+            name: 'cutTimedown',
+            component: CutTimeDown,
         },
-        {
-            path: '/city',
-            name: 'city',
-            component: CityView,
-            beforeEnter: (to, from, next) => {
-                const userStore = useUserStore();
-                if (from.name === 'weather' && to.name === 'city') {
-                    // 重置城市信息: 用户如果点击返回的时候，需要重置城市信息，使用全局store
-                    sessionStorage.setItem('weathername', userStore.$state.weathername);
-                    sessionStorage.setItem('weathervalue', userStore.$state.weathervalue);
-                } else {
-                    next();
-                }
-                next();
-            },
-        },
-        {
-            path: '/timezone',
-            name: 'timezone',
-            component: TimeZone,
-        },
-        {
-            path: '/newTal',
-            name: 'newTal',
-            component: newTal,
-        },
-        {
-            path: '/weather',
-            name: 'weather',
-            component: WeatherView,
-            beforeEnter: (to, from, next) => {
-                console.log(to, 'to-weather');
-                console.log(from.name, 'from.name');
-                console.log(to.name, 'to.name');
-                const userStore = useUserStore();
 
-                if (from.name === 'home' && to.name === 'weather') {
-                    // home->weather
-                    // 取store配置查询一下当前的城市信息
-                    console.log(userStore.$state.allCitys, 'this.allCitys');
-                    userStore.$state.fromHome = true;
-                    console.log(Object.values(userStore.$state.allCitys), 'object.values');
-                    // console.log(userStore.$state, 'userStore.$state');
-                    // console.log(cityAll, 'cityAll');
-                }
-
-                if (from.name === 'city' && to.name === 'weather') {
-                    // city->weather
-                    // 取sessionStorage 查询一下当前的城市信息,同时
-                    userStore.$state.fromHome = false;
-                    //   sessionStorage.setItem('weathervalue',userStore.$state.weathervalue)
-                    //   sessionStorage.setItem('weathername', userStore.$state.weathername);
-                    //  userStore.$state.weathername = sessionStorage.getItem('weathername') || '';
-                }
-
-                next();
-            },
+        {
+            path: '/tigerview',
+            name: 'tigerview',
+            component: TigerView,
         },
         {
-            path: '/setting',
-            name: 'setting',
-            component: Setting,
+            path: '/playlist',
+            name: 'playlist',
+            component: PlayList,
         },
     ],
 });

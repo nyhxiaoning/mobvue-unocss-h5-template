@@ -60,7 +60,7 @@ function beforeRead(file: any) {
     return false
   }
   if (file.size > 1024 * 1024 * 10) {
-    showToast(getLocalizedText("上传图片过大", "Uploaded image is too large"))
+    showToast(getLocalizedText("图片太大，请重新上传", "The picture is too big, please upload it again"))
     return false
   }
   return true

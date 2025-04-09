@@ -47,7 +47,7 @@ watch(() => stores.generatedPixImgFlag, (newValue) => {
           <img :src="loadingImg" alt="">
         </div>
         <p class="text-white font-size-[16px] font-400">
-          {{ getLocalizedText('AI中生图中...', 'AI generating image...') }}
+          {{ getLocalizedText('AI生图中...', 'AI generating image...') }}
         </p>
         <p class="text-gray-500 font-size-[13px] font-400">
           {{ getLocalizedText('正在生成图片效果', 'Picture effect being generated') }}

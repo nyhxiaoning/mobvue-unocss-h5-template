@@ -1,7 +1,8 @@
 <!-- 代码已包含 CSS：使用 TailwindCSS , 安装 TailwindCSS 后方可看到布局样式效果 -->
 
 <script lang="ts" setup>
-import loadingImg from "@/assets/loading.png"
+// import loadingImg from "@/assets/loading.png"
+import loadingImg from "@/assets/loadingChange.gif"
 import { useUserStore } from "@/pinia/user"
 
 import { watch } from "vue"

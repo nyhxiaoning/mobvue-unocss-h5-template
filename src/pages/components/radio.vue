@@ -19,7 +19,8 @@ const props = defineProps<{
  */
 const emit = defineEmits<[
   "toggleRecording",
-  "cancelRecording"
+  "cancelRecording",
+  "pauseRecording"
 ]>()
 
 /**
@@ -35,12 +36,16 @@ const audioWave = ref(Array.from({ length: 20 }, () =>
 function toggleRecordingFn() {
   emit("toggleRecording")
 }
+
+function pauseRecording() {
+  emit("pauseRecording")
+}
 </script>
 
 <template>
   <div v-if="showVoiceModal" class="bg-white fixed bottom-80 left-0 right-0 p-4  border-t">
     <div class="relative flex items-center  rounded-lg px-4 py-2 mb-4">
-      <button class="bg-white border-none flex items-center justify-center">
+      <button @click="pauseRecording" class="bg-white border-none flex items-center justify-center">
         <van-icon v-if="isRecording" name="pause-circle-o" size="40" color="#3b82f6" />
       </button>
       <div class="flex-1 mx-2">

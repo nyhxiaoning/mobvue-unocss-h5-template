@@ -55,6 +55,8 @@ interface stateType {
   asrText: string
   fileToken: string
   lastStepFlag: boolean
+  // 当前的状态是否暂停
+  isPauseFlag: boolean
 }
 
 declare const CupDevice: any
@@ -75,7 +77,8 @@ const states = reactive<stateType>({
   asrConfig: "",
   asrText: "",
   fileToken: "",
-  lastStepFlag: false
+  lastStepFlag: false,
+  isPauseFlag: false
 })
 
 const inputText = ref("")
@@ -83,6 +86,9 @@ const activeTab = ref("text")
 const fileList = ref([]) // 用于存储上传的图片
 const audioWave = ref(Array.from({ length: 20 }, () =>
   Math.floor(Math.random() * 16 + 8)))
+
+const audioWavePause = ref(Array.from({ length: 20 }, () =>
+  Math.floor(16 + 8)))
 const showVoiceModal = ref(false)
 
 function switchTab(tab: any) {
@@ -143,6 +149,27 @@ function stopAsr() {
     isRecording.value = false
     showVoiceModal.value = false
   }, 200)
+}
+
+function pauseRecording(number: number) {
+  if (number === 1) {
+    // 暂停
+    console.log("pauseRecording-----")
+    setTimeout(() => {
+      recorder.stopWebAsr()
+      // 停止录音逻辑
+      states.isPauseFlag = true
+    }, 200)
+  } else {
+    // 继续
+    console.log("continueRecording-----")
+    setTimeout(() => {
+      recorder.stopWebAsr()
+      // 停止录音逻辑
+      states.isPauseFlag = false
+    }, 200)
+  }
+  console.log("pauseRecording-----")
 }
 
 function regenerateImage(params: any) {
@@ -483,14 +510,22 @@ function getLocalizedText(zhText: string, enText: string) {
         <div v-if="showVoiceModal" class="bg-white absolute bottom-0   border-t">
           <div class="relative flex items-center  rounded-lg  py-0 mb-0">
             <button class="bg-white border-none flex items-center justify-center">
-              <van-icon v-if="isRecording" name="pause-circle-o" size="40" color="#3b82f6" />
+              <van-icon v-if="!states.isPauseFlag" name="pause-circle-o" size="40" color="#3b82f6" @click="pauseRecording(1)" />
+              <van-icon v-if="states.isPauseFlag" name="play-circle-o" size="40" color="#3b82f6" @click="pauseRecording(2)" />
             </button>
             <div class="flex-1 mx-2">
-              <div v-if="isRecording" class="h-6 flex items-center justify-center">
+              <div v-if="isRecording && !states.isPauseFlag" class="h-6 flex items-center justify-center">
                 <div
                   v-for="(bar, index) in audioWave" :key="index"
                   :style="{ height: `${bar}px`, animationDelay: `${index * 0.05}s` }"
                   class="w-1 mx-0.5 bg-blue-500 rounded-full audio-wave-animation"
+                />
+              </div>
+              <div v-if="states.isPauseFlag" class="h-6 flex items-center justify-center">
+                <div
+                  v-for="(bar, index) in audioWavePause" :key="index"
+                  :style="{ height: `12px` }"
+                  class="w-1 mx-0.5 bg-blue-500 rounded-full "
                 />
               </div>
             </div>

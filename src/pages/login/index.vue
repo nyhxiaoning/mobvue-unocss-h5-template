@@ -164,8 +164,8 @@ function pauseRecording(number: number) {
     // 继续
     console.log("continueRecording-----")
     setTimeout(() => {
-      recorder.stopWebAsr()
-      // 停止录音逻辑
+      recorder.startWebAsr(states.asrConfig)
+      // 开始录音逻辑
       states.isPauseFlag = false
     }, 200)
   }

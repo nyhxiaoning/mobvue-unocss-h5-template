@@ -58,11 +58,7 @@ interface stateType {
 }
 
 declare const CupDevice: any
-// declare const JeeWeb: any
-// TODO:
-const JeeWeb = {
-  Language: "zh-CN"
-}
+declare const JeeWeb: any
 
 const apiBinUrl = `${import.meta.env.VITE_API_URL}/im/cup/bin` // 替换为你的 API 地址
 const asrTokenUrl = `${import.meta.env.VITE_API_URL}/llm/resource/tencent/speech/token` // 替换为你的 API 地址
@@ -437,7 +433,7 @@ function cancelRecording() {
 }
 // 添加获取本地化文本的函数
 function getLocalizedText(zhText: string, enText: string) {
-  return JeeWeb.Language === "zh-CN" ? zhText : enText
+  return JeeWeb?.Language === "zh-CN" ? zhText : enText
 }
 </script>
 

@@ -280,7 +280,7 @@ function setStaticTalFile() {
   // }
   CupDevice.setDevMessage({
     value: {
-      method: "showRGBBitmap",
+      method: "talPlayRGBBitmap",
       params: {
         imageContent: {
           url: stores.pixImgBin,

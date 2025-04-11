@@ -39,7 +39,7 @@
                         <!-- 第二个子 div -->
                         <van-col :span="18">
                             <div style="line-height: 24px; height: 26px; font-size: 12px">
-                                {{ language.waterTemp }}:{{ states.temperature }}℃
+                                {{ language.waterTemp }}:{{ states.temperature }} F
                             </div>
                         </van-col>
                     </van-row>
@@ -375,7 +375,7 @@ export default defineComponent({
             languageFlag: JeeWeb.Language === 'zh-CN' ? true : false,
             battery: userStore.$state.battery || 10,
             brightness: userStore.$state.brightness || 0,
-            temperature: userStore.$state.temperature || 90,
+            temperature: userStore.$state.temperature || 0,
             batteryStatus: false,
             address: '',
             weatheraddress: userStore.$state.weathername || '',

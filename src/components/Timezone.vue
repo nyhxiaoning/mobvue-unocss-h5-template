@@ -233,7 +233,7 @@ export default {
                 label: JeeWeb.Language === 'zh-CN'
                     ? '（UTC+12:00）奥克兰'
                     : '(UTC+12:00) Auckland',
-                timezone: 'Pacific/Auckland',
+                value: 'Pacific/Auckland',
             },
         ]);
 

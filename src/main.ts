@@ -11,6 +11,8 @@
  */
 import 'vant/lib/index.css';
 import './main.less';
+import 'virtual:uno.css'
+
 
 /**
  * Components

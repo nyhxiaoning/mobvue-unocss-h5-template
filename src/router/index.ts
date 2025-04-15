@@ -27,6 +27,7 @@ const WeatherView = defineAsyncComponent(() => import('@/components/WeatherView.
 const Setting = defineAsyncComponent(() => import('@/pages/SwitchPage.vue'));
 const TimeZone = defineAsyncComponent(() => import('@/components/Timezone.vue'));
 const newTal = defineAsyncComponent(() => import('@/components/newTal.vue'));
+const screenSaver = defineAsyncComponent(() => import('@/components/PageScreensaver.vue'));
 
 
 
@@ -58,6 +59,11 @@ const router = createRouter({
             path: '/timezone',
             name: 'timezone',
             component: TimeZone,
+        },
+        {
+            path: '/screensaver',
+            name: 'screensaver',
+            component: screenSaver,
         },
         {
             path: '/newTal',

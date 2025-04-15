@@ -21,7 +21,7 @@
       <div class="mb-4">
         <div class="flex justify-between items-center mb-4">
           <span class="text-gray-900 font-[15]"
-            >屏保图片 ( {{ images.length }} - 4 )</span
+            >屏保图片 ( {{ images.length-1 }} - 4 )</span
           >
           <span class="text-blue-500" @click="editing = !editing"
             >{{ editing ? "完成" : "编辑" }}
@@ -39,7 +39,7 @@
               v-if="image.url && !image?.blank"
               :src="image.url"
               class="w-20 h-20 border-radus-4 border-4 border-gray-900"
-              alt="emoji"
+              alt=""
             />
             <div v-else class="text-center text-gray-400">
               <img :src="imgAdd" alt="" />
@@ -65,7 +65,7 @@
           <div
             class="rounded-lg bg-white p-4 shadow-sm flex items-center justify-center min-h-[160px]"
           >
-            <div class="text-center text-gray-400">
+            <div class="text-center text-gray-400" >
               <van-icon name="plus" size="20" />
               <div class="text-sm mt-2">快去添加图片吧</div>
             </div>
@@ -112,8 +112,8 @@
             <i
               :class="[
                 selectedSpeed === speed
-                  ? 'fas fa-dot-circle text-blue-500'
-                  : 'far fa-circle text-gray-300',
+                  ? ' text-blue-500'
+                  : ' text-gray-300',
               ]"
             ></i>
 
@@ -130,16 +130,23 @@
         </div>
       </div>
     </div>
+
+   <ScreenImages :showSpeedPopupChild="showSpeedPopupChildFlag" :token="currentBlank"  @close-popup="handleClosePopup" @confirm-speed="handleConfirmSpeed"  />
+
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { showToast } from "vant";
+import {requestFileUploadTokenPromise} from "@/utils/tools"
 
 import imgAdd from "@/assets/imgAdd.png";
+import ScreenImages from "./ScreenImages.vue";
 
+let currentBlank= ref<string>("")
 const showSpeedPopup = ref(false);
+const showSpeedPopupChildFlag = ref(false);
 const selectedSpeed = ref(5);
 const resultSelected = ref(5);
 let editing = ref(false);
@@ -163,9 +170,13 @@ const images = ref([
   },
 ]);
 
-const toggleSelect = (index: number) => {
+const toggleSelect = async (index: number) => {
+    if(images.value[index].blank){
+        currentBlank.value = await requestFileUploadTokenPromise() as string;
+        showSpeedPopupChildFlag.value = true;
+        return;
+    }
   images.value[index].selected = !images.value[index].selected;
-  console.log(images.value);
 };
 
 const selectSpeedFn = (speed: number) => {
@@ -184,7 +195,6 @@ const ConfirmSpeed = () => {
 };
 
 const deleteImages = () => {
-  //
 
   let currentSelected: any = images.value.filter((image) => image.selected);
   let noDeleteSelected: any = images.value.filter((image) => !image.selected);
@@ -206,34 +216,23 @@ const deleteImages = () => {
     });
     return;
   }
-
-  //   if (images.value.length === currentSelected.length) {
-  //     showToast({
-  //       message: "请至少保留一张图片",
-
-  //       duration: 2000,
-  //     });
-  //     return;
-  //   }
   images.value = noDeleteSelected;
 
   editing.value = false;
 };
 
-watch(
-  () => images.value,
-  (newImages) => {
-    // if (newImages.length === 4) {
-    // } else {
-    // images.value.push({
-    //     url: "",
-    //     blank: true,
-    //     selected: false,
-    //   });
-    //   editing.value = false;
-    // }
-  }
-);
+
+const handleClosePopup = (value:boolean) => {
+    console.log(value,'value---------')
+//   showSpeedPopupChildFlag.value = false;
+}
+
+const handleConfirmSpeed = (value:boolean)=> {
+//   resultSelected.value = speed;
+    console.log(value,'value---------')
+//   showSpeedPopupChildFlag.value = false;
+}
+
 </script>
 
 <style scoped>

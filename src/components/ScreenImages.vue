@@ -1,0 +1,144 @@
+<template>
+  <div v-if="props.showSpeedPopupChild" class="fixed inset-0 bg-black bg-opacity-50 z-50">
+    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl p-4" @click.stop>
+      <div class="text-center text-lg font-medium mb-4 flex justify-between">
+        <div class="flex">
+          <div class="p-3 font-[16] font-500 text-gray-900" @click="CancelSpeed">
+            我的收藏
+          </div>
+          <div class="p-3 font-[16] font-500 text-gray-400" @click="ConfirmSpeed">
+            我的作品
+          </div>
+        </div>
+        <div  class="flex">
+          <div  class="p-3 font-[16] font-500 text-gray-900" >选择</div>
+          <div  class="p-3 font-[16] font-500 text-gray-900" >关闭</div>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div v-if="imagesAll.length" class="grid grid-cols-2 gap-4">
+          <div
+            v-for="(image, index) in imagesAll"
+            :key="index"
+            class="relative bg-white rounded-xl p-4 aspect-square flex items-center justify-center border-4 border-gray-900"
+          >
+            <img
+              v-if="image.url && !image?.blank"
+              :src="image.url"
+              class="w-20 h-20 border-radus-4 border-4 border-gray-900"
+              alt=""
+            />
+            <div class="absolute top-2 right-2">
+              <van-icon v-if="editing && image.selected && !image.blank" name="checked" />
+              <van-icon
+                v-if="editing && !image.selected && !image.blank"
+                name="circle"
+                color="#1989fa"
+              />
+              <van-icon v-if="editing && image.blank" color="#1989fa" />
+              <van-icon v-if="!editing" color="#1989fa" />
+            </div>
+          </div>
+        </div>
+      </div>
+          <div
+
+      class="flex flex-col justify-end items-center p-10 margin-bottom-20"
+    >
+      <button
+
+        class="w-full bg-white text-red-500 h-[48] font-500 py-4 shadow-lg rounded-full border-1 border-red-500"
+      >
+        删除
+      </button>
+    </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, watch } from "vue";
+import { showToast } from "vant";
+import { requestFileUploadTokenPromise } from "@/utils/tools";
+import { gArtifactPage, gFavoritePage } from "@/request/screensaver";
+// 定义 props
+const props = defineProps({
+  token: {
+    type: String,
+    default: "",
+  },
+  showSpeedPopupChild: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const selectedSpeed = ref(5);
+
+const CancelSpeed = () => {
+  //   selectedSpeed.value = resultSelected.value;
+  // 这里不应该修改 props 的值，而是通过事件通知父组件关闭弹窗
+  // showSpeedPopup.value = false;
+  emit("close-popup", false);
+};
+
+const ConfirmSpeed = () => {
+  //   resultSelected.value = selectedSpeed.value;
+  // 同样，通过事件通知父组件关闭弹窗
+  // showSpeedPopup.value = false;
+  emit("close-popup", true);
+};
+
+// const toggleSelect = (index: number) => {
+//   imagesAll.value[index].selected = !imagesAll.value[index].selected;
+// };
+
+// 定义 emits 来通知父组件事件
+const emit = defineEmits(["close-popup", "confirm-speed"]);
+
+watch(
+  () => selectedSpeed.value,
+  (newValue) => {
+    emit("confirm-speed", newValue);
+  }
+);
+
+// 获取收藏和作品数据
+// gArtifactPage().then((res:any)=>{
+//   console.log(res,'res')
+// })
+//
+
+let imagesAll = ref<any>([]);
+let editing = ref(false);
+
+watch(
+  () => props.showSpeedPopupChild,
+  (newValue) => {
+    console.log(props.token, "props.token");
+    console.log(props.showSpeedPopupChild, "props.showSpeedPopupChild");
+    if (newValue) {
+      gFavoritePage(props.token)
+        .then((res: any) => {
+          console.log(res.data.result.list, "res");
+          if (res.data.result.list.length > 0) {
+            res.data.result.list.forEach((item: any) => {
+              imagesAll.value.push({ url: item.fileUrl, selected: false });
+            });
+            return;
+          }
+          return;
+        })
+        .catch((err) => {
+          console.log(err, "err");
+        });
+    }
+  }
+);
+</script>
+
+<style scoped>
+.aspect-square {
+  aspect-ratio: 1/1;
+}
+</style>

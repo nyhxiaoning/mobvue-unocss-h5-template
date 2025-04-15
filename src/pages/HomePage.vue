@@ -119,6 +119,7 @@
                         <div style="
                                 display: flex;
                                 font-size: 16px;
+
                                 margin-bottom: 5px;
                                 text-align: center;
                             ">
@@ -133,6 +134,38 @@
 
                 <div class="seting-appcup"></div>
             </div>
+        </div>
+        <div class="feature-item">
+            <div @click="appConfigFn" style="
+                    flex: 1;
+                    display: flex;
+                    justify-content: space-between;
+                    text-align: center;
+                    background-color: #ffffff;
+                    border-radius: 10px;
+                    align-items: center;
+                ">
+                <div>
+                    <div>
+                        <div style="
+                                display: flex;
+                                font-size: 16px;
+
+                                margin-bottom: 5px;
+                                text-align: center;
+                            ">
+                            {{ language.appSaverConfig }}
+                            <img src="@/assets/arrowtwo.png" width="20" height="20" alt="" />
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #969698">
+                        {{ language.appSaverConfigDesc }}
+                    </div>
+                </div>
+
+                <div class="seting-appcup-screensaver"></div>
+            </div>
+
         </div>
 
         <!-- 空白间隔 -->
@@ -396,7 +429,9 @@ export default defineComponent({
             clock: JeeWeb.Language === 'zh-CN' ? '时钟' : 'Clock',
             weather: JeeWeb.Language === 'zh-CN' ? '天气' : 'Weather',
             appConfig: JeeWeb.Language === 'zh-CN' ? '应用配置' : 'App Config',
+            appSaverConfig: JeeWeb.Language === 'zh-CN' ? '屏保设置' : 'Screensavers Config',
             appConfigDesc: JeeWeb.Language === 'zh-CN' ? '可设置应用是否在水杯中展示' : 'Configure App Display',
+            appSaverConfigDesc: JeeWeb.Language === 'zh-CN' ? '可设置在水杯中展示的屏保' : 'Screensaver that can be set to display in a water glass',
             restartCup: JeeWeb.Language === 'zh-CN' ? '重启水杯' : 'Restart',
             closeScreen: JeeWeb.Language === 'zh-CN' ? '关闭屏幕' : 'Display Off',
             openScreen: JeeWeb.Language === 'zh-CN' ? '打开屏幕' : 'Display On',
@@ -808,6 +843,7 @@ export default defineComponent({
 .feature-item {
     display: flex;
     flex: 0.5;
+    flex-direction: column;
     margin-left: 20px;
     margin-right: 20px;
     margin-top: 16px;
@@ -1005,6 +1041,14 @@ export default defineComponent({
 
 .seting-appcup {
     background: url('@/assets/appseting.png') center / contain no-repeat;
+    width: 40px;
+    height: 47px;
+
+    display: inline-block;
+}
+
+.seting-appcup-screensaver{
+    background: url('@/assets/screensaver.png') center / contain no-repeat;
     width: 40px;
     height: 47px;
 

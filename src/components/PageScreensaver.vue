@@ -140,7 +140,7 @@ import { showToast } from "vant";
 import imgAdd from "@/assets/imgAdd.png";
 
 const showSpeedPopup = ref(false);
-const selectedSpeed = ref(10);
+const selectedSpeed = ref(5);
 const resultSelected = ref(5);
 let editing = ref(false);
 // 这里需要将分钟转成秒
@@ -173,7 +173,9 @@ const selectSpeedFn = (speed: number) => {
 };
 
 const CancelSpeed = () => {
+  selectedSpeed.value = resultSelected.value
   showSpeedPopup.value = false;
+
 };
 
 const ConfirmSpeed = () => {

@@ -160,14 +160,14 @@ const images = ref([
     url:
       "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRCCD53VGJ4F7312M5B6/jeejio.gif",
     selected: false,
-    fielSize: 10470,
+    fileSize: 10470,
     type: 1,
   },
   {
     url:
       "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRD117Z2NNDGZXGQEYSH/jeejio.gif",
     selected: false,
-    fielSize: 17466,
+    fileSize: 17466,
     type: 1,
   },
   {
@@ -191,26 +191,65 @@ const toggleSelect = async (index: number) => {
   images.value[index].selected = !images.value[index].selected;
 };
 
+const mergeObjectArray = (arr: any) => {
+  let result = {};
+  for (let i = 0; i < arr.length; i++) {
+    const obj = arr[i];
+    for (let key in obj) {
+      if (obj?.hasOwnProperty(key)) {
+        result[key] = obj[key];
+      }
+    }
+  }
+  return result;
+};
+
 const selectSpeedFn = (speed: number) => {
   selectedSpeed.value = speed;
   // 切换速度，下发tal指令
-  //   CupDevice &&
-  //     CupDevice.setDevMessage({
-  //         value: {
-  //             method: 'talSetPlayList',
-  //         },
-  //     })
-  //       .then((res:any) => {
-  //             console.log('talGetCountDownInfo', res)
-  //             states.show = true
-  //             states.message = JSON.stringify(res)
-  //         }).catch(err => {
-  //             console.log('talGetCountDownInfo error', err)
-  //             showToast({
-  //                 message: '获取失败' + states.curInterface,
-  //                 duration: 1000,
-  //             });
-  //         })
+  // 构造这里的content0-4数量内容对象，进行解构赋值
+  let contentObj = [];
+  for (let i = 0; i < images.value.length - 1; i++) {
+    contentObj.push({
+      [`content${i}`]: {
+        size: images.value[i]?.fileSize,
+        type: images.value[i]?.type === 1 ? "image/gif" : "application/octet-stream",
+        url: images.value[i]?.url,
+      },
+      [`playTime${i}`]: resultSelected.value * 60,
+    });
+  }
+  let output = mergeObjectArray(Object.values(contentObj));
+
+  console.log(output, "output-----");
+  //   console.log(JSON.parse(output), "JSON.parse-output");
+
+  output = {
+    ...output,
+    isOrder: 1,
+    ListLen: currentImageNumber,
+  };
+
+  console.log(output, "output-----end");
+  CupDevice &&
+    CupDevice.setDevMessage({
+      value: {
+        method: "talSetPlayList",
+        params: {
+          ...output,
+        },
+      },
+    })
+      .then((res: any) => {
+        console.log("", res);
+      })
+      .catch((err: any) => {
+        console.log(" error", err);
+        showToast({
+          message: "获取失败",
+          duration: 1000,
+        });
+      });
 };
 
 const CancelSpeed = () => {

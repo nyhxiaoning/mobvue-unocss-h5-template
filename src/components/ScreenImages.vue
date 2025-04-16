@@ -7,7 +7,13 @@
       color="#fff"
       text="..."
     ></van-loading>
-    <div class="bg-white rounded-t-xl flex flex-col" @click.stop>
+    <!-- <div class="bg-white rounded-t-xl flex flex-col" @click.stop> -->
+
+    <van-popup
+      v-model:show="props.showSpeedPopupChild"
+      position="bottom"
+      :style="{ height: '80%' }"
+    >
       <div class="text-center text-lg font-medium mb-4 flex">
         <div class="p-3 font-[16] font-500 text-gray-900" @click="CancelSpeed">
           我的收藏
@@ -16,7 +22,7 @@
           我的作品
         </div>
       </div>
-      <div class="flex-1 p-4 h-[500px] overflow-scroll">
+      <div class="flex-1 p-4 h-[400px] overflow-scroll">
         <div v-if="imagesAll.length" class="grid grid-cols-2 gap-4 h-[300px]">
           <div
             v-for="(image, index) in imagesAll"
@@ -51,7 +57,7 @@
           取消
         </button>
       </div>
-    </div>
+    </van-popup>
   </div>
 </template>
 

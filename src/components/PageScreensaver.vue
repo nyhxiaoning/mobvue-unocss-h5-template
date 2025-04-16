@@ -224,10 +224,19 @@ const selectSpeedFn = (speed: number) => {
   console.log(output, "output-----");
   //   console.log(JSON.parse(output), "JSON.parse-output");
 
+  let currentLength:number
+  let blankIndex = images.value.findIndex((image) => image.blank);
+  if (blankIndex < 0) {
+    currentLength = images.value.length;
+
+  } else {
+    currentLength =images.value.length - 1;
+
+  }
   output = {
     ...output,
     isOrder: 1,
-    ListLen: currentImageNumber,
+    ListLen: currentLength,
   };
 
   console.log(output, "output-----end");

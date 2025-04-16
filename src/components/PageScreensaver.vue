@@ -156,11 +156,11 @@ const speeds = [1, 5, 10, 30, 60, 120, 360];
 
 const images = ref([
   {
-    url: "https://ai-public.mastergo.com/ai/img_res/268e57cf1cfd8989a07eaf036b41231a.jpg",
+    url: "https://storage.qajeejio.com/im/artifact/image/01JQX5KZWX1HBPWJFKDJVMDVN2/贺玉奇-10466-10-9.png",
     selected: false,
   },
   {
-    url: "https://ai-public.mastergo.com/ai/img_res/7d29b12525a39b3bc40d16115adaaf0f.jpg",
+    url: "https://storage.qajeejio.com/im/artifact/image/01JQX5KZWX1HBPWJFKDJVMDVN2/贺玉奇-10466-10-9.png",
     selected: false,
   },
   {

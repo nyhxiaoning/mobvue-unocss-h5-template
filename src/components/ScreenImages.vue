@@ -1,16 +1,26 @@
 <template>
   <div v-if="props.showSpeedPopupChild" class="fixed inset-0 bg-black bg-opacity-50 z-50">
-    <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl p-4" @click.stop>
+      <van-loading
+      v-if="childFlagLoading"
+      class="global-loading"
+      type="spinner"
+      color="#fff"
+      text="..."
+    ></van-loading>
+    <div
+      class=" bg-white rounded-t-xl flex flex-col"
+      @click.stop
+    >
       <div class="text-center text-lg font-medium mb-4 flex">
-          <div class="p-3 font-[16] font-500 text-gray-900" @click="CancelSpeed">
-            我的收藏
-          </div>
-          <div class="p-3 font-[16] font-500 text-gray-400" @click="ConfirmSpeed">
-            我的作品
-          </div>
+        <div class="p-3 font-[16] font-500 text-gray-900" @click="CancelSpeed">
+          我的收藏
+        </div>
+        <div class="p-3 font-[16] font-500 text-gray-400" @click="ConfirmSpeed">
+          我的作品
+        </div>
       </div>
-      <div class="space-y-4">
-        <div v-if="imagesAll.length" class="grid grid-cols-2 gap-4">
+      <div class="flex-1 p-4  h-[500px] overflow-scroll">
+        <div v-if="imagesAll.length" class="grid grid-cols-2 gap-4 h-[300px]">
           <div
             v-for="(image, index) in imagesAll"
             :key="index"
@@ -19,9 +29,10 @@
             <img
               v-if="image.url && !image?.blank"
               :src="image.url"
-              class="w-20 h-20 border-radus-4 border-4 border-gray-900"
+              class="w-20 h-20 rounded border-4 border-gray-900"
               alt=""
             />
+            <!-- 状态图标 -->
             <div class="absolute top-2 right-2">
               <van-icon v-if="editing && image.selected && !image.blank" name="checked" />
               <van-icon
@@ -34,18 +45,17 @@
             </div>
           </div>
         </div>
-      </div>
-          <div
 
-      class="flex flex-col justify-end items-center p-10 margin-bottom-20"
-    >
-      <button
-        @click="CancelImgSelectedFn"
-        class="w-full bg-white  h-[48] font-500 py-4 shadow-lg rounded-full border-1 border-black"
-      >
-        取消
-      </button>
-    </div>
+      </div>
+              <div class="flex flex-col justify-end items-center p-10 margin-bottom-20">
+            <button
+            @click="CancelImgSelectedFn"
+            class="w-full bg-white h-[48] font-500 py-4 shadow-lg rounded-full border-1 border-black"
+            >
+            取消
+            </button>
+      </div>
+
     </div>
   </div>
 </template>
@@ -69,6 +79,8 @@ const props = defineProps({
 
 const selectedSpeed = ref(5);
 
+const childFlagLoading = ref(false);
+
 const CancelSpeed = () => {
   //   selectedSpeed.value = resultSelected.value;
   // 这里不应该修改 props 的值，而是通过事件通知父组件关闭弹窗
@@ -78,7 +90,7 @@ const CancelSpeed = () => {
 
 const CancelImgSelectedFn = () => {
   emit("close-popup", false);
-}
+};
 
 const ConfirmSpeed = () => {
   //   resultSelected.value = selectedSpeed.value;
@@ -113,6 +125,7 @@ let editing = ref(false);
 watch(
   () => props.showSpeedPopupChild,
   (newValue) => {
+    childFlagLoading.value = true;
     console.log(props.token, "props.token");
     console.log(props.showSpeedPopupChild, "props.showSpeedPopupChild");
     if (newValue) {
@@ -123,11 +136,14 @@ watch(
             res.data.result.list.forEach((item: any) => {
               imagesAll.value.push({ url: item.fileUrl, selected: false });
             });
+              childFlagLoading.value = false;
             return;
           }
+            childFlagLoading.value = false;
           return;
         })
         .catch((err) => {
+          childFlagLoading.value = false;
           console.log(err, "err");
         });
     }
@@ -138,5 +154,18 @@ watch(
 <style scoped>
 .aspect-square {
   aspect-ratio: 1/1;
+}
+
+.global-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 </style>

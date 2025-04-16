@@ -12,4 +12,12 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 'latest',
     },
+    rules: {
+        'vue/no-mutating-props': [
+            'error',
+            {
+                shallowOnly: true,
+            },
+        ],
+    },
 };

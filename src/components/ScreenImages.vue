@@ -1,16 +1,13 @@
 <template>
   <div v-if="props.showSpeedPopupChild" class="fixed inset-0 bg-black bg-opacity-50 z-50">
-      <van-loading
+    <van-loading
       v-if="childFlagLoading"
       class="global-loading"
       type="spinner"
       color="#fff"
       text="..."
     ></van-loading>
-    <div
-      class=" bg-white rounded-t-xl flex flex-col"
-      @click.stop
-    >
+    <div class="bg-white rounded-t-xl flex flex-col" @click.stop>
       <div class="text-center text-lg font-medium mb-4 flex">
         <div class="p-3 font-[16] font-500 text-gray-900" @click="CancelSpeed">
           我的收藏
@@ -19,7 +16,7 @@
           我的作品
         </div>
       </div>
-      <div class="flex-1 p-4  h-[500px] overflow-scroll">
+      <div class="flex-1 p-4 h-[500px] overflow-scroll">
         <div v-if="imagesAll.length" class="grid grid-cols-2 gap-4 h-[300px]">
           <div
             v-for="(image, index) in imagesAll"
@@ -45,17 +42,15 @@
             </div>
           </div>
         </div>
-
       </div>
-              <div class="flex flex-col justify-end items-center p-10 margin-bottom-20">
-            <button
-            @click="CancelImgSelectedFn"
-            class="w-full bg-white h-[48] font-500 py-4 shadow-lg rounded-full border-1 border-black"
-            >
-            取消
-            </button>
+      <div class="flex flex-col justify-end items-center p-10 margin-bottom-20">
+        <button
+          @click="CancelImgSelectedFn"
+          class="w-full bg-white h-[48] font-500 py-4 shadow-lg rounded-full border-1 border-black"
+        >
+          取消
+        </button>
       </div>
-
     </div>
   </div>
 </template>
@@ -136,10 +131,10 @@ watch(
             res.data.result.list.forEach((item: any) => {
               imagesAll.value.push({ url: item.fileUrl, selected: false });
             });
-              childFlagLoading.value = false;
+            childFlagLoading.value = false;
             return;
           }
-            childFlagLoading.value = false;
+          childFlagLoading.value = false;
           return;
         })
         .catch((err) => {

@@ -7,12 +7,13 @@
         class="bg-white rounded-xl p-4 flex justify-between items-center mb-6"
         @click="showSpeedPopup = true"
       >
-        <span class="text-gray-900 font-[14]">轮播速度</span>
+        <span class="text-gray-900 font-[14]">{{ language.carouselSpeed }}</span>
         <div class="flex items-center">
           <span class="text-gray-400 mr-2">{{
-            resultSelected > 60 ? `${resultSelected / 60}小时` : `${resultSelected}分钟`
+            resultSelected > 60
+              ? `${resultSelected / 60}${language.hours}`
+              : `${resultSelected} ${language.minutes}`
           }}</span>
-
           <van-icon class="text-gray-400" name="arrow" />
         </div>
       </div>
@@ -20,11 +21,11 @@
       <!-- 屏保图片区域 -->
       <div class="mb-4">
         <div class="flex justify-between items-center mb-4">
-          <span class="text-gray-900 font-[15]"
-            >屏保图片 ( {{ currentImageNumber }} - 4 )</span
-          >
-          <span class="text-blue-500" @click="editing = !editing"
-            >{{ editing ? "完成" : "编辑" }}
+          <span class="text-gray-900 font-[15]">
+            {{ language.screensaverImages }} ( {{ currentImageNumber }} - 4 )
+          </span>
+          <span class="text-blue-500" @click="editing = !editing">
+            {{ editing ? language.done : language.edit }}
           </span>
         </div>
 
@@ -43,7 +44,7 @@
             />
             <div v-else class="text-center text-gray-400">
               <img :src="imgAdd" alt="" />
-              <div class="text-sm mt-2">快去添加图片吧</div>
+              <div class="text-sm mt-2">{{ language.addImagePrompt }}</div>
             </div>
             <div class="absolute top-2 right-2">
               <van-icon v-if="editing && image.selected && !image.blank" name="checked" />
@@ -67,7 +68,7 @@
           >
             <div class="text-center text-gray-400">
               <van-icon name="plus" size="20" />
-              <div class="text-sm mt-2">快去添加图片吧</div>
+              <div class="text-sm mt-2">{{ language.addImagePrompt }}</div>
             </div>
           </div>
         </div>
@@ -83,7 +84,7 @@
         @click="deleteImages"
         class="w-full bg-white text-red-500 h-[48] font-500 py-4 shadow-lg rounded-full border-1 border-red-500"
       >
-        删除
+        {{ language.delete }}
       </button>
     </div>
 
@@ -92,11 +93,11 @@
       <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl p-4" @click.stop>
         <div class="text-center text-lg font-medium mb-4 flex justify-between">
           <div class="p-3 font-[16] font-500 text-gray-400" @click="CancelSpeed">
-            取消
+            {{ language.cancel }}
           </div>
-          <div class="p-2 font-[18] font-500">轮播速度</div>
+          <div class="p-2 font-[18] font-500">{{ language.carouselSpeed }}</div>
           <div class="p-3 font-[16] font-500 text-[#0094FF]" @click="ConfirmSpeed">
-            确定
+            {{ language.confirm }}
           </div>
         </div>
         <div class="space-y-4">
@@ -107,7 +108,7 @@
             @click="selectSpeedFn(speed)"
           >
             <div class="flex-1">
-              {{ speed > 60 ? `${speed / 60}小时` : `${speed}分钟` }}
+              {{ speed > 60 ? `${speed / 60}${language.hours}` : `${speed} ${language.minutes}` }}
             </div>
             <i
               :class="[selectedSpeed === speed ? ' text-blue-500' : ' text-gray-300']"
@@ -137,12 +138,26 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch } from "vue";
+import { ref, computed, reactive } from "vue";
 import { showToast } from "vant";
 import { requestFileUploadTokenPromise } from "@/utils/tools";
 
 import imgAdd from "@/assets/imgAdd.png";
 import ScreenImages from "./ScreenImages.vue";
+
+const language = reactive({
+  carouselSpeed: JeeWeb && JeeWeb.Language === "zh-CN" ? "轮播速度" : "Carousel Speed",
+  hours: JeeWeb && JeeWeb.Language === "zh-CN" ? "小时" : "hours",
+  minutes: JeeWeb && JeeWeb.Language === "zh-CN" ? "分钟" : "minutes",
+  screensaverImages: JeeWeb && JeeWeb.Language === "zh-CN" ? "屏保图片" : "Screensaver Images",
+  done: JeeWeb && JeeWeb.Language === "zh-CN" ? "完成" : "Done",
+  edit: JeeWeb && JeeWeb.Language === "zh-CN" ? "编辑" : "Edit",
+  addImagePrompt: JeeWeb && JeeWeb.Language === "zh-CN" ? "快去添加图片吧" : "Add images now",
+  delete: JeeWeb && JeeWeb.Language === "zh-CN" ? "删除" : "Delete",
+  cancel: JeeWeb && JeeWeb.Language === "zh-CN" ? "取消" : "Cancel",
+  confirm: JeeWeb && JeeWeb.Language === "zh-CN" ? "确定" : "Confirm",
+  fetchError: JeeWeb && JeeWeb.Language === "zh-CN" ? "获取失败" : "Fetch failed",
+});
 
 let currentBlank = ref<string>("");
 const showSpeedPopup = ref(false);
@@ -255,7 +270,7 @@ const selectSpeedFn = (speed: number) => {
       .catch((err: any) => {
         console.log(" error", err);
         showToast({
-          message: "获取失败",
+          message: language.fetchError,
           duration: 1000,
         });
       });
@@ -284,8 +299,7 @@ const deleteImages = () => {
 
   if (currentSelected.length >= 2) {
     showToast({
-      message: "最多删除一张图片",
-
+      message: JeeWeb && JeeWeb.Language === "zh-CN" ? "最多删除一张图片" : "Delete up to one image",
       duration: 2000,
     });
     return;
@@ -294,7 +308,7 @@ const deleteImages = () => {
   if (noDeleteSelected.length < 2) {
     console.log("noDeleteSelected", noDeleteSelected);
     showToast({
-      message: "请至少保留一张图片",
+      message: JeeWeb && JeeWeb.Language === "zh-CN" ? "请至少保留一张图片" : "Keep at least one image",
       duration: 2000,
     });
     return;

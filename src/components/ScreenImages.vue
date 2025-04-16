@@ -15,10 +15,24 @@
       :style="{ height: '80%' }"
     >
       <div class="text-center text-lg font-medium mb-4 flex">
-        <div :class="[currentTabValue === 1?'p-4 font-[16] font-500 text-gray-900':'p-4 font-[16] font-500 text-gray-400']" @click="switchTab(1)">
+        <div
+          :class="[
+            currentTabValue === 1
+              ? 'p-4 font-[16] font-500 text-gray-900'
+              : 'p-4 font-[16] font-500 text-gray-400',
+          ]"
+          @click="switchTab(1)"
+        >
           我的收藏
         </div>
-        <div  :class="[currentTabValue === 2?'p-4 font-[16] font-500 text-gray-900':'p-4 font-[16] font-500 text-gray-400']" @click="switchTab(2)">
+        <div
+          :class="[
+            currentTabValue === 2
+              ? 'p-4 font-[16] font-500 text-gray-900'
+              : 'p-4 font-[16] font-500 text-gray-400',
+          ]"
+          @click="switchTab(2)"
+        >
           我的作品
         </div>
       </div>
@@ -30,22 +44,12 @@
             class="relative bg-white rounded-xl p-4 flex items-center justify-center border-4 border-gray-900 aspect-w-2 aspect-h-1 border-4 border-gray-900"
           >
             <img
+              @click="ConfirmWork(image, index)"
               v-if="image.url && !image?.blank"
               :src="image.url"
               class="w-40 h-20 object-cover rounded border-4 border-gray-900"
               alt=""
             />
-            <!-- 状态图标 -->
-            <div class="absolute top-2 right-2">
-              <van-icon v-if="editing && image.selected && !image.blank" name="checked" />
-              <van-icon
-                v-if="editing && !image.selected && !image.blank"
-                name="circle"
-                color="#1989fa"
-              />
-              <van-icon v-if="editing && image.blank" color="#1989fa" />
-              <van-icon v-if="!editing" color="#1989fa" />
-            </div>
           </div>
         </div>
       </div>
@@ -97,7 +101,7 @@ const switchTab = (index: number) => {
         console.log(res.data.result.list, "res");
         if (res.data.result.list.length > 0) {
           res.data.result.list.forEach((item: any) => {
-            imagesAll.value.push({ url: item.fileUrl, selected: false });
+            imagesAll.value.push({ url: item.cover, selected: false });
           });
           childFlagLoading.value = false;
           return;
@@ -117,7 +121,7 @@ const switchTab = (index: number) => {
         console.log(res.data.result.list, "res");
         if (res.data.result.list.length > 0) {
           res.data.result.list.forEach((item: any) => {
-            imagesAll.value.push({ url: item.fileUrl, selected: false });
+            imagesAll.value.push({ url: item.cover, selected: false });
           });
           childFlagLoading.value = false;
           return;
@@ -136,11 +140,16 @@ const CancelImgSelectedFn = () => {
   emit("close-popup", false);
 };
 
-const ConfirmSpeed = () => {
+const ConfirmWork = (image: any, index: number) => {
+  console.log(image, "image", "index", index);
   //   resultSelected.value = selectedSpeed.value;
   // 同样，通过事件通知父组件关闭弹窗
   // showSpeedPopup.value = false;
-  emit("close-popup", true);
+
+  emit("close-popup", {
+    image,
+    status: false,
+  });
 };
 
 // const toggleSelect = (index: number) => {
@@ -178,7 +187,7 @@ watch(
           console.log(res.data.result.list, "res");
           if (res.data.result.list.length > 0) {
             res.data.result.list.forEach((item: any) => {
-              imagesAll.value.push({ url: item.fileUrl, selected: false });
+              imagesAll.value.push({ url: item.cover, selected: false });
             });
             childFlagLoading.value = false;
             return;

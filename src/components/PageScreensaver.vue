@@ -21,7 +21,7 @@
       <div class="mb-4">
         <div class="flex justify-between items-center mb-4">
           <span class="text-gray-900 font-[15]"
-            >屏保图片 ( {{ images.length-1 }} - 4 )</span
+            >屏保图片 ( {{ images.length - 1 }} - 4 )</span
           >
           <span class="text-blue-500" @click="editing = !editing"
             >{{ editing ? "完成" : "编辑" }}
@@ -65,7 +65,7 @@
           <div
             class="rounded-lg bg-white p-4 shadow-sm flex items-center justify-center min-h-[160px]"
           >
-            <div class="text-center text-gray-400" >
+            <div class="text-center text-gray-400">
               <van-icon name="plus" size="20" />
               <div class="text-sm mt-2">快去添加图片吧</div>
             </div>
@@ -110,11 +110,7 @@
               {{ speed > 60 ? `${speed / 60}小时` : `${speed}分钟` }}
             </div>
             <i
-              :class="[
-                selectedSpeed === speed
-                  ? ' text-blue-500'
-                  : ' text-gray-300',
-              ]"
+              :class="[selectedSpeed === speed ? ' text-blue-500' : ' text-gray-300']"
             ></i>
 
             <van-radio-group v-model="selectedSpeed">
@@ -131,20 +127,24 @@
       </div>
     </div>
 
-   <ScreenImages :showSpeedPopupChild="showSpeedPopupChildFlag" :token="currentBlank"  @close-popup="handleClosePopup" @confirm-speed="handleConfirmSpeed"  />
-
+    <ScreenImages
+      :showSpeedPopupChild="showSpeedPopupChildFlag"
+      :token="currentBlank"
+      @close-popup="handleClosePopup"
+      @confirm-speed="handleConfirmSpeed"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
 import { showToast } from "vant";
-import {requestFileUploadTokenPromise} from "@/utils/tools"
+import { requestFileUploadTokenPromise } from "@/utils/tools";
 
 import imgAdd from "@/assets/imgAdd.png";
 import ScreenImages from "./ScreenImages.vue";
 
-let currentBlank= ref<string>("")
+let currentBlank = ref<string>("");
 const showSpeedPopup = ref(false);
 const showSpeedPopupChildFlag = ref(false);
 const selectedSpeed = ref(5);
@@ -156,11 +156,13 @@ const speeds = [1, 5, 10, 30, 60, 120, 360];
 
 const images = ref([
   {
-    url: "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRCCD53VGJ4F7312M5B6/jeejio.gif",
+    url:
+      "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRCCD53VGJ4F7312M5B6/jeejio.gif",
     selected: false,
   },
   {
-    url: "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRD117Z2NNDGZXGQEYSH/jeejio.gif",
+    url:
+      "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRD117Z2NNDGZXGQEYSH/jeejio.gif",
     selected: false,
   },
   {
@@ -170,12 +172,17 @@ const images = ref([
   },
 ]);
 
+const addElementBeforeLast = (arr: any, newElement: any) => {
+  images.value.splice(arr.length - 1, 0, newElement);
+  return images.value;
+};
+
 const toggleSelect = async (index: number) => {
-    if(images.value[index].blank){
-        currentBlank.value = await requestFileUploadTokenPromise() as string;
-        showSpeedPopupChildFlag.value = true;
-        return;
-    }
+  if (images.value[index].blank && !editing.value) {
+    currentBlank.value = (await requestFileUploadTokenPromise()) as string;
+    showSpeedPopupChildFlag.value = true;
+    return;
+  }
   images.value[index].selected = !images.value[index].selected;
 };
 
@@ -184,9 +191,8 @@ const selectSpeedFn = (speed: number) => {
 };
 
 const CancelSpeed = () => {
-  selectedSpeed.value = resultSelected.value
+  selectedSpeed.value = resultSelected.value;
   showSpeedPopup.value = false;
-
 };
 
 const ConfirmSpeed = () => {
@@ -195,10 +201,10 @@ const ConfirmSpeed = () => {
 };
 
 const deleteImages = () => {
-
   let currentSelected: any = images.value.filter((image) => image.selected);
   let noDeleteSelected: any = images.value.filter((image) => !image.selected);
-
+  // 当前images中是否有blank属性的空图
+  let blankIndex = images.value.findIndex((image) => image.blank);
   if (currentSelected.length >= 2) {
     showToast({
       message: "最多删除一张图片",
@@ -209,7 +215,7 @@ const deleteImages = () => {
   }
 
   if (noDeleteSelected.length < 2) {
-    console.log("noDeleteSelected", noDeleteSelected)
+    console.log("noDeleteSelected", noDeleteSelected);
     showToast({
       message: "请至少保留一张图片",
       duration: 2000,
@@ -218,21 +224,45 @@ const deleteImages = () => {
   }
   images.value = noDeleteSelected;
 
+  // 如果当前没有空图片，那么就添加一个空图片
+  if (blankIndex < 0) {
+    images.value.push({
+      url: "",
+      selected: false,
+      blank: true,
+    });
+  }
   editing.value = false;
 };
 
+const handleClosePopup = (value: any) => {
+  console.log(value, "value---------");
+  // 更新当前的屏保图片列表
+  if (value?.image) {
+    // 优化一下这里的逻辑，如果现在图片=3张，那么将最后一张图替换了
+    // 如果是小于3张，那么直接添加到最后一张图前面
+    // 先判断一下，现在是否有blank的空图片，如果有，那么将blank的图片替换掉，否则直接添加到最后一张图前面
+    let blankIndex = images.value.findIndex((image) => image.blank);
+    if (images.value.length === 4) {
+      // 替换最后一张图
+      images.value[blankIndex] = {
+        url: value.image.url,
+        selected: value.image.selected,
+      };
+    } else {
+      const newArr = addElementBeforeLast(images.value, { ...value.image });
 
-const handleClosePopup = (value:boolean) => {
-    console.log(value,'value---------')
-  showSpeedPopupChildFlag.value = value;
-}
+      images.value = newArr;
+    }
+  }
+  showSpeedPopupChildFlag.value = value.status;
+};
 
-const handleConfirmSpeed = (value:boolean)=> {
-//   resultSelected.value = speed;
-    console.log(value,'value---------')
-//   showSpeedPopupChildFlag.value = false;
-}
-
+const handleConfirmSpeed = (value: boolean) => {
+  //   resultSelected.value = speed;
+  console.log(value, "value---------");
+  //   showSpeedPopupChildFlag.value = false;
+};
 </script>
 
 <style scoped>

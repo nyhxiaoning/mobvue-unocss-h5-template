@@ -1,20 +1,17 @@
 <template>
   <div v-if="props.showSpeedPopupChild" class="fixed inset-0 bg-black bg-opacity-50 z-50">
-
-    <!-- <div class="bg-white rounded-t-xl flex flex-col" @click.stop> -->
-
     <van-popup
       v-model:show="props.showSpeedPopupChild"
       position="bottom"
       :style="{ height: '80%' }"
     >
-        <van-loading
-      v-if="childFlagLoading"
-      class="global-loading"
-      type="spinner"
-      color="#fff"
-      text="..."
-    ></van-loading>
+      <van-loading
+        v-if="childFlagLoading"
+        class="global-loading"
+        type="spinner"
+        color="#fff"
+        text="..."
+      ></van-loading>
       <div class="text-center text-lg font-medium mb-4 flex">
         <div
           :class="[
@@ -24,7 +21,7 @@
           ]"
           @click="switchTab(1)"
         >
-          我的收藏
+          {{ language.myFavorites }}
         </div>
         <div
           :class="[
@@ -34,7 +31,7 @@
           ]"
           @click="switchTab(2)"
         >
-          我的作品
+          {{ language.myWorks }}
         </div>
       </div>
       <div class="flex-1 p-4 h-[400px] overflow-scroll">
@@ -59,7 +56,7 @@
           @click="CancelImgSelectedFn"
           class="w-full bg-white h-[48] font-500 py-4 shadow-lg rounded-full border-1 border-black"
         >
-          取消
+          {{ language.cancel }}
         </button>
       </div>
     </van-popup>
@@ -67,11 +64,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from "vue";
+import { ref, watch, reactive } from "vue";
 import { showToast } from "vant";
-import { requestFileUploadTokenPromise } from "@/utils/tools";
 import { gArtifactPage, gFavoritePage } from "@/request/screensaver";
-// 定义 props
+
 const props = defineProps({
   token: {
     type: String,
@@ -83,32 +79,36 @@ const props = defineProps({
   },
 });
 
+const language = reactive({
+  myFavorites: JeeWeb && JeeWeb.Language === "zh-CN" ? "我的收藏" : "My Favorites",
+  myWorks: JeeWeb && JeeWeb.Language === "zh-CN" ? "我的作品" : "My Works",
+  cancel: JeeWeb && JeeWeb.Language === "zh-CN" ? "取消" : "Cancel",
+});
+
 const selectedSpeed = ref(5);
-
 const childFlagLoading = ref(false);
-
 let currentTabValue = ref<number>(1);
 
 const switchTab = (index: number) => {
-  //   selectedSpeed.value = resultSelected.value;
-  // 这里不应该修改 props 的值，而是通过事件通知父组件关闭弹窗
   currentTabValue.value = index;
   imagesAll.value = [];
   if (index === 1) {
     childFlagLoading.value = true;
-    // 切换到我的收藏
     gFavoritePage(props.token)
       .then((res: any) => {
-        console.log(res.data.result.list, "res");
         if (res.data.result.list.length > 0) {
           res.data.result.list.forEach((item: any) => {
-            imagesAll.value.push({ url: item.cover, selected: false,fileType: item.type,fileSize: item.type===0|| item.type===2? 1024:item.fileSize });
+            imagesAll.value.push({
+              url: item.cover,
+              selected: false,
+              fileType: item.type,
+              fileSize: item.type === 0 || item.type === 2 ? 1024 : item.fileSize,
+            });
           });
           childFlagLoading.value = false;
           return;
         }
         childFlagLoading.value = false;
-        return;
       })
       .catch((err) => {
         childFlagLoading.value = false;
@@ -116,19 +116,21 @@ const switchTab = (index: number) => {
       });
   } else if (index === 2) {
     childFlagLoading.value = true;
-    // 切换到我的作品
     gArtifactPage(props.token)
       .then((res: any) => {
-        console.log(res.data.result.list, "res");
         if (res.data.result.list.length > 0) {
           res.data.result.list.forEach((item: any) => {
-            imagesAll.value.push({ url: item.cover, selected: false,fileType: item.type,fileSize: item.type===0|| item.type===2? 1024:item.fileSize });
+            imagesAll.value.push({
+              url: item.cover,
+              selected: false,
+              fileType: item.type,
+              fileSize: item.type === 0 || item.type === 2 ? 1024 : item.fileSize,
+            });
           });
           childFlagLoading.value = false;
           return;
         }
         childFlagLoading.value = false;
-        return;
       })
       .catch((err) => {
         childFlagLoading.value = false;
@@ -142,22 +144,12 @@ const CancelImgSelectedFn = () => {
 };
 
 const ConfirmWork = (image: any, index: number) => {
-  console.log(image, "image", "index", index);
-  //   resultSelected.value = selectedSpeed.value;
-  // 同样，通过事件通知父组件关闭弹窗
-  // showSpeedPopup.value = false;
-
   emit("close-popup", {
     image,
     status: false,
   });
 };
 
-// const toggleSelect = (index: number) => {
-//   imagesAll.value[index].selected = !imagesAll.value[index].selected;
-// };
-
-// 定义 emits 来通知父组件事件
 const emit = defineEmits(["close-popup", "confirm-speed"]);
 
 watch(
@@ -167,34 +159,27 @@ watch(
   }
 );
 
-// 获取收藏和作品数据
-// gArtifactPage().then((res:any)=>{
-//   console.log(res,'res')
-// })
-//
-
 let imagesAll = ref<any>([]);
-let editing = ref(false);
-
 watch(
   () => props.showSpeedPopupChild,
   (newValue) => {
     childFlagLoading.value = true;
-    console.log(props.token, "props.token");
-    console.log(props.showSpeedPopupChild, "props.showSpeedPopupChild");
     if (newValue) {
       gFavoritePage(props.token)
         .then((res: any) => {
-          console.log(res.data.result.list, "res");
           if (res.data.result.list.length > 0) {
             res.data.result.list.forEach((item: any) => {
-            imagesAll.value.push({ url: item.cover, selected: false,type: item.type, fileSize: item.type===0|| item.type===2? 1024:item.fileSize });
+              imagesAll.value.push({
+                url: item.cover,
+                selected: false,
+                type: item.type,
+                fileSize: item.type === 0 || item.type === 2 ? 1024 : item.fileSize,
+              });
             });
             childFlagLoading.value = false;
             return;
           }
           childFlagLoading.value = false;
-          return;
         })
         .catch((err) => {
           childFlagLoading.value = false;

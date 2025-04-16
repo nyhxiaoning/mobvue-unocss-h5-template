@@ -108,7 +108,11 @@
             @click="selectSpeedFn(speed)"
           >
             <div class="flex-1">
-              {{ speed > 60 ? `${speed / 60}${language.hours}` : `${speed} ${language.minutes}` }}
+              {{
+                speed > 60
+                  ? `${speed / 60}${language.hours}`
+                  : `${speed} ${language.minutes}`
+              }}
             </div>
             <i
               :class="[selectedSpeed === speed ? ' text-blue-500' : ' text-gray-300']"
@@ -149,10 +153,12 @@ const language = reactive({
   carouselSpeed: JeeWeb && JeeWeb.Language === "zh-CN" ? "轮播速度" : "Carousel Speed",
   hours: JeeWeb && JeeWeb.Language === "zh-CN" ? "小时" : "hours",
   minutes: JeeWeb && JeeWeb.Language === "zh-CN" ? "分钟" : "minutes",
-  screensaverImages: JeeWeb && JeeWeb.Language === "zh-CN" ? "屏保图片" : "Screensaver Images",
+  screensaverImages:
+    JeeWeb && JeeWeb.Language === "zh-CN" ? "屏保图片" : "Screensaver Images",
   done: JeeWeb && JeeWeb.Language === "zh-CN" ? "完成" : "Done",
   edit: JeeWeb && JeeWeb.Language === "zh-CN" ? "编辑" : "Edit",
-  addImagePrompt: JeeWeb && JeeWeb.Language === "zh-CN" ? "快去添加图片吧" : "Add images now",
+  addImagePrompt:
+    JeeWeb && JeeWeb.Language === "zh-CN" ? "快去添加图片吧" : "Add images now",
   delete: JeeWeb && JeeWeb.Language === "zh-CN" ? "删除" : "Delete",
   cancel: JeeWeb && JeeWeb.Language === "zh-CN" ? "取消" : "Cancel",
   confirm: JeeWeb && JeeWeb.Language === "zh-CN" ? "确定" : "Confirm",
@@ -219,10 +225,11 @@ const mergeObjectArray = (arr: any) => {
   return result;
 };
 
-const selectSpeedFn = (speed: number) => {
-  selectedSpeed.value = speed;
-  // 切换速度，下发tal指令
-  // 构造这里的content0-4数量内容对象，进行解构赋值
+/**
+ * 不同业务逻辑下的tal下发
+ * @param index
+ */
+const commonTal = (index: number, otherFlag = false) => {
   let contentObj = [];
   for (let i = 0; i < images.value.length - 1; i++) {
     contentObj.push({
@@ -236,17 +243,12 @@ const selectSpeedFn = (speed: number) => {
   }
   let output = mergeObjectArray(Object.values(contentObj));
 
-  console.log(output, "output-----");
-  //   console.log(JSON.parse(output), "JSON.parse-output");
-
-  let currentLength:number
+  let currentLength: number;
   let blankIndex = images.value.findIndex((image) => image.blank);
   if (blankIndex < 0) {
     currentLength = images.value.length;
-
   } else {
-    currentLength =images.value.length - 1;
-
+    currentLength = images.value.length - 1;
   }
   output = {
     ...output,
@@ -266,6 +268,24 @@ const selectSpeedFn = (speed: number) => {
     })
       .then((res: any) => {
         console.log("", res);
+        // 1确认速度
+        if (index === 1) {
+          showSpeedPopup.value = false;
+        } else if (index === 2) {
+          // 表示删除
+          // 如果当前没有空图片，那么就添加一个空图片
+          if (blankIndex < 0) {
+            images.value.push({
+              url: "",
+              selected: false,
+              blank: true,
+            });
+          }
+          editing.value = false;
+        } else if (index === 3) {
+          // 添加图片：图片此时4张，没有默认图
+          showSpeedPopupChildFlag.value = otherFlag;
+        }
       })
       .catch((err: any) => {
         console.log(" error", err);
@@ -276,6 +296,12 @@ const selectSpeedFn = (speed: number) => {
       });
 };
 
+const selectSpeedFn = (speed: number) => {
+  selectedSpeed.value = speed;
+  // 切换速度，下发tal指令
+  commonTal(1);
+};
+
 const CancelSpeed = () => {
   selectedSpeed.value = resultSelected.value;
   showSpeedPopup.value = false;
@@ -283,6 +309,7 @@ const CancelSpeed = () => {
 
 const ConfirmSpeed = () => {
   resultSelected.value = selectedSpeed.value;
+  commonTal(1, false);
   showSpeedPopup.value = false;
 };
 
@@ -299,7 +326,10 @@ const deleteImages = () => {
 
   if (currentSelected.length >= 2) {
     showToast({
-      message: JeeWeb && JeeWeb.Language === "zh-CN" ? "最多删除一张图片" : "Delete up to one image",
+      message:
+        JeeWeb && JeeWeb.Language === "zh-CN"
+          ? "最多删除一张图片"
+          : "Delete up to one image",
       duration: 2000,
     });
     return;
@@ -308,22 +338,17 @@ const deleteImages = () => {
   if (noDeleteSelected.length < 2) {
     console.log("noDeleteSelected", noDeleteSelected);
     showToast({
-      message: JeeWeb && JeeWeb.Language === "zh-CN" ? "请至少保留一张图片" : "Keep at least one image",
+      message:
+        JeeWeb && JeeWeb.Language === "zh-CN"
+          ? "请至少保留一张图片"
+          : "Keep at least one image",
       duration: 2000,
     });
     return;
   }
+  //  没有删除的删除之后的发出去：
   images.value = noDeleteSelected;
-
-  // 如果当前没有空图片，那么就添加一个空图片
-  if (blankIndex < 0) {
-    images.value.push({
-      url: "",
-      selected: false,
-      blank: true,
-    });
-  }
-  editing.value = false;
+  commonTal(2);
 };
 
 const handleClosePopup = (value: any) => {
@@ -339,6 +364,8 @@ const handleClosePopup = (value: any) => {
       images.value[blankIndex] = {
         url: value.image.url,
         selected: value.image.selected,
+        fileSize: value.image.fileSize,
+        type: value.image.type,
       };
     } else {
       const newArr = addElementBeforeLast(images.value, { ...value.image });
@@ -346,7 +373,7 @@ const handleClosePopup = (value: any) => {
       images.value = newArr;
     }
   }
-  showSpeedPopupChildFlag.value = value.status;
+  commonTal(4, value.status);
 };
 
 const handleConfirmSpeed = (value: boolean) => {

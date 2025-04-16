@@ -154,16 +154,21 @@ let editing = ref(false);
 // const timeResult = [60, 300, 600, 1800, 3600, 7200, 21600];
 const speeds = [1, 5, 10, 30, 60, 120, 360];
 
+// 0是静态图，1  动态图，2是落球图（0和2一样bin）
 const images = ref([
   {
     url:
       "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRCCD53VGJ4F7312M5B6/jeejio.gif",
     selected: false,
+    fielSize: 10470,
+    type: 1,
   },
   {
     url:
       "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRD117Z2NNDGZXGQEYSH/jeejio.gif",
     selected: false,
+    fielSize: 17466,
+    type: 1,
   },
   {
     url: "",
@@ -188,6 +193,24 @@ const toggleSelect = async (index: number) => {
 
 const selectSpeedFn = (speed: number) => {
   selectedSpeed.value = speed;
+  // 切换速度，下发tal指令
+  //   CupDevice &&
+  //     CupDevice.setDevMessage({
+  //         value: {
+  //             method: 'talSetPlayList',
+  //         },
+  //     })
+  //       .then((res:any) => {
+  //             console.log('talGetCountDownInfo', res)
+  //             states.show = true
+  //             states.message = JSON.stringify(res)
+  //         }).catch(err => {
+  //             console.log('talGetCountDownInfo error', err)
+  //             showToast({
+  //                 message: '获取失败' + states.curInterface,
+  //                 duration: 1000,
+  //             });
+  //         })
 };
 
 const CancelSpeed = () => {
@@ -205,6 +228,12 @@ const deleteImages = () => {
   let noDeleteSelected: any = images.value.filter((image) => !image.selected);
   // 当前images中是否有blank属性的空图
   let blankIndex = images.value.findIndex((image) => image.blank);
+  let DeleteIndex = images.value.findIndex((image) => image.selected);
+
+  if (DeleteIndex === blankIndex) {
+    return false;
+  }
+
   if (currentSelected.length >= 2) {
     showToast({
       message: "最多删除一张图片",
@@ -272,7 +301,6 @@ const currentImageNumber = computed(() => {
     return images.value.length - 1;
   }
 });
-
 </script>
 
 <style scoped>

@@ -1,12 +1,6 @@
 <template>
   <div v-if="props.showSpeedPopupChild" class="fixed inset-0 bg-black bg-opacity-50 z-50">
-    <van-loading
-      v-if="childFlagLoading"
-      class="global-loading"
-      type="spinner"
-      color="#fff"
-      text="..."
-    ></van-loading>
+
     <!-- <div class="bg-white rounded-t-xl flex flex-col" @click.stop> -->
 
     <van-popup
@@ -14,6 +8,13 @@
       position="bottom"
       :style="{ height: '80%' }"
     >
+        <van-loading
+      v-if="childFlagLoading"
+      class="global-loading"
+      type="spinner"
+      color="#fff"
+      text="..."
+    ></van-loading>
       <div class="text-center text-lg font-medium mb-4 flex">
         <div
           :class="[
@@ -101,7 +102,7 @@ const switchTab = (index: number) => {
         console.log(res.data.result.list, "res");
         if (res.data.result.list.length > 0) {
           res.data.result.list.forEach((item: any) => {
-            imagesAll.value.push({ url: item.cover, selected: false });
+            imagesAll.value.push({ url: item.cover, selected: false,fileType: item.type,fileSize: item.type===0|| item.type===2? 1024:item.fileSize });
           });
           childFlagLoading.value = false;
           return;
@@ -121,7 +122,7 @@ const switchTab = (index: number) => {
         console.log(res.data.result.list, "res");
         if (res.data.result.list.length > 0) {
           res.data.result.list.forEach((item: any) => {
-            imagesAll.value.push({ url: item.cover, selected: false });
+            imagesAll.value.push({ url: item.cover, selected: false,fileType: item.type,fileSize: item.type===0|| item.type===2? 1024:item.fileSize });
           });
           childFlagLoading.value = false;
           return;
@@ -187,7 +188,7 @@ watch(
           console.log(res.data.result.list, "res");
           if (res.data.result.list.length > 0) {
             res.data.result.list.forEach((item: any) => {
-              imagesAll.value.push({ url: item.cover, selected: false });
+            imagesAll.value.push({ url: item.cover, selected: false,type: item.type, fileSize: item.type===0|| item.type===2? 1024:item.fileSize });
             });
             childFlagLoading.value = false;
             return;

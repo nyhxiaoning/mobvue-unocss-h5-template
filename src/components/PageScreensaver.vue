@@ -224,7 +224,7 @@ const deleteImages = () => {
 
 const handleClosePopup = (value:boolean) => {
     console.log(value,'value---------')
-//   showSpeedPopupChildFlag.value = false;
+  showSpeedPopupChildFlag.value = value;
 }
 
 const handleConfirmSpeed = (value:boolean)=> {

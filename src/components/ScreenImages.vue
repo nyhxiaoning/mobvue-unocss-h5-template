@@ -1,19 +1,13 @@
 <template>
   <div v-if="props.showSpeedPopupChild" class="fixed inset-0 bg-black bg-opacity-50 z-50">
     <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl p-4" @click.stop>
-      <div class="text-center text-lg font-medium mb-4 flex justify-between">
-        <div class="flex">
+      <div class="text-center text-lg font-medium mb-4 flex">
           <div class="p-3 font-[16] font-500 text-gray-900" @click="CancelSpeed">
             我的收藏
           </div>
           <div class="p-3 font-[16] font-500 text-gray-400" @click="ConfirmSpeed">
             我的作品
           </div>
-        </div>
-        <div  class="flex">
-          <div  class="p-3 font-[16] font-500 text-gray-900" >选择</div>
-          <div  class="p-3 font-[16] font-500 text-gray-900" >关闭</div>
-        </div>
       </div>
       <div class="space-y-4">
         <div v-if="imagesAll.length" class="grid grid-cols-2 gap-4">
@@ -46,10 +40,10 @@
       class="flex flex-col justify-end items-center p-10 margin-bottom-20"
     >
       <button
-
-        class="w-full bg-white text-red-500 h-[48] font-500 py-4 shadow-lg rounded-full border-1 border-red-500"
+        @click="CancelImgSelectedFn"
+        class="w-full bg-white  h-[48] font-500 py-4 shadow-lg rounded-full border-1 border-black"
       >
-        删除
+        取消
       </button>
     </div>
     </div>
@@ -81,6 +75,10 @@ const CancelSpeed = () => {
   // showSpeedPopup.value = false;
   emit("close-popup", false);
 };
+
+const CancelImgSelectedFn = () => {
+  emit("close-popup", false);
+}
 
 const ConfirmSpeed = () => {
   //   resultSelected.value = selectedSpeed.value;

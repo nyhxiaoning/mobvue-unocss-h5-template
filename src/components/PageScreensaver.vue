@@ -228,7 +228,7 @@ const mergeObjectArray = (arr: any) => {
 
 /**
  * 不同业务逻辑下的tal下发
- * @param index
+ * @param index 1 表示确认速度，2表示删除，3表示添加图片，0表示同步图片
  */
 const commonTal = (index: number, otherFlag = false) => {
   let contentObj = [];
@@ -386,7 +386,7 @@ const handleClosePopup = (value: any) => {
       images.value = newArr;
     }
   }
-  commonTal(4, value.status);
+  commonTal(3, value.status);
 };
 
 const handleConfirmSpeed = (value: boolean) => {

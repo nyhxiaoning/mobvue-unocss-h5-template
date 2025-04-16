@@ -156,11 +156,11 @@ const speeds = [1, 5, 10, 30, 60, 120, 360];
 
 const images = ref([
   {
-    url: "https://storage.qajeejio.com/im/artifact/image/01JQX5KZWX1HBPWJFKDJVMDVN2/贺玉奇-10466-10-9.png",
+    url: "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRCCD53VGJ4F7312M5B6/jeejio.gif",
     selected: false,
   },
   {
-    url: "https://storage.qajeejio.com/im/artifact/image/01JQX5KZWX1HBPWJFKDJVMDVN2/贺玉奇-10466-10-9.png",
+    url: "https://storage.qajeejio.com/im/artifact/gif/01JQX5ZRD117Z2NNDGZXGQEYSH/jeejio.gif",
     selected: false,
   },
   {

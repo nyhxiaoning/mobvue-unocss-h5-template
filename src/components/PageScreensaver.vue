@@ -21,7 +21,7 @@
       <div class="mb-4">
         <div class="flex justify-between items-center mb-4">
           <span class="text-gray-900 font-[15]"
-            >屏保图片 ( {{ images.length - 1 }} - 4 )</span
+            >屏保图片 ( {{ currentImageNumber }} - 4 )</span
           >
           <span class="text-blue-500" @click="editing = !editing"
             >{{ editing ? "完成" : "编辑" }}
@@ -137,7 +137,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, computed, watch } from "vue";
 import { showToast } from "vant";
 import { requestFileUploadTokenPromise } from "@/utils/tools";
 
@@ -263,6 +263,16 @@ const handleConfirmSpeed = (value: boolean) => {
   console.log(value, "value---------");
   //   showSpeedPopupChildFlag.value = false;
 };
+
+const currentImageNumber = computed(() => {
+  let blankIndex = images.value.findIndex((image) => image.blank);
+  if (blankIndex < 0) {
+    return images.value.length;
+  } else {
+    return images.value.length - 1;
+  }
+});
+
 </script>
 
 <style scoped>

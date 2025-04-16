@@ -1,7 +1,10 @@
 import axios from './index';
 
-export function gArtifactPage() {
+export function gArtifactPage(token: string) {
     return axios<ResType<any>>('/im/cup/artifact/page', {
+        params: {
+            token
+        },
         method: 'get',
     });
 }

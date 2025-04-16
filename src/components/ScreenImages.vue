@@ -15,10 +15,10 @@
       :style="{ height: '80%' }"
     >
       <div class="text-center text-lg font-medium mb-4 flex">
-        <div class="p-3 font-[16] font-500 text-gray-900" @click="CancelSpeed">
+        <div :class="[currentTabValue === 1?'p-3 font-[16] font-500 text-gray-900':'p-3 font-[16] font-500 text-gray-400']" @click="switchTab(1)">
           我的收藏
         </div>
-        <div class="p-3 font-[16] font-500 text-gray-400" @click="ConfirmSpeed">
+        <div  :class="[currentTabValue === 2?'p-3 font-[16] font-500 text-gray-900':'p-3 font-[16] font-500 text-gray-400']" @click="switchTab(2)">
           我的作品
         </div>
       </div>
@@ -82,11 +82,54 @@ const selectedSpeed = ref(5);
 
 const childFlagLoading = ref(false);
 
-const CancelSpeed = () => {
+let currentTabValue = ref<number>(1);
+
+const switchTab = (index: number) => {
   //   selectedSpeed.value = resultSelected.value;
   // 这里不应该修改 props 的值，而是通过事件通知父组件关闭弹窗
-  // showSpeedPopup.value = false;
-  emit("close-popup", false);
+  currentTabValue.value = index;
+  imagesAll.value = [];
+  if (index === 1) {
+    childFlagLoading.value = true;
+    // 切换到我的收藏
+    gFavoritePage(props.token)
+      .then((res: any) => {
+        console.log(res.data.result.list, "res");
+        if (res.data.result.list.length > 0) {
+          res.data.result.list.forEach((item: any) => {
+            imagesAll.value.push({ url: item.fileUrl, selected: false });
+          });
+          childFlagLoading.value = false;
+          return;
+        }
+        childFlagLoading.value = false;
+        return;
+      })
+      .catch((err) => {
+        childFlagLoading.value = false;
+        console.log(err, "err");
+      });
+  } else if (index === 2) {
+    childFlagLoading.value = true;
+    // 切换到我的作品
+    gArtifactPage(props.token)
+      .then((res: any) => {
+        console.log(res.data.result.list, "res");
+        if (res.data.result.list.length > 0) {
+          res.data.result.list.forEach((item: any) => {
+            imagesAll.value.push({ url: item.fileUrl, selected: false });
+          });
+          childFlagLoading.value = false;
+          return;
+        }
+        childFlagLoading.value = false;
+        return;
+      })
+      .catch((err) => {
+        childFlagLoading.value = false;
+        console.log(err, "err");
+      });
+  }
 };
 
 const CancelImgSelectedFn = () => {

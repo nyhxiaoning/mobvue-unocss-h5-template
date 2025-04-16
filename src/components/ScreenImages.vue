@@ -140,7 +140,10 @@ const switchTab = (index: number) => {
 };
 
 const CancelImgSelectedFn = () => {
-  emit("close-popup", false);
+  emit("close-popup", {
+    cancelFlag: true,
+    status: false,
+  });
 };
 
 const ConfirmWork = (image: any, index: number) => {

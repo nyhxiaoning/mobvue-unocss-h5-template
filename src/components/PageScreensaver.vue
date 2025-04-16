@@ -162,7 +162,8 @@ const language = reactive({
   delete: JeeWeb && JeeWeb.Language === "zh-CN" ? "删除" : "Delete",
   cancel: JeeWeb && JeeWeb.Language === "zh-CN" ? "取消" : "Cancel",
   confirm: JeeWeb && JeeWeb.Language === "zh-CN" ? "确定" : "Confirm",
-  fetchError: JeeWeb && JeeWeb.Language === "zh-CN" ? "获取失败" : "Fetch failed",
+  fetchError: JeeWeb && JeeWeb.Language === "zh-CN" ? "下发失败" : "Send failed",
+  sendSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "下发成功" : "Send Success",
 });
 
 let currentBlank = ref<string>("");
@@ -286,6 +287,11 @@ const commonTal = (index: number, otherFlag = false) => {
           // 添加图片：图片此时4张，没有默认图
           showSpeedPopupChildFlag.value = otherFlag;
         }
+
+        showToast({
+          message: language.sendSuccess,
+          duration: 1000,
+        });
       })
       .catch((err: any) => {
         console.log(" error", err);
@@ -295,6 +301,9 @@ const commonTal = (index: number, otherFlag = false) => {
         });
       });
 };
+
+// 初始化的时候，调用一次：
+commonTal(0);
 
 const selectSpeedFn = (speed: number) => {
   selectedSpeed.value = speed;
@@ -352,6 +361,10 @@ const deleteImages = () => {
 };
 
 const handleClosePopup = (value: any) => {
+  if (value?.cancelFlag) {
+    showSpeedPopupChildFlag.value = false;
+    return;
+  }
   console.log(value, "value---------");
   // 更新当前的屏保图片列表
   if (value?.image) {

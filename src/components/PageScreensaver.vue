@@ -164,6 +164,8 @@ const language = reactive({
   confirm: JeeWeb && JeeWeb.Language === "zh-CN" ? "确定" : "Confirm",
   fetchError: JeeWeb && JeeWeb.Language === "zh-CN" ? "下发失败" : "Send failed",
   sendSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "下发成功" : "Send Success",
+  syncSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "同步成功" : "Sync Success",
+  syncError: JeeWeb && JeeWeb.Language === "zh-CN" ? "同步失败" : "Sync failed",
 });
 
 let currentBlank = ref<string>("");
@@ -230,8 +232,14 @@ const mergeObjectArray = (arr: any) => {
  * 不同业务逻辑下的tal下发
  * @param index 1 表示确认速度，2表示删除，3表示添加图片，0表示同步图片
  */
-const commonTal = (index: number, otherFlag = false) => {
+const commonTal = (
+  index: number,
+  otherFlag = false,
+  oldImgFlag = false,
+  oldImgObj = []
+) => {
   let contentObj = [];
+
   for (let i = 0; i < images.value.length - 1; i++) {
     contentObj.push({
       [`content${i}`]: {
@@ -292,9 +300,29 @@ const commonTal = (index: number, otherFlag = false) => {
           message: language.sendSuccess,
           duration: 1000,
         });
+
+        JeeWeb.set("screensaverimg", JSON.stringify(images.value), (message: any) => {
+          if (message.code === 500) {
+            showToast({
+              message: language.syncError,
+              duration: 1000,
+            });
+          } else {
+            showToast({
+              message: language.syncSuccess,
+              duration: 1000,
+            });
+            // 初始化的时候，调用一次：首次一定也没有
+            //   commonTal(0);
+          }
+        });
       })
       .catch((err: any) => {
         console.log(" error", err);
+        // 下发失败，那么数据回滚
+        if (oldImgFlag) {
+          images.value = oldImgObj;
+        }
         showToast({
           message: language.fetchError,
           duration: 1000,
@@ -302,8 +330,36 @@ const commonTal = (index: number, otherFlag = false) => {
       });
 };
 
-// 初始化的时候，调用一次：
-commonTal(0);
+// 获取一个不存在的属性会崩溃？？
+JeeWeb &&
+  JeeWeb.get("screensaverimg", (result: any) => {
+    const list = result;
+    if (JSON.parse(result.result).length > 0) {
+      images.value = JSON.parse(result.result);
+    }
+    console.log("init---查看当前的内容result", result);
+    return;
+    if (list?.length > 0) {
+      console.log("查看当前的内容result", result);
+      //   commonTal(0);
+    } else {
+      //   JeeWeb.set("screensaverimg", JSON.stringify(images.value), (message: any) => {
+      //     if (message.code === 500) {
+      //       showToast({
+      //         message: language.syncError,
+      //         duration: 1000,
+      //       });
+      //     } else {
+      //       showToast({
+      //         message: language.syncSuccess,
+      //         duration: 1000,
+      //       });
+      //       // 初始化的时候，调用一次：首次一定也没有
+      //     //   commonTal(0);
+      //     }
+      //   });
+    }
+  });
 
 const selectSpeedFn = (speed: number) => {
   selectedSpeed.value = speed;
@@ -323,6 +379,7 @@ const ConfirmSpeed = () => {
 };
 
 const deleteImages = () => {
+  let oldImage = JSON.parse(JSON.stringify(images.value));
   let currentSelected: any = images.value.filter((image) => image.selected);
   let noDeleteSelected: any = images.value.filter((image) => !image.selected);
   // 当前images中是否有blank属性的空图
@@ -357,36 +414,40 @@ const deleteImages = () => {
   }
   //  没有删除的删除之后的发出去：
   images.value = noDeleteSelected;
-  commonTal(2);
+  commonTal(2, false, true, oldImage);
 };
 
 const handleClosePopup = (value: any) => {
   if (value?.cancelFlag) {
     showSpeedPopupChildFlag.value = false;
     return;
-  }
-  console.log(value, "value---------");
-  // 更新当前的屏保图片列表
-  if (value?.image) {
-    // 优化一下这里的逻辑，如果现在图片=3张，那么将最后一张图替换了
-    // 如果是小于3张，那么直接添加到最后一张图前面
-    // 先判断一下，现在是否有blank的空图片，如果有，那么将blank的图片替换掉，否则直接添加到最后一张图前面
-    let blankIndex = images.value.findIndex((image) => image.blank);
-    if (images.value.length === 4) {
-      // 替换最后一张图
-      images.value[blankIndex] = {
-        url: value.image.url,
-        selected: value.image.selected,
-        fileSize: value.image.fileSize,
-        type: value.image.type,
-      };
-    } else {
-      const newArr = addElementBeforeLast(images.value, { ...value.image });
+  } else {
+    console.log(value, "value---------");
+    // 更新当前的屏保图片列表
+    let oldImage = JSON.parse(JSON.stringify(images.value));
+    if (value?.image) {
+      // 记录一下老的对象，因为下发失败需要重置
 
-      images.value = newArr;
+      // 优化一下这里的逻辑，如果现在图片=3张，那么将最后一张图替换了
+      // 如果是小于3张，那么直接添加到最后一张图前面
+      // 先判断一下，现在是否有blank的空图片，如果有，那么将blank的图片替换掉，否则直接添加到最后一张图前面
+      let blankIndex = images.value.findIndex((image) => image.blank);
+      if (images.value.length === 4) {
+        // 替换最后一张图
+        images.value[blankIndex] = {
+          url: value.image.url,
+          selected: value.image.selected,
+          fileSize: value.image.fileSize,
+          type: value.image.type,
+        };
+      } else {
+        const newArr = addElementBeforeLast(images.value, { ...value.image });
+
+        images.value = newArr;
+      }
     }
+    commonTal(3, value.status, true, oldImage);
   }
-  commonTal(3, value.status);
 };
 
 const handleConfirmSpeed = (value: boolean) => {

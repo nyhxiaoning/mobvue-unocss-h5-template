@@ -27,12 +27,12 @@
           <div
             v-for="(image, index) in imagesAll"
             :key="index"
-            class="relative bg-white rounded-xl p-4 aspect-square flex items-center justify-center border-4 border-gray-900"
+            class="relative bg-white rounded-xl p-4 flex items-center justify-center border-4 border-gray-900 aspect-w-2 aspect-h-1 border-4 border-gray-900"
           >
             <img
               v-if="image.url && !image?.blank"
               :src="image.url"
-              class="w-20 h-20 rounded border-4 border-gray-900"
+              class="w-40 h-20 object-cover rounded border-4 border-gray-900"
               alt=""
             />
             <!-- 状态图标 -->

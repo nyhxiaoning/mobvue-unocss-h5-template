@@ -15,10 +15,10 @@
       :style="{ height: '80%' }"
     >
       <div class="text-center text-lg font-medium mb-4 flex">
-        <div :class="[currentTabValue === 1?'p-3 font-[16] font-500 text-gray-900':'p-3 font-[16] font-500 text-gray-400']" @click="switchTab(1)">
+        <div :class="[currentTabValue === 1?'p-4 font-[16] font-500 text-gray-900':'p-4 font-[16] font-500 text-gray-400']" @click="switchTab(1)">
           我的收藏
         </div>
-        <div  :class="[currentTabValue === 2?'p-3 font-[16] font-500 text-gray-900':'p-3 font-[16] font-500 text-gray-400']" @click="switchTab(2)">
+        <div  :class="[currentTabValue === 2?'p-4 font-[16] font-500 text-gray-900':'p-4 font-[16] font-500 text-gray-400']" @click="switchTab(2)">
           我的作品
         </div>
       </div>

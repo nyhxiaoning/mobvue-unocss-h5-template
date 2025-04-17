@@ -103,6 +103,7 @@ const switchTab = (index: number) => {
               selected: false,
               fileType: item.type,
               fileSize: item.type === 0 || item.type === 2 ? 1024 : item.fileSize,
+              binUrl: item.binFileUrl,
             });
           });
           childFlagLoading.value = false;
@@ -125,6 +126,7 @@ const switchTab = (index: number) => {
               selected: false,
               fileType: item.type,
               fileSize: item.type === 0 || item.type === 2 ? 1024 : item.fileSize,
+              binUrl: item.binFileUrl,
             });
           });
           childFlagLoading.value = false;
@@ -177,6 +179,7 @@ watch(
                 selected: false,
                 type: item.type,
                 fileSize: item.type === 0 || item.type === 2 ? 1024 : item.fileSize,
+                binUrl: item.binFileUrl,
               });
             });
             childFlagLoading.value = false;

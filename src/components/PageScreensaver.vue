@@ -186,6 +186,7 @@ const images = ref([
     selected: false,
     fileSize: 10470,
     type: 1,
+    binFileUrl:""
   },
   {
     url:
@@ -193,6 +194,7 @@ const images = ref([
     selected: false,
     fileSize: 17466,
     type: 1,
+    binFileUrl:""
   },
   {
     url: "",
@@ -245,7 +247,7 @@ const commonTal = (
       [`content${i}`]: {
         size: images.value[i]?.fileSize,
         type: images.value[i]?.type === 1 ? "image/gif" : "application/octet-stream",
-        url: images.value[i]?.url,
+        url: images.value[i]?.type === 1? images.value[i]?.url:images.value[i]?.binFileUrl,
       },
       [`playTime${i}`]: resultSelected.value * 60,
     });
@@ -261,7 +263,7 @@ const commonTal = (
   }
   output = {
     ...output,
-    isOrder: 1,
+    isOrder: true,
     ListLen: currentLength,
   };
 

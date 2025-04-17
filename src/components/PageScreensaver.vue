@@ -300,22 +300,22 @@ const commonTal = (
           message: language.sendSuccess,
           duration: 1000,
         });
-
-        JeeWeb.set("screensaverimg", JSON.stringify(images.value), (message: any) => {
-          if (message.code === 500) {
-            showToast({
-              message: language.syncError,
-              duration: 1000,
-            });
-          } else {
-            showToast({
-              message: language.syncSuccess,
-              duration: 1000,
-            });
-            // 初始化的时候，调用一次：首次一定也没有
-            //   commonTal(0);
-          }
-        });
+        // 暂时不做同步设置，不然问题比较多，需要没有说
+        // JeeWeb.set("screensaverimg", JSON.stringify(images.value), (message: any) => {
+        //   if (message.code === 500) {
+        //     showToast({
+        //       message: language.syncError,
+        //       duration: 1000,
+        //     });
+        //   } else {
+        //     showToast({
+        //       message: language.syncSuccess,
+        //       duration: 1000,
+        //     });
+        //     // 初始化的时候，调用一次：首次一定也没有
+        //     //   commonTal(0);
+        //   }
+        // });
       })
       .catch((err: any) => {
         console.log(" error", err);
@@ -330,36 +330,37 @@ const commonTal = (
       });
 };
 
+ commonTal(0);// 暂时不做同步设置，不然问题比较多，需要没有说
 // 获取一个不存在的属性会崩溃？？
-JeeWeb &&
-  JeeWeb.get("screensaverimg", (result: any) => {
-    const list = result;
-    if (JSON.parse(result.result).length > 0) {
-      images.value = JSON.parse(result.result);
-    }
-    console.log("init---查看当前的内容result", result);
-    return;
-    if (list?.length > 0) {
-      console.log("查看当前的内容result", result);
-      //   commonTal(0);
-    } else {
-      //   JeeWeb.set("screensaverimg", JSON.stringify(images.value), (message: any) => {
-      //     if (message.code === 500) {
-      //       showToast({
-      //         message: language.syncError,
-      //         duration: 1000,
-      //       });
-      //     } else {
-      //       showToast({
-      //         message: language.syncSuccess,
-      //         duration: 1000,
-      //       });
-      //       // 初始化的时候，调用一次：首次一定也没有
-      //     //   commonTal(0);
-      //     }
-      //   });
-    }
-  });
+// JeeWeb &&
+//   JeeWeb.get("screensaverimg", (result: any) => {
+//     const list = result;
+//     if (JSON.parse(result.result).length > 0) {
+//       images.value = JSON.parse(result.result);
+//     }
+//     console.log("init---查看当前的内容result", result);
+//     return;
+//     if (list?.length > 0) {
+//       console.log("查看当前的内容result", result);
+//       //   commonTal(0);
+//     } else {
+//       //   JeeWeb.set("screensaverimg", JSON.stringify(images.value), (message: any) => {
+//       //     if (message.code === 500) {
+//       //       showToast({
+//       //         message: language.syncError,
+//       //         duration: 1000,
+//       //       });
+//       //     } else {
+//       //       showToast({
+//       //         message: language.syncSuccess,
+//       //         duration: 1000,
+//       //       });
+//       //       // 初始化的时候，调用一次：首次一定也没有
+//       //     //   commonTal(0);
+//       //     }
+//       //   });
+//     }
+//   });
 
 const selectSpeedFn = (speed: number) => {
   selectedSpeed.value = speed;

@@ -16,21 +16,47 @@
     </van-cell-group>
     <van-cell-group :title="language.displayApps" inset>
       <van-cell :title="language.clock" center> </van-cell>
-      <van-cell :title="language.deviceInfo" center> </van-cell>
-      <van-cell :title="language.screensaver" center>
-        <!-- <template #right-icon>
-                    <van-switch v-model="settings.HomeGIF"  @change="handleSwitchisSwipe"      />
-                </template> -->
-      </van-cell>
-      <van-cell :title="language.weather" center>
+      <van-cell :title="language.wifiApp" center> </van-cell>
+
+      <van-cell :title="language.darkEmpire" center>
         <template #right-icon>
           <van-switch
-            v-model="settings.HomeWeather"
             :disabled="!settings.isSwipe"
+            v-model="settings.HomeCocos2"
             @change="handleSwitchisSwipe"
           />
         </template>
       </van-cell>
+      <!-- 4 -->
+      <van-cell :title="language.waterTemperature" center>
+        <template #right-icon>
+          <van-switch
+            :disabled="!settings.isSwipe"
+            v-model="settings.HomeWaterTemporatrue"
+            @change="handleSwitchisSwipe"
+          />
+        </template>
+      </van-cell>
+      <!-- 5 -->
+      <van-cell :title="language.weather" center>
+        <template #right-icon>
+          <van-switch
+            :disabled="!settings.isSwipe"
+            v-model="settings.HomeWeather"
+            @change="handleSwitchisSwipe"
+          />
+        </template>
+      </van-cell>
+      <!-- 6 -->
+      <van-cell :title="language.screensaver" center>
+        <template #right-icon>
+          <van-switch
+           :disabled="!settings.isSwipe"
+           v-model="settings.HomeScreenSaver"
+           @change="handleSwitchisSwipe" />
+        </template>
+      </van-cell>
+      <!-- 7 -->
       <van-cell :title="language.ballGame" center>
         <template #right-icon>
           <van-switch
@@ -40,15 +66,7 @@
           />
         </template>
       </van-cell>
-      <van-cell :title="language.slotGame" center>
-        <template #right-icon>
-          <van-switch
-            v-model="settings.homeTigerGame"
-            :disabled="!settings.isSwipe"
-            @change="handleSwitchisSwipe"
-          />
-        </template>
-      </van-cell>
+      <!-- 8 -->
       <van-cell :title="language.shakeEffect" center>
         <template #right-icon>
           <van-switch
@@ -58,10 +76,11 @@
           />
         </template>
       </van-cell>
-      <van-cell :title="language.darkEmpire" center>
+      <!-- 9 -->
+      <van-cell :title="language.slotGame" center>
         <template #right-icon>
           <van-switch
-            v-model="settings.HomeCocos2"
+            v-model="settings.homeTigerGame"
             :disabled="!settings.isSwipe"
             @change="handleSwitchisSwipe"
           />
@@ -99,6 +118,18 @@ import { showToast } from "vant";
     - 老虎机游戏
     - 摇晃水杯动效
     - 黑客帝国动效
+
+-------0417最新顺序：注意嵌入式返回的和页面回显的位置不一致，这里注意：
+    新的页面：
+    时钟：不能动
+    黑客帝国：HomeCocos2
+    水温：
+    天气：屏保应用home
+    屏保：可以开关
+    落球
+    水杯摇晃
+    老虎机
+    配网应用：不能动，并且放在第二个位置
  */
 export default {
   data() {
@@ -106,15 +137,17 @@ export default {
       settings: {
         isSwipe: true,
         // 不要变：HomeClock和HomeInfo
-        HomeClock: true,
-        HomeInfo: true,
+        HomeClock: true, //（不动）1
+        HomeInfo: true, // 不要了
 
-        HomeGIF: true,
-        HomeWeather: true,
-        HomeFreeFallIcon: true,
-        homeTigerGame: true,
-        HomeWaterShak: true,
-        HomeCocos2: true,
+        HomeGIF: true, //2
+        HomeWeather: true, //3
+        HomeFreeFallIcon: true, //4落球
+        homeTigerGame: true, //5老虎机
+        HomeWaterShak: true, //6水杯晃动
+        HomeCocos2: true, //7黑客帝国
+        HomeScreenSaver: true, //8水杯屏保
+        HomeWifiApp: true, //（不动）//9配网应用
         globalSwitchLoading: true,
       },
       language: {
@@ -123,6 +156,8 @@ export default {
         displayApps: JeeWeb.Language === "zh-CN" ? "水杯显示应用" : "App Display",
         clock: JeeWeb.Language === "zh-CN" ? "时钟" : "Clock",
         deviceInfo: JeeWeb.Language === "zh-CN" ? "设备信息" : "Device Info",
+        wifiApp: JeeWeb.Language === "zh-CN" ? "配网应用" : "Wi-Fi Setup App",
+        waterTemperature: JeeWeb.Language === "zh-CN" ? "水杯温度" : "Cup Temperature",
         screensaver: JeeWeb.Language === "zh-CN" ? "屏保" : "Screensaver",
         weather: JeeWeb.Language === "zh-CN" ? "天气" : "Weather",
         ballGame: JeeWeb.Language === "zh-CN" ? "落球游戏" : "Gravity",
@@ -147,12 +182,17 @@ export default {
           let currentData = res.data.split(",");
           // 更新settings中的状态： isSwipe
           this.settings.isSwipe = currentData[0] === "1" ? true : false; //  res.data.isSwipe
-          this.settings.HomeGIF = currentData[1][2] === "1" ? true : false;
+          // 其他应用的显示状态
+          this.settings.HomeClock = currentData[1][0] === "1"? true : false;
+          this.settings.HomeCocos2 = currentData[1][1] === "1" ? true : false;
+          this.settings.HomeWaterTemporatrue = currentData[1][2] === "1"? true : false;
           this.settings.HomeWeather = currentData[1][3] === "1" ? true : false;
-          this.settings.HomeFreeFallIcon = currentData[1][4] === "1" ? true : false;
-          this.settings.homeTigerGame = currentData[1][5] === "1" ? true : false;
+          this.settings.HomeScreenSaver = currentData[1][4] === "1" ? true : false;
+          this.settings.HomeFreeFallIcon = currentData[1][5] === "1" ? true : false;
           this.settings.HomeWaterShak = currentData[1][6] === "1" ? true : false;
-          this.settings.HomeCocos2 = currentData[1][7] === "1" ? true : false;
+          this.settings.homeTigerGame = currentData[1][7] === "1" ? true : false;
+          this.settings.HomeWifiApp = currentData[1][8] === "1"? true : false;
+
         }
         this.settings.globalSwitchLoading = false;
       })
@@ -175,19 +215,20 @@ export default {
     setShowErrorToast() {
       showToast(JeeWeb.Language === "zh-CN" ? "设置应用失败" : "Failed to set app error");
     },
+    // 下发数组转换，必须安装嵌入式
     convertProperties() {
       let currentData = {
-        isSwipe: this.settings.isSwipe,
+        isSwipe: this.settings.isSwipe,//0
         // 默认两项
-        HomeInfo: true,
-        HomeClock: true,
-        // 可能废弃
-        HomeGIF: true,
-        HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
-        HomeWeather: this.settings.HomeWeather,
-        homeTigerGame: this.settings.homeTigerGame,
-        HomeCocos2: this.settings.HomeCocos2,
-        HomeWaterShak: this.settings.HomeWaterShak,
+        HomeClock: true, // 1，时钟,不能关
+        HomeCocos2: this.settings.HomeCocos2, // 2，黑客帝国
+        HomeWaterTemporatrue: this.settings.HomeWaterTemporatrue, // 3,水杯温度
+        HomeWeather: this.settings.HomeWeather, // 4, 天气
+        HomeScreenSaver: this.settings.HomeScreenSaver, // 5 屏保
+        HomeFreeFallIcon: this.settings.HomeFreeFallIcon, // 6，落球
+        HomeWaterShak: this.settings.HomeWaterShak, // 7，水杯摇晃
+        homeTigerGame: this.settings.homeTigerGame, // 8，老虎机
+        HomeWifiApp: true, // 9 配网应用,不能关
       };
       console.log("当前数据:", currentData);
       let str = "";

@@ -104,11 +104,13 @@ const Switch2HomeIndex = () => {
 const talGetWifiInfoFn = () => {
     console.log('talGetWifiInfo')
     states.curInterface = 'talGetWifiInfo'
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
     // 调用CupDevice的方法
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
-                method: 'talGetWifiInfo'
+                method: v === 1 ? 'getWifiInfo' : 'talGetWifiInfo'
             },
         })
             .then(res => {
@@ -128,11 +130,13 @@ const talGetWifiInfoFn = () => {
 const talGetSwitchFn = () => {
     console.log('talGetSwitch')
     states.curInterface = 'talGetSwitch'
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
     // 调用CupDevice的方法
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
-                method: 'talGetSwitch'
+                method: v === 1 ? 'getSwitch' : 'talGetSwitch'
             },
         })
             .then(res => {
@@ -152,11 +156,13 @@ const talGetSwitchFn = () => {
 const talGetCupTemperatureFn = () => {
     console.log('talGetCupTemperature')
     states.curInterface = 'talGetCupTemperature'
+    // 1 老款设备、2 新款设备
+    const v = CupDevice?.to?.versionType || 2;
     // 调用CupDevice的方法
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
-                method: 'talGetCupTemperature'
+                method: v === 1 ? 'getTemperature' : 'talGetCupTemperature'
             },
         })
            .then(res => {
@@ -175,11 +181,13 @@ const talGetCupTemperatureFn = () => {
 const talGetBatteryLevelFn = () => {
     console.log('talGetBatteryLevel')
     states.curInterface = 'talGetBatteryLevel'
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
     // 调用CupDevice的方法
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
-                method: 'talGetBatteryLevel'
+                method: v === 1 ? 'getBatteryStatus' : 'talGetBatteryLevel'
             },
         })
             .then(res => {
@@ -198,11 +206,15 @@ const talGetBatteryLevelFn = () => {
 const talGetBrightnessFn = () => {
     console.log('talGetBrightness')
     states.curInterface = 'talGetBrightness'
+
+    // 1 老款设备、2 新款设备
+    const v = CupDevice?.to?.versionType || 2;
+
     // 调用CupDevice的方法
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
-                method: 'talGetBrightness'
+                method: v === 1 ? 'getBrightness' : 'talGetBrightness'
             },
         })
            .then(res => {

@@ -471,7 +471,7 @@ export default defineComponent({
       appSaverConfigDesc:
         JeeWeb.Language === "zh-CN"
           ? "可设置在水杯中展示的屏保"
-          : "Screensaver that can be set to display in a water glass",
+          : "Screensaver for water glass display",
       restartCup: JeeWeb.Language === "zh-CN" ? "重启水杯" : "Restart",
       closeScreen: JeeWeb.Language === "zh-CN" ? "关闭屏幕" : "Display Off",
       openScreen: JeeWeb.Language === "zh-CN" ? "打开屏幕" : "Display On",

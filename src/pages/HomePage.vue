@@ -7,64 +7,110 @@
       color="#fff"
       text="..."
     ></van-loading>
-    <!-- 顶部状态栏 -->
-    <div class="status-bar">
-      <van-row justify="space-between" align="center">
-        <van-row
-          type="flex"
-          justify="start"
-          align="center"
-          style="width: 58px; height: 24px; font-size: 12px"
-        >
-          <!-- 第一个子 div -->
-          <van-col :span="12">
-            <div :class="curBatteryClass" style="width: 24px; height: 24px"></div>
-          </van-col>
-          <!-- 第二个子 div -->
-          <van-col :span="12">
-            <div
-              style="
-                line-height: 24px;
-                height: 26px;
-                text-align: center;
-                margin-right: -30px;
-              "
-            >
-              {{ states.battery }}%
-            </div>
-          </van-col>
-        </van-row>
 
-        <div style="position: relative; margin-left: 10%">
-          <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
-          <div :class="[states.online ? 'status-text' : 'status-text-offline']">
-            &nbsp;{{ language.online }}
-          </div>
+    <!-- wifi+温度+电池 -->
+    <div class="wifi-clock">
+      <div class="wifi-left">
+        <div style="margin-bottom: 10px">
+          <img src="@/assets/cupWifi.png" width="135" height="20" alt="" />
         </div>
-        <div style="margin-left: 20px">
-          <van-row
-            type="flex"
-            justify="start"
-            align="center"
-            :class="[
-              states.languageFlag ? 'temperature-content' : 'temperature-content-en',
-            ]"
-          >
-            <!-- 第一个子 div -->
-            <van-col :span="6">
-              <div :class="curTemperatureClass" style="width: 16px; height: 16px"></div>
+        <div style="margin-left: -20px">
+          <van-row :gutter="[40, 10]">
+            <van-col span="12">
+              <van-row
+                type="flex"
+                justify="start"
+                align="center"
+                style="width: 58px; height: 24px; font-size: 12px"
+              >
+                <!-- 第一个子 div -->
+                <van-col :span="12">
+                  <div :class="curBatteryClass" style="width: 24px; height: 24px"></div>
+                </van-col>
+                <!-- 第二个子 div -->
+                <van-col :span="12">
+                  <div
+                    style="
+                      line-height: 24px;
+                      height: 26px;
+                      text-align: center;
+                      margin-right: -30px;
+                    "
+                  >
+                    {{ states.battery }}%
+                  </div>
+                </van-col>
+              </van-row>
             </van-col>
-            <!-- 第二个子 div -->
-            <van-col :span="18">
-              <div style="line-height: 24px; height: 26px; font-size: 12px">
-                {{ language.waterTemp }}:{{ states.temperature }} F
+            <van-col span="12">
+              <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
+              <div :class="[states.online ? 'status-text' : 'status-text-offline']">
+                &nbsp;{{ language.online }}
               </div>
             </van-col>
           </van-row>
         </div>
-      </van-row>
-    </div>
+        <div class="img-container">
+          <img class="image" src="@/assets/wifiicon.png" width="18" height="18" alt="" />
+          <p class="text">{{ states.wifiSsid }}</p>
+        </div>
+      </div>
 
+      <div class="wifi-info">
+        <div style="padding:10px">
+          <div style="margin-bottom: 10px; font-size: 12px">
+            <van-row
+              type="flex"
+              justify="start"
+              align="center"
+              :class="[
+                states.languageFlag ? 'temperature-content' : 'temperature-content-en',
+              ]"
+            >
+              <!-- 第一个子 div -->
+              <van-col :span="6">
+                <div
+                  :class="curTemperatureClass"
+                  style="width: 16px; height: 16px; font-size: 12px"
+                ></div>
+              </van-col>
+
+              <!-- 第二个子 div -->
+              <van-col :span="18">
+                <div style="line-height: 24px; height: 26px; font-size: 12px">
+                  {{ `${language.waterTemp} | ${curTemperatureTransfer}` }}
+                </div>
+              </van-col>
+            </van-row>
+            <!-- 摄氏度和华氏度控制 -->
+            <van-row style="border: 1px solid #eeeeee; padding: 1px;; margin-top: 5px">
+              <van-col
+                @click="changeTempSetting('1')"
+                :class="[
+                  states.temperatureTab === '1'
+                    ? 'temp-active-icon'
+                    : 'temp-no-icon',
+                ]"
+                span="12"
+              >
+                {{ language.celsius }}</van-col
+              >
+              <van-col
+                @click="changeTempSetting('2')"
+                :class="[
+                  states.temperatureTab === '2'
+                   ? 'temp-active-icon'
+                    : 'temp-no-icon',
+                ]"
+                span="12"
+              >
+                {{ language.fahrenheit }}</van-col
+              >
+            </van-row>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- 亮度调节 -->
     <div class="brightness-control">
       <div style="font-size: 16px; margin: 20px; margin-left: 15px">
@@ -443,7 +489,7 @@ export default defineComponent({
       languageFlag: JeeWeb.Language === "zh-CN" ? true : false,
       battery: userStore.$state.battery || 10,
       brightness: userStore.$state.brightness || 0,
-      temperature: userStore.$state.temperature || 0,
+      temperature: userStore.$state.temperature || 100,
       batteryStatus: false,
       address: "",
       weatheraddress: userStore.$state.weathername || "",
@@ -454,11 +500,17 @@ export default defineComponent({
       // 默认一定是开启
       screenStatus: true,
       globalLoading: true,
+      wifiSsid: "",
+      temperatureType: "CELSIUS",
+      temperatureTab: "1", // 1表示切换当前的CELSIUS，2表示切换当前的FAHRENHEIT
+      // CELSIUS - 摄氏度, FAHRENHEIT - 华氏度
     });
 
     const language = reactive({
+      celsius: JeeWeb.Language === "zh-CN" ? "摄氏度℃" : "Celsius ℃",
+      fahrenheit: JeeWeb.Language === "zh-CN" ? "华氏度℉" : "Fahrenheit ℉",
       online: JeeWeb.Language === "zh-CN" ? "在线" : "Online",
-      waterTemp: JeeWeb.Language === "zh-CN" ? "水温" : "Water Temp",
+      waterTemp: JeeWeb.Language === "zh-CN" ? "温度" : "Temp",
       brightness: JeeWeb.Language === "zh-CN" ? "亮度" : "Brightness",
       clock: JeeWeb.Language === "zh-CN" ? "时钟" : "Clock",
       weather: JeeWeb.Language === "zh-CN" ? "天气" : "Weather",
@@ -626,13 +678,47 @@ export default defineComponent({
 
     // 计算温度状态的 class
     const curTemperatureClass = computed(() => {
-      if (states.temperature < 0) {
-        return "temperature";
-      } else if (states.temperature < 99) {
-        return "temperature-0";
+      // 如果这里是华氏度，需要转成摄氏度对比
+      let currentTempature;
+      if (states.temperatureType === "FAHRENHEIT") {
+        currentTempature = fahrenheitToCelsius(states.temperature);
+        if (currentTempature < 0) {
+          return "temperature";
+        } else if (currentTempature < 99) {
+          return "temperature-0";
+        } else {
+          return "temperature-99";
+        }
       } else {
-        return "temperature-99";
+        if (states.temperature < 0) {
+          return "temperature";
+        } else if (states.temperature < 99) {
+          return "temperature-0";
+        } else {
+          return "temperature-99";
+        }
       }
+    });
+
+    const curTemperatureTransfer = computed(() => {
+      if (states.temperatureTab === "1") {
+        if (states.temperatureType === "FAHRENHEIT") {
+          return fahrenheitToCelsius(states.temperature)+"℃";
+        } else {
+          return states.temperature+"℃";
+        }
+      } else {
+        if (states.temperatureType === "CELSIUS") {
+          return celsiusToFahrenheit(states.temperature)+ "℉";
+        } else {
+          return states.temperature+ "℉";;
+        }
+      }
+    //   if (states.temperatureType === "CELSIUS") {
+    //     return states.temperature + "℃";
+    //   } else {
+    //     return states.temperature + "℉";
+    //   }
     });
 
     // 计算电池状态的 class
@@ -787,6 +873,39 @@ export default defineComponent({
       router.push("/newTal");
     }
 
+    const changeTempSetting = (str:string) => {
+      states.temperatureTab = str;
+      console.log(states.temperatureTab, "states.temperatureTab")
+      console.log(states.temperatureType, "states.temperatureType")
+      // 1: 摄氏度, 2: 华氏度
+      // 如果当前tab是摄氏度，但是嵌入式数据返回类型是华氏度
+      if (states.temperatureTab === str) {
+        if (states.temperatureType === "FAHRENHEIT") {
+          states.temperature = fahrenheitToCelsius(states.temperature);
+          return states.temperature;
+        } else {
+          return states.temperature;
+        }
+      } else {
+        if (states.temperatureType === "CELSIUS") {
+          states.temperature = celsiusToFahrenheit(states.temperature);
+          return states.temperature ;
+        } else {
+          return states.temperature;
+        }
+      }
+    };
+
+    // 摄氏度转华氏度
+    function celsiusToFahrenheit(celsius: number) {
+      return celsius * 1.8 + 32;
+    }
+
+    // 华氏度转摄氏度
+    function fahrenheitToCelsius(fahrenheit: number) {
+      return (fahrenheit - 32) / 1.8;
+    }
+
     return {
       jumpNewTalFn,
       onBrightnessChange,
@@ -801,6 +920,10 @@ export default defineComponent({
       curTemperatureClass,
       userStore,
       language,
+      changeTempSetting,
+      celsiusToFahrenheit,
+      fahrenheitToCelsius,
+      curTemperatureTransfer,
       // onDevicesOnlineChanged
     };
   },
@@ -870,6 +993,22 @@ export default defineComponent({
   border-radius: 12px;
 }
 
+.wifi-clock {
+  flex: 1;
+  display: flex;
+  align-items: center;
+
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 10px;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+
+  font-size: 12px;
+  border-radius: 12px;
+}
+
 .weather {
   flex: 1;
   display: flex;
@@ -880,6 +1019,44 @@ export default defineComponent({
   background-color: #ffffff;
 
   border-radius: 12px;
+}
+
+.wifi-left {
+  flex: 1;
+  display: flex;
+  margin-right: 20px;
+  flex-direction: column;
+  justify-content: space-around;
+  /* align-items: center; */
+  /* height: 100px; */
+  border-radius: 12px;
+}
+
+.wifi-info {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  background-color: #ffffff;
+
+  border-radius: 12px;
+}
+
+.img-container {
+  display: flex;
+  align-items: center;
+  margin-top: -5px;
+  .image {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
 }
 
 .clock {
@@ -1022,7 +1199,7 @@ export default defineComponent({
 }
 
 .temperature-content-en {
-  width: 150px;
+  width: 140px;
   height: 24px;
   background-color: #ffffff;
   border-radius: 6px;
@@ -1032,7 +1209,7 @@ export default defineComponent({
 }
 
 .temperature-content {
-  width: 90px;
+  width: 140px;
   height: 24px;
   background-color: #ffffff;
   border-radius: 6px;
@@ -1142,5 +1319,18 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   z-index: 999;
+}
+
+.temp-active-icon {
+  text-align: center;
+  background-color: #eeeeee;
+  color: #31acf8;
+  padding: 1px;
+}
+
+.temp-no-icon {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 1px;
 }
 </style>

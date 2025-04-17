@@ -21,7 +21,6 @@
       <div>
         <van-cell
           :title="language.changeTempUnit"
-          :value="currentTextValue"
           is-link
           @click="showPopup = true"
         />

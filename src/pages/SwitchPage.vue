@@ -88,61 +88,6 @@
       </van-cell>
     </van-cell-group>
 
-      <van-cell-group :title="language.displayApps" inset>
-      <van-cell :title="language.clock" center> </van-cell>
-      <van-cell :title="language.deviceInfo" center> </van-cell>
-      <van-cell :title="language.screensaver" center>
-        <!-- <template #right-icon>
-                    <van-switch v-model="settings.HomeGIF"  @change="handleSwitchisSwipe"      />
-                </template> -->
-      </van-cell>
-      <van-cell :title="language.weather" center>
-        <template #right-icon>
-          <van-switch
-            v-model="settings.HomeWeather"
-            :disabled="!settings.isSwipe"
-            @change="handleSwitchisSwipe"
-          />
-        </template>
-      </van-cell>
-      <van-cell :title="language.ballGame" center>
-        <template #right-icon>
-          <van-switch
-            v-model="settings.HomeFreeFallIcon"
-            :disabled="!settings.isSwipe"
-            @change="handleSwitchisSwipe"
-          />
-        </template>
-      </van-cell>
-      <van-cell :title="language.slotGame" center>
-        <template #right-icon>
-          <van-switch
-            v-model="settings.homeTigerGame"
-            :disabled="!settings.isSwipe"
-            @change="handleSwitchisSwipe"
-          />
-        </template>
-      </van-cell>
-      <van-cell :title="language.shakeEffect" center>
-        <template #right-icon>
-          <van-switch
-            v-model="settings.HomeWaterShak"
-            :disabled="!settings.isSwipe"
-            @change="handleSwitchisSwipe"
-          />
-        </template>
-      </van-cell>
-      <van-cell :title="language.darkEmpire" center>
-        <template #right-icon>
-          <van-switch
-            v-model="settings.HomeCocos2"
-            :disabled="!settings.isSwipe"
-            @change="handleSwitchisSwipe"
-          />
-        </template>
-      </van-cell>
-    </van-cell-group>
-
   </div>
 </template>
 

@@ -185,11 +185,13 @@ const talStartSlotGameFn = () => {
 const talGetWifiInfoFn = () => {
     console.log('talGetWifiInfo')
     states.curInterface = 'talGetWifiInfo'
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
     // 调用CupDevice的方法
     CupDevice &&
         CupDevice.setDevMessage({
             value: {
-                method: 'talGetWifiInfo'
+                method: v === 1 ? 'getWifiInfo' : 'talGetWifiInfo'
             },
         })
             .then(res => {

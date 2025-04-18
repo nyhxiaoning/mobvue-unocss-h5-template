@@ -258,14 +258,25 @@ export default {
 
             // alert(JSON.stringify(selectedTimezone.value.label))
             if (selectedTimezone.value.label) {
+                // 1 老款设备、2 新款设备
+                const v = CupDevice.to.versionType || 2;
+
+                const p1 = {
+                    method: 'setLoaclTimeZone',
+                    params: {
+                        value: selectedTimezone.value.value,
+                    },
+                };
+
+                const p2 =  {
+                    method: 'talSetTimeZone',
+                    params: {
+                        "timeZone": selectedTimezone.value.value,
+                    }
+                };
+
                     CupDevice.setDevMessage({
-                        value: {
-                            method: 'talSetTimeZone',
-                            params: {
-                                // value: selectedTimezone.value.value,
-                                "timeZone": selectedTimezone.value.value,
-                            },
-                        },
+                        value: v === 1 ? p1 : p2,
                     })
                         .then((res) => {
                             // 如果设置成功后，这里使用最新的页面的数据，否则使用store之前的存储数据
@@ -304,10 +315,14 @@ export default {
 
         onMounted(() => {
             console.log('onMounted');
+
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
+
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'talGetTimeZone',
+                        method: v === 1 ? 'getLoaclTimeZone' : 'talGetTimeZone',
                         params: {
                             // 默认两项
                         },

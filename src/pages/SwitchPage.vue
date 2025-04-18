@@ -169,16 +169,31 @@ export default {
   },
   created() {
     console.log("mounted---router");
+    // 1 老款设备、2 新款设备
+    const v = CupDevice?.to?.versionType || 2;
     // 初始化时获取当前系统应用显示状态
     CupDevice.setDevMessage({
       value: {
-        method: "talGetHomeTaskParams",
+        method: v === 1 ? 'getHomeAppsParams' : "talGetHomeTaskParams",
         params: {},
       },
     })
       .then((res) => {
         console.log("talGetHomeTaskParams", res, "响应结果");
-        if (res && res.data) {
+
+        if (v === 1) {
+            if (res && res.data) {
+                // 更新settings中的状态： isSwipe
+                this.settings.isSwipe = res.data.isSwipe;
+                this.settings.HomeGIF = res.data.HomeGIF;
+                this.settings.HomeWeather = res.data.HomeWeather
+                this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon
+                this.settings.homeTigerGame = res.data.homeTigerGame
+                this.settings.HomeWaterShak = res.data.HomeWaterShak
+                this.settings.HomeCocos2 = res.data.HomeCocos2
+            }
+        }
+        else if (res && res.data) {
           let currentData = res.data.split(",");
           // 更新settings中的状态： isSwipe
           this.settings.isSwipe = currentData[0] === "1" ? true : false; //  res.data.isSwipe
@@ -244,24 +259,35 @@ export default {
     },
 
     handleSwitchisSwipe() {
+        // 1 老款设备、2 新款设备
+        const v = CupDevice?.to?.versionType || 2;
+
+        const p1 = {
+            method: "setHomeAppsParams",
+            params: {
+                isSwipe: this.settings.isSwipe,
+                // 默认两项
+                HomeInfo: true,
+                HomeClock: true,
+                // 可能废弃
+                HomeGIF: true,
+                HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
+                HomeWeather: this.settings.HomeWeather,
+                homeTigerGame: this.settings.homeTigerGame,
+                HomeCocos2: this.settings.HomeCocos2,
+                HomeWaterShak: this.settings.HomeWaterShak,
+            },
+        }
+
+        const p2 = {
+            method: "talSetHomeTaskParams",
+            params: {
+                value: this.convertProperties(),
+            },
+        }
+
       CupDevice.setDevMessage({
-        value: {
-          method: "talSetHomeTaskParams",
-          params: {
-            value: this.convertProperties(),
-            // isSwipe: this.settings.isSwipe,
-            // // 默认两项
-            // HomeInfo: true,
-            // HomeClock: true,
-            // // 可能废弃
-            // HomeGIF: true,
-            // HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
-            // HomeWeather: this.settings.HomeWeather,
-            // homeTigerGame: this.settings.homeTigerGame,
-            // HomeCocos2: this.settings.HomeCocos2,
-            // HomeWaterShak: this.settings.HomeWaterShak,
-          },
-        },
+        value: v === 1 ? p1 : p2,
       })
         .then((res) => {
           console.log(res, "单个");

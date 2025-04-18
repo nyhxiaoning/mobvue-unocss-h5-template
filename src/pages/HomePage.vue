@@ -8,8 +8,66 @@
       text="..."
     ></van-loading>
 
+    <!-- 顶部状态栏 -->
+    <div v-if="CupDevice?.to?.versionType !== 2" class="status-bar">
+      <van-row justify="space-between" align="center">
+        <van-row
+          type="flex"
+          justify="start"
+          align="center"
+          style="width: 58px; height: 24px; font-size: 12px"
+        >
+          <!-- 第一个子 div -->
+          <van-col :span="12">
+            <div :class="curBatteryClass" style="width: 24px; height: 24px"></div>
+          </van-col>
+          <!-- 第二个子 div -->
+          <van-col :span="12">
+            <div
+              style="
+                line-height: 24px;
+                height: 26px;
+                text-align: center;
+                margin-right: -30px;
+              "
+            >
+              {{ states.battery }}%
+            </div>
+          </van-col>
+        </van-row>
+
+        <div style="position: relative; margin-left: 10%">
+          <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
+          <div :class="[states.online ? 'status-text' : 'status-text-offline']">
+            &nbsp;{{ language.online }}
+          </div>
+        </div>
+        <div style="margin-left: 20px">
+          <van-row
+            type="flex"
+            justify="start"
+            align="center"
+            :class="[
+              states.languageFlag ? 'temperature-content' : 'temperature-content-en',
+            ]"
+          >
+            <!-- 第一个子 div -->
+            <van-col :span="6">
+              <div :class="curTemperatureClass" style="width: 16px; height: 16px"></div>
+            </van-col>
+            <!-- 第二个子 div -->
+            <van-col :span="18">
+              <div style="line-height: 24px; height: 26px; font-size: 12px">
+                {{ language.waterTemp }}:{{ states.temperature }} F
+              </div>
+            </van-col>
+          </van-row>
+        </div>
+      </van-row>
+    </div>
+
     <!-- wifi+温度+电池 -->
-    <div class="wifi-clock">
+    <div v-if="CupDevice?.to?.versionType === 2" class="wifi-clock">
       <div class="wifi-left">
         <div style="margin-bottom: 10px">
           <img src="@/assets/cupWifi.png" width="135" height="20" alt="" />
@@ -218,7 +276,7 @@
         <div class="seting-appcup"></div>
       </div>
     </div>
-    <div class="feature-item">
+    <div  v-if="CupDevice?.to?.versionType === 2" class="feature-item">
       <div
         @click="appConfigFn(2)"
         style="
@@ -551,22 +609,37 @@ export default defineComponent({
         value = 1;
       }
       console.log("当前亮度：", value);
+      states.globalLoading = true;
+      // 1 老款设备、2 新款设备
+      const v = CupDevice?.to?.versionType || 2;
+
+      const p1 = {
+        method: "setBrightness",
+        params: {
+          value: value,
+        },
+      };
+
+      const p2 = {
+        method: "talSetBrightness",
+        params: {
+          percent: value,
+        },
+      };
+
       CupDevice &&
         CupDevice.setDevMessage({
-          value: {
-            method: "talSetBrightness",
-            params: {
-              percent: value,
-            },
-          },
+          value: v === 1 ? p1 : p2,
         })
           .then((res: any) => {
+            states.globalLoading = false;
             console.log(res.data, "设置亮度.value");
             // userStore.$state.brightness = value as any;
 
             // store.selectedTimezone(selectedTimezone.value);
           })
           .catch((err: any) => {
+            states.globalLoading = false;
             console.log(err);
             showToast({
               message: language.setBrightnessError,
@@ -575,12 +648,54 @@ export default defineComponent({
           });
     };
 
+    const closeScreen = () => {
+      // 1 老款设备、2 新款设备
+      const v = CupDevice?.to?.versionType || 2;
+
+      const p1 = {
+        method: "setSwitch",
+        params: {
+          value: states.screenStatus ? false : true,
+        },
+      };
+
+      const p2 = {
+        method: "talSetDisplayOnOff",
+        params: {
+          onoff: states.screenStatus ? false : true,
+        },
+      };
+
+      CupDevice &&
+        CupDevice.setDevMessage({
+          value: v === 1 ? p1 : p2,
+        })
+          .then((res: any) => {
+            console.log(res, ".value");
+            states.screenStatus = !states.screenStatus;
+            // store.selectedTimezone(selectedTimezone.value);
+          })
+          .catch((err: any) => {
+            console.log(err);
+            showToast({
+              message: states.screenStatus
+                ? language.screenOffError
+                : language.screenOnError,
+              duration: 1000,
+            });
+          });
+      console.log("关闭屏幕");
+    };
+
     const restartCup = () => {
+      // 1 老款设备、2 新款设备
+      const v = CupDevice?.to?.versionType || 2;
+
       // 重启设备后，其实没有回复，所以不需要拦截
       CupDevice &&
         CupDevice.setDevMessage({
           value: {
-            method: "talRebootDevice",
+            method: v === 1 ? "PixelCupRestart" : "talRebootDevice",
             params: {},
           },
         })
@@ -599,53 +714,27 @@ export default defineComponent({
           });
     };
 
-    const closeScreen = () => {
-      states.globalLoading = true;
-      CupDevice &&
-        CupDevice.setDevMessage({
-          value: {
-            method: "talSetDisplayOnOff",
-            params: {
-              onoff: states.screenStatus ? false : true,
-            },
-          },
-        })
-          .then((res: any) => {
-            console.log(res, ".value");
-            states.globalLoading = false;
-
-            states.screenStatus = !states.screenStatus;
-            // store.selectedTimezone(selectedTimezone.value);
-          })
-          .catch((err: any) => {
-            console.log(err);
-            states.globalLoading = false;
-            showToast({
-              message: states.screenStatus
-                ? language.screenOffError
-                : language.screenOnError,
-              duration: 1000,
-            });
-          });
-      console.log("关闭屏幕");
-    };
-
     const goHome = () => {
+      states.globalLoading = true;
       console.log("talReturn2Home");
+      // 1 老款设备、2 新款设备
+      const v = CupDevice?.to?.versionType || 2;
       CupDevice &&
         CupDevice.setDevMessage({
           value: {
-            method: "talReturn2Home",
+            method: v === 1 ? "return2Home" : "talReturn2Home",
             params: {},
           },
         })
           .then((res: any) => {
+            states.globalLoading = false;
             console.log(res, ".value");
 
             // store.selectedTimezone(selectedTimezone.value);
           })
           .catch((err: any) => {
             console.log(err);
+            states.globalLoading = false;
             showToast({
               message: language.returnHomeError,
 
@@ -655,15 +744,20 @@ export default defineComponent({
     };
 
     const appConfigFn = (num: number) => {
-      if (num === 1) {
-        // $route.push('/setting');
-        router.push("setting"); // 跳转到设置
-      } else if (num === 2) {
-        router.push("screensaver"); // 跳转到屏保
+      const v = CupDevice?.to?.versionType || 2;
+      if (v === 1) {
+        if (num === 1) {
+          // $route.push('/setting');
+          router.push("setting"); // 跳转到设置
+        }
+      } else {
+        if (num === 1) {
+          // $route.push('/setting');
+          router.push("setting"); // 跳转到设置
+        } else if (num === 2) {
+          router.push("screensaver"); // 跳转到屏保
+        }
       }
-      // alert('应用设置');
-
-      console.log("应用设置");
     };
 
     const appWeatherFn = () => {
@@ -702,39 +796,6 @@ export default defineComponent({
       }
     });
 
-    const curTemperatureTransfer = computed(() => {
-      if (states.temperatureTab === "1") {
-        if (states.temperatureType === "FAHRENHEIT") {
-          return fahrenheitToCelsius(states.temperature) + "℃";
-        } else {
-          return states.temperature + "℃";
-        }
-      } else {
-        if (states.temperatureType === "CELSIUS") {
-          return celsiusToFahrenheit(states.temperature) + "℉";
-        } else {
-          return states.temperature + "℉";
-        }
-      }
-      //   if (states.temperatureType === "CELSIUS") {
-      //     return states.temperature + "℃";
-      //   } else {
-      //     return states.temperature + "℉";
-      //   }
-    });
-
-    // 计算电池状态的 class
-    const curBatteryClass = computed(() => {
-      if (states.battery < 20) {
-        return "battery-20";
-      } else if (states.battery < 40) {
-        // 省略 `> 20`，因为前面已经判断 `< 20`
-        return "battery-40";
-      } else {
-        return "battery-60";
-      }
-    });
-
     onMounted(() => {
       // states.curBatteryClass = 'battery-60';
       // states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
@@ -743,10 +804,14 @@ export default defineComponent({
         "",
         JeeWeb.deviceBind[0]?.devices
       );
+
+      // 1 老款设备、2 新款设备
+      const v = CupDevice?.to?.versionType || 2;
+
       CupDevice &&
         CupDevice.setDevMessage({
           value: {
-            method: "talGetCupInfo",
+            method: v === 1 ? "getCupInfo" : "talGetCupInfo",
             params: {},
           },
         })
@@ -874,6 +939,73 @@ export default defineComponent({
     function jumpNewTalFn() {
       router.push("/newTal");
     }
+
+    const curTemperatureTransfer = computed(() => {
+      if (states.temperatureTab === "1") {
+        if (states.temperatureType === "FAHRENHEIT") {
+          return fahrenheitToCelsius(states.temperature) + "℃";
+        } else {
+          return states.temperature + "℃";
+        }
+      } else {
+        if (states.temperatureType === "CELSIUS") {
+          return celsiusToFahrenheit(states.temperature) + "℉";
+        } else {
+          return states.temperature + "℉";
+        }
+      }
+      //   if (states.temperatureType === "CELSIUS") {
+      //     return states.temperature + "℃";
+      //   } else {
+      //     return states.temperature + "℉";
+      //   }
+    });
+
+    // 计算电池状态的 class
+    const curBatteryClass = computed(() => {
+      if (states.battery < 20) {
+        return "battery-20";
+      } else if (states.battery < 40) {
+        // 省略 `> 20`，因为前面已经判断 `< 20`
+        return "battery-40";
+      } else {
+        return "battery-60";
+      }
+    });
+
+    // // Watch battery changes
+    watch(
+      () => states.battery,
+      (newValue, oldValue) => {
+        console.log("Brightness changed:", oldValue, "->", newValue);
+        if (newValue < 20) {
+          return (states.curBatteryClass = "battery-20");
+        } else if (newValue > 20 && newValue < 100) {
+          return (states.curBatteryClass = "battery-40");
+        } else if (newValue > 99) {
+          return (states.curBatteryClass = "battery-60");
+        }
+        // Add your logic here for brightness changes
+      }
+    );
+
+    // // Watch temperature changes
+    watch(
+      () => states.temperature,
+      (newValue, oldValue) => {
+        console.log("Temperature changed:", oldValue, "->", newValue);
+        // Add your logic here for temperature changes
+        if (!newValue) {
+          return (states.curTemperatureClass = "temperature");
+        } else if (newValue < 20) {
+          return (states.curTemperatureClass = "temperature");
+        } else if (newValue >= 20 && newValue < 80) {
+          return (states.curTemperatureClass = "temperature-0");
+        } else if (newValue >= 80) {
+          return (states.curTemperatureClass = "temperature-99");
+        }
+      }
+    );
 
     const changeTempSetting = (str: string) => {
       states.globalLoading = true;

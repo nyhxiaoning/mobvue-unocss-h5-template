@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div v-if=" CupDevice?.to?.versionType === 2 ">
         <van-cell
           :title="language.changeTempUnit"
           :value="currentTextValue"
@@ -131,6 +131,7 @@ const goBack = () => {
   router.back();
 };
 
+
 const initFn = () => {
   language.globalWeatherLoading = true;
   CupDevice &&
@@ -151,49 +152,63 @@ const initFn = () => {
       });
 };
 
+const confirmCity = () => {
+    console.log(sessionStorage.getItem('weathervalue'))
+    console.log(sessionStorage.getItem("weathername"))
+    console.log('confirmCity')
+    language.globalWeatherLoading = true
+
+    // 1 老款设备、2 新款设备
+    const v = CupDevice?.to?.versionType || 2;
+
+    const p1 = {
+        method: 'setCity',
+        params: {
+            value: sessionStorage.getItem('weathervalue')
+        },
+    }
+
+    const p2 = {
+        method: 'talSetCity',
+        params: {
+            city: sessionStorage.getItem('weathervalue')
+        },
+    }
+
+    CupDevice &&
+        CupDevice.setDevMessage({
+            value: v === 1 ? p1 : p2,
+        })
+            .then((res) => {
+                console.log(res, 'setCity');
+                // 新旧数据保存一致，
+                store.$state.weathername = sessionStorage.getItem("weathername");
+                store.$state.weathervalue = sessionStorage.getItem('weathervalue');
+                sessionStorage.setItem('weatheroldname', sessionStorage.getItem("weathername"));
+                sessionStorage.setItem('weatheroldvalue', sessionStorage.getItem('weathervalue'));
+                console.log(res, 'city.value');
+                language.globalWeatherLoading = false
+                router.push('/');
+            })
+            .catch((err) => {
+                console.log(err);
+                // 如果失败了，则不更新，使用老的数据
+                // store.$state.weathername = '';
+                sessionStorage.setItem('weathername',sessionStorage.getItem("weatheroldname"))
+                sessionStorage.setItem('weathervalue', sessionStorage.getItem("weatheroldvalue"))
+                // store.$state.weathervalue = '';
+                setTimeout(() => {
+                    language.globalWeatherLoading = false
+                    showToast({
+                        message: language.setCityError,
+                        duration: 1000,
+                    });
+                }, 1000)
+            });
+};
+
 initFn();
 
-const confirmCity = () => {
-  console.log(sessionStorage.getItem("weathervalue"));
-  console.log(sessionStorage.getItem("weathername"));
-  console.log("confirmCity");
-  language.globalWeatherLoading = true;
-  CupDevice &&
-    CupDevice.setDevMessage({
-      value: {
-        method: "talSetCity",
-        params: {
-          city: sessionStorage.getItem("weathervalue"),
-        },
-      },
-    })
-      .then((res) => {
-        console.log(res, "setCity");
-        // 新旧数据保存一致，
-        store.$state.weathername = sessionStorage.getItem("weathername");
-        store.$state.weathervalue = sessionStorage.getItem("weathervalue");
-        sessionStorage.setItem("weatheroldname", sessionStorage.getItem("weathername"));
-        sessionStorage.setItem("weatheroldvalue", sessionStorage.getItem("weathervalue"));
-        console.log(res, "city.value");
-        language.globalWeatherLoading = false;
-        router.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        // 如果失败了，则不更新，使用老的数据
-        // store.$state.weathername = '';
-        sessionStorage.setItem("weathername", sessionStorage.getItem("weatheroldname"));
-        sessionStorage.setItem("weathervalue", sessionStorage.getItem("weatheroldvalue"));
-        // store.$state.weathervalue = '';
-        setTimeout(() => {
-          language.globalWeatherLoading = false;
-          showToast({
-            message: language.setCityError,
-            duration: 1000,
-          });
-        }, 1000);
-      });
-};
 
 const confirm = () => {
   showPopup.value = false;

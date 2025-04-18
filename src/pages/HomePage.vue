@@ -9,7 +9,7 @@
     ></van-loading>
 
     <!-- 顶部状态栏 -->
-    <div v-if="CupDevice?.to?.versionType !== 2" class="status-bar">
+    <div v-if="defaultVersionType !== 2" class="status-bar">
       <van-row justify="space-between" align="center">
         <van-row
           type="flex"
@@ -67,7 +67,7 @@
     </div>
 
     <!-- wifi+温度+电池 -->
-    <div v-if="CupDevice?.to?.versionType === 2" class="wifi-clock">
+    <div v-if="defaultVersionType === 2" class="wifi-clock">
       <div class="wifi-left">
         <div style="margin-bottom: 10px">
           <img src="@/assets/cupWifi.png" width="135" height="20" alt="" />
@@ -973,6 +973,13 @@ export default defineComponent({
       }
     });
 
+
+    const defaultVersionType = computed(() => {
+      // 1 老款设备、2 新款设备
+      const v = CupDevice?.to?.versionType || 2;
+      return v
+    })
+
     // // Watch battery changes
     watch(
       () => states.battery,
@@ -1086,6 +1093,7 @@ export default defineComponent({
       celsiusToFahrenheit,
       fahrenheitToCelsius,
       curTemperatureTransfer,
+      defaultVersionType
       // onDevicesOnlineChanged
     };
   },

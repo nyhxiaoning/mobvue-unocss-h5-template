@@ -136,7 +136,7 @@
               <!-- 第二个子 div -->
               <van-col :span="18">
                 <div style="line-height: 24px; height: 26px; font-size: 12px">
-                  {{ `${language.waterTemp} | ${curTemperatureTransfer}` }}
+                  {{ `${language.waterTemp} | ${states.curTemperatureTransferText}` }}
                 </div>
               </van-col>
             </van-row>
@@ -276,7 +276,10 @@
         <div class="seting-appcup"></div>
       </div>
     </div>
-    <div v-if="CupDevice?.to?.versionType === 2" class="feature-item">
+    <div
+      v-if="!CupDevice?.to?.versionType || CupDevice?.to?.versionType === 2"
+      class="feature-item"
+    >
       <div
         @click="appConfigFn(2)"
         style="
@@ -557,6 +560,7 @@ export default defineComponent({
       wifiSsid: "",
       temperatureType: "CELSIUS",
       temperatureTab: "1", // 1表示切换当前的CELSIUS，2表示切换当前的FAHRENHEIT
+      curTemperatureTransferText: "",
       // CELSIUS - 摄氏度, FAHRENHEIT - 华氏度
     });
 
@@ -836,9 +840,17 @@ export default defineComponent({
             console.log(res.data?.wifiSsid, "wifiSsid是否有wifi信息");
             if (v === 2) {
               states.wifiSsid = res.data?.wifiSsid || "";
-              states.temperatureType = res.data.waterTempUint;
-              states.temperatureTab = res.data.temperatureUnit === "CELSIUS" ? "1" : "2";
+              states.temperatureType = res.data.waterTempUnit;
+
+              states.temperatureTab = res.data.waterTempUnit === "CELSIUS" ? "1" : "2";
               states.temperature = res.data.waterTemperature;
+              if (states.temperatureType === "CELSIUS") {
+                states.curTemperatureTransferText = states.temperature + "℃";
+              }
+
+              if (states.temperatureType === "FAHRENHEIT") {
+                states.curTemperatureTransferText = states.temperature + "℉";
+              }
             } else {
               states.temperature = res.data.waterTemperature;
             }
@@ -961,26 +973,57 @@ export default defineComponent({
     }
 
     const curTemperatureTransfer = () => {
-      console.log(states.temperatureTab, "states.temperatureTab");
-      console.log(states.temperatureType, "states.temperatureType");
-      console.log(
-        fahrenheitToCelsius(states.temperature),
-        "fahrenheitToCelsius(states.temperature)"
-      );
-
+      states.globalLoading = true;
       if (states.temperatureTab === "1") {
         if (states.temperatureType === "FAHRENHEIT") {
-          return fahrenheitToCelsius(states.temperature) + "℃";
+          states.curTemperatureTransferText =
+            fahrenheitToCelsius(states.temperature) + "℃";
         } else {
-          return states.temperature + "℃";
+          states.curTemperatureTransferText = states.temperature + "℃";
         }
+        console.log(
+          states.curTemperatureTransferText,
+          "111 states.curTemperatureTransferText = "
+        );
       } else {
         if (states.temperatureType === "CELSIUS") {
-          return celsiusToFahrenheit(states.temperature) + "℉";
+          states.curTemperatureTransferText =
+            celsiusToFahrenheit(states.temperature) + "℉";
         } else {
-          return states.temperature + "℉";
+          states.curTemperatureTransferText = states.temperature + "℉";
         }
+        console.log(
+          states.curTemperatureTransferText,
+          "2222 states.curTemperatureTransferText = "
+        );
       }
+
+      // 下发一下，如果失败，那么给出报错
+      CupDevice &&
+        CupDevice.setDevMessage({
+          value: {
+            method: "talSetWeatherTemperatureUnit",
+            params: {
+              unit: states.temperatureTab === "1" ? "CELSIUS" : "FAHRENHEIT",
+            },
+          },
+        })
+          .then((res: any) => {
+            console.log(res, "setTempUnit");
+            states.globalLoading = false;
+            showToast({
+              message: language.sendSuccess,
+              duration: 1000,
+            });
+          })
+          .catch((err: any) => {
+            console.log(err);
+            states.globalLoading = false;
+            showToast({
+              message: language.sendFail,
+              duration: 1000,
+            });
+          });
       //   if (states.temperatureType === "CELSIUS") {
       //     return states.temperature + "℃";
       //   } else {
@@ -1041,64 +1084,20 @@ export default defineComponent({
     );
 
     const changeTempSetting = (str: string) => {
-      states.globalLoading = true;
       states.temperatureTab = str;
-      console.log(states.temperatureTab, "states.temperatureTab");
-      console.log(states.temperatureType, "states.temperatureType");
-      // 1: 摄氏度, 2: 华氏度
-      // 如果当前tab是摄氏度，但是嵌入式数据返回类型是华氏度
-      if (states.temperatureTab === str) {
-        if (states.temperatureType === "FAHRENHEIT") {
-          states.temperature = fahrenheitToCelsius(states.temperature);
-          //   return states.temperature;
-        } else {
-          states.temperature;
-        }
-      } else {
-        if (states.temperatureType === "CELSIUS") {
-          states.temperature = celsiusToFahrenheit(states.temperature);
-          states.temperature;
-        } else {
-          states.temperature;
-        }
-      }
-
-      // 下发一下，如果失败，那么给出报错
-      CupDevice &&
-        CupDevice.setDevMessage({
-          value: {
-            method: "talSetWeatherTemperatureUnit",
-            params: {
-              unit: states.temperatureTab === "1" ? "CELSIUS" : "FAHRENHEIT",
-            },
-          },
-        })
-          .then((res: any) => {
-            console.log(res, "setTempUnit");
-            states.globalLoading = false;
-            showToast({
-              message: language.sendSuccess,
-              duration: 1000,
-            });
-          })
-          .catch((err) => {
-            console.log(err);
-            states.globalLoading = false;
-            showToast({
-              message: language.sendFail,
-              duration: 1000,
-            });
-          });
+      curTemperatureTransfer();
     };
 
     // 摄氏度转华氏度
     function celsiusToFahrenheit(celsius: number) {
-      return roundToOneDecimalWithMathRound(celsius * 1.8 + 32);
+      let currentValue = parseFloat(((celsius * 1.8 + 32) / 1).toFixed(1));
+      return currentValue;
     }
 
     // 华氏度转摄氏度
     function fahrenheitToCelsius(fahrenheit: number) {
-      return roundToOneDecimalWithMathRound((fahrenheit - 32) / 1.8);
+      let currentValue = parseFloat(((fahrenheit - 32) / 1.8).toFixed(1));
+      return currentValue;
     }
 
     // 使用 Math.round() 方法

@@ -228,7 +228,7 @@ export default {
         ballGame: JeeWeb.Language === "zh-CN" ? "落球游戏" : "Gravity",
         slotGame: JeeWeb.Language === "zh-CN" ? "老虎机游戏" : "Slot Machine",
         shakeEffect: JeeWeb.Language === "zh-CN" ? "摇晃水杯动效" : "Shake the cup",
-        darkEmpire: JeeWeb.Language === "zh-CN" ? "黑幕帝国动效" : "Matrix",
+        darkEmpire: JeeWeb.Language === "zh-CN" ? "黑客帝国动效" : "Matrix",
       },
     };
   },

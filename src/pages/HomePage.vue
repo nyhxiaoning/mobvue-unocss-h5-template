@@ -57,7 +57,7 @@
       </div>
 
       <div class="wifi-info">
-        <div style="padding:10px">
+        <div style="padding: 10px">
           <div style="margin-bottom: 10px; font-size: 12px">
             <van-row
               type="flex"
@@ -83,13 +83,11 @@
               </van-col>
             </van-row>
             <!-- 摄氏度和华氏度控制 -->
-            <van-row style="border: 1px solid #eeeeee; padding: 1px;; margin-top: 5px">
+            <van-row style="border: 1px solid #eeeeee; padding: 1px; margin-top: 5px">
               <van-col
                 @click="changeTempSetting('1')"
                 :class="[
-                  states.temperatureTab === '1'
-                    ? 'temp-active-icon'
-                    : 'temp-no-icon',
+                  states.temperatureTab === '1' ? 'temp-active-icon' : 'temp-no-icon',
                 ]"
                 span="12"
               >
@@ -98,9 +96,7 @@
               <van-col
                 @click="changeTempSetting('2')"
                 :class="[
-                  states.temperatureTab === '2'
-                   ? 'temp-active-icon'
-                    : 'temp-no-icon',
+                  states.temperatureTab === '2' ? 'temp-active-icon' : 'temp-no-icon',
                 ]"
                 span="12"
               >
@@ -542,8 +538,8 @@ export default defineComponent({
         JeeWeb.Language === "zh-CN" ? "关闭屏幕失败" : "Failed to turn off screen",
       screenOnError:
         JeeWeb.Language === "zh-CN" ? "开启屏幕失败" : "Failed to turn on screen",
-      sendSuccess: JeeWeb.Language === "zh-CN"? "下发成功" : "Send Success",
-      sendFail: JeeWeb.Language === "zh-CN"? "下发失败" : "Send Fail",
+      sendSuccess: JeeWeb.Language === "zh-CN" ? "下发成功" : "Send Success",
+      sendFail: JeeWeb.Language === "zh-CN" ? "下发失败" : "Send Fail",
     });
 
     // const batteryClass = computed(() => {});
@@ -604,6 +600,7 @@ export default defineComponent({
     };
 
     const closeScreen = () => {
+      states.globalLoading = true;
       CupDevice &&
         CupDevice.setDevMessage({
           value: {
@@ -615,11 +612,14 @@ export default defineComponent({
         })
           .then((res: any) => {
             console.log(res, ".value");
+            states.globalLoading = false;
+
             states.screenStatus = !states.screenStatus;
             // store.selectedTimezone(selectedTimezone.value);
           })
           .catch((err: any) => {
             console.log(err);
+            states.globalLoading = false;
             showToast({
               message: states.screenStatus
                 ? language.screenOffError
@@ -705,22 +705,22 @@ export default defineComponent({
     const curTemperatureTransfer = computed(() => {
       if (states.temperatureTab === "1") {
         if (states.temperatureType === "FAHRENHEIT") {
-          return fahrenheitToCelsius(states.temperature)+"℃";
+          return fahrenheitToCelsius(states.temperature) + "℃";
         } else {
-          return states.temperature+"℃";
+          return states.temperature + "℃";
         }
       } else {
         if (states.temperatureType === "CELSIUS") {
-          return celsiusToFahrenheit(states.temperature)+ "℉";
+          return celsiusToFahrenheit(states.temperature) + "℉";
         } else {
-          return states.temperature+ "℉";;
+          return states.temperature + "℉";
         }
       }
-    //   if (states.temperatureType === "CELSIUS") {
-    //     return states.temperature + "℃";
-    //   } else {
-    //     return states.temperature + "℉";
-    //   }
+      //   if (states.temperatureType === "CELSIUS") {
+      //     return states.temperature + "℃";
+      //   } else {
+      //     return states.temperature + "℉";
+      //   }
     });
 
     // 计算电池状态的 class
@@ -875,26 +875,26 @@ export default defineComponent({
       router.push("/newTal");
     }
 
-    const changeTempSetting = (str:string) => {
+    const changeTempSetting = (str: string) => {
       states.globalLoading = true;
       states.temperatureTab = str;
-      console.log(states.temperatureTab, "states.temperatureTab")
-      console.log(states.temperatureType, "states.temperatureType")
+      console.log(states.temperatureTab, "states.temperatureTab");
+      console.log(states.temperatureType, "states.temperatureType");
       // 1: 摄氏度, 2: 华氏度
       // 如果当前tab是摄氏度，但是嵌入式数据返回类型是华氏度
       if (states.temperatureTab === str) {
         if (states.temperatureType === "FAHRENHEIT") {
           states.temperature = fahrenheitToCelsius(states.temperature);
-        //   return states.temperature;
+          //   return states.temperature;
         } else {
-           states.temperature;
+          states.temperature;
         }
       } else {
         if (states.temperatureType === "CELSIUS") {
           states.temperature = celsiusToFahrenheit(states.temperature);
-           states.temperature ;
+          states.temperature;
         } else {
-           states.temperature;
+          states.temperature;
         }
       }
 
@@ -904,21 +904,21 @@ export default defineComponent({
           value: {
             method: "talSetWeatherTemperatureUnit",
             params: {
-              unit: states.temperatureTab==='1'?"CELSIUS":"FAHRENHEIT"
+              unit: states.temperatureTab === "1" ? "CELSIUS" : "FAHRENHEIT",
             },
           },
         })
-         .then((res:any) => {
+          .then((res: any) => {
             console.log(res, "setTempUnit");
-            states.globalLoading = false
+            states.globalLoading = false;
             showToast({
               message: language.sendSuccess,
               duration: 1000,
             });
-         })
-        .catch((err) => {
+          })
+          .catch((err) => {
             console.log(err);
-            states.globalLoading = false
+            states.globalLoading = false;
             showToast({
               message: language.sendFail,
               duration: 1000,

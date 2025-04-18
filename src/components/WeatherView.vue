@@ -21,6 +21,7 @@
       <div>
         <van-cell
           :title="language.changeTempUnit"
+          :value="currentTextValue"
           is-link
           @click="showPopup = true"
         />
@@ -76,8 +77,8 @@ const store = useUserStore();
 const temperatureType = ref("CELSIUS");
 const showPopup = ref(false);
 const temperatureTypes = [
-  { label: JeeWeb.Language === "zh-CN" ? "摄氏度" : "Celsius", value: "CELSIUS" },
-  { label: JeeWeb.Language === "zh-CN" ? "华氏度" : "Fahrenheit", value: "FAHRENHEIT" },
+  { label: JeeWeb.Language === "zh-CN" ? "摄氏度（℃）" : "Celsius(℃)", value: "CELSIUS" },
+  { label: JeeWeb.Language === "zh-CN" ? "华氏度（℉）" : "Fahrenheit(℉)", value: "FAHRENHEIT" },
 ];
 
 const currentTextValue = ref(JeeWeb.Language === "zh-CN" ? "摄氏度" : "Celsius");
@@ -87,8 +88,7 @@ const language = reactive({
   confirm: JeeWeb.Language === "zh-CN" ? "确认" : "Confirm",
   setCityError: JeeWeb.Language === "zh-CN" ? "设置城市失败" : "Failed to set city",
   globalWeatherLoading: false,
-  changeTempUnit:
-    JeeWeb.Language === "zh-CN" ? "切换温度单位" : "Change Temp Unit",
+  changeTempUnit: JeeWeb.Language === "zh-CN" ? "切换温度单位" : "Change Temp Unit",
   setCelsius: JeeWeb.Language === "zh-CN" ? "设置摄氏度℃" : "Set Celsius",
   celsius: JeeWeb.Language === "zh-CN" ? "摄氏度" : "Celsius",
   fahrenheit: JeeWeb.Language === "zh-CN" ? "华氏度" : "Fahrenheit",
@@ -130,6 +130,28 @@ const goToCity = () => {
 const goBack = () => {
   router.back();
 };
+
+const initFn = () => {
+  language.globalWeatherLoading = true;
+  CupDevice &&
+    CupDevice.setDevMessage({
+      value: {
+        method: "talGetWeatherTemperatureUnit",
+        params: {
+        },
+      },
+    })
+      .then((res) => {
+        language.globalWeatherLoading = false;
+        console.log(res, "talGetWeatherTemperatureUnit");
+      })
+      .catch((err) => {
+        language.globalWeatherLoading = false;
+        console.log(err);
+      });
+};
+
+initFn();
 
 const confirmCity = () => {
   console.log(sessionStorage.getItem("weathervalue"));

@@ -542,6 +542,8 @@ export default defineComponent({
         JeeWeb.Language === "zh-CN" ? "关闭屏幕失败" : "Failed to turn off screen",
       screenOnError:
         JeeWeb.Language === "zh-CN" ? "开启屏幕失败" : "Failed to turn on screen",
+      sendSuccess: JeeWeb.Language === "zh-CN"? "下发成功" : "Send Success",
+      sendFail: JeeWeb.Language === "zh-CN"? "下发失败" : "Send Fail",
     });
 
     // const batteryClass = computed(() => {});
@@ -874,6 +876,7 @@ export default defineComponent({
     }
 
     const changeTempSetting = (str:string) => {
+      states.globalLoading = true;
       states.temperatureTab = str;
       console.log(states.temperatureTab, "states.temperatureTab")
       console.log(states.temperatureType, "states.temperatureType")
@@ -882,18 +885,45 @@ export default defineComponent({
       if (states.temperatureTab === str) {
         if (states.temperatureType === "FAHRENHEIT") {
           states.temperature = fahrenheitToCelsius(states.temperature);
-          return states.temperature;
+        //   return states.temperature;
         } else {
-          return states.temperature;
+           states.temperature;
         }
       } else {
         if (states.temperatureType === "CELSIUS") {
           states.temperature = celsiusToFahrenheit(states.temperature);
-          return states.temperature ;
+           states.temperature ;
         } else {
-          return states.temperature;
+           states.temperature;
         }
       }
+
+      // 下发一下，如果失败，那么给出报错
+      CupDevice &&
+        CupDevice.setDevMessage({
+          value: {
+            method: "talSetWeatherTemperatureUnit",
+            params: {
+              unit: states.temperatureTab==='1'?"CELSIUS":"FAHRENHEIT"
+            },
+          },
+        })
+         .then((res:any) => {
+            console.log(res, "setTempUnit");
+            states.globalLoading = false
+            showToast({
+              message: language.sendSuccess,
+              duration: 1000,
+            });
+         })
+        .catch((err) => {
+            console.log(err);
+            states.globalLoading = false
+            showToast({
+              message: language.sendFail,
+              duration: 1000,
+            });
+          });
     };
 
     // 摄氏度转华氏度

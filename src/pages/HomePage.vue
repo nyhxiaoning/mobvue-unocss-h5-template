@@ -960,8 +960,7 @@ export default defineComponent({
       router.push("/newTal");
     }
 
-    const curTemperatureTransfer = computed(() => {
-      alert(1);
+    const curTemperatureTransfer = () => {
       console.log(states.temperatureTab, "states.temperatureTab");
       console.log(states.temperatureType, "states.temperatureType");
       console.log(
@@ -987,7 +986,7 @@ export default defineComponent({
       //   } else {
       //     return states.temperature + "℉";
       //   }
-    });
+    };
 
     // 计算电池状态的 class
     const curBatteryClass = computed(() => {

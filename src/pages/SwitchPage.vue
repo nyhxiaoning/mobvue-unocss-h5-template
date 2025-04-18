@@ -7,14 +7,18 @@
       color="#fff"
       text="..."
     ></van-loading>
-    <van-cell-group  v-if="CupDevice?.to?.versionType===1" inset>
+    <van-cell-group inset>
       <van-cell center :title="language.enableSwitch" inset>
         <template #right-icon>
           <van-switch v-model="settings.isSwipe" @change="handleSwitchisSwipe" />
         </template>
       </van-cell>
     </van-cell-group>
-    <van-cell-group v-if="!CupDevice?.to?.versionType || CupDevice?.to?.versionType===2" :title="language.displayApps" inset>
+    <van-cell-group
+      v-if="!CupDevice?.to?.versionType || CupDevice?.to?.versionType === 2"
+      :title="language.displayApps"
+      inset
+    >
       <van-cell :title="language.clock" center> </van-cell>
       <van-cell :title="language.wifiApp" center> </van-cell>
 
@@ -51,9 +55,10 @@
       <van-cell :title="language.screensaver" center>
         <template #right-icon>
           <van-switch
-           :disabled="!settings.isSwipe"
-           v-model="settings.HomeScreenSaver"
-           @change="handleSwitchisSwipe" />
+            :disabled="!settings.isSwipe"
+            v-model="settings.HomeScreenSaver"
+            @change="handleSwitchisSwipe"
+          />
         </template>
       </van-cell>
       <!-- 7 -->
@@ -88,6 +93,64 @@
       </van-cell>
     </van-cell-group>
 
+    <van-cell-group
+      v-if="CupDevice?.to?.versionType === 1"
+      :title="language.displayApps"
+      inset
+    >
+      <van-cell :title="language.clock" center> </van-cell>
+      <van-cell :title="language.deviceInfo" center> </van-cell>
+      <van-cell :title="language.screensaver" center>
+        <!-- <template #right-icon>
+                    <van-switch v-model="settings.HomeGIF"  @change="handleSwitchisSwipe"      />
+                </template> -->
+      </van-cell>
+      <van-cell :title="language.weather" center>
+        <template #right-icon>
+          <van-switch
+            v-model="settings.HomeWeather"
+            :disabled="!settings.isSwipe"
+            @change="handleSwitchisSwipe"
+          />
+        </template>
+      </van-cell>
+      <van-cell :title="language.ballGame" center>
+        <template #right-icon>
+          <van-switch
+            v-model="settings.HomeFreeFallIcon"
+            :disabled="!settings.isSwipe"
+            @change="handleSwitchisSwipe"
+          />
+        </template>
+      </van-cell>
+      <van-cell :title="language.slotGame" center>
+        <template #right-icon>
+          <van-switch
+            v-model="settings.homeTigerGame"
+            :disabled="!settings.isSwipe"
+            @change="handleSwitchisSwipe"
+          />
+        </template>
+      </van-cell>
+      <van-cell :title="language.shakeEffect" center>
+        <template #right-icon>
+          <van-switch
+            v-model="settings.HomeWaterShak"
+            :disabled="!settings.isSwipe"
+            @change="handleSwitchisSwipe"
+          />
+        </template>
+      </van-cell>
+      <van-cell :title="language.darkEmpire" center>
+        <template #right-icon>
+          <van-switch
+            v-model="settings.HomeCocos2"
+            :disabled="!settings.isSwipe"
+            @change="handleSwitchisSwipe"
+          />
+        </template>
+      </van-cell>
+    </van-cell-group>
   </div>
 </template>
 
@@ -176,7 +239,7 @@ export default {
     // 初始化时获取当前系统应用显示状态
     CupDevice.setDevMessage({
       value: {
-        method: v === 1 ? 'getHomeAppsParams' : "talGetHomeTaskParams",
+        method: v === 1 ? "getHomeAppsParams" : "talGetHomeTaskParams",
         params: {},
       },
     })
@@ -184,32 +247,30 @@ export default {
         console.log("talGetHomeTaskParams", res, "响应结果");
 
         if (v === 1) {
-            if (res && res.data) {
-                // 更新settings中的状态： isSwipe
-                this.settings.isSwipe = res.data.isSwipe;
-                this.settings.HomeGIF = res.data.HomeGIF;
-                this.settings.HomeWeather = res.data.HomeWeather
-                this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon
-                this.settings.homeTigerGame = res.data.homeTigerGame
-                this.settings.HomeWaterShak = res.data.HomeWaterShak
-                this.settings.HomeCocos2 = res.data.HomeCocos2
-            }
-        }
-        else if (res && res.data) {
+          if (res && res.data) {
+            // 更新settings中的状态： isSwipe
+            this.settings.isSwipe = res.data.isSwipe;
+            this.settings.HomeGIF = res.data.HomeGIF;
+            this.settings.HomeWeather = res.data.HomeWeather;
+            this.settings.HomeFreeFallIcon = res.data.HomeFreeFallIcon;
+            this.settings.homeTigerGame = res.data.homeTigerGame;
+            this.settings.HomeWaterShak = res.data.HomeWaterShak;
+            this.settings.HomeCocos2 = res.data.HomeCocos2;
+          }
+        } else if (res && res.data) {
           let currentData = res.data.split(",");
           // 更新settings中的状态： isSwipe
           this.settings.isSwipe = currentData[0] === "1" ? true : false; //  res.data.isSwipe
           // 其他应用的显示状态
-          this.settings.HomeClock = currentData[1][0] === "1"? true : false;
+          this.settings.HomeClock = currentData[1][0] === "1" ? true : false;
           this.settings.HomeCocos2 = currentData[1][1] === "1" ? true : false;
-          this.settings.HomeWaterTemporatrue = currentData[1][2] === "1"? true : false;
+          this.settings.HomeWaterTemporatrue = currentData[1][2] === "1" ? true : false;
           this.settings.HomeWeather = currentData[1][3] === "1" ? true : false;
           this.settings.HomeScreenSaver = currentData[1][4] === "1" ? true : false;
           this.settings.HomeFreeFallIcon = currentData[1][5] === "1" ? true : false;
           this.settings.HomeWaterShak = currentData[1][6] === "1" ? true : false;
           this.settings.homeTigerGame = currentData[1][7] === "1" ? true : false;
-          this.settings.HomeWifiApp = currentData[1][8] === "1"? true : false;
-
+          this.settings.HomeWifiApp = currentData[1][8] === "1" ? true : false;
         }
         this.settings.globalSwitchLoading = false;
       })
@@ -235,7 +296,7 @@ export default {
     // 下发数组转换，必须安装嵌入式
     convertProperties() {
       let currentData = {
-        isSwipe: this.settings.isSwipe,//0
+        isSwipe: this.settings.isSwipe, //0
         // 默认两项
         HomeClock: true, // 1，时钟,不能关
         HomeCocos2: this.settings.HomeCocos2, // 2，黑客帝国
@@ -261,32 +322,32 @@ export default {
     },
 
     handleSwitchisSwipe() {
-        // 1 老款设备、2 新款设备
-        const v = CupDevice?.to?.versionType || 2;
+      // 1 老款设备、2 新款设备
+      const v = CupDevice?.to?.versionType || 2;
 
-        const p1 = {
-            method: "setHomeAppsParams",
-            params: {
-                isSwipe: this.settings.isSwipe,
-                // 默认两项
-                HomeInfo: true,
-                HomeClock: true,
-                // 可能废弃
-                HomeGIF: true,
-                HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
-                HomeWeather: this.settings.HomeWeather,
-                homeTigerGame: this.settings.homeTigerGame,
-                HomeCocos2: this.settings.HomeCocos2,
-                HomeWaterShak: this.settings.HomeWaterShak,
-            },
-        }
+      const p1 = {
+        method: "setHomeAppsParams",
+        params: {
+          isSwipe: this.settings.isSwipe,
+          // 默认两项
+          HomeInfo: true,
+          HomeClock: true,
+          // 可能废弃
+          HomeGIF: true,
+          HomeFreeFallIcon: this.settings.HomeFreeFallIcon,
+          HomeWeather: this.settings.HomeWeather,
+          homeTigerGame: this.settings.homeTigerGame,
+          HomeCocos2: this.settings.HomeCocos2,
+          HomeWaterShak: this.settings.HomeWaterShak,
+        },
+      };
 
-        const p2 = {
-            method: "talSetHomeTaskParams",
-            params: {
-                value: this.convertProperties(),
-            },
-        }
+      const p2 = {
+        method: "talSetHomeTaskParams",
+        params: {
+          value: this.convertProperties(),
+        },
+      };
 
       CupDevice.setDevMessage({
         value: v === 1 ? p1 : p2,
@@ -300,7 +361,6 @@ export default {
         });
     },
   },
-
 };
 </script>
 

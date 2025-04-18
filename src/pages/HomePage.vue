@@ -649,6 +649,7 @@ export default defineComponent({
     };
 
     const closeScreen = () => {
+      states.globalLoading = true;
       // 1 老款设备、2 新款设备
       const v = CupDevice?.to?.versionType || 2;
 
@@ -673,6 +674,11 @@ export default defineComponent({
           .then((res: any) => {
             console.log(res, ".value");
             states.screenStatus = !states.screenStatus;
+            showToast({
+              message: language.sendSuccess,
+              duration: 1000,
+            });
+            states.globalLoading = false;
             // store.selectedTimezone(selectedTimezone.value);
           })
           .catch((err: any) => {
@@ -683,6 +689,7 @@ export default defineComponent({
                 : language.screenOnError,
               duration: 1000,
             });
+            states.globalLoading = false;
           });
       console.log("关闭屏幕");
     };
@@ -727,6 +734,10 @@ export default defineComponent({
           },
         })
           .then((res: any) => {
+            showToast({
+              message: language.sendSuccess,
+              duration: 1000,
+            });
             states.globalLoading = false;
             console.log(res, ".value");
 
@@ -818,7 +829,7 @@ export default defineComponent({
           .then((res: any) => {
             console.log(res.data, "talGetCupInfo");
             states.brightness = res.data.brightness;
-            states.temperature = res.data.waterTemperature;
+
             states.battery = res.data.batteryStatus;
             states.screenStatus = res.data.switch;
             states.address = res.data.timezone;
@@ -827,6 +838,9 @@ export default defineComponent({
               states.wifiSsid = res.data?.wifiSsid || "";
               states.temperatureType = res.data.waterTempUint;
               states.temperatureTab = res.data.temperatureUnit === "CELSIUS" ? "1" : "2";
+              states.temperature = res.data.waterTemperature;
+            } else {
+              states.temperature = res.data.waterTemperature;
             }
 
             // states.weatheraddress = res.data.city;
@@ -947,6 +961,14 @@ export default defineComponent({
     }
 
     const curTemperatureTransfer = computed(() => {
+      alert(1);
+      console.log(states.temperatureTab, "states.temperatureTab");
+      console.log(states.temperatureType, "states.temperatureType");
+      console.log(
+        fahrenheitToCelsius(states.temperature),
+        "fahrenheitToCelsius(states.temperature)"
+      );
+
       if (states.temperatureTab === "1") {
         if (states.temperatureType === "FAHRENHEIT") {
           return fahrenheitToCelsius(states.temperature) + "℃";
@@ -1072,14 +1094,18 @@ export default defineComponent({
 
     // 摄氏度转华氏度
     function celsiusToFahrenheit(celsius: number) {
-      return celsius * 1.8 + 32;
+      return roundToOneDecimalWithMathRound(celsius * 1.8 + 32);
     }
 
     // 华氏度转摄氏度
     function fahrenheitToCelsius(fahrenheit: number) {
-      return (fahrenheit - 32) / 1.8;
+      return roundToOneDecimalWithMathRound((fahrenheit - 32) / 1.8);
     }
 
+    // 使用 Math.round() 方法
+    function roundToOneDecimalWithMathRound(num: any) {
+      return Math.round(num * 10) / 10;
+    }
     return {
       jumpNewTalFn,
       onBrightnessChange,
@@ -1099,6 +1125,7 @@ export default defineComponent({
       fahrenheitToCelsius,
       curTemperatureTransfer,
       defaultVersionType,
+      roundToOneDecimalWithMathRound,
       // onDevicesOnlineChanged
     };
   },

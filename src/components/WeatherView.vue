@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div v-if=" CupDevice?.to?.versionType === 2 ">
+      <div v-if="!CupDevice?.to?.versionType || CupDevice?.to?.versionType===2">
         <van-cell
           :title="language.changeTempUnit"
           :value="currentTextValue"

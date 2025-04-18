@@ -276,7 +276,7 @@
         <div class="seting-appcup"></div>
       </div>
     </div>
-    <div  v-if="CupDevice?.to?.versionType === 2" class="feature-item">
+    <div v-if="CupDevice?.to?.versionType === 2" class="feature-item">
       <div
         @click="appConfigFn(2)"
         style="
@@ -823,6 +823,12 @@ export default defineComponent({
             states.screenStatus = res.data.switch;
             states.address = res.data.timezone;
             console.log(res.data?.wifiSsid, "wifiSsid是否有wifi信息");
+            if (v === 2) {
+              states.wifiSsid = res.data?.wifiSsid || "";
+              states.temperatureType = res.data.waterTempUint;
+              states.temperatureTab = res.data.temperatureUnit === "CELSIUS" ? "1" : "2";
+            }
+
             // states.weatheraddress = res.data.city;
             // 设置天气地址:线上国内仅仅支持中国
             console.log(res.data.city, "res.data.city0000");
@@ -973,12 +979,11 @@ export default defineComponent({
       }
     });
 
-
     const defaultVersionType = computed(() => {
       // 1 老款设备、2 新款设备
       const v = CupDevice?.to?.versionType || 2;
-      return v
-    })
+      return v;
+    });
 
     // // Watch battery changes
     watch(
@@ -1093,7 +1098,7 @@ export default defineComponent({
       celsiusToFahrenheit,
       fahrenheitToCelsius,
       curTemperatureTransfer,
-      defaultVersionType
+      defaultVersionType,
       // onDevicesOnlineChanged
     };
   },

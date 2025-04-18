@@ -25,8 +25,10 @@ const currentImg = ref("")
 
 const stores = useUserStore()
 
+// 剩余次数
+let currentAiNum = ref<number>(0)
 function getLocalizedText(zhText: string, enText: string) {
-  return JeeWeb.Language === "zh-CN" ? zhText : enText
+  return JeeWeb?.Language === "zh-CN" ? zhText : enText
 }
 
 async function regenerateImage() {
@@ -306,6 +308,9 @@ function setStaticTalFile() {
 <template>
   <div class="min-h-screen bg-gray-100 px-4">
     <main class="pt-4 px-4 pb-4 mt-4 bg-white">
+      <div v-if="stores.tabNum === 1" class="w-45 h-10 top-[25%]  absolute  right-5  rounded-tl-[20px] rounded-tr-[20px] rounded-br-[20px] rounded-bl-none  flex items-center justify-center text-white text-base font-size-[13px]    bg-gradient-to-br from-[#55E3A1] to-[#1FDDFF] z-999">
+        {{ getLocalizedText("今日剩余AI生图 ", "Remaining AI ") }}{{ currentAiNum }}{{ getLocalizedText(" 次", " times") }}
+      </div>
       <div class="mt-4 h-[150px] rounded-lg overflow-hidden">
         <img
           :src="currentImg" :alt="getLocalizedText('AI生成的像素图', 'AI generated pixel art')"

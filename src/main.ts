@@ -17,7 +17,18 @@ import "@@/assets/styles/index.css"
 import "virtual:uno.css"
 import "vant/lib/index.css"
 import "./main.css"
+// 主页：main.ts
+import VConsole from "vconsole"
 
+if (process.env.NODE_ENV !== "production") {
+  // 在开发环境中启用 vConsole
+  new VConsole()
+}
+
+if (process.env.NODE_ENV !== "us") {
+  // 在开发环境中启用 vConsole
+  new VConsole()
+}
 declare const JeeWeb: any
 
 if (JeeWeb && JeeWeb.Language === "zh-CN") {

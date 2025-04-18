@@ -15,7 +15,14 @@ const router = useRouter()
 declare const JeeWeb: any
 
 function getLocalizedText(zhText: string, enText: string) {
-  return JeeWeb.Language === "zh-CN" ? zhText : enText
+  return JeeWeb?.Language === "zh-CN" ? zhText : enText
+}
+
+function cancelGenerateFn() {
+  // 状态重置：
+  // 路由页面覆盖
+  // 取消生成
+  stores.generatedPixImgFlag = false
 }
 
 watch(() => stores.generatedPixImgFlag, (newValue) => {
@@ -44,14 +51,17 @@ watch(() => stores.generatedPixImgFlag, (newValue) => {
           </div>
         </div>
         <div>
-          <img :src="loadingImg" alt="">
+          <img class="w-[66px] h-[66px]" :src="loadingImg" alt="">
         </div>
         <p class="text-white font-size-[16px] font-400">
-          {{ getLocalizedText('AI生图中...', 'AI generating image...') }}
+          {{ getLocalizedText('文生图: 正在排队中, 第13位/共34位', 'Wensheng Picture: Queue, No. 13/Total 34') }}
         </p>
-        <p class="text-gray-500 font-size-[13px] font-400">
-          {{ getLocalizedText('正在生成图片效果', 'Picture effect being generated') }}
-        </p>
+        <div class="text-gray-500 font-size-[13px] font-400 rounded-full border-4 border-[#FFFFFF80] z-999">
+          <!-- {{ getLocalizedText('正在生成图片效果', 'Picture effect being generated') }} -->
+          <van-button @click="cancelGenerateFn" class="rounded-full border-1 bg-[#000000] text-[#ffffff]">
+            {{ getLocalizedText('取消生成', 'Cancel generation') }}
+          </van-button>
+        </div>
       </div>
     </main>
   </div>

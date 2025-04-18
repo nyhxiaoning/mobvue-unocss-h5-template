@@ -9,7 +9,7 @@ import wordTabUnselect from "@/assets/word-unselect.png"
 import wordTab from "@/assets/word.png"
 import recorder from "@/common/utils/asr/recorder"
 import { createOssClient, uploadFileToOss } from "@/common/utils/oss"
-import { convertImageToRGB565Blob, requestFileUploadTokenPromise, resampleStaticUrlImage, urlTranfromFile } from "@/common/utils/tools"
+import { convertImageToRGB565Blob, requestFileUploadRemainingTimesPromise, requestFileUploadTokenPromise, resampleStaticUrlImage, urlTranfromFile } from "@/common/utils/tools"
 import Loading from "@/pages/components/loading.vue"
 /**
  * Components
@@ -27,7 +27,7 @@ import { showToast } from "vant"
  * API
  *
  */
-import { computed, reactive, ref, watch } from "vue"
+import { computed, onMounted, reactive, ref, watch } from "vue"
 import { useRouter } from "vue-router"
 import "./index.css"
 
@@ -57,6 +57,8 @@ interface stateType {
   lastStepFlag: boolean
   // 当前的状态是否暂停
   isPauseFlag: boolean
+  // 当前的ai生成次数
+  currentAiNum: number
 }
 
 declare const CupDevice: any
@@ -78,7 +80,8 @@ const states = reactive<stateType>({
   asrText: "",
   fileToken: "",
   lastStepFlag: false,
-  isPauseFlag: false
+  isPauseFlag: false,
+  currentAiNum: 0
 })
 
 const inputText = ref("")
@@ -410,6 +413,12 @@ watch([activeTab, inputLength], ([newValue1, newValue2], [oldValue1, oldValue2])
 
 // 监听录音状态变化
 getAsrToken(tmToken)
+
+onMounted(async () => {
+// 获取当前的剩余次数
+  states.currentAiNum = await requestFileUploadRemainingTimesPromise() as number
+  console.log(states.currentAiNum, "states.currentAiNum")
+})
 // 获取token
 recorder.setAudioInputCallback((data: any) => {
   const { sliceType, voiceText } = data
@@ -426,7 +435,7 @@ recorder.setAudioInputCallback((data: any) => {
       // setAsrText(text);
       if (inputText.value.length > 100) {
         showToast({
-          message: "输入内容已超过100个字符",
+          message: JeeWeb?.Language === "zh-CN" ? "输入内容超过100个字符" : "Input content exceeds 100 characters",
           position: "top"
         })
         states.asrText = text
@@ -543,7 +552,9 @@ function getLocalizedText(zhText: string, enText: string) {
     >
       <Upload :file-list-value="stores.currentUploadImg" :check-ai-flag="stores.tab2AiFlag" :custom-size="{ width: 300, height: 150 }" />
     </div>
-
+    <div v-if="stores.tabNum === 1" class="w-45 h-10  absolute bottom-[80px] right-5  rounded-tl-[20px] rounded-tr-[20px] rounded-br-[20px] rounded-bl-none  flex items-center justify-center text-white text-base font-size-[13px]    bg-gradient-to-br from-[#55E3A1] to-[#1FDDFF] z-999">
+      {{ getLocalizedText("今日剩余AI生图 ", "Remaining AI ") }}{{ states.currentAiNum }}{{ getLocalizedText(" 次", " times") }}
+    </div>
     <div class="text-center fixed bottom-10 ">
       <button
         :disabled="!stores.enableBtnflag" @click="generateImg"

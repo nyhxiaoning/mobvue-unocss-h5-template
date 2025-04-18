@@ -51,7 +51,7 @@ watch(checked, (newVal) => {
 // 上传前检查文件
 // 添加获取本地化文本的函数
 function getLocalizedText(zhText: string, enText: string) {
-  return JeeWeb.Language === "zh-CN" ? zhText : enText
+  return JeeWeb?.Language === "zh-CN" ? zhText : enText
 }
 
 function beforeRead(file: any) {
@@ -116,8 +116,8 @@ const isUploaderVisible = computed(() => localFileList.value.length === 0)
         <div class="flex items-center justify-between mb-3">
           <span class="text-sm text-gray-600 font-700">{{ getLocalizedText('图片', 'Image') }}</span>
           <div class="flex items-center">
-            <span class="text-[13px] text-gray-600 mr-2">{{ getLocalizedText('AI 魔法效果', 'AI Magic Effect') }}</span>
-            <van-switch v-model="checked" size="13px" />
+            <!-- <span class="text-[13px] text-gray-600 mr-2">{{ getLocalizedText('AI 魔法效果', 'AI Magic Effect') }}</span>
+            <van-switch v-model="checked" size="13px" /> -->
           </div>
         </div>
         <div

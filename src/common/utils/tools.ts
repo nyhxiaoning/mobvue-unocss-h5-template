@@ -120,6 +120,18 @@ function requestFileUploadTokenPromise() {
   })
 }
 
+function requestFileUploadRemainingTimesPromise() {
+  return new Promise((resolve, reject) => {
+    JeeWeb && JeeWeb.requestFileUploadToken((result: any) => {
+      if (result && result.result.token) {
+        resolve(result.result?.remainingTimes || 0)
+      } else {
+        reject(new Error("jeeweb remainingTimes get failed"))
+      }
+    })
+  })
+}
+
 /**
  *
  * @param imageFile 上传文件对象
@@ -201,6 +213,7 @@ async function urlTranfromFile(url: string) {
 
 export {
   convertImageToRGB565Blob,
+  requestFileUploadRemainingTimesPromise,
   requestFileUploadTokenPromise,
   resampleStaticImage,
   resampleStaticUrlImage,

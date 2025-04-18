@@ -69,14 +69,27 @@ const confirmCity = () => {
     console.log(sessionStorage.getItem("weathername"))
     console.log('confirmCity')
     language.globalWeatherLoading = true
+
+    // 1 老款设备、2 新款设备
+    const v = CupDevice?.to?.versionType || 2;
+
+    const p1 = {
+        method: 'setCity',
+        params: {
+            value: sessionStorage.getItem('weathervalue')
+        },
+    }
+
+    const p2 = {
+        method: 'talSetCity',
+        params: {
+            city: sessionStorage.getItem('weathervalue')
+        },
+    }
+
     CupDevice &&
         CupDevice.setDevMessage({
-            value: {
-                method: 'talSetCity',
-                params: {
-                    city: sessionStorage.getItem('weathervalue')
-                },
-            },
+            value: v === 1 ? p1 : p2,
         })
             .then((res) => {
                 console.log(res, 'setCity');

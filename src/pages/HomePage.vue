@@ -418,14 +418,27 @@ export default defineComponent({
                 value = 1;
             }
             console.log('当前亮度：', value);
+
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
+
+            const p1 = {
+                method: 'setBrightness',
+                params: {
+                    value: value,
+                },
+            }
+
+            const p2 = {
+                method: 'talSetBrightness',
+                params: {
+                    percent: value,
+                },
+            }
+
             CupDevice &&
                 CupDevice.setDevMessage({
-                    value: {
-                        method: 'talSetBrightness',
-                        params: {
-                            percent: value,
-                        },
-                    },
+                    value: v === 1 ? p1 : p2,
                 })
                     .then((res: any) => {
                         console.log(res.data, '设置亮度.value');
@@ -443,11 +456,14 @@ export default defineComponent({
         };
 
         const restartCup = () => {
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
+
             // 重启设备后，其实没有回复，所以不需要拦截
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'talRebootDevice',
+                        method: v === 1 ? 'PixelCupRestart' : 'talRebootDevice',
                         params: {},
                     },
                 })
@@ -467,15 +483,26 @@ export default defineComponent({
         };
 
         const closeScreen = () => {
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
+
+            const p1 = {
+                method: 'setSwitch',
+                params: {
+                    value: states.screenStatus ? false : true,
+                },
+            }
+
+            const p2 = {
+                method: 'talSetDisplayOnOff',
+                params: {
+                    onoff: states.screenStatus ? false : true,
+                },
+            }
 
             CupDevice &&
                 CupDevice.setDevMessage({
-                    value: {
-                        method: 'talSetDisplayOnOff',
-                        params: {
-                            onoff: states.screenStatus ? false : true,
-                        },
-                    },
+                    value: v === 1 ? p1 : p2,
                 })
                     .then((res: any) => {
                         console.log(res, '.value');
@@ -494,10 +521,12 @@ export default defineComponent({
 
         const goHome = () => {
             console.log('talReturn2Home');
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'talReturn2Home',
+                        method: v === 1 ? 'return2Home' : 'talReturn2Home',
                         params: {},
                     },
                 })
@@ -562,10 +591,15 @@ export default defineComponent({
             // states.curBatteryClass = 'battery-60';
             // states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
             console.log(JeeWeb.deviceBind[0]?.devices[0]?.online, '', JeeWeb.deviceBind[0]?.devices)
+
+
+            // 1 老款设备、2 新款设备
+            const v = CupDevice?.to?.versionType || 2;
+
             CupDevice &&
                 CupDevice.setDevMessage({
                     value: {
-                        method: 'talGetCupInfo',
+                        method: v === 1 ? 'getCupInfo' : 'talGetCupInfo',
                         params: {},
                     },
                 })

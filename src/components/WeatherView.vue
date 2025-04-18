@@ -145,6 +145,9 @@ const initFn = () => {
       .then((res) => {
         language.globalWeatherLoading = false;
         console.log(res, "talGetWeatherTemperatureUnit");
+        temperatureType.value =  res.data
+        currentTextValue.value =
+          temperatureType.value === "CELSIUS" ? language.celsius : language.fahrenheit;
       })
       .catch((err) => {
         language.globalWeatherLoading = false;

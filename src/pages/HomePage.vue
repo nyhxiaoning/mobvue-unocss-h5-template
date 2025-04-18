@@ -1002,7 +1002,7 @@ export default defineComponent({
       CupDevice &&
         CupDevice.setDevMessage({
           value: {
-            method: "talSetWeatherTemperatureUnit",
+            method: "talSetWaterTemperatureUnit",
             params: {
               unit: states.temperatureTab === "1" ? "CELSIUS" : "FAHRENHEIT",
             },

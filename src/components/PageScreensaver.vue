@@ -164,6 +164,7 @@ const language = reactive({
   confirm: JeeWeb && JeeWeb.Language === "zh-CN" ? "确定" : "Confirm",
   fetchError: JeeWeb && JeeWeb.Language === "zh-CN" ? "下发失败" : "Send failed",
   sendSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "下发成功" : "Send Success",
+  sendSyncSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "设置成功" : "Setting successfully",
   syncSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "同步成功" : "Sync Success",
   syncError: JeeWeb && JeeWeb.Language === "zh-CN" ? "同步失败" : "Sync failed",
 });
@@ -299,7 +300,7 @@ const commonTal = (
         }
 
         showToast({
-          message: language.sendSuccess,
+          message: language.sendSyncSuccess,
           duration: 1000,
         });
         // 暂时不做同步设置，不然问题比较多，需要没有说

@@ -77,8 +77,8 @@ const store = useUserStore();
 const temperatureType = ref("CELSIUS");
 const showPopup = ref(false);
 const temperatureTypes = [
-  { label: JeeWeb.Language === "zh-CN" ? "摄氏度（℃）" : "Celsius(℃)", value: "CELSIUS" },
-  { label: JeeWeb.Language === "zh-CN" ? "华氏度（℉）" : "Fahrenheit(℉)", value: "FAHRENHEIT" },
+  { label: JeeWeb.Language === "zh-CN" ? "摄氏度（℃）" : "℃", value: "CELSIUS" },
+  { label: JeeWeb.Language === "zh-CN" ? "华氏度（℉）" : "℉", value: "FAHRENHEIT" },
 ];
 
 const currentTextValue = ref(JeeWeb.Language === "zh-CN" ? "摄氏度" : "Celsius");

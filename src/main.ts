@@ -27,6 +27,12 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import router from './router';
 import vant from 'vant';
 
+import VConsole from "vconsole"
+
+if ( process.env.VITE_APP_ENV === "development" || process.env.VITE_APP_ENV === "qa") {
+    // 在开发环境中启用 vConsole
+    new VConsole()
+}
 
 
 const app = createApp(App);

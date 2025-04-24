@@ -29,7 +29,7 @@ import vant from 'vant';
 
 import VConsole from "vconsole"
 
-if ( process.env.VITE_APP_ENV === "development" || process.env.VITE_APP_ENV === "qa") {
+if (import.meta.env.VITE_APP_ENV === "development" || import.meta.env.VITE_APP_ENV === "qa") {
     // 在开发环境中启用 vConsole
     new VConsole()
 }

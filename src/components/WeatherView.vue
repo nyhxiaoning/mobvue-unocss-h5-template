@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div v-if="!CupDevice?.to?.versionType || CupDevice?.to?.versionType===2">
+      <div v-if="defaultVersionType === 2">
         <van-cell
           :title="language.changeTempUnit"
           :value="currentTextValue"
@@ -105,6 +105,14 @@ const language = reactive({
 // store.$state.weathervalue = city.value;
 
 //
+
+
+    const defaultVersionType = computed(() => {
+      // 1 老款设备、2 新款设备
+      const v = CupDevice?.to?.versionType || 2;
+      return v;
+    });
+
 
 /**
  * current City
@@ -210,7 +218,9 @@ const confirmCity = () => {
             });
 };
 
-initFn();
+const v = CupDevice?.to?.versionType || 2;
+v === 2 && initFn();
+
 
 
 const confirm = () => {

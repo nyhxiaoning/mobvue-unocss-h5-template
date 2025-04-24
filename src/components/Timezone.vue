@@ -237,6 +237,13 @@ export default {
             },
         ]);
 
+
+        const defaultVersionType = computed(() => {
+      // 1 老款设备、2 新款设备
+      const v = CupDevice?.to?.versionType || 2;
+      return v;
+    });
+
         const cancel = () => {
             showPopup.value = false;
             // 这里使用没有更新的回显地址：

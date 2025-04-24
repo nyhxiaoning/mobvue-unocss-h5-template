@@ -277,7 +277,7 @@
       </div>
     </div>
     <div
-      v-if="defaultVersionType === 2"
+      v-if="states.screensaverFlag"
       class="feature-item"
     >
       <div
@@ -543,6 +543,8 @@ export default defineComponent({
     // const brightness = ref(40);
     console.log(timezone, "timezone");
     const states = reactive({
+      // 屏保默认隐藏
+      screensaverFlag: false,
       languageFlag: JeeWeb.Language === "zh-CN" ? true : false,
       battery: userStore.$state.battery || 10,
       brightness: userStore.$state.brightness || 0,

@@ -277,7 +277,7 @@
       </div>
     </div>
     <div
-      v-if="!CupDevice?.to?.versionType || CupDevice?.to?.versionType === 2"
+      v-if="defaultVersionType === 2"
       class="feature-item"
     >
       <div

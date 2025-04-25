@@ -44,6 +44,8 @@ export const useUserStore = defineStore('userInfo', {
         battery: undefined,
         temperature: undefined,
         fromHome:false,// 来自主页的页面标记
+        // 增加屏保应用loadding
+        screenSaveLoading: false,
     }),
     // 定义 getters，用于获取 state
     getters: {

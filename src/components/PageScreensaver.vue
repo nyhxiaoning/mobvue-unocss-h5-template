@@ -138,6 +138,14 @@
       @close-popup="handleClosePopup"
       @confirm-speed="handleConfirmSpeed"
     />
+
+    <van-loading
+      v-if="userStore.$state.screenSaveLoading"
+      class="global-loading"
+      type="spinner"
+      color="#fff"
+      text="..."
+    ></van-loading>
   </div>
 </template>
 
@@ -145,9 +153,11 @@
 import { ref, computed, reactive } from "vue";
 import { showToast } from "vant";
 import { requestFileUploadTokenPromise } from "@/utils/tools";
-
+import { useUserStore } from "./../store/index";
 import imgAdd from "@/assets/imgAdd.png";
 import ScreenImages from "./ScreenImages.vue";
+const userStore = useUserStore();
+console.log(userStore, "userStore---");
 
 const language = reactive({
   carouselSpeed: JeeWeb && JeeWeb.Language === "zh-CN" ? "轮播速度" : "Carousel Speed",
@@ -162,9 +172,10 @@ const language = reactive({
   delete: JeeWeb && JeeWeb.Language === "zh-CN" ? "删除" : "Delete",
   cancel: JeeWeb && JeeWeb.Language === "zh-CN" ? "取消" : "Cancel",
   confirm: JeeWeb && JeeWeb.Language === "zh-CN" ? "确定" : "Confirm",
-  fetchError: JeeWeb && JeeWeb.Language === "zh-CN" ? "下发失败" : "Send failed",
+  fetchError: JeeWeb && JeeWeb.Language === "zh-CN" ? "设置失败" : "Setting failed",
   sendSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "下发成功" : "Send Success",
-  sendSyncSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "设置成功" : "Setting successfully",
+  sendSyncSuccess:
+    JeeWeb && JeeWeb.Language === "zh-CN" ? "设置成功" : "Setting successfully",
   syncSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "同步成功" : "Sync Success",
   syncError: JeeWeb && JeeWeb.Language === "zh-CN" ? "同步失败" : "Sync failed",
 });
@@ -187,7 +198,7 @@ const images = ref([
     selected: false,
     fileSize: 10470,
     type: 1,
-    binFileUrl:""
+    binFileUrl: "",
   },
   {
     url:
@@ -195,7 +206,7 @@ const images = ref([
     selected: false,
     fileSize: 17466,
     type: 1,
-    binFileUrl:""
+    binFileUrl: "",
   },
   {
     url: "",
@@ -242,13 +253,16 @@ const commonTal = (
   oldImgObj = []
 ) => {
   let contentObj = [];
-
+  userStore.$state.screenSaveLoading = true;
   for (let i = 0; i < images.value.length - 1; i++) {
     contentObj.push({
       [`content${i}`]: {
         size: images.value[i]?.fileSize,
         type: images.value[i]?.type === 1 ? "image/gif" : "application/octet-stream",
-        url: images.value[i]?.type === 1? images.value[i]?.url:images.value[i]?.binFileUrl,
+        url:
+          images.value[i]?.type === 1
+            ? images.value[i]?.url
+            : images.value[i]?.binFileUrl,
       },
       [`playTime${i}`]: resultSelected.value * 60,
     });
@@ -268,7 +282,54 @@ const commonTal = (
     ListLen: currentLength,
   };
 
-  console.log(output, "output-----end");
+  console.log(output, "output-----下发前的数据准备");
+
+  // 1确认速度
+  if (index === 1) {
+    showSpeedPopup.value = false;
+  } else if (index === 2) {
+    // 表示删除
+    // 如果当前没有空图片，那么就添加一个空图片
+    if (blankIndex < 0) {
+      images.value.push({
+        url: "",
+        selected: false,
+        blank: true,
+      });
+    }
+    editing.value = false;
+  } else if (index === 3) {
+    // 添加图片：图片此时4张，没有默认图
+    showSpeedPopupChildFlag.value = otherFlag;
+  }
+
+  // 暂时不做同步设置，不然问题比较多，需要没有说
+  // JeeWeb.set("screensaverimg", JSON.stringify(images.value), (message: any) => {
+  //   if (message.code === 500) {
+  //     showToast({
+  //       message: language.syncError,
+  //       duration: 1000,
+  //     });
+  //   } else {
+  //     showToast({
+  //       message: language.syncSuccess,
+  //       duration: 1000,
+  //     });
+  //     // 初始化的时候，调用一次：首次一定也没有
+  //     //   commonTal(0);
+  //   }
+  // });
+
+  console.log("images.value-----统一拦截前的数据内容", images.value);
+
+  JeeWeb.set("screensaverimg", JSON.stringify(images.value), (resultdata: any) => {
+    if (resultdata.code === 500) {
+      console.log("同步失败：云端存储失败，下发tal前", resultdata);
+    } else {
+      console.log("同步成功：云端存储成功，下发tal前", resultdata);
+      // 初始化的时候，不调用
+    }
+  });
   CupDevice &&
     CupDevice.setDevMessage({
       value: {
@@ -280,29 +341,30 @@ const commonTal = (
     })
       .then((res: any) => {
         console.log("", res);
-        // 1确认速度
-        if (index === 1) {
-          showSpeedPopup.value = false;
-        } else if (index === 2) {
-          // 表示删除
-          // 如果当前没有空图片，那么就添加一个空图片
-          if (blankIndex < 0) {
-            images.value.push({
-              url: "",
-              selected: false,
-              blank: true,
-            });
-          }
-          editing.value = false;
-        } else if (index === 3) {
-          // 添加图片：图片此时4张，没有默认图
-          showSpeedPopupChildFlag.value = otherFlag;
-        }
-
+        // // 1确认速度
+        // if (index === 1) {
+        //   showSpeedPopup.value = false;
+        // } else if (index === 2) {
+        //   // 表示删除
+        //   // 如果当前没有空图片，那么就添加一个空图片
+        //   if (blankIndex < 0) {
+        //     images.value.push({
+        //       url: "",
+        //       selected: false,
+        //       blank: true,
+        //     });
+        //   }
+        //   editing.value = false;
+        // } else if (index === 3) {
+        //   // 添加图片：图片此时4张，没有默认图
+        //   showSpeedPopupChildFlag.value = otherFlag;
+        // }
+        userStore.$state.screenSaveLoading = false;
         showToast({
           message: language.sendSyncSuccess,
           duration: 1000,
         });
+
         // 暂时不做同步设置，不然问题比较多，需要没有说
         // JeeWeb.set("screensaverimg", JSON.stringify(images.value), (message: any) => {
         //   if (message.code === 500) {
@@ -321,6 +383,7 @@ const commonTal = (
         // });
       })
       .catch((err: any) => {
+          userStore.$state.screenSaveLoading = false;
         console.log(" error", err);
         // 下发失败，那么数据回滚
         if (oldImgFlag) {
@@ -333,42 +396,34 @@ const commonTal = (
       });
 };
 
- commonTal(0);// 暂时不做同步设置，不然问题比较多，需要没有说
-// 获取一个不存在的属性会崩溃？？
-// JeeWeb &&
-//   JeeWeb.get("screensaverimg", (result: any) => {
-//     const list = result;
-//     if (JSON.parse(result.result).length > 0) {
-//       images.value = JSON.parse(result.result);
-//     }
-//     console.log("init---查看当前的内容result", result);
-//     return;
-//     if (list?.length > 0) {
-//       console.log("查看当前的内容result", result);
-//       //   commonTal(0);
-//     } else {
-//       //   JeeWeb.set("screensaverimg", JSON.stringify(images.value), (message: any) => {
-//       //     if (message.code === 500) {
-//       //       showToast({
-//       //         message: language.syncError,
-//       //         duration: 1000,
-//       //       });
-//       //     } else {
-//       //       showToast({
-//       //         message: language.syncSuccess,
-//       //         duration: 1000,
-//       //       });
-//       //       // 初始化的时候，调用一次：首次一定也没有
-//       //     //   commonTal(0);
-//       //     }
-//       //   });
-//     }
-//   });
+
+JeeWeb &&
+  JeeWeb.get("screensaverimg", (data: any) => {
+    // 如果没有result属性，说明默认用户第一次
+    if (!data.result) {
+      // 使用水杯的默认2张图，但是进来不同步：只会存储云端和小应用本地，然后用户修改了再去下发
+
+      JeeWeb.set("screensaverimg", JSON.stringify(images.value), (resultdata: any) => {
+        if (resultdata.code === 500) {
+          console.log("同步失败：云端存储失败", resultdata);
+        } else {
+          console.log("同步成功：云端存储成功", resultdata);
+          // 初始化的时候，不调用
+        }
+      });
+    } else {
+      // 说明用户已经设置过了
+      console.log(data.result, "screensaverimgdata---200成功了");
+      let dataResult = JSON.parse(data.result);
+      images.value = dataResult;
+      console.log(images.value, "imagesvalue---存储过的数据");
+    }
+  });
 
 const selectSpeedFn = (speed: number) => {
   selectedSpeed.value = speed;
   // 切换速度，下发tal指令
-  commonTal(1);
+//   commonTal(1);
 };
 
 const CancelSpeed = () => {
@@ -473,5 +528,18 @@ const currentImageNumber = computed(() => {
 <style scoped>
 .aspect-square {
   aspect-ratio: 1/1;
+}
+
+.global-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
 }
 </style>

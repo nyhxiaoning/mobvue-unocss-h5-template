@@ -95,7 +95,7 @@
                       margin-right: -30px;
                     "
                   >
-                    {{ states.battery }}%
+                    &nbsp; {{ states.battery }}%
                   </div>
                 </van-col>
               </van-row>

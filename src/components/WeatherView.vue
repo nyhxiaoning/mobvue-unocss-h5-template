@@ -18,7 +18,7 @@
           </div>
         </div>
       </div>
-      <div v-if="defaultVersionType === 2">
+      <div v-if="language.tempWindowFlag">
         <van-cell
           :title="language.changeTempUnit"
           :value="currentTextValue"
@@ -84,6 +84,7 @@ const temperatureTypes = [
 const currentTextValue = ref(JeeWeb.Language === "zh-CN" ? "摄氏度" : "Celsius");
 
 const language = reactive({
+  tempWindowFlag:false,
   city: JeeWeb.Language === "zh-CN" ? "城市" : "City",
   confirm: JeeWeb.Language === "zh-CN" ? "确认" : "Confirm",
   setCityError: JeeWeb.Language === "zh-CN" ? "设置城市失败" : "Failed to set city",
@@ -218,8 +219,8 @@ const confirmCity = () => {
             });
 };
 
-const v = CupDevice?.to?.versionType || 2;
-v === 2 && initFn();
+// const v = CupDevice?.to?.versionType || 2;
+// v === 2 && initFn();
 
 
 

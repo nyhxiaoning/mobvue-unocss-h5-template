@@ -277,7 +277,7 @@
       </div>
     </div>
     <div
-      v-if="defaultVersionType === 2"
+      v-if="states.screensaverFlag"
       class="feature-item"
     >
       <div

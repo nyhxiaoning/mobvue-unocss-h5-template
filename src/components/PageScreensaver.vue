@@ -175,7 +175,7 @@ const language = reactive({
   fetchError: JeeWeb && JeeWeb.Language === "zh-CN" ? "设置失败" : "Setting failed",
   sendSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "下发成功" : "Send Success",
   sendSyncSuccess:
-    JeeWeb && JeeWeb.Language === "zh-CN" ? "设置成功" : "Setting successfully",
+    JeeWeb && JeeWeb.Language === "zh-CN" ? "设置列表成功" : "Settings list Success",
   syncSuccess: JeeWeb && JeeWeb.Language === "zh-CN" ? "同步成功" : "Sync Success",
   syncError: JeeWeb && JeeWeb.Language === "zh-CN" ? "同步失败" : "Sync failed",
 });

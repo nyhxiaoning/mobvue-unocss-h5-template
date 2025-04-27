@@ -19,12 +19,15 @@
         </div>
       </div>
       <div v-if="language.tempWindowFlag">
-        <van-cell
-          :title="language.changeTempUnit"
-          :value="currentTextValue"
-          is-link
-          @click="showPopup = true"
-        />
+        <div class="city-card" @click="showPopup = true">
+          <div class="city-row">
+            <span class="city-label">{{ language.changeTempUnit }}</span>
+            <div class="city-value">
+              <span class="city-name">{{ currentTextValue }}</span>
+              <van-icon name="arrow" />
+            </div>
+          </div>
+        </div>
 
         <!-- 弹窗选择器 -->
         <van-popup v-model:show="showPopup" position="bottom" :style="{ height: '30%' }">
@@ -84,7 +87,7 @@ const temperatureTypes = [
 const currentTextValue = ref(JeeWeb.Language === "zh-CN" ? "摄氏度" : "Celsius");
 
 const language = reactive({
-  tempWindowFlag:false,
+  tempWindowFlag: false,
   city: JeeWeb.Language === "zh-CN" ? "城市" : "City",
   confirm: JeeWeb.Language === "zh-CN" ? "确认" : "Confirm",
   setCityError: JeeWeb.Language === "zh-CN" ? "设置城市失败" : "Failed to set city",
@@ -107,13 +110,11 @@ const language = reactive({
 
 //
 
-
-    const defaultVersionType = computed(() => {
-      // 1 老款设备、2 新款设备
-      const v = CupDevice?.to?.versionType || 2;
-      return v;
-    });
-
+const defaultVersionType = computed(() => {
+  // 1 老款设备、2 新款设备
+  const v = CupDevice?.to?.versionType || 2;
+  return v;
+});
 
 /**
  * current City
@@ -140,21 +141,19 @@ const goBack = () => {
   router.back();
 };
 
-
 const initFn = () => {
   language.globalWeatherLoading = true;
   CupDevice &&
     CupDevice.setDevMessage({
       value: {
         method: "talGetWeatherTemperatureUnit",
-        params: {
-        },
+        params: {},
       },
     })
       .then((res) => {
         language.globalWeatherLoading = false;
         console.log(res, "talGetWeatherTemperatureUnit");
-        temperatureType.value =  res.data
+        temperatureType.value = res.data;
         currentTextValue.value =
           temperatureType.value === "CELSIUS" ? language.celsius : language.fahrenheit;
       })
@@ -165,64 +164,62 @@ const initFn = () => {
 };
 
 const confirmCity = () => {
-    console.log(sessionStorage.getItem('weathervalue'))
-    console.log(sessionStorage.getItem("weathername"))
-    console.log('confirmCity')
-    language.globalWeatherLoading = true
+  console.log(sessionStorage.getItem("weathervalue"));
+  console.log(sessionStorage.getItem("weathername"));
+  console.log("confirmCity");
+  language.globalWeatherLoading = true;
 
-    // 1 老款设备、2 新款设备
-    const v = CupDevice?.to?.versionType || 2;
+  // 1 老款设备、2 新款设备
+  const v = CupDevice?.to?.versionType || 2;
 
-    const p1 = {
-        method: 'setCity',
-        params: {
-            value: sessionStorage.getItem('weathervalue')
-        },
-    }
+  const p1 = {
+    method: "setCity",
+    params: {
+      value: sessionStorage.getItem("weathervalue"),
+    },
+  };
 
-    const p2 = {
-        method: 'talSetCity',
-        params: {
-            city: sessionStorage.getItem('weathervalue')
-        },
-    }
+  const p2 = {
+    method: "talSetCity",
+    params: {
+      city: sessionStorage.getItem("weathervalue"),
+    },
+  };
 
-    CupDevice &&
-        CupDevice.setDevMessage({
-            value: v === 1 ? p1 : p2,
-        })
-            .then((res) => {
-                console.log(res, 'setCity');
-                // 新旧数据保存一致，
-                store.$state.weathername = sessionStorage.getItem("weathername");
-                store.$state.weathervalue = sessionStorage.getItem('weathervalue');
-                sessionStorage.setItem('weatheroldname', sessionStorage.getItem("weathername"));
-                sessionStorage.setItem('weatheroldvalue', sessionStorage.getItem('weathervalue'));
-                console.log(res, 'city.value');
-                language.globalWeatherLoading = false
-                router.push('/');
-            })
-            .catch((err) => {
-                console.log(err);
-                // 如果失败了，则不更新，使用老的数据
-                // store.$state.weathername = '';
-                sessionStorage.setItem('weathername',sessionStorage.getItem("weatheroldname"))
-                sessionStorage.setItem('weathervalue', sessionStorage.getItem("weatheroldvalue"))
-                // store.$state.weathervalue = '';
-                setTimeout(() => {
-                    language.globalWeatherLoading = false
-                    showToast({
-                        message: language.setCityError,
-                        duration: 1000,
-                    });
-                }, 1000)
-            });
+  CupDevice &&
+    CupDevice.setDevMessage({
+      value: v === 1 ? p1 : p2,
+    })
+      .then((res) => {
+        console.log(res, "setCity");
+        // 新旧数据保存一致，
+        store.$state.weathername = sessionStorage.getItem("weathername");
+        store.$state.weathervalue = sessionStorage.getItem("weathervalue");
+        sessionStorage.setItem("weatheroldname", sessionStorage.getItem("weathername"));
+        sessionStorage.setItem("weatheroldvalue", sessionStorage.getItem("weathervalue"));
+        console.log(res, "city.value");
+        language.globalWeatherLoading = false;
+        router.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        // 如果失败了，则不更新，使用老的数据
+        // store.$state.weathername = '';
+        sessionStorage.setItem("weathername", sessionStorage.getItem("weatheroldname"));
+        sessionStorage.setItem("weathervalue", sessionStorage.getItem("weatheroldvalue"));
+        // store.$state.weathervalue = '';
+        setTimeout(() => {
+          language.globalWeatherLoading = false;
+          showToast({
+            message: language.setCityError,
+            duration: 1000,
+          });
+        }, 1000);
+      });
 };
 
-// const v = CupDevice?.to?.versionType || 2;
-// v === 2 && initFn();
-
-
+const v = CupDevice?.to?.versionType || 2;
+v === 2 && initFn();
 
 const confirm = () => {
   showPopup.value = false;
@@ -337,8 +334,8 @@ const cancel = () => {
 }
 
 .bottom-button {
-  padding: 16px;
-  margin-bottom: 30px;
+  padding: 0 16px;
+  margin-bottom: 60px;
   display: flex;
   justify-content: center;
 }

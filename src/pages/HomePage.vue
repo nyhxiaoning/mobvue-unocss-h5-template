@@ -284,6 +284,7 @@
       </div>
     </div>
     <div
+      v-if="states.screensaverFlag"
       class="feature-item-saver  common-margin"
     >
       <div
@@ -1220,7 +1221,6 @@ export default defineComponent({
   /* flex: 1; */
   display: flex;
   align-items: center;
-
   margin-left: 35px;
   margin-right: 15px;
   margin-top: 10px 15px;
@@ -1262,7 +1262,7 @@ export default defineComponent({
   align-items: center;
   height: 100px;
   background-color: #ffffff;
-
+  width: 150px;
   border-radius: 12px;
 }
 
@@ -1443,7 +1443,7 @@ export default defineComponent({
 }
 
 .temperature-content-en {
-  width: 140px;
+  width: 110px;
   height: 24px;
   background-color: #ffffff;
   border-radius: 6px;
@@ -1453,7 +1453,7 @@ export default defineComponent({
 }
 
 .temperature-content {
-  width: 140px;
+  width: 110px;
   height: 24px;
   background-color: #ffffff;
   border-radius: 6px;

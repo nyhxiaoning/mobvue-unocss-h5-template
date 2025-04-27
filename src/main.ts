@@ -40,6 +40,9 @@ const app = createApp(App);
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
+const JeeWeb = {
+    Language: 'zh-CN',
+}
 
 // Modify the title based on the language environment
 if (JeeWeb && JeeWeb.Language === 'zh-CN') {

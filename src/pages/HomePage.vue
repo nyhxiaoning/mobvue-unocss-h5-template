@@ -9,7 +9,7 @@
     ></van-loading>
 
     <!-- 顶部状态栏 -->
-    <div v-if="defaultVersionType !== 2" class="status-bar">
+    <div v-if="defaultVersionType !== 2" class="status-bar  common-margin">
       <van-row justify="space-between" align="center">
         <van-row
           type="flex"
@@ -36,11 +36,12 @@
           </van-col>
         </van-row>
 
-        <div style="position: relative; margin-left: 10%">
-          <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
-          <div :class="[states.online ? 'status-text' : 'status-text-offline']">
+<!-- 这里的样式，可能需要重新写组件了 TODO:-->
+        <div style="position: relative; margin-left: 10%;   height: 24px;line-height: 24px;">
+          <span :class="[states.online ? 'green-dot' : 'green-dot-offline']" style="margin-top: 5px"></span>
+          <span :class="[states.online ? 'status-text' : 'status-text-offline']"  style="margin-top: 5px">
             &nbsp;{{ language.online }}
-          </div>
+          </span>
         </div>
         <div style="margin-left: 20px">
           <van-row
@@ -67,7 +68,7 @@
     </div>
 
     <!-- wifi+温度+电池 -->
-    <div v-if="defaultVersionType === 2" class="wifi-clock">
+    <div v-if="defaultVersionType === 2" class="wifi-clock  common-margin">
       <div class="wifi-left">
         <div style="margin-bottom: 10px">
           <img src="@/assets/cupWifi.png" width="135" height="20" alt="" />
@@ -110,7 +111,7 @@
         </div>
         <div class="img-container">
           <img class="image" src="@/assets/wifiicon.png" width="18" height="18" alt="" />
-          <p class="text">{{ states.wifiSsid }}</p>
+          <p class="wifi-text">{{ states.wifiSsid }}</p>
         </div>
       </div>
 
@@ -135,8 +136,14 @@
 
               <!-- 第二个子 div -->
               <van-col :span="18">
-                <div style="line-height: 24px; height: 26px; font-size: 12px">
-                  {{ `${language.waterTemp} | ${states.curTemperatureTransferText}` }}
+                <div style="line-height: 24px; height: 26px; font-size: 14px">
+                  {{ language.waterTemp}}
+                  <span>
+                  ｜
+                  </span>
+                  <span>
+                  {{ states.curTemperatureTransferText }}
+                  </span>
                 </div>
               </van-col>
             </van-row>
@@ -145,7 +152,7 @@
               <van-col
                 @click="changeTempSetting('1')"
                 :class="[
-                  states.temperatureTab === '1' ? 'temp-active-icon' : 'temp-no-icon',
+                  states.temperatureTab === '1' ? 'temp-no-icon':'temp-active-icon',
                 ]"
                 span="12"
               >
@@ -154,7 +161,7 @@
               <van-col
                 @click="changeTempSetting('2')"
                 :class="[
-                  states.temperatureTab === '2' ? 'temp-active-icon' : 'temp-no-icon',
+                  states.temperatureTab === '2' ? 'temp-no-icon':'temp-active-icon',
                 ]"
                 span="12"
               >
@@ -166,7 +173,7 @@
       </div>
     </div>
     <!-- 亮度调节 -->
-    <div class="brightness-control">
+    <div class="brightness-control common-margin">
       <div style="font-size: 16px; margin: 20px; margin-left: 15px">
         <div>
           {{ language.brightness }}&nbsp; <span style="color: #969698">|</span
@@ -185,7 +192,7 @@
       </div>
     </div>
     <!-- 时钟和天气 -->
-    <div class="weather-clock">
+    <div class="weather-clock  common-margin">
       <div class="clock">
         <div>
           <div>
@@ -240,7 +247,7 @@
     <!-- <div class="spacer"></div> -->
 
     <!-- 应用配置 -->
-    <div class="feature-item">
+    <div class="feature-item  common-margin">
       <div
         @click="appConfigFn(1)"
         style="
@@ -277,8 +284,7 @@
       </div>
     </div>
     <div
-      v-if="states.screensaverFlag"
-      class="feature-item"
+      class="feature-item-saver  common-margin"
     >
       <div
         @click="appConfigFn(2)"
@@ -376,7 +382,12 @@ export default defineComponent({
   name: "SystemSettings",
 
   setup() {
-    CupDevice.onReceive((res: any) => {
+    const CupDevice = undefined
+    const JeeWeb = {
+    Language: 'zh-CN',
+}
+    if(CupDevice){
+    CupDevice && CupDevice.onReceive((res: any) => {
       if (res?.CurScreenState) {
         states.screenStatus = res?.CurScreenState.value;
       }
@@ -390,6 +401,8 @@ export default defineComponent({
       //     duration: 2000,
       // });
     });
+    }
+
 
     const timezones = ref([
       {
@@ -568,7 +581,7 @@ export default defineComponent({
 
     const language = reactive({
       celsius: JeeWeb.Language === "zh-CN" ? "摄氏度℃" : "Celsius ℃",
-      fahrenheit: JeeWeb.Language === "zh-CN" ? "华氏度℉" : "Fahrenheit ℉",
+      fahrenheit: JeeWeb.Language === "zh-CN" ? "℉" : "℉",
       online: JeeWeb.Language === "zh-CN" ? "在线" : "Online",
       waterTemp: JeeWeb.Language === "zh-CN" ? "温度" : "Temp",
       brightness: JeeWeb.Language === "zh-CN" ? "亮度" : "Brightness",
@@ -814,6 +827,12 @@ export default defineComponent({
     });
 
     onMounted(() => {
+                states.globalLoading = false
+                if(!CupDevice){
+            return
+        }
+
+
       // states.curBatteryClass = 'battery-60';
       // states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
       console.log(
@@ -1143,7 +1162,7 @@ export default defineComponent({
 }
 
 .status-bar {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .icon {
@@ -1161,8 +1180,8 @@ export default defineComponent({
 
 .status-text-offline {
   display: inline-block;
-  line-height: 20px;
-  height: 20px;
+  line-height: 24px;
+  height: 24px;
   color: #a3a3a3;
   /* margin-right: 30px; */
   font-size: 12px;
@@ -1170,39 +1189,41 @@ export default defineComponent({
 
 .brightness-control {
   display: flex;
-  flex: 0.3;
+  margin-top: 10px;
+  /* flex: 0.3; */
   /* align-items: center; */
   flex-direction: column;
-
+    /* margin-top: -20px; */
   margin-left: 20px;
   margin-right: 20px;
-  margin-bottom: 16px;
+  /* margin-bottom: -50px; */
   background-color: #ffffff;
-  height: 90px;
+  height: 80px;
   border-radius: 12px;
 }
 
 .weather-clock {
-  flex: 2;
+  /* flex: 2; */
   display: flex;
   margin-left: 20px;
   margin-right: 20px;
+  /* margin-bottom: -60px; */
   /* flex-direction: column; */
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
-
+    height: 100px;
   font-size: 12px;
   border-radius: 12px;
 }
 
 .wifi-clock {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   align-items: center;
 
-  margin-left: 25px;
-  margin-right: 25px;
-  margin-top: 10px;
+  margin-left: 35px;
+  margin-right: 15px;
+  margin-top: 10px 15px;
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;
@@ -1217,9 +1238,8 @@ export default defineComponent({
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 100px;
+  height: 80px;
   background-color: #ffffff;
-
   border-radius: 12px;
 }
 
@@ -1259,6 +1279,10 @@ export default defineComponent({
   .text {
     font-size: 16px;
   }
+
+  .wifi-text {
+    font-size: 12px;
+  }
 }
 
 .clock {
@@ -1268,7 +1292,7 @@ export default defineComponent({
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 100px;
+  height: 80px;
   background-color: #ffffff;
 
   border-radius: 12px;
@@ -1280,11 +1304,29 @@ export default defineComponent({
   flex-direction: column;
   margin-left: 20px;
   margin-right: 20px;
-  margin-top: 16px;
-  padding: 10px;
+  /* margin-top: 10px; */
+  padding: 10px 15px;
   background-color: #ffffff;
   font-size: 12px;
   border-radius: 12px;
+  height: 80px;
+}
+
+.feature-item-saver {
+  display: flex;
+  flex: 0.5;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #ffffff;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+.common-margin{
+  /* margin-top: 10px !important; */
 }
 
 .bottom-actions {
@@ -1294,7 +1336,7 @@ export default defineComponent({
   margin-top: 16px;
   margin-left: 20px;
   margin-right: 20px;
-  margin-bottom: 16px;
+  margin-bottom: 60px;
   padding: 10px;
   background-color: #ffffff;
   font-size: 12px;
@@ -1315,8 +1357,8 @@ export default defineComponent({
 }
 
 .green-dot {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   background-color: #36c449;
   border-radius: 50%;
   display: inline-block;
@@ -1526,13 +1568,14 @@ export default defineComponent({
 .temp-active-icon {
   text-align: center;
   background-color: #eeeeee;
-  color: #31acf8;
+
   padding: 1px;
 }
 
 .temp-no-icon {
   text-align: center;
   background-color: #ffffff;
+  color: #31acf8;
   padding: 1px;
 }
 </style>

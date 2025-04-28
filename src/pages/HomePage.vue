@@ -82,13 +82,11 @@
           <img src="@/assets/cupWifi.png" width="135" height="20" alt="" />
         </div>
         <div>
-          <van-row  align="center">
+          <van-row align="center">
             <van-col span="12">
               <div style="display: flex; align-items: center">
-                <div :class="curBatteryClass" ></div>
-                <div  :class="states.curBatteryFont">
-                 &nbsp;{{`${ states.battery}` }}%
-                </div>
+                <div :class="states.curBatteryClass"></div>
+                <div :class="states.curBatteryFont">&nbsp;{{ `${states.battery}` }}%</div>
               </div>
             </van-col>
 
@@ -112,57 +110,55 @@
       </div>
 
       <div class="wifi-info">
-        <div style="padding: 10px">
-          <div style="margin-bottom: 10px; font-size: 12px">
-            <van-row
-              type="flex"
-              justify="start"
-              align="center"
-              :class="[
-                states.languageFlag ? 'temperature-content' : 'temperature-content-en',
-              ]"
-            >
-              <!-- 第一个子 div -->
-              <van-col :span="6">
-                <div
-                  :class="curTemperatureClass"
-                  style="width: 16px; height: 16px; font-size: 12px"
-                ></div>
-              </van-col>
+        <div style="margin-bottom: 10px; margin-left: 15px; font-size: 12px">
+          <van-row
+            type="flex"
+            justify="start"
+            align="center"
+            :class="[
+              states.languageFlag ? 'temperature-content' : 'temperature-content-en',
+            ]"
+          >
+            <!-- 第一个子 div -->
+            <van-col :span="4">
+              <div
+                :class="curTemperatureClass"
+                style="width: 16px; height: 16px; font-size: 12px"
+              ></div>
+            </van-col>
 
-              <!-- 第二个子 div -->
-              <van-col :span="18">
-                <div style="line-height: 24px; height: 26px; font-size: 14px">
-                  {{ language.waterTemp }}
-                  <span> ｜ </span>
-                  <span>
-                    {{ states.curTemperatureTransferText }}
-                  </span>
-                </div>
-              </van-col>
-            </van-row>
-            <!-- 摄氏度和华氏度控制 -->
-            <van-row style="border: 1px solid #eeeeee; padding: 1px; margin-top: 5px">
-              <van-col
-                @click="changeTempSetting('1')"
-                :class="[
-                  states.temperatureTab === '1' ? 'temp-no-icon' : 'temp-active-icon',
-                ]"
-                span="12"
-              >
-                {{ language.celsius }}</van-col
-              >
-              <van-col
-                @click="changeTempSetting('2')"
-                :class="[
-                  states.temperatureTab === '2' ? 'temp-no-icon' : 'temp-active-icon',
-                ]"
-                span="12"
-              >
-                {{ language.fahrenheit }}</van-col
-              >
-            </van-row>
-          </div>
+            <!-- 第二个子 div -->
+            <van-col :span="20">
+              <div style="line-height: 24px; height: 26px; font-size: 14px">
+                {{ language.waterTemp }}
+                <span> ｜ </span>
+                <span>
+                  {{ states.curTemperatureTransferText }}
+                </span>
+              </div>
+            </van-col>
+          </van-row>
+          <!-- 摄氏度和华氏度控制 -->
+          <van-row style="border: 1px solid #eeeeee; padding: 1px; margin-top: 5px">
+            <van-col
+              @click="changeTempSetting('1')"
+              :class="[
+                states.temperatureTab === '1' ? 'temp-no-icon' : 'temp-active-icon',
+              ]"
+              span="12"
+            >
+              {{ language.celsius }}</van-col
+            >
+            <van-col
+              @click="changeTempSetting('2')"
+              :class="[
+                states.temperatureTab === '2' ? 'temp-no-icon' : 'temp-active-icon',
+              ]"
+              span="12"
+            >
+              {{ language.fahrenheit }}</van-col
+            >
+          </van-row>
         </div>
       </div>
     </div>
@@ -558,7 +554,7 @@ export default defineComponent({
       weatheraddress: userStore.$state.weathername || "",
       clock: "",
       curBatteryClass: "battery-20",
-      curBatteryFont:'font-color-20',
+      curBatteryFont: "font-color-20",
       curTemperatureClass: "temperature-0",
       online: false,
       // 默认一定是开启
@@ -929,18 +925,17 @@ export default defineComponent({
     watch(
       () => states.battery,
       (newValue, oldValue) => {
-        console.log("Brightness changed:", oldValue, "->", newValue);
+        console.log("batteryStatus changed:", oldValue, "->", newValue);
         if (newValue < 20) {
-            states.curBatteryFont = 'font-color-20';
-          return (states.curBatteryClass = "battery-20");
+          states.curBatteryFont = "font-color-20";
+          states.curBatteryClass = "battery-20";
         } else if (newValue > 20 && newValue < 100) {
-            states.curBatteryFont = 'font-color-40';
-
-          return (states.curBatteryClass = "battery-40");
+            console.log('样式变化了');
+          states.curBatteryFont = "font-color-40";
+          states.curBatteryClass = "battery-40";
         } else if (newValue > 99) {
-            states.curBatteryFont = 'font-color-60';
-
-          return (states.curBatteryClass = "battery-60");
+          states.curBatteryFont = "font-color-60";
+          states.curBatteryClass = "battery-60";
         }
         // Add your logic here for brightness changes
       }
@@ -1576,15 +1571,15 @@ export default defineComponent({
   padding: 1px;
 }
 
-.font-color-20{
-  color: #E94646
+.font-color-20 {
+  color: #e94646;
 }
 
-.font-color-40{
-  color: #FF9524
+.font-color-40 {
+  color: #ff9524;
 }
 
-.font-color-60{
-  color: #36C449
+.font-color-60 {
+  color: #36c449;
 }
 </style>

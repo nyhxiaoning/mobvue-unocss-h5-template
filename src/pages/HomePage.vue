@@ -110,7 +110,7 @@
       </div>
 
       <div class="wifi-info">
-        <div style="margin-bottom: 10px; margin-left: 15px; font-size: 12px">
+        <div style="margin-bottom: 10px;  font-size: 12px">
           <van-row
             type="flex"
             justify="start"
@@ -1260,7 +1260,6 @@ export default defineComponent({
 .img-container {
   display: flex;
   align-items: center;
-  margin-top: 0px;
   .image {
     width: 18px;
     height: 18px;
@@ -1435,23 +1434,24 @@ export default defineComponent({
 }
 
 .temperature-content-en {
-  width: 135px;
+  width: 120px;
   height: 24px;
   background-color: #ffffff;
   border-radius: 6px;
-  padding-left: 5px;
+  padding-left: 0px;
   font-size: 12px;
-  margin-right: 20px;
+  margin: 0px 15px;
 }
 
 .temperature-content {
-  width: 135px;
+  width: 120px;
   height: 24px;
   background-color: #ffffff;
   border-radius: 6px;
-  padding-left: 5px;
+  padding-left: 0px;
   font-size: 12px;
-  margin-right: 20px;
+  margin: 0px 15px;
+
 }
 
 .temperature-0 {

@@ -139,26 +139,26 @@
             </van-col>
           </van-row>
           <!-- 摄氏度和华氏度控制 -->
-          <van-row style=" margin-top: 0px;height:25px;line-height: 25px; border-radius: 4px;" justify="center">
-            <van-col
-              @click="changeTempSetting('1')"
-              :class="[
-                states.temperatureTab === '1' ? 'temp-no-icon' : 'temp-active-icon',
-              ]"
-              span="12"
-            >
-              {{ language.celsius }}</van-col
-            >
-            <van-col
-              @click="changeTempSetting('2')"
-              :class="[
-                states.temperatureTab === '2' ? 'temp-no-icon' : 'temp-active-icon',
-              ]"
-              span="12"
-            >
-              {{ language.fahrenheit }}</van-col
-            >
-          </van-row>
+<van-row
+  style="margin-top: 0; height: 26px; line-height: 26px; border-radius: 4px; background-color: #eeeeee; overflow: hidden;"
+  justify="center"
+>
+  <van-col
+    @click="changeTempSetting('1')"
+    :class="['temp-tab', { 'temp-tab--active': states.temperatureTab === '1' }]"
+    span="12"
+  >
+    {{ language.celsius }}
+  </van-col>
+  <van-col
+    @click="changeTempSetting('2')"
+    :class="['temp-tab', { 'temp-tab--active': states.temperatureTab === '2' }]"
+    span="12"
+  >
+    {{ language.fahrenheit }}
+  </van-col>
+</van-row>
+
         </div>
       </div>
     </div>
@@ -1566,6 +1566,8 @@ export default defineComponent({
 
 .temp-no-icon {
   border: 2px solid #eeeeee;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   text-align: center;
   background-color: #ffffff;
   color: #31acf8;
@@ -1582,4 +1584,38 @@ export default defineComponent({
 .font-color-60 {
   color: #36c449;
 }
+
+.temp-tab {
+  text-align: center;
+  font-size: 12px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  background-color: #eeeeee;
+  color: #aaaaaa;
+  /* transition: all 0.3s; */
+  border-radius: 0; /* 默认无圆角 */
+}
+
+.temp-tab--active {
+    font-weight: 500;
+    text-align: center;
+    font-size: 12px;
+    height: 26px;
+    line-height: 22px;
+  background-color: #ffffff; /* 选中后的背景色，比如蓝色 */
+  border: 2px solid #eeeeee;
+  color:  #31ACF8;
+  border-radius: 4px; /* 选中时圆角 */
+}
+
+.temp-tab:first-child.temp-tab--active {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.temp-tab:last-child.temp-tab--active {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
 </style>

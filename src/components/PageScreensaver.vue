@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-50 bg-self-img">
     <!-- 内容区域 -->
     <div class="px-4 py-4">
       <!-- 轮播速度设置 -->
@@ -541,5 +541,14 @@ const currentImageNumber = computed(() => {
   justify-content: center;
   align-items: center;
   z-index: 999;
+}
+
+.bg-self-img{
+  padding: 16px;
+  background: #f7f8fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180.08deg, #c5e6ff -1.16%, #ecf6ff 14.34%, #f3f4f7 50%);
 }
 </style>

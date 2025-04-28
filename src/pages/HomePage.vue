@@ -110,7 +110,7 @@
       </div>
 
       <div class="wifi-info">
-        <div style="margin-bottom: 10px;  font-size: 12px">
+        <div style="margin-bottom: 10px;  font-size: 12px;">
           <van-row
             type="flex"
             justify="start"
@@ -123,7 +123,7 @@
             <van-col :span="4">
               <div
                 :class="curTemperatureClass"
-                style="width: 16px; height: 16px; font-size: 12px"
+                style="width: 16px;  font-size: 12px"
               ></div>
             </van-col>
 
@@ -139,7 +139,7 @@
             </van-col>
           </van-row>
           <!-- 摄氏度和华氏度控制 -->
-          <van-row style="border: 1px solid #eeeeee; padding: 1px; margin-top: 5px">
+          <van-row style=" margin-top: 0px;height:25px;line-height: 25px; border-radius: 4px;" justify="center">
             <van-col
               @click="changeTempSetting('1')"
               :class="[
@@ -273,7 +273,7 @@
         <div class="seting-appcup"></div>
       </div>
     </div>
-    <div v-if="states.screensaverFlag" class="feature-item-saver common-margin">
+    <div  class="feature-item-saver common-margin">
       <div
         @click="appConfigFn(2)"
         style="
@@ -1165,7 +1165,7 @@ export default defineComponent({
   display: inline-block;
   line-height: 20px;
   height: 20px;
-  color: green;
+  color: #36C449;
   /* margin-right: 30px; */
   font-size: 12px;
 }
@@ -1237,11 +1237,11 @@ export default defineComponent({
 .wifi-left {
   flex: 1;
   display: flex;
-  margin-right: 20px;
+  /* margin-right: 20px; */
   flex-direction: column;
   justify-content: space-around;
   /* align-items: center; */
-  /* height: 100px; */
+  height: 80px;
   border-radius: 12px;
 }
 
@@ -1251,7 +1251,7 @@ export default defineComponent({
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 100px;
+  height: 80px;
   background-color: #ffffff;
   width: calc(100% - 150px);
   border-radius: 12px;
@@ -1349,7 +1349,7 @@ export default defineComponent({
 .green-dot {
   width: 6px;
   height: 6px;
-  background-color: #36c449;
+  background-color: #36C449;
   border-radius: 50%;
   display: inline-block;
 }
@@ -1435,21 +1435,24 @@ export default defineComponent({
 
 .temperature-content-en {
   width: 120px;
-  height: 24px;
+  height: 26px;
   background-color: #ffffff;
   border-radius: 6px;
   padding-left: 0px;
   font-size: 12px;
+
   margin: 0px 15px;
 }
 
 .temperature-content {
   width: 120px;
-  height: 24px;
+  height: 26px;
   background-color: #ffffff;
   border-radius: 6px;
   padding-left: 0px;
   font-size: 12px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   margin: 0px 15px;
 
 }
@@ -1560,15 +1563,14 @@ export default defineComponent({
 .temp-active-icon {
   text-align: center;
   background-color: #eeeeee;
-
-  padding: 1px;
+  border: 2px solid #eeeeee;
 }
 
 .temp-no-icon {
+  border: 2px solid #eeeeee;
   text-align: center;
   background-color: #ffffff;
   color: #31acf8;
-  padding: 1px;
 }
 
 .font-color-20 {

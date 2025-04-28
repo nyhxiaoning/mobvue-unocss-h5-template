@@ -86,7 +86,7 @@
             <van-col span="12">
               <div style="display: flex; align-items: center">
                 <div :class="curBatteryClass" ></div>
-                <div style="font-size: 12px; line-height: 24px;">
+                <div  :class="states.curBatteryFont">
                  &nbsp;{{`${ states.battery}` }}%
                 </div>
               </div>
@@ -550,14 +550,15 @@ export default defineComponent({
       // 屏保默认隐藏
       screensaverFlag: false,
       languageFlag: JeeWeb.Language === "zh-CN" ? true : false,
-      battery: userStore.$state.battery || 100,
+      battery: userStore.$state.battery || 10,
       brightness: userStore.$state.brightness || 0,
-      temperature: userStore.$state.temperature || 100,
+      temperature: userStore.$state.temperature || 10,
       batteryStatus: false,
       address: "",
       weatheraddress: userStore.$state.weathername || "",
       clock: "",
       curBatteryClass: "battery-20",
+      curBatteryFont:'font-color-20',
       curTemperatureClass: "temperature-0",
       online: false,
       // 默认一定是开启
@@ -930,10 +931,15 @@ export default defineComponent({
       (newValue, oldValue) => {
         console.log("Brightness changed:", oldValue, "->", newValue);
         if (newValue < 20) {
+            states.curBatteryFont = 'font-color-20';
           return (states.curBatteryClass = "battery-20");
         } else if (newValue > 20 && newValue < 100) {
+            states.curBatteryFont = 'font-color-40';
+
           return (states.curBatteryClass = "battery-40");
         } else if (newValue > 99) {
+            states.curBatteryFont = 'font-color-60';
+
           return (states.curBatteryClass = "battery-60");
         }
         // Add your logic here for brightness changes
@@ -1395,6 +1401,7 @@ export default defineComponent({
 .battery-60 {
   /* margin-left: 20px; */
   width: 24px;
+
   height: 24px;
   /* background-color: #36C449;
      */
@@ -1567,5 +1574,17 @@ export default defineComponent({
   background-color: #ffffff;
   color: #31acf8;
   padding: 1px;
+}
+
+.font-color-20{
+  color: #E94646
+}
+
+.font-color-40{
+  color: #FF9524
+}
+
+.font-color-60{
+  color: #36C449
 }
 </style>

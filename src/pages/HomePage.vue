@@ -1212,9 +1212,7 @@ export default defineComponent({
   /* flex: 1; */
   display: flex;
   align-items: center;
-  margin-left: 35px;
-  margin-right: 15px;
-  margin-top: 10px 15px;
+  margin: 20px 15px 10px 30px;
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;

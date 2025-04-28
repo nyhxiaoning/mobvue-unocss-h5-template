@@ -29,9 +29,48 @@ import vant from 'vant';
 
 import VConsole from "vconsole"
 
+
+function loadScript(src:string) {
+    return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) {
+            resolve('success'); // 已经加载过了
+            return;
+        }
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
 if (import.meta.env.VITE_APP_ENV === "development" || import.meta.env.VITE_APP_ENV === "qa") {
     // 在开发环境中启用 vConsole
+
+    debugger
+
+    // 判断一下此时是否已经有JeeWeb,如果有，证明是手机端，那么就不需要再加载了，直接使用
+    if (window?.JeeWeb) {
+        console.log('JeeWeb already loaded!');
+        console.log(window?.JeeWeb,'window?.JeeWeb');
+    }else {
+        console.log('电脑端的手机模拟');
+        Promise.all([
+            loadScript('./../sdk0410.js'),
+            loadScript('./../jeeweb.js')
+        ])
+            .then(() => {
+                CupDevice = DeviceManager.createJeejioXie('cup');
+                console.log('All dev/qa scripts loaded!');
+            })
+            .catch(error => {
+                console.error('Failed to load dev/qa scripts:', error);
+            });
+    }
+
     new VConsole()
+
 }
 
 

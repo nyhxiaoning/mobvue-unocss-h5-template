@@ -18,9 +18,7 @@ import CanadaData from './../utils/加拿大.json';
 import UsaData from './../utils/美国.json';
 import UsData from './../utils/英国.json';
 import AustraliaData from './../utils/澳大利亚.json';
-const JeeWeb = {
-    Language: 'zh-CN',
-}
+
 
 const allRegions = {
     Asia: [chinaData],

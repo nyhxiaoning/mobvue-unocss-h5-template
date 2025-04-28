@@ -8,8 +8,8 @@
       text="..."
     ></van-loading>
 
-    <!-- 顶部状态栏 -->
-    <div v-if="defaultVersionType !== 2" class="status-bar  common-margin">
+    <!-- 顶部状态栏:左侧：旧设备 -->
+    <div v-if="defaultVersionType !== 2" class="status-bar common-margin">
       <van-row justify="space-between" align="center">
         <van-row
           type="flex"
@@ -36,10 +36,18 @@
           </van-col>
         </van-row>
 
-<!-- 这里的样式，可能需要重新写组件了 TODO:-->
-        <div style="position: relative; margin-left: 10%;   height: 24px;line-height: 24px;">
-          <span :class="[states.online ? 'green-dot' : 'green-dot-offline']" style="margin-top: 5px"></span>
-          <span :class="[states.online ? 'status-text' : 'status-text-offline']"  style="margin-top: 5px">
+        <!-- 这里的样式，可能需要重新写组件了 TODO:-->
+        <div
+          style="position: relative; margin-left: 10%; height: 24px; line-height: 24px"
+        >
+          <span
+            :class="[states.online ? 'green-dot' : 'green-dot-offline']"
+            style="margin-top: 5px"
+          ></span>
+          <span
+            :class="[states.online ? 'status-text' : 'status-text-offline']"
+            style="margin-top: 5px"
+          >
             &nbsp;{{ language.online }}
           </span>
         </div>
@@ -67,44 +75,32 @@
       </van-row>
     </div>
 
-    <!-- wifi+温度+电池 -->
-    <div v-if="defaultVersionType === 2" class="wifi-clock  common-margin">
+    <!-- wifi+温度+电池：左侧：新设备 -->
+    <div v-if="defaultVersionType === 2" class="wifi-clock common-margin">
       <div class="wifi-left">
         <div style="margin-bottom: 10px">
           <img src="@/assets/cupWifi.png" width="135" height="20" alt="" />
         </div>
-        <div style="margin-left: -20px">
-          <van-row :gutter="[40, 10]">
+        <div>
+          <van-row  align="center">
             <van-col span="12">
-              <van-row
-                type="flex"
-                justify="start"
-                align="center"
-                style="width: 58px; height: 24px; font-size: 12px"
-              >
-                <!-- 第一个子 div -->
-                <van-col :span="12">
-                  <div :class="curBatteryClass" style="width: 24px; height: 24px"></div>
-                </van-col>
-                <!-- 第二个子 div -->
-                <van-col :span="12">
-                  <div
-                    style="
-                      line-height: 24px;
-                      height: 26px;
-                      text-align: center;
-                      margin-right: -30px;
-                    "
-                  >
-                    &nbsp; {{ states.battery }}%
-                  </div>
-                </van-col>
-              </van-row>
+              <div style="display: flex; align-items: center">
+                <div :class="curBatteryClass" ></div>
+                <div style="font-size: 12px; line-height: 24px;">
+                 &nbsp;{{`${ states.battery}` }}%
+                </div>
+              </div>
             </van-col>
+
             <van-col span="12">
-              <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
-              <div :class="[states.online ? 'status-text' : 'status-text-offline']">
-                &nbsp;{{ language.online }}
+              <div style="display: flex; align-items: center">
+                <div :class="[states.online ? 'green-dot' : 'green-dot-offline']"></div>
+                <div
+                  :class="[states.online ? 'status-text' : 'status-text-offline']"
+                  style="margin-left: 5px"
+                >
+                  {{ language.online }}
+                </div>
               </div>
             </van-col>
           </van-row>
@@ -137,12 +133,10 @@
               <!-- 第二个子 div -->
               <van-col :span="18">
                 <div style="line-height: 24px; height: 26px; font-size: 14px">
-                  {{ language.waterTemp}}
+                  {{ language.waterTemp }}
+                  <span> ｜ </span>
                   <span>
-                  ｜
-                  </span>
-                  <span>
-                  {{ states.curTemperatureTransferText }}
+                    {{ states.curTemperatureTransferText }}
                   </span>
                 </div>
               </van-col>
@@ -152,7 +146,7 @@
               <van-col
                 @click="changeTempSetting('1')"
                 :class="[
-                  states.temperatureTab === '1' ? 'temp-no-icon':'temp-active-icon',
+                  states.temperatureTab === '1' ? 'temp-no-icon' : 'temp-active-icon',
                 ]"
                 span="12"
               >
@@ -161,7 +155,7 @@
               <van-col
                 @click="changeTempSetting('2')"
                 :class="[
-                  states.temperatureTab === '2' ? 'temp-no-icon':'temp-active-icon',
+                  states.temperatureTab === '2' ? 'temp-no-icon' : 'temp-active-icon',
                 ]"
                 span="12"
               >
@@ -192,7 +186,7 @@
       </div>
     </div>
     <!-- 时钟和天气 -->
-    <div class="weather-clock  common-margin">
+    <div class="weather-clock common-margin">
       <div class="clock">
         <div>
           <div>
@@ -247,7 +241,7 @@
     <!-- <div class="spacer"></div> -->
 
     <!-- 应用配置 -->
-    <div class="feature-item  common-margin">
+    <div class="feature-item common-margin">
       <div
         @click="appConfigFn(1)"
         style="
@@ -283,10 +277,7 @@
         <div class="seting-appcup"></div>
       </div>
     </div>
-    <div
-      v-if="states.screensaverFlag"
-      class="feature-item-saver  common-margin"
-    >
+    <div v-if="states.screensaverFlag" class="feature-item-saver common-margin">
       <div
         @click="appConfigFn(2)"
         style="
@@ -383,27 +374,26 @@ export default defineComponent({
   name: "SystemSettings",
 
   setup() {
-    const CupDevice = undefined
-    const JeeWeb = {
-    Language: 'zh-CN',
-}
-    if(CupDevice){
-    CupDevice && CupDevice.onReceive((res: any) => {
-      if (res?.CurScreenState) {
-        states.screenStatus = res?.CurScreenState.value;
-      }
-      // if(res?.Brightness){
-      //     states.brightness = res?.Brightness.value
-      // }
+    // TODO:ui调整兼容
+    try {
+      CupDevice &&
+        CupDevice.onReceive((res: any) => {
+          if (res?.CurScreenState) {
+            states.screenStatus = res?.CurScreenState.value;
+          }
+          // if(res?.Brightness){
+          //     states.brightness = res?.Brightness.value
+          // }
 
-      console.log("---------onReceive--------", res);
-      // showToast({
-      //     message: JSON.stringify(res),
-      //     duration: 2000,
-      // });
-    });
+          console.log("---------onReceive--------", res);
+          // showToast({
+          //     message: JSON.stringify(res),
+          //     duration: 2000,
+          // });
+        });
+    } catch (error) {
+      console.log("init setup error");
     }
-
 
     const timezones = ref([
       {
@@ -560,7 +550,7 @@ export default defineComponent({
       // 屏保默认隐藏
       screensaverFlag: false,
       languageFlag: JeeWeb.Language === "zh-CN" ? true : false,
-      battery: userStore.$state.battery || 10,
+      battery: userStore.$state.battery || 100,
       brightness: userStore.$state.brightness || 0,
       temperature: userStore.$state.temperature || 100,
       batteryStatus: false,
@@ -828,112 +818,107 @@ export default defineComponent({
     });
 
     onMounted(() => {
-                states.globalLoading = false
-                if(!CupDevice){
-            return
-        }
-
-
       // states.curBatteryClass = 'battery-60';
       // states.online = JeeWeb && JeeWeb.deviceBind[0]?.devices[0]?.online || false;
-      console.log(
-        JeeWeb.deviceBind[0]?.devices[0]?.online,
-        "",
-        JeeWeb.deviceBind[0]?.devices
-      );
 
-      // 1 老款设备、2 新款设备
-      const v = CupDevice?.to?.versionType || 2;
+      try {
+        // 1 老款设备、2 新款设备
+        const v = CupDevice?.to?.versionType || 2;
 
-      CupDevice &&
-        CupDevice.setDevMessage({
-          value: {
-            method: v === 1 ? "getCupInfo" : "talGetCupInfo",
-            params: {},
-          },
-        })
-          .then((res: any) => {
-            console.log(res.data, "talGetCupInfo");
-            states.brightness = res.data.brightness;
+        CupDevice &&
+          CupDevice.setDevMessage({
+            value: {
+              method: v === 1 ? "getCupInfo" : "talGetCupInfo",
+              params: {},
+            },
+          })
+            .then((res: any) => {
+              console.log(res.data, "talGetCupInfo");
+              states.brightness = res.data.brightness;
 
-            states.battery = res.data.batteryStatus;
-            states.screenStatus = res.data.switch;
-            states.address = res.data.timezone;
-            console.log(res.data?.wifiSsid, "wifiSsid是否有wifi信息");
-            if (v === 2) {
-              states.wifiSsid = res.data?.wifiSsid || "";
-              states.temperatureType = res.data.waterTempUnit;
+              states.battery = res.data.batteryStatus;
+              states.screenStatus = res.data.switch;
+              states.address = res.data.timezone;
+              console.log(res.data?.wifiSsid, "wifiSsid是否有wifi信息");
+              if (v === 2) {
+                states.wifiSsid = res.data?.wifiSsid || "";
+                states.temperatureType = res.data.waterTempUnit;
 
-              states.temperatureTab = res.data.waterTempUnit === "CELSIUS" ? "1" : "2";
-              states.temperature = res.data.waterTemperature;
-              if (states.temperatureType === "CELSIUS") {
-                states.curTemperatureTransferText = states.temperature + "℃";
+                states.temperatureTab = res.data.waterTempUnit === "CELSIUS" ? "1" : "2";
+                states.temperature = res.data.waterTemperature;
+                if (states.temperatureType === "CELSIUS") {
+                  states.curTemperatureTransferText = states.temperature + "℃";
+                }
+
+                if (states.temperatureType === "FAHRENHEIT") {
+                  states.curTemperatureTransferText = states.temperature + "℉";
+                }
+              } else {
+                states.temperature = res.data.waterTemperature;
               }
 
-              if (states.temperatureType === "FAHRENHEIT") {
-                states.curTemperatureTransferText = states.temperature + "℉";
-              }
-            } else {
-              states.temperature = res.data.waterTemperature;
-            }
-
-            // states.weatheraddress = res.data.city;
-            // 设置天气地址:线上国内仅仅支持中国
-            console.log(res.data.city, "res.data.city0000");
-            // TODO:特殊处理一下 北京：beijing,这个默认值：Beijing
-            if (res.data.city === "beijing") {
-              // 减少第一次缓存值
-              userStore.$state.weathername =
-                JeeWeb.Language === "zh-CN" ? "北京" : "Beijing";
-              states.weatheraddress = userStore.$state.weathername;
-              userStore.$state.weathervalue = "Beijing";
-            } else {
-              console.log(res.data.city, "res.data.city");
-              let itemsAllCity = Object.values(userStore.$state.allCitys);
-              for (let i = 0; i < itemsAllCity.length; i++) {
-                let currentCities = itemsAllCity[i][0].cities;
-                for (let j = 0; j < currentCities.length; j++) {
-                  if (currentCities[j].value === res.data.city) {
-                    userStore.$state.weathername =
-                      JeeWeb.Language === "zh-CN"
-                        ? currentCities[j].name
-                        : currentCities[j].nameEn;
-                    states.weatheraddress = userStore.$state.weathername;
-                    userStore.$state.weathervalue = currentCities[j].value;
+              // states.weatheraddress = res.data.city;
+              // 设置天气地址:线上国内仅仅支持中国
+              console.log(res.data.city, "res.data.city0000");
+              // TODO:特殊处理一下 北京：beijing,这个默认值：Beijing
+              if (res.data.city === "beijing") {
+                // 减少第一次缓存值
+                userStore.$state.weathername =
+                  JeeWeb.Language === "zh-CN" ? "北京" : "Beijing";
+                states.weatheraddress = userStore.$state.weathername;
+                userStore.$state.weathervalue = "Beijing";
+              } else {
+                console.log(res.data.city, "res.data.city");
+                let itemsAllCity = Object.values(userStore.$state.allCitys);
+                for (let i = 0; i < itemsAllCity.length; i++) {
+                  let currentCities = itemsAllCity[i][0].cities;
+                  for (let j = 0; j < currentCities.length; j++) {
+                    if (currentCities[j].value === res.data.city) {
+                      userStore.$state.weathername =
+                        JeeWeb.Language === "zh-CN"
+                          ? currentCities[j].name
+                          : currentCities[j].nameEn;
+                      states.weatheraddress = userStore.$state.weathername;
+                      userStore.$state.weathervalue = currentCities[j].value;
+                    }
                   }
                 }
               }
-            }
-            const item = timezones.value.find((item) => item.value === res.data.timezone);
-            userStore.$state.timezoneValue = res.data.timezone;
-            userStore.$state.timezoneLabel = item ? item.name : "";
-            if (JeeWeb.Language === "zh-CN" && item) {
-              userStore.$state.timezoneAddress = item.label.split("）")[1];
-            }
+              const item = timezones.value.find(
+                (item) => item.value === res.data.timezone
+              );
+              userStore.$state.timezoneValue = res.data.timezone;
+              userStore.$state.timezoneLabel = item ? item.name : "";
+              if (JeeWeb.Language === "zh-CN" && item) {
+                userStore.$state.timezoneAddress = item.label.split("）")[1];
+              }
 
-            if (JeeWeb.Language !== "zh-CN" && item) {
-              userStore.$state.timezoneAddress = item.label.split(")")[1];
-            }
+              if (JeeWeb.Language !== "zh-CN" && item) {
+                userStore.$state.timezoneAddress = item.label.split(")")[1];
+              }
 
-            // userStore.$state.brightness = res.data.brightness;
+              // userStore.$state.brightness = res.data.brightness;
 
-            // 如果可以获取当前TAL水杯信息，默认获取在线状态
-            states.online = true;
-            // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。
-            sessionStorage.setItem("getCupInfoFlag", "100"); // 记录1
-            // store.selectedTimezone(selectedTimezone.value);
-            states.globalLoading = false;
-          })
-          .catch((err: any) => {
-            console.log(err);
-            setTimeout(() => {
+              // 如果可以获取当前TAL水杯信息，默认获取在线状态
+              states.online = true;
+              // 为了记录有没有获取过接口，如果获取了，那么下一次不会了。
+              sessionStorage.setItem("getCupInfoFlag", "100"); // 记录1
+              // store.selectedTimezone(selectedTimezone.value);
               states.globalLoading = false;
-              showToast({
-                message: language.getCupInfoError,
-                duration: 1000,
-              });
-            }, 1000);
-          });
+            })
+            .catch((err: any) => {
+              console.log(err);
+              setTimeout(() => {
+                states.globalLoading = false;
+                showToast({
+                  message: language.getCupInfoError,
+                  duration: 1000,
+                });
+              }, 1000);
+            });
+      } catch (error) {
+        states.globalLoading = false;
+      }
 
       // 订阅在线状态
       // onDevicesOnlineChanged()
@@ -1066,9 +1051,14 @@ export default defineComponent({
     });
 
     const defaultVersionType = computed(() => {
-      // 1 老款设备、2 新款设备
-      const v = CupDevice?.to?.versionType || 2;
-      return v;
+      try {
+        // TODO:ui调整兼容
+        // 1 老款设备、2 新款设备
+        const v = CupDevice?.to?.versionType || 2;
+        return v;
+      } catch (error) {
+        return 2;
+      }
     });
 
     // // Watch battery changes
@@ -1194,7 +1184,7 @@ export default defineComponent({
   /* flex: 0.3; */
   /* align-items: center; */
   flex-direction: column;
-    /* margin-top: -20px; */
+  /* margin-top: -20px; */
   margin-left: 20px;
   margin-right: 20px;
   /* margin-bottom: -50px; */
@@ -1212,7 +1202,7 @@ export default defineComponent({
   /* flex-direction: column; */
   /* justify-content: center; */
   align-items: center;
-    height: 100px;
+  height: 100px;
   font-size: 12px;
   border-radius: 12px;
 }
@@ -1255,21 +1245,21 @@ export default defineComponent({
 }
 
 .wifi-info {
-  flex: 1;
+  /* flex: 1; */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   height: 100px;
   background-color: #ffffff;
-  width: 150px;
+  width: calc(100% - 150px);
   border-radius: 12px;
 }
 
 .img-container {
   display: flex;
   align-items: center;
-  margin-top: -5px;
+  margin-top: 0px;
   .image {
     width: 18px;
     height: 18px;
@@ -1325,7 +1315,7 @@ export default defineComponent({
   border-radius: 12px;
 }
 
-.common-margin{
+.common-margin {
   /* margin-top: 10px !important; */
 }
 
@@ -1365,8 +1355,8 @@ export default defineComponent({
 }
 
 .green-dot-offline {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   background-color: #a3a3a3;
   border-radius: 50%;
   display: inline-block;
@@ -1381,9 +1371,9 @@ export default defineComponent({
 }
 
 .battery-20 {
-  margin-left: 20px;
-  width: 24px;
-  height: 24px;
+  /* margin-left: 20px; */
+  width: 24px !important;
+  height: 24px !important;
   /* background-image: url('@/assets/battery20.png'); */
   background: url("@/assets/battery20.png") center / contain no-repeat;
 
@@ -1392,7 +1382,7 @@ export default defineComponent({
 }
 
 .battery-40 {
-  margin-left: 20px;
+  /* margin-left: 20px; */
   width: 24px;
   height: 24px;
   /* background-color: #36C449;
@@ -1403,7 +1393,7 @@ export default defineComponent({
 }
 
 .battery-60 {
-  margin-left: 20px;
+  /* margin-left: 20px; */
   width: 24px;
   height: 24px;
   /* background-color: #36C449;
@@ -1414,7 +1404,7 @@ export default defineComponent({
 }
 
 .battery-loading {
-  margin-left: 20px;
+  /* margin-left: 20px; */
   width: 24px;
   height: 24px;
   background: url("@/assets/batteryLoading.png") center / contain no-repeat;
@@ -1443,7 +1433,7 @@ export default defineComponent({
 }
 
 .temperature-content-en {
-  width: 110px;
+  width: 135px;
   height: 24px;
   background-color: #ffffff;
   border-radius: 6px;
@@ -1453,7 +1443,7 @@ export default defineComponent({
 }
 
 .temperature-content {
-  width: 110px;
+  width: 135px;
   height: 24px;
   background-color: #ffffff;
   border-radius: 6px;
@@ -1484,16 +1474,16 @@ export default defineComponent({
 
 .go-home {
   background: url("@/assets/goHome.png") center / contain no-repeat;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 
   display: inline-block;
 }
 
 .reboot-cup {
   background: url("@/assets/reboot.png") center / contain no-repeat;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 
   display: inline-block;
 }
@@ -1532,22 +1522,22 @@ export default defineComponent({
 
 .closescreen-cup {
   background: url("@/assets/closescreen.png") center / contain no-repeat;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   display: inline-block;
 }
 
 .openscreen-cup {
   background: url("@/assets/openscreen.png") center / contain no-repeat;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   display: inline-block;
 }
 
 .close-screen {
   background: url("@/assets/closeScreen.png") center / contain no-repeat;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   display: inline-block;
 }

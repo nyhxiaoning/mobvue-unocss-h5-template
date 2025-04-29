@@ -1,7 +1,7 @@
 <template>
     <div class="timezone-picker">
         <!-- 显示已选时区 -->
-        <van-cell :title="language.timezone" :value="selectedTimezone.label" is-link @click="showPopup = true" />
+        <van-cell class="common-timezone" :title="language.timezone" :value="selectedTimezone.label" is-link @click="showPopup = true" />
 
         <!-- 弹窗选择器 -->
         <van-popup v-model:show="showPopup" position="bottom"
@@ -419,5 +419,20 @@ export default {
 :deep(.van-cell__value) {
   overflow: visible !important;
   white-space: nowrap;
+}
+
+:deep(.van-cell__title){
+      font-weight: 700;
+}
+:deep(.van-cell__value){
+    font-weight: 400;
+    color: #000000;
+}
+
+.common-timezone{
+    border-radius: 12px;
+      padding: 16px;
+
+
 }
 </style>

@@ -375,11 +375,15 @@ export default defineComponent({
       CupDevice &&
         CupDevice.onReceive((res: any) => {
           if (res?.CurScreenState) {
-            states.screenStatus = res?.CurScreenState.value;
+            console.log("onReceive CurScreenState", res?.CurScreenState.value);
+            states.screenStatus = !res?.CurScreenState.value;
+            console.log( states.screenStatus,' states.screenStatus');
           }
-          // if(res?.Brightness){
-          //     states.brightness = res?.Brightness.value
-          // }
+          if(res?.Brightness){
+             console.log( "onReceive Brightness", res?.Brightness.value);
+              states.brightness = res?.Brightness.value===1?0:res?.Brightness.value;
+              console.log( states.brightness,' states.brightness');
+          }
 
           console.log("---------onReceive--------", res);
           // showToast({

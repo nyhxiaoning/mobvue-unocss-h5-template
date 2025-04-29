@@ -831,7 +831,8 @@ export default defineComponent({
           })
             .then((res: any) => {
               console.log(res.data, "talGetCupInfo");
-              states.brightness = res.data.brightness;
+              // 优化一下，设置1的时候，这里设置
+              states.brightness = res.data.brightness===1?0:res.data.brightness;
 
               states.battery = res.data.batteryStatus;
               states.screenStatus = res.data.switch;

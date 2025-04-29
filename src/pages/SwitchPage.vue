@@ -8,21 +8,22 @@
       text="..."
     ></van-loading>
     <van-cell-group inset>
-      <van-cell center :title="language.enableSwitch" inset>
+      <van-cell  class="common-tilte-cell"  center :title="language.enableSwitch" inset>
         <template #right-icon>
           <van-switch v-model="settings.isSwipe" @change="handleSwitchisSwipe" />
         </template>
       </van-cell>
     </van-cell-group>
     <van-cell-group
+      title-class="common-tilte-cell"
       v-if="!CupDevice?.to?.versionType || CupDevice?.to?.versionType === 2"
       :title="language.displayApps"
       inset
     >
-      <van-cell :title="language.clock" center> </van-cell>
-      <van-cell :title="language.wifiApp" center> </van-cell>
+      <van-cell class="common-tilte-cell"  :title="language.clock" center> </van-cell>
+      <van-cell class="common-tilte-cell"  :title="language.wifiApp" center> </van-cell>
 
-      <van-cell :title="language.darkEmpire" center>
+      <van-cell  class="common-tilte-cell" :title="language.darkEmpire" center>
         <template #right-icon>
           <van-switch
             :disabled="!settings.isSwipe"
@@ -32,7 +33,7 @@
         </template>
       </van-cell>
       <!-- 4 -->
-      <van-cell :title="language.waterTemperature" center>
+      <van-cell  class="common-tilte-cell"  :title="language.waterTemperature" center>
         <template #right-icon>
           <van-switch
             :disabled="!settings.isSwipe"
@@ -42,7 +43,7 @@
         </template>
       </van-cell>
       <!-- 5 -->
-      <van-cell :title="language.weather" center>
+      <van-cell  class="common-tilte-cell" :title="language.weather" center>
         <template #right-icon>
           <van-switch
             :disabled="!settings.isSwipe"
@@ -52,7 +53,7 @@
         </template>
       </van-cell>
       <!-- 6 -->
-      <van-cell :title="language.screensaver" center>
+      <van-cell  class="common-tilte-cell"  :title="language.screensaver" center>
         <template #right-icon>
           <van-switch
             :disabled="!settings.isSwipe"
@@ -62,7 +63,7 @@
         </template>
       </van-cell>
       <!-- 7 -->
-      <van-cell :title="language.ballGame" center>
+      <van-cell class="common-tilte-cell" style="height:60px" :title="language.ballGame" center>
         <template #right-icon>
           <van-switch
             v-model="settings.HomeFreeFallIcon"
@@ -72,7 +73,7 @@
         </template>
       </van-cell>
       <!-- 8 -->
-      <van-cell :title="language.shakeEffect" center>
+      <van-cell  class="common-tilte-cell"  :title="language.shakeEffect" center>
         <template #right-icon>
           <van-switch
             v-model="settings.HomeWaterShak"
@@ -82,7 +83,7 @@
         </template>
       </van-cell>
       <!-- 9 -->
-      <van-cell :title="language.slotGame" center>
+      <van-cell  class="common-tilte-cell"  :title="language.slotGame" center>
         <template #right-icon>
           <van-switch
             v-model="settings.homeTigerGame"
@@ -373,6 +374,20 @@ export default {
   display: flex;
   flex-direction: column;
   background: linear-gradient(180.08deg, #c5e6ff -1.16%, #ecf6ff 14.34%, #f3f4f7 50%);
+  --van-cell-group-title-color:#2E2F33;
+  --van-cell-group-title-font-size:14px;
+  /* --van-cell-group-title-padding:0 0px; */
+  /* --van-cell-group-inset-padding:20px 0; */
+  /* --van-cell-group-inset-title-padding:20px 0px; */
+  --van-cell-font-size:14px;
+
+}
+
+.common-tilte-cell{
+    height:60px;
+    font-weight: 500;
+    color:#2E2F33;
+    --van-cell-border-color:#ffffff;
 }
 
 .global-loading {
@@ -386,5 +401,10 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 999;
+}
+:deep(.van-cell-group__title){
+    margin-top: 10px;
+    color: #2E2F33;
+    font-weight: 700;
 }
 </style>

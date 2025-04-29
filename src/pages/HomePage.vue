@@ -706,6 +706,7 @@ export default defineComponent({
     };
 
     const restartCup = () => {
+            states.globalLoading = true;
       // 1 老款设备、2 新款设备
       const v = CupDevice?.to?.versionType || 2;
 
@@ -718,11 +719,13 @@ export default defineComponent({
           },
         })
           .then((res: any) => {
+                states.globalLoading = false;
             console.log(res, ".value");
 
             // store.selectedTimezone(selectedTimezone.value);
           })
           .catch((err: any) => {
+                      states.globalLoading = false;
             console.log(err);
             // 不能设置失败，因为这里设备马上离线了
             // showToast({

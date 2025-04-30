@@ -13,11 +13,7 @@ module.exports = {
         ecmaVersion: 'latest',
     },
     rules: {
-        'vue/no-mutating-props': [
-            'error',
-            {
-                shallowOnly: true,
-            },
-        ],
+        "vue/multi-word-component-names": "off",
+        "vue/no-mutating-props": "off",
     },
 };

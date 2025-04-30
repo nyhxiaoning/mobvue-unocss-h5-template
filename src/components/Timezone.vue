@@ -4,18 +4,18 @@
         <van-cell class="common-timezone" :title="language.timezone" :value="selectedTimezone.label" is-link @click="showPopup = true" />
 
         <!-- 弹窗选择器 -->
-        <van-popup v-model:show="showPopup" position="bottom"
-            style="padding: 10px; border-top-left-radius: 12px; border-top-right-radius: 12px">
+        <van-popup class="content-popup" v-model:show="showPopup" position="bottom"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;border:0px solid #ffffff">
             <div class="popup-header">
-                <div type="default" plain @click="cancel">{{ language.cancel }}</div>
-                <span class="popup-title">{{ language.timezone }}</span>
-                <div type="primary" plain @click="confirm">{{ language.confirm }}</div>
+                <div style="font-size: 16px;font-weight: 500;color: rgba(0, 0, 0, 0.4);" type="default" plain @click="cancel">{{ language.cancel }}</div>
+                <span style="font-size: 16px;font-weight: 500;color: ;" >{{ language.timezone }}</span>
+                <div type="primary"   style="font-size: 16px;font-weight: 500;color:#0094FF;" @click="confirm">{{ language.confirm }}</div>
             </div>
             <div class="popup-content">
                 <van-radio-group v-model="selectedTimezone.value">
                     <van-cell-group>
                         <!-- 动态渲染每个时区选项 -->
-                        <van-cell v-for="timezone in timezones" :key="timezone.value" clickable
+                        <van-cell v-for="timezone in timezones" :key="timezone.value"
                             @click="selectTimezone(timezone.value)">
                             <template #title>
                                 {{ timezone.label }}
@@ -316,8 +316,8 @@ export default {
 
         onMounted(() => {
             console.log('onMounted');
-
-            // 1 老款设备、2 新款设备
+            try {
+                            // 1 老款设备、2 新款设备
             const v = CupDevice?.to?.versionType || 2;
 
             CupDevice &&
@@ -344,6 +344,10 @@ export default {
                     .catch((err) => {
                         console.log(err);
                     });
+            } catch (error) {
+                console.log(error)
+            }
+
             console.log(timezones.value.value);
         });
 
@@ -366,27 +370,37 @@ export default {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    border:none;
     background: linear-gradient(180.08deg, #c5e6ff -1.16%, #ecf6ff 14.34%, #f3f4f7 50%);
 }
 
+.content-popup{
+    --van-cell-line-height: 56px!important;
+    --van-cell-border-color: #ffffff !important;
+
+}
+
 .popup-header {
+    height: 84px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px;
-    border-bottom: 1px solid #e8e8e8;
+    /* 顶部设置边距UI设计稿 */
+    padding:30px 26px;
 }
 
-.popup-title {
-    font-size: 16px;
-    font-weight: bold;
-}
 
 .popup-content {
     max-height: 400px;
     /* 设置最大高度 */
     overflow-y: auto;
-    padding: 0 16px;
+    padding: 0 0px 60px 0;
+    --van-cell-vertical-padding	: 0px;
+    --van-cell-horizontal-padding: 26px;
+    :deep(.van-cell__title){
+        font-size: 16px;
+        font-weight: 400;
+    }
 }
 
 /* 调整滚动条样式（可选） */

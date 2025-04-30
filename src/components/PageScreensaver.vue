@@ -89,14 +89,14 @@
     </div>
 
     <!-- 速度选择弹窗 -->
-    <div v-if="showSpeedPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50">
+    <!-- <div v-if="showSpeedPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50">
       <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-xl p-4" @click.stop>
-        <div class="text-center text-lg font-medium mb-4 flex justify-between">
-          <div class="p-3 font-[16] font-500 text-gray-400" @click="CancelSpeed">
+        <div class="text-center  mb-[30px] mt-[30px] ml-[26px] ml-[26px] flex justify-between h-[84px]">
+          <div class="p-3 font-size-[16px] font-500 text-gray-400" @click="CancelSpeed">
             {{ language.cancel }}
           </div>
-          <div class="p-2 font-[18] font-500">{{ language.carouselSpeed }}</div>
-          <div class="p-3 font-[16] font-500 text-[#0094FF]" @click="ConfirmSpeed">
+          <div class="p-3 font-size-[16px] font-500 align-middle">{{ language.carouselSpeed }}</div>
+          <div class="p-3 font-size-[16px] font-500 text-[#0094FF]" @click="ConfirmSpeed">
             {{ language.confirm }}
           </div>
         </div>
@@ -118,7 +118,7 @@
               :class="[selectedSpeed === speed ? ' text-blue-500' : ' text-gray-300']"
             ></i>
 
-            <van-radio-group v-model="selectedSpeed">
+            <van-radio-group class="right-radio-pos" v-model="selectedSpeed">
               <van-cell-group inset>
                 <van-cell clickable @click="selectSpeedFn(speed)">
                   <template #right-icon>
@@ -130,7 +130,57 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
+    <van-popup
+      class="content-popup"
+      v-model:show="showSpeedPopup"
+      position="bottom"
+      style="
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border: 0px solid #ffffff;
+      "
+    >
+      <div class="popup-header">
+        <div
+          style="font-size: 16px; font-weight: 500;color: rgba(0, 0, 0, 0.4);"
+          type="default"
+          plain
+          @click="CancelSpeed"
+        >
+          {{ language.cancel }}
+        </div>
+        <span class="popup-title">{{ language.carouselSpeed }}</span>
+        <div
+          type="primary"
+          style="font-size: 16px; font-weight: 500; color: #0094ff"
+          @click="ConfirmSpeed"
+        >
+          {{ language.confirm }}
+        </div>
+      </div>
+      <div class="popup-content">
+        <van-radio-group v-model="selectedSpeed">
+          <van-cell-group>
+            <!-- 动态渲染每个时区选项 -->
+            <van-cell v-for="speed in speeds" :key="speed" @click="selectSpeedFn(speed)">
+              <template #title>
+                {{
+                  speed > 60
+                    ? `${speed / 60}${language.hours}`
+                    : `${speed} ${language.minutes}`
+                }}
+              </template>
+
+              <template #right-icon>
+                <van-radio :name="speed" />
+              </template>
+            </van-cell>
+          </van-cell-group>
+        </van-radio-group>
+      </div>
+    </van-popup>
 
     <ScreenImages
       :showSpeedPopupChild="showSpeedPopupChildFlag"
@@ -383,7 +433,7 @@ const commonTal = (
         // });
       })
       .catch((err: any) => {
-          userStore.$state.screenSaveLoading = false;
+        userStore.$state.screenSaveLoading = false;
         console.log(" error", err);
         // 下发失败，那么数据回滚
         if (oldImgFlag) {
@@ -395,9 +445,8 @@ const commonTal = (
         });
       });
 };
-
-
-JeeWeb &&
+try {
+    JeeWeb &&
   JeeWeb.get("screensaverimg", (data: any) => {
     // 如果没有result属性，说明默认用户第一次
     if (!data.result) {
@@ -419,11 +468,15 @@ JeeWeb &&
       console.log(images.value, "imagesvalue---存储过的数据");
     }
   });
+} catch (error) {
+    console.log(error);
+}
+
 
 const selectSpeedFn = (speed: number) => {
   selectedSpeed.value = speed;
   // 切换速度，下发tal指令
-//   commonTal(1);
+  //   commonTal(1);
 };
 
 const CancelSpeed = () => {
@@ -543,12 +596,51 @@ const currentImageNumber = computed(() => {
   z-index: 999;
 }
 
-.bg-self-img{
+.bg-self-img {
   padding: 16px;
   background: #f7f8fa;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(180.08deg, #c5e6ff -1.16%, #ecf6ff 14.34%, #f3f4f7 50%);
+}
+
+.right-radio-pos {
+  margin-right: 0px;
+}
+
+.content-popup{
+    --van-cell-line-height: 56px!important;
+    --van-cell-border-color: #ffffff;
+
+}
+
+
+.popup-header {
+    height: 84px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 16px; */
+    padding:30px 26px;
+    /* border-bottom: 0px solid #e8e8e8; */
+}
+
+.popup-title {
+    font-size: 16px;
+
+}
+
+.popup-content {
+    max-height: 800px;
+    /* 设置最大高度 */
+    overflow-y: auto;
+    padding: 0 0px 60px 0px;
+    --van-cell-horizontal-padding:26px;
+    --van-cell-vertical-padding	: 0px;
+    :deep(.van-cell__title){
+        font-size: 16px;
+        font-weight: 400;
+    }
 }
 </style>

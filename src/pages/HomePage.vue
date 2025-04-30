@@ -110,7 +110,7 @@
       </div>
 
       <div class="wifi-info">
-        <div style="margin-bottom: 10px;  font-size: 12px;">
+        <div style="margin-bottom: 10px; font-size: 12px">
           <van-row
             type="flex"
             justify="start"
@@ -123,7 +123,7 @@
             <van-col :span="4">
               <div
                 :class="curTemperatureClass"
-                style="width: 16px;  font-size: 12px"
+                style="width: 16px; font-size: 12px"
               ></div>
             </van-col>
 
@@ -139,26 +139,32 @@
             </van-col>
           </van-row>
           <!-- 摄氏度和华氏度控制 -->
-<van-row
-  style="margin-top: 0; height: 26px; line-height: 26px; border-radius: 4px; background-color: #eeeeee; overflow: hidden;"
-  justify="center"
->
-  <van-col
-    @click="changeTempSetting('1')"
-    :class="['temp-tab', { 'temp-tab--active': states.temperatureTab === '1' }]"
-    span="12"
-  >
-    {{ language.celsius }}
-  </van-col>
-  <van-col
-    @click="changeTempSetting('2')"
-    :class="['temp-tab', { 'temp-tab--active': states.temperatureTab === '2' }]"
-    span="12"
-  >
-    {{ language.fahrenheit }}
-  </van-col>
-</van-row>
-
+          <van-row
+            style="
+              margin-top: 0;
+              height: 26px;
+              line-height: 26px;
+              border-radius: 4px;
+              background-color: #eeeeee;
+              overflow: hidden;
+            "
+            justify="center"
+          >
+            <van-col
+              @click="changeTempSetting('1')"
+              :class="['temp-tab', { 'temp-tab--active': states.temperatureTab === '1' }]"
+              span="12"
+            >
+              {{ language.celsius }}
+            </van-col>
+            <van-col
+              @click="changeTempSetting('2')"
+              :class="['temp-tab', { 'temp-tab--active': states.temperatureTab === '2' }]"
+              span="12"
+            >
+              {{ language.fahrenheit }}
+            </van-col>
+          </van-row>
         </div>
       </div>
     </div>
@@ -273,7 +279,7 @@
         <div class="seting-appcup"></div>
       </div>
     </div>
-    <div  class="feature-item-saver common-margin">
+    <div v-if="states.screensaverFlag" class="feature-item-saver common-margin">
       <div
         @click="appConfigFn(2)"
         style="
@@ -377,12 +383,12 @@ export default defineComponent({
           if (res?.CurScreenState) {
             console.log("onReceive CurScreenState", res?.CurScreenState.value);
             states.screenStatus = !res?.CurScreenState.value;
-            console.log( states.screenStatus,' states.screenStatus');
+            console.log(states.screenStatus, " states.screenStatus");
           }
-          if(res?.Brightness){
-             console.log( "onReceive Brightness", res?.Brightness.value);
-              states.brightness = res?.Brightness.value===1?0:res?.Brightness.value;
-              console.log( states.brightness,' states.brightness');
+          if (res?.Brightness) {
+            console.log("onReceive Brightness", res?.Brightness.value);
+            states.brightness = res?.Brightness.value === 1 ? 0 : res?.Brightness.value;
+            console.log(states.brightness, " states.brightness");
           }
 
           console.log("---------onReceive--------", res);
@@ -706,7 +712,7 @@ export default defineComponent({
     };
 
     const restartCup = () => {
-            states.globalLoading = true;
+      states.globalLoading = true;
       // 1 老款设备、2 新款设备
       const v = CupDevice?.to?.versionType || 2;
 
@@ -719,13 +725,13 @@ export default defineComponent({
           },
         })
           .then((res: any) => {
-                states.globalLoading = false;
+            states.globalLoading = false;
             console.log(res, ".value");
 
             // store.selectedTimezone(selectedTimezone.value);
           })
           .catch((err: any) => {
-                      states.globalLoading = false;
+            states.globalLoading = false;
             console.log(err);
             // 不能设置失败，因为这里设备马上离线了
             // showToast({
@@ -769,6 +775,7 @@ export default defineComponent({
     };
 
     const appConfigFn = (num: number) => {
+      // 1 老款设备、2 新款设备
       const v = CupDevice?.to?.versionType || 2;
       if (v === 1) {
         if (num === 1) {
@@ -839,7 +846,7 @@ export default defineComponent({
             .then((res: any) => {
               console.log(res.data, "talGetCupInfo");
               // 优化一下，设置1的时候，这里设置
-              states.brightness = res.data.brightness===1?0:res.data.brightness;
+              states.brightness = res.data.brightness === 1 ? 0 : res.data.brightness;
 
               states.battery = res.data.batteryStatus;
               states.screenStatus = res.data.switch;
@@ -938,7 +945,7 @@ export default defineComponent({
           states.curBatteryFont = "font-color-20";
           states.curBatteryClass = "battery-20";
         } else if (newValue > 20 && newValue < 100) {
-            console.log('样式变化了');
+          console.log("样式变化了");
           states.curBatteryFont = "font-color-40";
           states.curBatteryClass = "battery-40";
         } else if (newValue > 99) {
@@ -1173,7 +1180,7 @@ export default defineComponent({
   display: inline-block;
   line-height: 20px;
   height: 20px;
-  color: #36C449;
+  color: #36c449;
   /* margin-right: 30px; */
   font-size: 12px;
 }
@@ -1355,7 +1362,7 @@ export default defineComponent({
 .green-dot {
   width: 6px;
   height: 6px;
-  background-color: #36C449;
+  background-color: #36c449;
   border-radius: 50%;
   display: inline-block;
 }
@@ -1460,7 +1467,6 @@ export default defineComponent({
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
   margin: 0px 15px;
-
 }
 
 .temperature-0 {
@@ -1606,14 +1612,14 @@ export default defineComponent({
 }
 
 .temp-tab--active {
-    font-weight: 500;
-    text-align: center;
-    font-size: 12px;
-    height: 26px;
-    line-height: 22px;
+  font-weight: 500;
+  text-align: center;
+  font-size: 12px;
+  height: 26px;
+  line-height: 22px;
   background-color: #ffffff; /* 选中后的背景色，比如蓝色 */
   border: 2px solid #eeeeee;
-  color:  #31ACF8;
+  color: #31acf8;
   border-radius: 4px; /* 选中时圆角 */
 }
 
@@ -1625,5 +1631,4 @@ export default defineComponent({
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-
 </style>

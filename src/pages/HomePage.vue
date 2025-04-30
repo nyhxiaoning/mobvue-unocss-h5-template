@@ -941,14 +941,17 @@ export default defineComponent({
       () => states.battery,
       (newValue, oldValue) => {
         console.log("batteryStatus changed:", oldValue, "->", newValue);
-        if (newValue < 20) {
+        if (newValue <= 25) {
           states.curBatteryFont = "font-color-20";
           states.curBatteryClass = "battery-20";
-        } else if (newValue > 20 && newValue < 100) {
+        } else if (newValue > 25 && newValue <= 50) {
           console.log("样式变化了");
           states.curBatteryFont = "font-color-40";
           states.curBatteryClass = "battery-40";
-        } else if (newValue > 99) {
+        } else if (newValue > 50 && newValue < 100) {
+          states.curBatteryFont = "font-color-60";
+          states.curBatteryClass = "battery-60";
+        }else{
           states.curBatteryFont = "font-color-60";
           states.curBatteryClass = "battery-60";
         }

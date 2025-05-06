@@ -1082,39 +1082,6 @@ export default defineComponent({
       }
     });
 
-    // // Watch battery changes
-    watch(
-      () => states.battery,
-      (newValue, oldValue) => {
-        console.log("Brightness changed:", oldValue, "->", newValue);
-        if (newValue < 20) {
-          return (states.curBatteryClass = "battery-20");
-        } else if (newValue > 20 && newValue < 100) {
-          return (states.curBatteryClass = "battery-40");
-        } else if (newValue > 99) {
-          return (states.curBatteryClass = "battery-60");
-        }
-        // Add your logic here for brightness changes
-      }
-    );
-
-    // // Watch temperature changes
-    watch(
-      () => states.temperature,
-      (newValue, oldValue) => {
-        console.log("Temperature changed:", oldValue, "->", newValue);
-        // Add your logic here for temperature changes
-        if (!newValue) {
-          return (states.curTemperatureClass = "temperature");
-        } else if (newValue < 20) {
-          return (states.curTemperatureClass = "temperature");
-        } else if (newValue >= 20 && newValue < 80) {
-          return (states.curTemperatureClass = "temperature-0");
-        } else if (newValue >= 80) {
-          return (states.curTemperatureClass = "temperature-99");
-        }
-      }
-    );
 
     const changeTempSetting = (str: string) => {
       states.temperatureTab = str;

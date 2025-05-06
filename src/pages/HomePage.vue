@@ -129,7 +129,7 @@
 
             <!-- 第二个子 div -->
             <van-col :span="20">
-              <div style="line-height: 24px; height: 26px; font-size: 14px">
+              <div style="line-height: 24px; height: 26px; font-size: 13px">
                 {{ language.waterTemp }}
                 <span> ｜ </span>
                 <span>
@@ -1469,7 +1469,7 @@ export default defineComponent({
   /* background-image: url('@/assets/battery20.png'); */
   background: url("@/assets/temp99.png") center / contain no-repeat;
 
-  border-radius: 50%;
+  /* border-radius: 50%; */
   display: inline-block;
 }
 

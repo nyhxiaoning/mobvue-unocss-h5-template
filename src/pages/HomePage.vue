@@ -953,7 +953,7 @@ export default defineComponent({
           states.curBatteryClass = "battery-60";
         }else{
           states.curBatteryFont = "font-color-60";
-          states.curBatteryClass = "battery-60";
+          states.curBatteryClass = "battery-100";
         }
         // Add your logic here for brightness changes
       }
@@ -1059,13 +1059,15 @@ export default defineComponent({
 
     // 计算电池状态的 class
     const curBatteryClass = computed(() => {
-      if (states.battery < 20) {
+      if (states.battery <= 25) {
         return "battery-20";
-      } else if (states.battery < 40) {
+      } else if (states.battery >25 && states.battery <= 50) {
         // 省略 `> 20`，因为前面已经判断 `< 20`
         return "battery-40";
-      } else {
+      } else if ( states.battery > 50 && states.battery < 100 ){
         return "battery-60";
+      }else {
+        return "battery-100";
       }
     });
 
@@ -1416,6 +1418,18 @@ export default defineComponent({
   /* background-color: #36C449;
      */
   background: url("@/assets/battery60.png") center / contain no-repeat;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.battery-100 {
+  /* margin-left: 20px; */
+  width: 24px;
+
+  height: 24px;
+  /* background-color: #36C449;
+     */
+  background: url("@/assets/battery100.png") center / contain no-repeat;
   border-radius: 50%;
   display: inline-block;
 }
